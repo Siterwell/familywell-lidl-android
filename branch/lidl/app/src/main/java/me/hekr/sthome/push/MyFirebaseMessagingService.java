@@ -67,13 +67,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
+            Log.i(TAG, "Message data payload: " + remoteMessage.getData());
+
             PendingIntent pendingIntent = null;
             NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
             int current_dev = 0;
             String action = null;
             DeviceDAO deviceDAO = new DeviceDAO(this);
 
-                    Log.i(TAG, "Message data payload: " + remoteMessage.getData());
             JSONObject jsonObject = new JSONObject(remoteMessage.getData());
 
             String devid = null;

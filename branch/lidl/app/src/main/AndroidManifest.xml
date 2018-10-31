@@ -44,11 +44,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- the following 2 com.xiaomi.mipushdemo should be changed to your package name -->
-    <permission
-        android:name="com.cosa.silvercrest.permission.MIPUSH_RECEIVE"
-        android:protectionLevel="signature" />
+    <!--<permission-->
+        <!--android:name="com.cosa.silvercrest.permission.MIPUSH_RECEIVE"-->
+        <!--android:protectionLevel="signature" />-->
 
-    <uses-permission android:name="com.cosa.silvercrest.permission.MIPUSH_RECEIVE" />
+    <!--<uses-permission android:name="com.cosa.silvercrest.permission.MIPUSH_RECEIVE" />-->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -57,14 +57,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote"/>
+        <!--<service-->
+            <!--android:name="com.baidu.location.f"-->
+            <!--android:enabled="true"-->
+            <!--android:process=":remote"/>-->
 
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="jNjVPKScBhnG99OW78zrVLGEKGTOuUpD" />
+        <!--<meta-data-->
+            <!--android:name="com.baidu.lbsapi.API_KEY"-->
+            <!--android:value="jNjVPKScBhnG99OW78zrVLGEKGTOuUpD" />-->
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -415,77 +415,77 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <!-- push service -->
-        <meta-data
-            android:name="PUSH_APPID"
-            android:value="${GETUI_APP_ID}" />
-        <meta-data
-            android:name="PUSH_APPKEY"
-            android:value="${GETUI_APP_KEY}" />
-        <meta-data
-            android:name="PUSH_APPSECRET"
-            android:value="${GETUI_APP_SECRET}" />
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPID"-->
+            <!--android:value="${GETUI_APP_ID}" />-->
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPKEY"-->
+            <!--android:value="${GETUI_APP_KEY}" />-->
+        <!--<meta-data-->
+            <!--android:name="PUSH_APPSECRET"-->
+            <!--android:value="${GETUI_APP_SECRET}" />-->
 
         <!-- 配置SDK核心服务 -->
-        <service
-            android:name="com.igexin.sdk.PushService"
-            android:exported="true"
-            android:label="NotificationCenter"
-            android:process=":cosa">
-            <intent-filter>
-                <action android:name="com.igexin.sdk.action.service.message" />
-            </intent-filter>
-        </service>
+        <!--<service-->
+            <!--android:name="com.igexin.sdk.PushService"-->
+            <!--android:exported="true"-->
+            <!--android:label="NotificationCenter"-->
+            <!--android:process=":cosa">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.igexin.sdk.action.service.message" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
-        <receiver android:name="com.igexin.sdk.PushReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="com.igexin.sdk.action.refreshls" />
-                <!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name="com.igexin.sdk.PushReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
+                <!--<action android:name="com.igexin.sdk.action.refreshls" />-->
+                <!--&lt;!&ndash; 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 &ndash;&gt;-->
+                <!--<action android:name="android.intent.action.MEDIA_MOUNTED" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <activity
-            android:name="com.igexin.sdk.PushActivity"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:process=":cosa"
-            android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!--<activity-->
+            <!--android:name="com.igexin.sdk.PushActivity"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:exported="false"-->
+            <!--android:process=":cosa"-->
+            <!--android:taskAffinity="com.igexin.sdk.PushActivityTask"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"/>-->
 
-        <service
-            android:name="com.igexin.download.DownloadService"
-            android:process=":cosa" />
+        <!--<service-->
+            <!--android:name="com.igexin.download.DownloadService"-->
+            <!--android:process=":cosa" />-->
 
-        <receiver android:name="com.igexin.download.DownloadReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name="com.igexin.download.DownloadReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <provider
-            android:name="com.igexin.download.DownloadProvider"
-            android:authorities="downloads.${applicationId}"
-            android:exported="true"
-            android:process=":cosa" />
+        <!--<provider-->
+            <!--android:name="com.igexin.download.DownloadProvider"-->
+            <!--android:authorities="downloads.${applicationId}"-->
+            <!--android:exported="true"-->
+            <!--android:process=":cosa" />-->
 
-        <activity
-            android:name="com.igexin.sdk.GActivity"
-            android:excludeFromRecents="true"
-            android:exported="true"
-            android:process=":cosa"
-            android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--<activity-->
+            <!--android:name="com.igexin.sdk.GActivity"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:exported="true"-->
+            <!--android:process=":cosa"-->
+            <!--android:taskAffinity="com.igexin.sdk.PushActivityTask"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
 
-        <service
-            android:name=".push.GTPushService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":cosa"/>
+        <!--<service-->
+            <!--android:name=".push.GTPushService"-->
+            <!--android:exported="true"-->
+            <!--android:label="PushService"-->
+            <!--android:process=":cosa"/>-->
 
         <!-- [START firebase_service] -->
         <service

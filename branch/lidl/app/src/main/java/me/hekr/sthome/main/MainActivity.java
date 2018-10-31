@@ -180,31 +180,31 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                     SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
                     ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
                     String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-                    if("hekr.me".equals(autoflag)){
-                        String cid = PushManager.getInstance().getClientid(this);
-                        if(!TextUtils.isEmpty(cid)) {
-                            Log.i(TAG, "个推client id =" + cid);
-                            STEvent stEvent = new STEvent();
-                            stEvent.setRefreshevent(11);
-                            stEvent.setFcm_token(cid);
-                            EventBus.getDefault().post(stEvent);
-
-                            HekrUserAction.getInstance(this).unPushTagBind(fcmclientid, 3, new HekrUser.UnPushTagBindListener() {
-                                @Override
-                                public void unPushTagBindSuccess() {
-                                    Log.i(TAG,"个推绑定的同时解绑FCM成功");
-                                }
-
-                                @Override
-                                public void unPushTagBindFail(int errorCode) {
-                                    Log.i(TAG,"个推绑定的同时解绑FCM失败");
-                                }
-                            });
-
-                        }else{
-                            Log.i(TAG, "个推client id为空");
-                        }
-                    }else{
+//                    if("hekr.me".equals(autoflag)){
+//                        String cid = PushManager.getInstance().getClientid(this);
+//                        if(!TextUtils.isEmpty(cid)) {
+//                            Log.i(TAG, "个推client id =" + cid);
+//                            STEvent stEvent = new STEvent();
+//                            stEvent.setRefreshevent(11);
+//                            stEvent.setFcm_token(cid);
+//                            EventBus.getDefault().post(stEvent);
+//
+//                            HekrUserAction.getInstance(this).unPushTagBind(fcmclientid, 3, new HekrUser.UnPushTagBindListener() {
+//                                @Override
+//                                public void unPushTagBindSuccess() {
+//                                    Log.i(TAG,"个推绑定的同时解绑FCM成功");
+//                                }
+//
+//                                @Override
+//                                public void unPushTagBindFail(int errorCode) {
+//                                    Log.i(TAG,"个推绑定的同时解绑FCM失败");
+//                                }
+//                            });
+//
+//                        }else{
+//                            Log.i(TAG, "个推client id为空");
+//                        }
+//                    }else{
 
                     STEvent stEvent = new STEvent();
                     stEvent.setRefreshevent(9);
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                             }
                         });
 
-                    }
+//                    }
 
 
                 }else{
