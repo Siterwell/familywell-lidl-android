@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/cellImageView"
+        android:layout_width="@dimen/equipmentList_item_image_width"
+        android:layout_height="@dimen/equipmentList_item_image_width" />
+    <TextView
+        android:id="@+id/cellTextView"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="@dimen/equipmentList_item_text_size"
+        android:textColor="@color/black"/>
+</LinearLayout>

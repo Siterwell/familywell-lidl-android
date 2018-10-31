@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/layoutTop"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/SmallPadding"
+            android:paddingRight="@dimen/SmallPadding"
+            android:background="@color/btn_item"
+            android:id="@+id/common">
+            <TextView
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/common_setting"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/NormalPadding"
+                android:layout_centerVertical="true"
+                android:textColor="@color/delist_bk"/>
+
+            <ImageView
+                android:layout_width="@dimen/back_image_width"
+                android:layout_height="@dimen/back_image_height"
+                android:src="@drawable/arrow2"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/SmallPadding"
+            android:paddingRight="@dimen/SmallPadding"
+            android:background="@color/btn_item"
+            android:id="@+id/codesetting">
+            <TextView
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/device_setup_change_password"
+                android:layout_marginLeft="@dimen/NormalPadding"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/delist_bk"/>
+
+            <ImageView
+                android:layout_width="@dimen/back_image_width"
+                android:layout_height="@dimen/back_image_height"
+                android:src="@drawable/arrow2"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/imageView3" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/SmallPadding"
+            android:paddingRight="@dimen/SmallPadding"
+            android:background="@color/btn_item"
+            android:id="@+id/storage">
+            <TextView
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/device_setup_storage"
+                android:layout_marginLeft="@dimen/NormalPadding"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/delist_bk"/>
+
+            <ImageView
+                android:layout_width="@dimen/back_image_width"
+                android:layout_height="@dimen/back_image_height"
+                android:src="@drawable/arrow2"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/SmallPadding"
+            android:paddingRight="@dimen/SmallPadding"
+            android:background="@color/btn_item"
+            android:id="@+id/expertsetting">
+            <TextView
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/device_setup_expert"
+                android:layout_marginLeft="@dimen/NormalPadding"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/delist_bk"/>
+
+            <ImageView
+                android:layout_width="@dimen/back_image_width"
+                android:layout_height="@dimen/back_image_height"
+                android:src="@drawable/arrow2"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/SmallPadding"
+            android:paddingRight="@dimen/SmallPadding"
+            android:background="@color/btn_item"
+            android:id="@+id/tongyong">
+            <TextView
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/common"
+                android:layout_marginLeft="@dimen/NormalPadding"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/delist_bk"/>
+
+            <ImageView
+                android:layout_width="@dimen/back_image_width"
+                android:layout_height="@dimen/back_image_height"
+                android:src="@drawable/arrow2"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

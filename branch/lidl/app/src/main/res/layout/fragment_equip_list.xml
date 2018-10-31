@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroud_bk"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <LinearLayout android:id="@+id/coupon_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/status_bar_bg"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+            <me.hekr.sthome.commonBaseView.TopBarView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/top_bar"/>
+            <include
+                android:id="@+id/eq_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/top_bar"
+                layout="@layout/layout_equipment_instruction" />
+            <include
+                android:id="@+id/eq_option"
+                layout="@layout/eq_option_bar" />
+            <RelativeLayout
+                android:id="@+id/springboard_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@id/eq_instruction"
+                >
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:id="@+id/empty"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_empty"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/icon_empty"
+                        android:tint="#ABABAB"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/textempty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/iv_empty"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="@string/equipment_list_empty"
+                        android:layout_marginBottom="10dp"
+                        />
+                </RelativeLayout>
+
+                <me.hekr.sthome.DragFolderwidget.MyScrollView
+                    android:id="@+id/myscrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true" >
+
+                    <LinearLayout
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                    </LinearLayout>
+                </me.hekr.sthome.DragFolderwidget.MyScrollView>
+
+
+                <RelativeLayout
+                    android:id="@+id/touchController"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </RelativeLayout>
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/panelMoving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|left|center"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+        </LinearLayout>
+</LinearLayout>

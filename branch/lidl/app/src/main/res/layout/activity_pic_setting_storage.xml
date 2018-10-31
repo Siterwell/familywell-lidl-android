@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal" >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/monitor_sel"
+        android:paddingTop="@dimen/LargePadding"
+        android:paddingBottom="@dimen/LargePadding">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/circle_storage_bg"
+            android:layout_centerInParent="true"
+            >
+            <me.hekr.sthome.commonBaseView.PorterDuffXfermodeView
+                android:id="@+id/porter_duff_xfermode_view"
+                android:layout_width="173dp"
+                android:layout_height="173dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="@dimen/NormalTextSize"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             android:textColor="@color/white"
+             android:text=""
+             android:layout_marginRight="20dp"
+             android:id="@+id/percent"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/SmallPadding"
+        android:paddingRight="@dimen/SmallPadding"
+        android:background="@color/btn_item">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/storage"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/aaa"
+            />
+
+        <TextView
+            style="@style/CCPFontPreferenceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/device_setup_storage_capacity"
+            android:layout_toRightOf="@id/aaa"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/delist_bk"/>
+        <TextView
+            style="@style/CCPFontPreferenceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/delist_bk"
+            android:id="@+id/storage_has"/>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/list_divider"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/SmallPadding"
+        android:paddingRight="@dimen/SmallPadding"
+        android:background="@color/btn_item">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/storage"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/bbb"
+            />
+
+        <TextView
+            style="@style/CCPFontPreferenceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/device_setup_storage_remain"
+            android:layout_toRightOf="@id/bbb"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/delist_bk"/>
+        <TextView
+            style="@style/CCPFontPreferenceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/delist_bk"
+            android:id="@+id/storage_remain"/>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/list_divider"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/SmallPadding"
+        android:paddingRight="@dimen/SmallPadding"
+        android:background="@color/btn_item">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/storage_type"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/ccc"
+            />
+
+        <TextView
+            style="@style/CCPFontPreferenceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/device_setup_storage_record_full"
+            android:layout_toRightOf="@id/ccc"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/delist_bk"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/SmallPadding"
+        android:paddingRight="@dimen/SmallPadding"
+        android:background="@color/btn_item">
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/device_setup_storage_record_stop"
+                android:textColor="@color/delist_bk"
+                android:button="@drawable/radion_bg_ipc"
+                android:drawableLeft="@drawable/radion_bg_ipc"
+                android:drawablePadding="5dp"
+                android:id="@+id/stoprecord"
+                android:layout_marginRight="10dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/device_setup_storage_record_cycle"
+                android:id="@+id/cyclerecord"
+                android:button="@drawable/radion_bg_ipc"
+                android:drawableLeft="@drawable/radion_bg_ipc"
+                android:drawablePadding="5dp"
+                android:textColor="@color/delist_bk" />
+        </RadioGroup>
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnStorageFormat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/circle_btn_bg"
+        android:gravity="center"
+        android:text="@string/device_setup_storage_format"
+        android:textColor="@color/white"
+        android:textSize="@dimen/NormalTextSize" />
+</LinearLayout>
+</ScrollView>

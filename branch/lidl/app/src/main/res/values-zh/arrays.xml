@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="thtrigger_method">
+        <item>温度</item>
+        <item>湿度</item>
+    </array>
+    <array name="thtrigger_style">
+        <item>&lt;=</item>
+        <item>>=</item>
+    </array>
+    <string-array name="week">
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+        <item>日</item>
+    </string-array>
+    <string-array name="week3">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </string-array>
+    <string-array name="socket_actions">
+        <item>开</item>
+        <item>关</item>
+        <item>切换</item>
+    </string-array>
+    <string-array name="door_actions">
+        <item>门打开</item>
+        <item>门关闭</item>
+        <item>门没有关</item>
+    </string-array>
+    <string-array name="sos_signs">
+        <item>求救</item>
+        <item>离线</item>
+    </string-array>
+    <string-array name="pir_signs">
+        <item>有人</item>
+        <item>正常</item>
+    </string-array>
+    <string-array name="gateway_actions">
+        <item>非法入侵报警</item>
+        <item>危险报警</item>
+        <item>静音</item>
+    <item>门铃报警</item>
+    </string-array>
+    <string-array name="guard_actions">
+        <item>打开</item>
+        <item>关闭</item>
+    </string-array>
+    <string-array name="cx_alert_actions">
+        <item>烟雾报警</item>
+        <item>温度报警</item>
+        <item>测试报警</item>
+    </string-array>
+    <string-array name="lamp_actions">
+        <item>红</item>
+        <item>绿</item>
+        <item>蓝</item>
+        <item>红绿</item>
+        <item>红蓝</item>
+        <item>绿蓝</item>
+        <item>打开</item>
+        <item>关闭</item>
+        <item>告警</item>
+        <item>七彩</item>
+    </string-array>
+    <string-array name="mode_button_signs">
+        <item>求救</item>
+        <item>离线</item>
+    </string-array>
+    <string-array name="DeivceOperation">
+        <item>替换设备</item>
+        <item>删除设备</item>
+        <item>编辑名称</item>
+    </string-array>
+    <string-array name="device_setup_alarm_level">
+        <item>低级</item>
+        <item>中级</item>
+        <item>高级</item>
+    </string-array>
+    <string-array name="device_setup_camera_definition_values">
+        <item>最好</item>
+        <item>很好</item>
+        <item>好</item>
+        <item>一般</item>
+        <item>较差</item>
+        <item>很差</item>
+    </string-array>
+    <string-array name="device_setup_camera_noise_reduction_values">
+        <item>关</item>
+        <item>低级</item>
+        <item>高级</item>
+    </string-array>
+    <string-array name="device_setup_camera_metering_values">
+        <item>平均测光</item>
+        <item>中央测光</item>
+        <item>点测光</item>
+    </string-array>
+    <string-array name="device_setup_record_mode_values">
+        <item>始终录像</item>
+        <item>从不录像</item>
+        <item>联动录像</item>
+    </string-array>
+    <string-array name="device_setup_exposure_time_values">
+        <item>自动</item>
+        <item>1/50</item>
+        <item>1/120</item>
+        <item>1/250</item>
+        <item>1/500</item>
+        <item>1/1000</item>
+        <item>1/2000</item>
+        <item>1/4000</item>
+        <item>1/10000</item>
+    </string-array>
+    <string-array name="device_setup_scene_mode_values">
+        <item>自动</item>
+        <item>室内</item>
+        <item>室外</item>
+    </string-array>
+    <string-array name="device_setup_electronic_slow_shutter_values">
+        <item>关</item>
+        <item>低级</item>
+        <item>高级</item>
+    </string-array>
+    <string-array name="device_setup_color_mode_values">
+        <item>彩色</item>
+        <item>黑白</item>
+    </string-array>
+    <string-array name="pic_type">
+        <item>全部</item>
+        <item>报警</item>
+        <item>侦测</item>
+        <item>普通</item>
+        <item>遥控</item>
+        <item>关键</item>
+        <item>延时拍</item>
+        <item>连拍</item>
+    </string-array>
+    <string-array name="record_type">
+        <item>全部录像</item>
+        <item>报警录像</item>
+        <item>侦测录像</item>
+        <item>普通录像</item>
+        <item>手动录像</item>
+        <item>遥控录像</item>
+    </string-array>
+    <string-array name="gatewaycolor">
+        <item>深绿色</item>
+        <item>天蓝色</item>
+        <item>深紫色</item>
+        <item>粉红色</item>
+        <item>浅绿色</item>
+        <item>草绿色</item>
+        <item>橘红色</item>
+        <item>深蓝色</item>
+        <item>无</item>
+    </string-array>
+    <string-array name="check_pics">
+        <item>查看远程图像</item>
+        <item>查看本地截图</item>
+    </string-array>
+    <string-array name="check_videos">
+        <item>查看远程视频</item>
+        <item>查看本地视频</item>
+    </string-array>
+    <array name="lianxi">
+        <item>+31(0)76-5977401</item>
+        <item>info@elro.eu</item>
+    </array>
+    <array name="lock_input">
+        <item>开锁</item>
+        <item>密码开锁</item>
+        <item>卡开锁</item>
+        <item>指纹开锁</item>
+        <item>非法操作报警</item>
+        <item>拆除报警</item>
+        <item>胁迫报警</item>
+    </array>
+    <array name="socket_channel">
+        <item>通道1</item>
+        <item>通道2</item>
+    </array>
+    <array name="dimming_modlue_action">
+        <item>打开</item>
+        <item>关闭</item>
+    </array>
+    <array name="question">
+        <item>WIFI密码错误</item>
+        <item>空格问题</item>
+        <item>2.4GHZ-WIFI</item>
+    </array>
+    <array name="question_detail">
+        <item>您填入的WIFI密码可能是错误的</item>
+        <item>您的路由器的SSID或密码可能含有空格</item>
+        <item>本产品只支持2.4GHZ频率的WIFI,不支持5GHZ,请确保路由器正确的设置</item>
+    </array>
+</resources>

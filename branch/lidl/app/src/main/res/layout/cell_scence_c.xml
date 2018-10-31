@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:descendantFocusability="blocksDescendants"
+    android:background="@drawable/list_item_normal"
+    android:paddingLeft="@dimen/modle_del_ico_width_minus"
+    android:paddingRight="@dimen/modle_del_button_width_minus"
+    android:layout_height="@dimen/modle_item_height"
+    >
+    <ImageView
+        android:layout_width="@dimen/modle_del_ico_width"
+        android:layout_height="@dimen/modle_del_ico_width"
+        android:id="@+id/dele"
+        android:padding="@dimen/modle_del_ico_padding"
+        android:src="@drawable/animate_del" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="@dimen/modle_item_height">
+
+             <LinearLayout
+                 android:layout_width="@dimen/modle_item_ico_width"
+                 android:layout_height="@dimen/modle_item_ico_height"
+                 android:gravity="center"
+                 android:id="@+id/ddd">
+                 <TextView
+                     android:id="@+id/cellScenceImage"
+                     android:layout_width="@dimen/modle_item_cellScenceImage_width"
+                     android:layout_height="@dimen/modle_item_cellScenceImage_height"
+                     android:layout_gravity="center"
+                     android:textSize="@dimen/modle_font"
+                     android:text="01"
+                     android:gravity="center" />
+             </LinearLayout>
+
+             <TextView
+                 android:text="one"
+                 android:gravity="left|center_vertical"
+                 android:textAllCaps="false"
+                 android:layout_weight="1"
+                 android:layout_gravity="center"
+                 android:id="@+id/cellScenceName"
+                 android:layout_width="wrap_content"
+                 android:layout_height="@dimen/modle_item_height"
+                 android:textColor="@color/black"
+                 android:singleLine="true"
+                 android:marqueeRepeatLimit="-1"
+                 android:ellipsize="marquee"
+                 android:focusableInTouchMode="true"
+                 android:focusable="true"
+                 android:textSize="@dimen/modle_font"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="25dp"
+            android:background="@drawable/line_e"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/arrow"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/modle_item_zhixing_height"
+            android:text="@string/done"
+            android:id="@+id/done"
+            android:textColor="@color/white"
+            android:background="@drawable/modle_done"
+            android:layout_marginRight="@dimen/modle_main_margin_right"/>
+        <Button
+            android:layout_width="@dimen/modle_del_button_width"
+            android:layout_height="match_parent"
+            android:background="#ff3a30"
+            android:id="@+id/shanchu"
+            android:text="@string/delete"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</LinearLayout>
+

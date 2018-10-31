@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:orientation="horizontal"
+android:gravity="center"
+android:descendantFocusability="blocksDescendants"
+android:background="@color/white"
+android:paddingLeft="@dimen/modle_del_ico_width_minus"
+android:paddingRight="@dimen/modle_del_button_width_minus"
+android:layout_height="@dimen/modle_item_height"
+    >
+<ImageView
+    android:layout_width="@dimen/modle_del_ico_width"
+    android:layout_height="@dimen/modle_del_ico_width"
+    android:id="@+id/dele"
+    android:padding="@dimen/modle_del_ico_padding"
+    android:src="@drawable/animate_del" />
+    <LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:minHeight="@dimen/SmallListHeight"
+            android:paddingLeft="@dimen/SmallPadding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:singleLine="true" />
+            <TextView
+                android:id="@+id/sub_title"
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:textColor="@color/toast_text_content"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.0"
+            android:layout_marginLeft="@dimen/NormalPadding"
+            android:gravity="right"
+            android:duplicateParentState="true"
+            android:id="@+id/content2">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="25dp"
+                android:src="@drawable/arrow"
+                android:id="@+id/arrow"
+                android:layout_marginTop="3dp"
+                android:alpha="0"/>
+            <TextView
+                android:id="@+id/summary"
+                style="@style/CCPFontPreferenceSummary"
+                android:paddingBottom="@dimen/SmallPadding"
+                android:paddingRight="@dimen/SmallPadding"
+                android:paddingTop="@dimen/SmallPadding"
+                android:singleLine="true"
+                android:visibility="visible"
+                android:textColor="@color/toast_text_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="online"
+                android:layout_marginRight="@dimen/NormalPadding" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/seleect"
+                android:id="@+id/gouzi"
+                android:layout_marginTop="3dp"
+                android:visibility="invisible"
+                android:layout_marginRight="@dimen/NormalPadding"/>
+
+        </LinearLayout>
+        <Button
+            android:layout_width="@dimen/modle_del_button_width"
+            android:layout_height="match_parent"
+            android:background="#ff3a30"
+            android:id="@+id/shanchu"
+            android:text="@string/unbind"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+        <View
+        android:id="@+id/item_bottom_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/list_divider" />
+        </LinearLayout>
+</LinearLayout>

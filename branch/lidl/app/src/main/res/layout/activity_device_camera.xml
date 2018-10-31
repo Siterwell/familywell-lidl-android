@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroud_bk"
+    android:id="@+id/root"
+    android:longClickable="true">
+
+    <RelativeLayout
+        android:id="@+id/layoutPlayWnd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/funcview_height"
+        android:background="#ff000000" >
+
+        <com.lib.funsdk.support.widget.FunVideoView
+            android:id="@+id/funVideoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/textVideoStat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#40000000"
+            android:textColor="#ffffffff"
+            android:textSize="14dp" />
+
+
+
+        <RelativeLayout
+            android:id="@+id/layout_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="28dp"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/img_recording"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/recording" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_recording"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="录制中" />
+        </RelativeLayout>
+
+
+        <FrameLayout
+            android:id="@+id/layoutVideoControl"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@null">
+            <LinearLayout
+                android:id="@+id/layoutVideoControl2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:background="@color/monitor_control_panel_bg">
+                <me.hekr.sthome.commonBaseView.CCPButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/control_bg"
+                    android:paddingTop="@dimen/NormalPadding"
+                    android:paddingBottom="@dimen/NormalPadding"
+                    android:id="@+id/btnPlay"/>
+                <View
+                    android:layout_height="20dp"
+                    android:layout_width="1dp"
+                    android:background="@color/white"
+                    />
+                <me.hekr.sthome.commonBaseView.CCPButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="@dimen/NormalPadding"
+                    android:paddingBottom="@dimen/NormalPadding"
+                    android:background="@drawable/control_bg"
+                    android:id="@+id/btnStop"/>
+                <View
+                    android:layout_height="20dp"
+                    android:layout_width="1dp"
+                    android:background="@color/white"
+                    />
+                <me.hekr.sthome.commonBaseView.CCPButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="@dimen/NormalPadding"
+                    android:paddingBottom="@dimen/NormalPadding"
+                    android:background="@drawable/control_bg"
+                    android:id="@+id/btnStream"/>
+                <View
+                    android:layout_height="20dp"
+                    android:layout_width="1dp"
+                    android:background="@color/white"
+                    />
+                <me.hekr.sthome.commonBaseView.CCPButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="@dimen/NormalPadding"
+                    android:paddingBottom="@dimen/NormalPadding"
+                    android:background="@drawable/control_bg"
+                    android:id="@+id/btnCapture"/>
+                <View
+                    android:layout_height="20dp"
+                    android:layout_width="1dp"
+                    android:background="@color/white"
+                    />
+                <me.hekr.sthome.commonBaseView.CCPButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="@dimen/NormalPadding"
+                    android:paddingBottom="@dimen/NormalPadding"
+                    android:background="@drawable/control_bg"
+                    android:id="@+id/btnScreenRatio"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/btnVoiceTalk2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_voice_talk"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:layout_gravity="right"
+                android:layout_marginRight="65dp">
+            </RelativeLayout>
+        </FrameLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/switch_fish_eye"
+            android:src="@mipmap/qiu"/>
+        <com.lib.funsdk.support.widget.FishEyeSettingPannel
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/switch_fish_eye"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:id="@+id/setting_fish_eye">
+        </com.lib.funsdk.support.widget.FishEyeSettingPannel>
+        <TextView
+            android:id="@+id/textStreamStat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:padding="5dp"
+            android:textColor="@color/ipc_base_color"
+            android:textSize="10dp" />
+
+         <ImageView
+             android:layout_width="30dp"
+             android:layout_height="30dp"
+             android:src="@mipmap/ff_ptz_up_selected"
+             android:layout_alignParentTop="true"
+             android:layout_centerHorizontal="true"
+             android:layout_marginTop="5dp"
+             android:id="@+id/up_direction"
+             android:visibility="gone"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ff_ptz_down_selected"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/down_direction"
+            android:visibility="gone"/>
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ff_ptz_left_selected"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/left_direction"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ff_ptz_right_selected"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:id="@+id/right_direction"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+    <include
+        android:id="@+id/layoutTop"
+        layout="@layout/layout_top_navigate_theme" />
+
+    <LinearLayout
+        android:id="@+id/layoutFunctionControl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layoutPlayWnd"
+        android:orientation="vertical" >
+
+        <me.hekr.sthome.commonBaseView.SuberPager
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:id="@+id/suberpager"/>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@color/monitor_control_bg"
+            android:layout_below="@+id/suberpager"
+            android:layout_marginTop="2dp">
+
+                <RelativeLayout
+                    android:id="@+id/btnVoiceTalk"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icon_voice_talk"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible">
+                </RelativeLayout>
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_below="@id/btnVoiceTalk"
+                     android:text="@string/longpress_to_talk"
+                     android:layout_centerHorizontal="true"
+                     android:layout_marginTop="6dp"
+                     android:id="@+id/dsd"/>
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_toRightOf="@id/btnVoiceTalk"
+                android:background="@color/transparent"
+                android:gravity="center_horizontal"
+                >
+                <ImageButton
+                    android:id="@+id/btnDevRecord"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_record" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btnVoiceTalk"
+                android:layout_marginRight="24dp"
+                android:background="@color/transparent"
+                android:gravity="center_horizontal"
+                >
+                <ImageButton
+                    android:id="@+id/btnDevCapture"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_devcapture" />
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/splitView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#a000"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

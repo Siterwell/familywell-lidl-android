@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical" >
+
+ 
+  <View
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:background="@color/mainGround"
+      />  
+ <LinearLayout
+     android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal"
+     >
+     
+     <RadioGroup 
+    android:id="@+id/bottomRg"   
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"  
+    android:layout_weight="1"  
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:paddingTop="5dp" >
+    
+    <RadioButton
+    android:id="@+id/radioButton1"
+    android:background="@null"
+    android:button="@null"
+    android:layout_weight="1" 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:drawableTop="@mipmap/main1"
+    android:gravity="center_horizontal"
+    android:paddingBottom="5dp"
+    android:textColor="@color/text_color"
+    android:textSize="12dip"
+    android:text="@string/main" />
+
+    
+    <RadioButton
+    android:id="@+id/radioButton2"
+    android:background="@null"
+    android:button="@null"
+    android:layout_weight="1" 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:drawableTop="@mipmap/scene1"
+    android:gravity="center_horizontal"
+    android:paddingBottom="5dp"
+    android:textColor="@color/text_color"
+    android:textSize="12dip"
+    android:text="@string/scene" />
+
+        
+    <RadioButton
+    android:id="@+id/radioButton3"
+    android:background="@null"
+    android:button="@null"
+    android:layout_weight="1"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:drawableTop="@mipmap/device1"
+    android:gravity="center_horizontal"
+    android:paddingBottom="5dp"
+    android:textColor="@color/text_color"
+    android:textSize="12dip"
+    android:text="@string/equipment" />
+
+
+    
+</RadioGroup>
+     
+ </LinearLayout>
+
+
+
+
+</LinearLayout>

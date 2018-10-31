@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="@dimen/equipmentList_instrution_height"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="@dimen/SmallestPadding">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="10dp"
+        android:background="@color/dark_green"
+        android:layout_marginLeft="@dimen/NormalPadding"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/CCPPreferenceTextSmall"
+        android:text="@string/normal"
+        android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/NormalPadding"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="10dp"
+        android:background="@color/red"
+        android:layout_marginLeft="@dimen/NormalPadding"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/CCPPreferenceTextSmall"
+        android:text="@string/trigger"
+        android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/NormalPadding"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="10dp"
+        android:background="@color/device_offine"
+        android:layout_marginLeft="@dimen/NormalPadding"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/CCPPreferenceTextSmall"
+        android:text="@string/offline"
+        android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/NormalPadding"/>
+</LinearLayout>

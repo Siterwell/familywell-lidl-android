@@ -1,0 +1,172 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="back_image_width">35dp</dimen>
+    <dimen name="back_image_height">35dp</dimen>
+    <dimen name="back_image_padding">5dp</dimen>
+    <dimen name="back_image_marginLeft">15dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="home_show_height">260dp</dimen>
+    <dimen name="home_half_height">240dp</dimen>
+    <dimen name="home_weather_height">190dp</dimen>
+    <dimen name="home_half_margin_top">210dp</dimen>
+    <dimen name="home_house_height">170dp</dimen>
+    <dimen name="home_desp_margin_top">20dp</dimen>
+    <dimen name="bottom_padding">2dp</dimen>
+    <dimen name="bottom_image_width">34dp</dimen>
+    <dimen name="bottom_image_height">34dp</dimen>
+    <dimen name="setting_marginRight">20dp</dimen>
+    <dimen name="setting_width">30dp</dimen>
+    <dimen name="setting_height">30dp</dimen>
+    <dimen name="setting_width_little">23dp</dimen>
+    <dimen name="setting_height_little">23dp</dimen>
+    <dimen name="title_line_margin">20dp</dimen>
+    <dimen name="home_home_btn_width">80dp</dimen>
+    <dimen name="home_home_btn_height">30dp</dimen>
+    <dimen name="home_home_btn_marginTop">10dp</dimen>
+    <dimen name="home_houseImg_padding">20dp</dimen>
+    <dimen name="home_middleImg_padding">20dp</dimen>
+    <dimen name="home_historyList_height">110dp</dimen>
+    <dimen name="home_middle_MarginLeft">30dp</dimen>
+    <dimen name="home_middle_MarginTop">30dp</dimen>
+    <dimen name="home_middle_icon_size">60dp</dimen>
+    <dimen name="home_middle_text_width">40dp</dimen>
+    <dimen name="home_middle_icon_radius">30dp</dimen>
+    <dimen name="home_middle_icon_size2">25dp</dimen>
+    <dimen name="home_weather_ico_width">50dp</dimen>
+    <dimen name="home_weather_ico_height">70dp</dimen>
+    <dimen name="home_menu_radius">100dp</dimen>
+    <dimen name="home_play_size">80dp</dimen>
+
+    <dimen name="modle_main_padding">20dp</dimen>
+    <dimen name="modle_main_margin_right">5dp</dimen>
+    <dimen name="modle_scenceList_title_padding">8dp</dimen>
+   <dimen name="modle_activitymodleListview_height">165dp</dimen>
+    <dimen name="modle_sysmodleListview_height">220dp</dimen>
+
+    <dimen name="modle_item_height">55dp</dimen>
+    <dimen name="modle_item_ico_width">50dp</dimen>
+    <dimen name="modle_item_ico_height">50dp</dimen>
+    <dimen name="modle_item_cellScenceImage_width">42dp</dimen>
+    <dimen name="modle_item_cellScenceImage_height">42dp</dimen>
+    <dimen name="modle_item_arrow_padding">15dp</dimen>
+    <dimen name="modle_item_arrow_width">25dp</dimen>
+    <dimen name="modle_item_arrow_height">25dp</dimen>
+    <dimen name="modle_item_arrow_marginTop">15dp</dimen>
+    <dimen name="modle_del_button_width">60dp</dimen>
+    <dimen name="modle_del_button_width_minus">-61dp</dimen>
+    <dimen name="modle_del_ico_width">50dp</dimen>
+    <dimen name="modle_del_ico_width_minus">-50dp</dimen>
+    <dimen name="modle_del_ico_padding">15dp</dimen>
+    <dimen name="modle_item_zhixing_width">82dp</dimen>
+    <dimen name="modle_item_zhixing_height">32dp</dimen>
+
+    <dimen name="equipmentList_item_image_width">50dp</dimen>
+    <dimen name="equipmentList_padding">20dp</dimen>
+    <dimen name="equipmentList_item_verticalSpacing">38dp</dimen>
+    <dimen name="equipmentList_paddingInnerTop">20dp</dimen>
+    <dimen name="equipmentList_paddingInnerBottom">20dp</dimen>
+    <dimen name="equipmentList_paddingInnerLeft">10dp</dimen>
+    <dimen name="equipmentList_paddingInnerRight">10dp</dimen>
+    <dimen name="equipmentList_scroll_by">10px</dimen>
+    <dimen name="equipmentList_instrution_height">35dp</dimen>
+
+    <dimen name="addsys_title_padding">10dp</dimen>
+    <dimen name="sysdetail_item_padding">5dp</dimen>
+    <dimen name="sysdetail_item_marginRight">20dp</dimen>
+
+
+    <dimen name="add_n_group_item_image_width">50dp</dimen>
+    <dimen name="add_n_group_item_up_marginBottom">15dp</dimen>
+    <dimen name="add_n_group_item_up_title_marginTop">10dp</dimen>
+    <dimen name="add_n_group_item_up_title_marginBottom">10dp</dimen>
+    <dimen name="add_n_group_grid_verticalspacing">20dp</dimen>
+    <dimen name="add_n_group_padding">10dp</dimen>
+    <dimen name="add_n_title_max_width">230dp</dimen>
+    <dimen name="add_n_group_grid_height">180dp</dimen>
+
+    <dimen name="modleCellList_item_verticalSpacing">38dp</dimen>
+    <dimen name="modleCellList_paddingInnerTop">20dp</dimen>
+    <dimen name="modleCellList_paddingInnerBottom">20dp</dimen>
+    <dimen name="modleCellList_paddingInnerLeft">10dp</dimen>
+    <dimen name="modleCellList_paddingInnerRight">10dp</dimen>
+
+    <dimen name="stdetail_height">270dp</dimen>
+    <dimen name="stdetail_padding">20dp</dimen>
+    <dimen name="stdetail_wifi_width">50dp</dimen>
+    <dimen name="stdetail_quantity_width">50dp</dimen>
+    <dimen name="stdetail_wifi_padding">10dp</dimen>
+    <dimen name="stdetail_content_height">100dp</dimen>
+    <dimen name="stdetail_middleImg_padding">20dp</dimen>
+    <dimen name="stdetail_middleImg_width">100dp</dimen>
+    <dimen name="stdetail_middleImg_height">100dp</dimen>
+    <dimen name="stdetail_arrow_size">35dp</dimen>
+    <dimen name="stdetail_button_content_height">45dp</dimen>
+    <dimen name="stdetail_button_width">120dp</dimen>
+    <dimen name="stdetail_marginTop">30dp</dimen>
+    <dimen name="stdetail_icon_lanb">0dp</dimen>
+     <dimen name="stdetail_top_iocn">20dp</dimen>
+    <dimen name="stdetail_icon_top">40dp</dimen>
+    <dimen name="stdetail_btn_padding">24dp</dimen>
+    <dimen name="stdetail_toptext_maxwidth">120dp</dimen>
+    <dimen name="stdetail_top_minwidth">70dp</dimen>
+
+    <dimen name="config_button_padding">3dp</dimen>
+
+    <dimen name="toolbar_height">50dp</dimen>
+    <dimen name="toolbar_margintop">55dp</dimen>
+    <dimen name="top_edit_width">230dp</dimen>
+
+    <dimen name="login_edit_padding">10dp</dimen>
+    <dimen name="login_arrow_width">30dp</dimen>
+    <dimen name="login_arrow_height">20dp</dimen>
+
+    <dimen name="new_timer_item_padding">5dp</dimen>
+    <dimen name="new_timer_marginBottom">30dp</dimen>
+
+    <dimen name="MinDialogWidth">320.0dip</dimen>
+    <dimen name="dialog_round_radius">4.0dip</dimen>
+    <dimen name="dialog_padding">15.0dip</dimen>
+    <dimen name="item_height">60dp</dimen>
+
+
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="title_size_edit">16sp</dimen>
+    <dimen name="modle_scencelist_title_size">18sp</dimen>
+    <dimen name="content_size">15sp</dimen>
+    <dimen name="bottom_text_size">13sp</dimen>
+    <dimen name="equipmentList_item_text_size">13sp</dimen>
+    <dimen name="addsys_title_text_size">18sp</dimen>
+    <dimen name="addsys_bottom_text_size">18sp</dimen>
+    <dimen name="sysdetail_bottom_text_size">18sp</dimen>
+    <dimen name="sysdetail_item_size">13sp</dimen>
+    <dimen name="setting_font_size">18sp</dimen>
+    <dimen name="add_n_group_item_text_size">13sp</dimen>
+    <dimen name="add_n_group_item_title_size">23sp</dimen>
+    <dimen name="add_n_group_bottom_text_size">18sp</dimen>
+    <dimen name="stdetail_text_size">25sp</dimen>
+    <dimen name="stdetail_text_desc_size2">20sp</dimen>
+    <dimen name="config_button_font_size">15sp</dimen>
+    <dimen name="edit_font_size">16sp</dimen>
+    <dimen name="wheel_font_size">22sp</dimen>
+    <dimen name="toast_view_content">15.0sp</dimen>
+    <dimen name="modle_font">19.0sp</dimen>
+    <dimen name="text_list_title">16.0sp</dimen>
+    <dimen name="week_font_size">14sp</dimen>
+
+    <dimen name="SmallestTextSize">12.0dip</dimen>
+    <dimen name="HintTextSize">10.0dip</dimen>
+    <dimen name="SmallestPadding">2.0dip</dimen>
+    <dimen name="LargePadding">20.0dip</dimen>
+    <dimen name="SmallListHeight">48.0dip</dimen>
+    <dimen name="NormalPadding">12.0dip</dimen>
+    <dimen name="SmallPadding">8.0dip</dimen>
+    <dimen name="NormalTextSize">16.0sp</dimen>
+    <dimen name="SmallTextSize">14.0sp</dimen>
+    <dimen name="BigPadding">24dp</dimen>
+    <dimen name="LargestTextSize">21sp</dimen>
+    <dimen name="funcview_height">240dp</dimen>
+    <dimen name="SubTitleTextSize">8sp</dimen>
+</resources>

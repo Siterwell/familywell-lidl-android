@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutTop"
+        android:footerDividersEnabled="true"
+        android:listSelector="@drawable/common_list_selector" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <!-- 移动侦测 -->
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType = "switchbutton"
+                app:showDivider="true"
+                app:titleText="@string/device_alarm_motion_detection"
+                app:subTitleText="@string/device_alarm_motion_detection_tip"
+                android:id="@+id/layoutVideoBlockAlarmRecord"/>
+
+
+            <LinearLayout
+                android:id="@+id/layoutOthers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp">
+
+                <!-- 录像联动 -->
+                <me.hekr.sthome.commonBaseView.SettingIpcItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:accessoryType = "switchbutton"
+                    app:showDivider="true"
+                    app:titleText="@string/device_alarm_func_record"
+                    app:subTitleText="@string/device_alarm_func_record_motion_tip"
+                    android:id="@+id/layoutMotionDetectionAlarmRecord"/>
+
+                <!-- 拍照联动 -->
+                <me.hekr.sthome.commonBaseView.SettingIpcItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:accessoryType = "switchbutton"
+                    app:showDivider="true"
+                    app:titleText="@string/device_alarm_func_capture"
+                    app:subTitleText="@string/device_alarm_func_capture_motion_tip"
+                    android:id="@+id/layoutMotionDetectionAlarmCapture"/>
+                <!-- 推送联动 -->
+                <me.hekr.sthome.commonBaseView.SettingIpcItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:accessoryType = "switchbutton"
+                    app:showDivider="true"
+                    app:titleText="@string/device_alarm_func_pushmsg"
+                    app:subTitleText="@string/device_alarm_func_pushmsg_motion_tip"
+                    android:id="@+id/layoutMotionDetectionAlarmPushMsg"/>
+                <!-- 视频遮挡 -->
+                <me.hekr.sthome.commonBaseView.SettingIpcItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:accessoryType = "switchbutton"
+                    app:showDivider="true"
+                    app:titleText="@string/device_alarm_video_block"
+                    app:subTitleText="@string/device_alarm_func_pushmsg_motion_tip"
+                    android:id="@+id/layoutVideoBlock"/>
+                <!-- 报警灵敏度 -->
+                <me.hekr.sthome.commonBaseView.SettingIpcItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:accessoryType = "spinner"
+                    app:showDivider="true"
+                    app:titleText="@string/device_alarm_func_level"
+                    android:id="@+id/layoutMotionDetectionAlarmLevel"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

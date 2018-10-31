@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comm_settting_item_selector"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/SmallListHeight"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/NormalPadding"
+        android:paddingRight="@dimen/NormalPadding"
+        android:id="@+id/content1">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:minHeight="@dimen/SmallListHeight"
+                android:paddingLeft="@dimen/SmallPadding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@android:id/title"
+                    style="@style/CCPFontPreferenceLarge"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:singleLine="true"
+                    android:text="@string/no_gps"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.0"
+                android:layout_marginLeft="@dimen/NormalPadding"
+                android:gravity="right"
+                android:duplicateParentState="true" >
+                <TextView
+                    android:id="@android:id/summary"
+                    style="@style/CCPFontPreferenceSummary"
+                    android:paddingBottom="@dimen/SmallPadding"
+                    android:paddingRight="@dimen/SmallPadding"
+                    android:paddingTop="@dimen/SmallPadding"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    android:textColor="@color/toast_text_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/NormalPadding" />
+                <ImageView
+                    android:id="@+id/accessory_checked1"
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:singleLine="true"
+                    android:src="@mipmap/seleect"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comm_settting_item_selector"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/SmallListHeight"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/NormalPadding"
+        android:paddingRight="@dimen/NormalPadding"
+        android:id="@+id/content2">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:minHeight="@dimen/SmallListHeight"
+                android:paddingLeft="@dimen/SmallPadding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@android:id/title"
+                    style="@style/CCPFontPreferenceLarge"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:singleLine="true"
+                    android:text="@string/gps_phone"/>
+                <TextView
+                    android:id="@+id/sub_title"
+                    style="@style/CCPFontPreferenceLarge"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:textColor="@color/toast_text_content"
+                    android:visibility="gone"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.0"
+                android:layout_marginLeft="@dimen/NormalPadding"
+                android:gravity="right"
+                android:duplicateParentState="true" >
+                <TextView
+                    android:id="@android:id/summary"
+                    style="@style/CCPFontPreferenceSummary"
+                    android:paddingBottom="@dimen/SmallPadding"
+                    android:paddingRight="@dimen/SmallPadding"
+                    android:paddingTop="@dimen/SmallPadding"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    android:textColor="@color/toast_text_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/NormalPadding" />
+                <ImageView
+                    android:id="@+id/accessory_checked2"
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:singleLine="true"
+                    android:src="@mipmap/seleect"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/list_divider" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/SmallPadding"
+        android:layout_marginTop="@dimen/NormalPadding"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <me.hekr.sthome.wheelwidget.view.WheelView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/item"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+
+    <!--<Button-->
+        <!--android:id="@+id/sdOpen"-->
+        <!--android:text="有人"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+    <!--<Button-->
+        <!--android:id="@+id/sdClose"-->
+        <!--android:text="正常"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+</LinearLayout>

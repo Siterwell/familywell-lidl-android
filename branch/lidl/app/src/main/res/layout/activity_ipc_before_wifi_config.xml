@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/NormalPadding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/is_head_yuyin"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="5dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/if_ok_click_next"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/some_device_kuaishan"
+        android:gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/no_support_fiveg_wifi"
+        android:textColor="@color/red"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/ipc_tip_1"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/ipc_tip_2"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/ipc_tip_3"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/ipc_tip_4"
+        android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CCPFontPreferenceSmall"
+        android:singleLine="false"
+        android:text="@string/see_some_scene_above_click"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/next"
+        android:textAllCaps="false"
+        android:text="@string/next"
+        android:textSize="@dimen/addsys_bottom_text_size"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/modle_done"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"/>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:id="@+id/btn_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:padding="8dp"
+            android:background="@drawable/modle_done"
+            android:text="@string/device_sport_camera_download_to_phone"
+            android:textColor="@color/white"
+            android:textSize="12dp"/>
+
+
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/pic_normal_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/bottom_menu"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/back_config"
+    android:padding="@dimen/SmallPadding">
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="278dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/config_instruction"
+        android:textColor="@color/black"
+        android:textSize="@dimen/content_size"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/how_to_config"
+        android:textColor="@color/device_warn"
+        android:textSize="@dimen/title_size" />
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/next"
+        android:textAllCaps="false"
+        android:text="@string/next"
+        android:textSize="@dimen/addsys_bottom_text_size"
+        android:layout_width="180dp"
+        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/modle_done"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"/>
+</LinearLayout>

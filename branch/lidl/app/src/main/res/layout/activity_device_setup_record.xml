@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+               xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            
+   <me.hekr.sthome.commonBaseView.SettingIpcItem
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:accessoryType = "none"
+       app:showDivider="true"
+       app:detailText=""
+       app:titleText="@string/device_setup_record_prerecord"
+       app:subTitleText="@string/device_setup_record_prerecord_prompt"
+       android:id="@+id/yulu"/>
+
+   <me.hekr.sthome.commonBaseView.SettingIpcItem
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:accessoryType = "none"
+       app:showDivider="true"
+       app:detailText=""
+       app:titleText="@string/device_setup_record_length"
+       android:id="@+id/luxiangshichang"/>
+
+   <me.hekr.sthome.commonBaseView.SettingIpcItem
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:accessoryType = "spinner"
+       app:showDivider="true"
+       app:titleText="@string/device_setup_record_mode"
+       android:id="@+id/luxiangtype"/>
+   <me.hekr.sthome.commonBaseView.SettingIpcItem
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:accessoryType = "switchbutton"
+       app:showDivider="true"
+       app:titleText="@string/device_setup_record_audio"
+       android:id="@+id/luxiangauto"/>
+
+</LinearLayout>
+

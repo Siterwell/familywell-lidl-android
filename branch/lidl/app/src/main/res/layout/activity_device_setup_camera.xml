@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:windowSoftInputMode="stateHidden|adjustResize">
+
+<!--    <include
+        android:id="@+id/layoutTop"
+        layout="@layout/layout_top_navigate_theme" />-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutTop"
+        android:footerDividersEnabled="true"
+        android:listSelector="@drawable/common_list_selector" >
+-
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/qingxidu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType="spinner"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_definition" />
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/titleCameraOSD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType="switchbutton"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_osd_switch" />
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/timetitleCameraOSD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType="switchbutton"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_osd_timeswitch" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/SmallestPadding"
+                android:paddingBottom="@dimen/SmallestPadding"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="@dimen/SmallPadding">
+
+                    <LinearLayout
+                        android:id="@+id/content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:minHeight="@dimen/SmallListHeight"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/NormalPadding">
+
+                        <TextView
+                            android:id="@+id/title"
+                            style="@style/CCPFontPreferenceLarge"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:singleLine="true"
+                            android:text="@string/device_setup_camera_osd"
+                            android:textColor="@color/delist_bk" />
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/editCameraOSDContent"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/content"
+                        android:background="@drawable/common_editor_bg"
+                        android:layout_marginLeft="@dimen/NormalPadding"
+                        android:focusable="true"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/demo_title"
+                        android:textSize="14dp" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/item_bottom_divider"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/list_divider"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/SwitchCameraBLCMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:accessoryType="switchbutton"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_blcmode" />
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/SwitchCameraWideDynamic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType="switchbutton"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_wide_dynamic" />
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/spinnerCameraNoiseReduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType="spinner"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_noise_reduction" />
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/SwitchCameraAntiShake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType="switchbutton"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_anti_shake" />
+
+            <me.hekr.sthome.commonBaseView.SettingIpcItem
+                android:id="@+id/spinnerCameraMetering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:accessoryType="spinner"
+                app:showDivider="true"
+                app:titleText="@string/device_setup_camera_metering" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

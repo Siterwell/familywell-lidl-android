@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/detail_switch_on_pic" android:state_selected="true"/>
+    <item android:drawable="@drawable/detail_switch_on_pic" android:state_checked="true"/>
+    <item android:drawable="@drawable/detail_switch_off_pic"/>
+</selector>

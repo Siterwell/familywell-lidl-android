@@ -1,0 +1,94 @@
+<resources>
+
+    <declare-styleable name="setting_info">
+        <attr name="item_titleText" format="string" />
+        <attr name="item_subTitleText" format="string" />
+        <attr name="item_detailText" format="string" />
+        <attr name="item_accessoryType">
+            <enum name="none" value="0" />
+            <enum name="arrow" value="1" />
+            <enum name="switchbutton" value="2" />
+            <enum name="radio" value="3" />
+        </attr>
+        <attr name="item_showDivider" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ipc_setting_info">
+        <attr name="titleText" format="string" />
+        <attr name="subTitleText" format="string" />
+        <attr name="detailText" format="string" />
+        <attr name="accessoryType">
+            <enum name="none" value="1" />
+            <enum name="switchbutton" value="2" />
+            <enum name="spinner" value="3" />
+        </attr>
+        <attr name="showDivider" format="boolean" />
+    </declare-styleable>
+
+
+    <declare-styleable name="MultiDirectionSlidingDrawer">
+        <attr name="handle" format="dimension"></attr>
+        <attr name="content" format="dimension"></attr>
+        <attr name="allowSingleTap" format="boolean"></attr>
+        <attr name="animateOnClick" format="boolean"></attr>
+        <attr name="direction" >
+            <enum name="rightToLeft" value="0" />
+            <enum name="bottomToTop" value="1" />
+            <enum name="leftToRight" value="2" />
+            <enum name="topToBottom" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="code_switch_edit">
+        <attr name="code_can_see" format="boolean" />
+        <attr name="hint_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ProgressWheel">
+        <attr name="matProg_progressIndeterminate" format="boolean" />
+        <attr name="matProg_barColor" format="color" />
+        <attr name="matProg_rimColor" format="color" />
+        <attr name="matProg_rimWidth" format="dimension" />
+        <attr name="matProg_spinSpeed" format="float" />
+        <attr name="matProg_barSpinCycleTime" format="integer" />
+        <attr name="matProg_circleRadius" format="dimension" />
+        <attr name="matProg_fillRadius" format="boolean" />
+        <attr name="matProg_barWidth" format="dimension" />
+        <attr name="matProg_linearProgress" format="boolean" />
+        <attr name="matProg_tickSize" format="dimension"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="ProtractorView">
+        <attr name="thumb" format="reference"/>
+        <attr name="angleTextSize" format="dimension"/>
+        <attr name="progressWidth" format="dimension"/>
+        <attr name="tickOffset" format="dimension"/>
+        <attr name="tickLength" format="dimension"/>
+        <attr name="arcWidth" format="dimension"/>
+        <attr name="angle" format="integer"/>
+        <attr name="tickIntervals" format="integer"/>
+        <attr name="arcColor" format="color"/>
+        <attr name="arcProgressColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textProgressColor" format="color"/>
+        <attr name="tickColor" format="color"/>
+        <attr name="tickProgressColor" format="color"/>
+        <attr name="roundEdges" format="boolean"/>
+        <attr name="enabled" format="boolean"/>
+        <attr name="touchInside" format="boolean"/>
+        <attr name="ticksBetweenLabel"/>
+    </declare-styleable>
+
+    <attr name="ticksBetweenLabel" format="enum">
+        <enum name="zero" value="0"/>
+        <enum name="one" value="1"/>
+        <enum name="two" value="2"/>
+        <enum name="three" value="3"/>
+    </attr>
+
+    <declare-styleable name="ProtractorViewTheme">
+        <attr name="protractorViewStyle" format="reference" />
+    </declare-styleable>
+
+</resources>

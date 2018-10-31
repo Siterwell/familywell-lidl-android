@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:minHeight="5dp"
+android:gravity="center"
+    android:background="@color/white"
+android:id="@+id/liner_phone"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+<ImageButton
+    android:layout_width="@dimen/login_arrow_width"
+    android:layout_height="@dimen/login_arrow_width"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:id="@+id/delete"
+    android:layout_marginRight="@dimen/SmallPadding"
+    android:background="@drawable/top_delete"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    />
+<TextView
+    android:id="@+id/et_username"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_toLeftOf="@id/arrow"
+    android:background="@null"
+    android:hint="@string/name_hint"
+    android:textColorHint="#cdcdcd"
+    android:layout_marginRight="@dimen/SmallPadding"
+    android:layout_marginLeft="@dimen/SmallPadding"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    >
+
+    <requestFocus />
+</TextView>
+</RelativeLayout>

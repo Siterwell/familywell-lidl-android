@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/NormalPadding">
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="@dimen/modle_del_ico_width"
+            android:layout_height="@dimen/modle_del_ico_width"
+            android:id="@+id/src_img"
+            android:src="@drawable/home3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/NormalPadding"
+            android:text="@string/home_mode"
+            android:textColor="@color/white"
+            android:singleLine="true"
+            android:id="@+id/src_name"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="@dimen/modle_del_ico_width"
+            android:layout_height="@dimen/modle_del_ico_width"
+            android:id="@+id/des_img"
+            android:src="@drawable/home3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/NormalPadding"
+            android:text="@string/out_mode"
+            android:textColor="@color/white"
+            android:singleLine="true"
+            android:id="@+id/des_name"/>
+    </LinearLayout>
+</RelativeLayout>

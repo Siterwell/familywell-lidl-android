@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:descendantFocusability="blocksDescendants"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/SmallPadding"
+        >
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:minHeight="@dimen/SmallListHeight"
+            android:paddingLeft="@dimen/NormalPadding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:maxWidth="320dp"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="-1"
+                android:ellipsize="marquee"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:textColor="@color/delist_bk" />
+            <TextView
+                android:id="@+id/sub_title"
+                style="@style/CCPFontPreferenceLarge"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:textColor="@color/toast_text_content"
+                android:textSize="@dimen/SmallTextSize"
+                android:maxWidth="270dp"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="-1"
+                android:ellipsize="marquee"
+                android:focusableInTouchMode="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/setupRecordPreSeekbar"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="140dp"
+            android:layout_alignParentLeft="true"
+            android:max="30"
+            android:progress="0"
+            android:progressDrawable="@drawable/video_control_seekbar_bg"
+            android:thumb="@drawable/thumb_bar"
+            android:maxHeight="5dp"
+            android:minHeight="5dp"
+            android:visibility="visible"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="25dp"
+                android:src="@drawable/arrow"
+                android:id="@+id/arrow"
+                android:layout_marginTop="3dp"
+                android:alpha="0"/>
+            <TextView
+                android:id="@+id/summary"
+                style="@style/CCPFontPreferenceSummary"
+                android:paddingBottom="@dimen/SmallPadding"
+                android:paddingRight="@dimen/SmallPadding"
+                android:paddingTop="@dimen/SmallPadding"
+                android:singleLine="true"
+                android:visibility="visible"
+                android:textColor="@color/toast_text_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="online"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/NormalPadding" />
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_switch"
+                android:button="@null"
+                android:checked="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:visibility="visible"/>
+            <Spinner
+                android:id="@+id/spinnerCameraDefinition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/spinner" />
+    </RelativeLayout>
+        <View
+        android:id="@+id/item_bottom_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/list_divider"
+            android:visibility="gone"/>
+</LinearLayout>

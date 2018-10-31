@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <me.hekr.sthome.commonBaseView.RoundProgressView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/roundprogress"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/NormalPadding"
+        android:layout_marginRight="@dimen/NormalPadding"
+        android:id="@+id/tishi"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:id="@+id/fail_reason"
+        android:layout_marginTop="20dp"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"/>
+
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/retry"
+        android:text="@string/retry"
+        android:textSize="@dimen/addsys_bottom_text_size"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/modle_done"
+        android:visibility="gone"
+        android:textColor="@color/white"/>
+</LinearLayout>

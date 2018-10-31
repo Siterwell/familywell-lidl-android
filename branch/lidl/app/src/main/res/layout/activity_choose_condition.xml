@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/NormalPadding"
+        android:id="@+id/one_condition">
+
+
+        <ImageView
+            android:id="@+id/checkstatus1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/g_select"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="@string/one_condition"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@id/checkstatus1"
+            android:layout_marginRight="@dimen/NormalPadding"
+            android:textSize="@dimen/NormalTextSize"/>
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/LargePadding"
+        android:text="@string/one_condition_hint"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/NormalPadding"
+        android:id="@+id/all_condition">
+
+
+        <ImageView
+            android:id="@+id/checkstatus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/g_select"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="@string/all_condition"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@id/checkstatus"
+            android:layout_marginRight="@dimen/NormalPadding"
+            android:textSize="@dimen/NormalTextSize"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/LargePadding"
+        android:text="@string/all_condition_hint_one"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/LargePadding"
+        android:text="@string/all_condition_hint_two"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/LargePadding"
+        android:text="@string/all_condition_hint_three"/>
+</LinearLayout>

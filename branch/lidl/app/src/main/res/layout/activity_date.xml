@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_centerInParent="true"
+    android:orientation="vertical" >
+    <!-- 日历时间选择栏 -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/monitor_sel"
+        android:paddingTop="3dp">
+        <ImageView
+             android:id="@+id/iv_left"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:contentDescription="@null"
+             android:background="@mipmap/arrow_last" />
+      	<ImageView
+             android:id="@+id/iv_right"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:contentDescription="@null"
+             android:background="@mipmap/arrow_next" />
+        <LinearLayout
+             android:id="@+id/date_operator_ll"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:gravity="center"
+             android:layout_centerInParent="true"
+             android:orientation="horizontal" >
+
+          <TextView
+              android:id="@+id/date_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:textColor="@color/white"
+              android:textSize="20sp"
+              android:text="" />
+         </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <me.hekr.sthome.commonBaseView.WeekDayView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/ipc_base_color" />
+            <me.hekr.sthome.commonBaseView.MonthDateView
+                android:id="@+id/monthDateView"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/NormalPadding"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/circle_shape"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_video_days"/>
+        </LinearLayout>
+        </LinearLayout>
+</LinearLayout>

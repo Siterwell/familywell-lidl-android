@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.hekr.sthome.DeviceListActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="退出登录"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/connection"
+        android:orderInCategory="100"
+        android:title="连接服务器"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/bindKey"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="绑定设备" />
+    <item
+        android:id="@+id/myHome"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="我的家" />
+
+</menu>

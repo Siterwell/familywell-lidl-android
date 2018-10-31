@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="thtrigger_method">
+        <item>Temperatur</item>
+        <item>Luftfeuchtigkeit</item>
+    </array>
+    <array name="thtrigger_style">
+        <item>&lt;=</item>
+        <item>>=</item>
+    </array>
+    <string-array name="week">
+        <item>Mo</item>
+        <item>Di</item>
+        <item>Mi</item>
+        <item>Do</item>
+        <item>Fr</item>
+        <item>Sa</item>
+        <item>So</item>
+    </string-array>
+    <string-array name="week3">
+        <item>So</item>
+        <item>Mo</item>
+        <item>Di</item>
+        <item>Mi</item>
+        <item>Do</item>
+        <item>Fr</item>
+        <item>So</item>
+    </string-array>
+    <string-array name="socket_actions">
+        <item>Einschalten</item>
+        <item>Ausschalten</item>
+        <item>UMSCHALTER</item>
+    </string-array>
+    <string-array name="door_actions">
+        <item>TÜR OFFEN</item>
+        <item>TÜR GESCHLOSSEN</item>
+        <item>WARTE AUF TÜR</item>
+    </string-array>
+    <string-array name="sos_signs">
+        <item>HILFE</item>
+        <item>OFFLINE</item>
+    </string-array>
+    <string-array name="pir_signs">
+        <item>DA IST JEMAND</item>
+        <item>NORMAL</item>
+    </string-array>
+    <string-array name="gateway_actions">
+        <item>UNERLAUBTER EINGRIFF</item>
+        <item>WARNALARM</item>
+        <item>STILLE</item>
+    <item>Die glocke ALARM</item>
+    </string-array>
+    <string-array name="guard_actions">
+        <item>öffnen</item>
+        <item>schließen</item>
+    </string-array>
+    <string-array name="cx_alert_actions">
+        <item>Rauchmelder</item>
+        <item>Temperaturalarm</item>
+        <item>Alarm testen</item>
+    </string-array>
+    <string-array name="lamp_actions">
+        <item>rot</item>
+        <item>grün</item>
+        <item>blau</item>
+        <item>rot-grün</item>
+        <item>rot-blau</item>
+        <item>grün-blau</item>
+        <item>öffnen</item>
+        <item>schließen</item>
+        <item>Alarm</item>
+        <item>farbig</item>
+    </string-array>
+    <string-array name="mode_button_signs">
+        <item>HILFE</item>
+        <item>OFFLINE</item>
+    </string-array>
+    <string-array name="DeivceOperation">
+        <item>Gerät ersetzen</item>
+        <item>Gerät löschen</item>
+        <item>Name bearbeiten</item>
+    </string-array>
+    <string-array name="device_setup_alarm_level">
+        <item>Tiefer</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="device_setup_camera_definition_values">
+        <item>Am besten</item>
+        <item>Sehr gut</item>
+        <item>Gut</item>
+        <item>Durchschnittlich</item>
+        <item>Nicht gut</item>
+        <item>Mangelhaft</item>
+    </string-array>
+    <string-array name="device_setup_camera_noise_reduction_values">
+        <item>SCHLIESSEN</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="device_setup_camera_metering_values">
+        <item>Ganzheitliche Belichtungsmessung</item>
+        <item>Zentrale Belichtungsmessung</item>
+        <item>Punkt</item>
+    </string-array>
+    <string-array name="device_setup_record_mode_values">
+        <item>Immer</item>
+        <item>Nie</item>
+        <item>Verkettung</item>
+    </string-array>
+    <string-array name="device_setup_exposure_time_values">
+        <item>auto</item>
+        <item>1/50</item>
+        <item>1/120</item>
+        <item>1/250</item>
+        <item>1/500</item>
+        <item>1/1000</item>
+        <item>1/2000</item>
+        <item>1/4000</item>
+        <item>1/10000</item>
+    </string-array>
+    <string-array name="device_setup_scene_mode_values">
+        <item>automatisch</item>
+        <item>Innenbereich</item>
+        <item>Außenbereich</item>
+    </string-array>
+    <string-array name="device_setup_electronic_slow_shutter_values">
+        <item>AUS</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="device_setup_color_mode_values">
+        <item>Farbig</item>
+        <item>Schwarz-Weiß</item>
+    </string-array>
+    <string-array name="pic_type">
+        <item>Alle(s)</item>
+        <item>Alarm</item>
+        <item>Erkennung</item>
+        <item>Normal</item>
+        <item>Remote</item>
+        <item>Schlüssel</item>
+        <item>Zeitraffer</item>
+        <item>Serienbild</item>
+    </string-array>
+    <string-array name="record_type">
+        <item>Alle Videos</item>
+        <item>Videoalarmierung</item>
+        <item>Videoerkennung</item>
+        <item>Video normal</item>
+        <item>Video manuell</item>
+        <item>Remote-Video</item>
+    </string-array>
+    <string-array name="gatewaycolor">
+        <item>Dunkelgrün</item>
+        <item>Himmelblau</item>
+        <item>Purpurschwarz</item>
+        <item>Rosa</item>
+        <item>Hellgrün</item>
+        <item>Grasgrün</item>
+        <item>Mandarine</item>
+        <item>Marineblau</item>
+        <item>Keine Farbe</item>
+    </string-array>
+    <string-array name="check_pics">
+        <item>Remotebilder ansehen</item>
+        <item>Lokale Screenshots ansehen</item>
+    </string-array>
+    <string-array name="check_videos">
+        <item>Remotevideo ansehen</item>
+        <item>Lokales Video ansehen</item>
+    </string-array>
+    <array name="lianxi">
+        <item>+31(0)76-5977401</item>
+        <item>info@elro.eu</item>
+    </array>
+    <array name="lock_input">
+        <item>Dietrich</item>
+        <item>Code entsperren</item>
+        <item>Card entsperren</item>
+        <item>Fingerabdruck freischalten</item>
+        <item>Illegale Operation</item>
+        <item>Sabotage-Alarm</item>
+        <item>Bedrohung</item>
+    </array>
+    <array name="socket_channel">
+        <item>Kanal1</item>
+        <item>Kanal2</item>
+    </array>
+    <array name="dimming_modlue_action">
+        <item>OFFEN</item>
+        <item>GESCHLOSSEN</item>
+    </array>
+    <array name="question">
+        <item>WLAN passwort falsch</item>
+        <item>Leerzeichen probleme</item>
+        <item>2.4GHZ-WIFI</item>
+    </array>
+    <array name="question_detail">
+        <item>Sie füllen sie wäre falsch, wifi - passwort</item>
+        <item>Ihre router ssid Oder passwort kann aus leerzeichen</item>
+        <item>Das Produkt unterstützt Nur 2.4ghz frequenzen nicht unterstützt, wifi, 5 richtigen einstellungen, stellen sie bitte Sicher, dass router</item>
+    </array>
+</resources>

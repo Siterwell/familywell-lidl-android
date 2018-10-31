@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '23.0.3'
+
+    defaultConfig {
+        multiDexEnabled true
+        ndk {
+            abiFilters  "armeabi"
+        }
+
+        applicationId "com.cosa.silvercrest"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1100
+        versionName "1.100"
+
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "QdrGH5nq6m6BDx4ATwKJF9",
+                GETUI_APP_KEY   : "FWbcn1p7Ym5hBUdMS9naQ7",
+                GETUI_APP_SECRET: "79AGJOFRvy8FotbAAYYxu9"
+        ]
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+        }
+    }
+
+
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    compile 'me.hekr.sdk:core:2.0.0_beta8'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'org.jetbrains:annotations-java5:15.0'
+    compile 'com.zhy:base-adapter:2.0.0'
+    compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.google.firebase:firebase-messaging:10.2.6'
+    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
+    compile files('libs/lite-common-1.1.3.jar')
+    compile files('libs/android-async-http-1.4.9.jar')
+    compile files('libs/httpclient-4.4.1.1.jar')
+    compile files('libs/fastjson.jar')
+    compile files('libs/locSDK_6.13.jar')
+    compile files('libs/GetuiSDK2.10.3.5.jar')
+    compile files('libs/highlight.jar')
+    compile files('libs/LibFunSDK.jar')
+    compile files('libs/zbar.jar')
+    compile files('libs/Core.jar')
+    compile files('libs/dewarp.jar')
+    compile files('libs/MiPush_SDK_Client_3_5_1.jar')
+}
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroud_bk">
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/mainGround"
+        android:layout_marginTop="@dimen/add_n_group_item_up_marginBottom"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingRight="@dimen/modleCellList_paddingInnerRight"
+        android:paddingLeft="@dimen/modleCellList_paddingInnerLeft"
+        android:paddingTop="@dimen/modleCellList_paddingInnerTop"
+        android:paddingBottom="@dimen/modleCellList_paddingInnerBottom"
+        android:background="@color/white">
+
+        <GridView
+            android:id="@+id/equipShow"
+            android:numColumns="3"
+            android:verticalSpacing="@dimen/modleCellList_item_verticalSpacing"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            >
+        </GridView>
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/mainGround"
+        android:layout_marginBottom="@dimen/add_n_group_item_up_marginBottom"
+        />
+</LinearLayout>

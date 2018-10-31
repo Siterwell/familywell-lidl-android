@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        >
+
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/wifitag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/recent_device" />
+
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/modifypwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/modify_password" />
+
+
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/configration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/net_configuration" />
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/gps_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/gps_setting" />
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/switch_lan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/switch_language"
+            android:visibility="gone"/>
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/emergency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/emergency_number" />
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/wificonfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/wifi_config" />
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="true"
+            app:item_detailText=""
+            app:item_titleText="@string/instrution" />
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="false"
+            app:item_detailText=""
+            app:item_titleText="@string/about" />
+
+        <me.hekr.sthome.commonBaseView.SettingItem
+            android:id="@+id/btnAE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_accessoryType = "arrow"
+            app:item_showDivider="false"
+            app:item_titleText="@string/logout"
+            app:item_detailText=""
+            android:layout_marginTop="@dimen/NormalPadding"/>
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
+
+

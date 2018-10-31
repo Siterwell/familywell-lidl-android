@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Copyright (c) 2013 The CCP project authors. All Rights Reserved.
+
+   Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
+   that can be found in the LICENSE file in the root of the web site.
+
+    				http://www.yuntongxun.com
+
+   An additional intellectual property rights grant can be found
+   in the file PATENTS.  All contributing project authors may
+   be found in the AUTHORS file in the root of the source tree.
+ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/radius_corner_bg"
+    android:paddingLeft="@dimen/dialog_padding"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:paddingRight="@dimen/dialog_padding" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/MinDialogWidth"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/dialog_layout_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dialog_padding"
+                android:paddingBottom="@dimen/dialog_padding">
+
+                <TextView
+                    android:id="@+id/dialog_tv_title"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:soundEffectsEnabled="true"
+                    android:text="TextView"
+                    android:textColor="@color/text_title"
+                    android:textSize="@dimen/toast_view_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dialog_layout_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dialog_padding"
+                android:paddingRight="@dimen/dialog_padding" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/dialog_tv_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/text_color_selected"
+                            android:textSize="@dimen/toast_view_content"/>
+                    </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_layout_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_btnbar"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="1.0px">
+
+
+
+            <Button
+                android:id="@+id/dilaog_button2"
+                style="@style/DialogButton2.All"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="Button"
+                android:visibility="gone"
+                android:textSize="@dimen/toast_view_content"/>
+
+            <Button
+                android:id="@+id/dilaog_button1"
+                style="@style/DialogButton2.All"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="Button"
+                android:visibility="gone"
+                android:textSize="@dimen/toast_view_content"/>
+
+            <Button
+                android:id="@+id/dilaog_button3"
+                style="@style/DialogButton2.All"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="Button"
+                android:visibility="gone"
+                android:textSize="@dimen/toast_view_content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

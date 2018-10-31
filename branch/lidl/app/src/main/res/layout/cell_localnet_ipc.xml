@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/NormalPadding"
+    android:background="@drawable/list_item_selector">
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@mipmap/ship_sel"
+       android:layout_centerHorizontal="true"
+       android:id="@+id/sub_monitor"
+       android:layout_marginRight="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="left">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/monitor_name"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:text="我的家2"
+            style="@style/CCPPreferenceTextSmall"
+            android:textSize="12sp"
+            android:textColor="@color/text_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/monitor_sn"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:text="3dsadsadsa"
+            style="@style/CCPPreferenceTextSmall"
+            android:textSize="12sp"
+            android:textColor="@color/text_content" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/monitor_ip"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:text="192.168.1.123"
+            style="@style/CCPPreferenceTextSmall"
+            android:textSize="12sp"
+            android:textColor="@color/text_content" />
+    </LinearLayout>
+
+</LinearLayout>

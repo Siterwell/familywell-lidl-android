@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/home_half_height"
+       android:orientation="vertical"
+       android:id="@+id/totl"
+       android:background="@mipmap/mainbackground">
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/toolbar_height">
+
+           <RadioButton
+               android:id="@+id/title_home"
+               android:textAllCaps="false"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="@dimen/title_size"
+               android:drawableLeft="@drawable/arrow_down"
+               android:drawablePadding="@dimen/NormalPadding"
+               android:clickable="true"
+               android:button="@null"
+               android:text="@string/my_home"
+               android:textColor="@color/white"
+               android:layout_centerInParent="true" />
+
+           <ImageButton
+               android:layout_marginRight="@dimen/setting_marginRight"
+               android:id="@+id/detailEdit_img"
+               android:background="@drawable/setting"
+               android:layout_gravity="right"
+               android:layout_width="@dimen/setting_width"
+               android:layout_height="@dimen/setting_height"
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"/>
+       </RelativeLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/home_weather_height"
+           android:id="@+id/topp"
+           android:orientation="vertical">
+
+       </LinearLayout>
+   </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/home_half_height">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:paddingBottom="@dimen/home_middleImg_padding"
+            android:id="@+id/casaul"
+            >
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/home_middle_icon_size"
+        android:layout_height="@dimen/home_middle_icon_size"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/home_half_margin_top"
+        android:background="@drawable/cell_mode_ground"
+        android:id="@+id/nowmode"
+        >
+        <ImageView
+            android:layout_width="@dimen/home_middle_icon_size2"
+            android:layout_height="@dimen/home_middle_icon_size2"
+            android:src="@mipmap/home_mode2"
+            android:id="@+id/mode"/>
+        <TextView
+            android:layout_width="@dimen/home_middle_text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/home_mode"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:textColor="@color/text_color_selected"
+            android:gravity="center_horizontal"
+            android:id="@+id/zouma"/>
+    </LinearLayout>
+    <me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/drawer1"
+        app:direction="bottomToTop"
+        app:handle="@+id/warnlist"
+        app:content="@+id/content">
+        <include
+            android:id="@id/content"
+            layout="@layout/pen_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/lamp_dbg"
+            android:id="@id/warnlist">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/lamp_bg"
+                >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/lamp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equipment_warn"
+                    android:textColor="@color/white"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/arrow_up"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer>
+</FrameLayout>
