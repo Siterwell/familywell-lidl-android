@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "930272937290",
+    "firebase_url": "https://lidl-f0a6e.firebaseio.com",
+    "project_id": "lidl-f0a6e",
+    "storage_bucket": "lidl-f0a6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930272937290:android:ed256387da56d5fd",
+        "android_client_info": {
+          "package_name": "com.cosa.silvercrest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930272937290-rmo9h4ajmbkqk86uk72o8fc09r1dpf6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCrEngcnsRoBzFrSSuWatWUPtYStw8X3o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
