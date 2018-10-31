@@ -34,13 +34,13 @@ captures/
 
 # IntelliJ
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
-.idea/caches
+branch/lidl/.idea/workspace.xml
+branch/lidl/.idea/tasks.xml
+branch/lidl/.idea/gradle.xml
+branch/lidl/.idea/assetWizardSettings.xml
+branch/lidl/.idea/dictionaries
+branch/lidl/.idea/libraries
+branch/lidl/.idea/caches
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
