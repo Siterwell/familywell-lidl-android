@@ -516,59 +516,6 @@
             android:label="siterwell服务"
             android:exported="true"/>
 
-
-        <!-- 华为推送服务  -->
-        <!-- 第三方相关 :接收Push消息（注册、Push消息、Push连接状态、标签，LBS上报结果）广播 -->
-        <!--<receiver android:name=".push.HuaweiPushRevicer" >-->
-            <!--<intent-filter>-->
-                <!--&lt;!&ndash; 必须,用于接收token&ndash;&gt;-->
-                <!--<action android:name="com.huawei.android.push.intent.REGISTRATION" />-->
-                <!--&lt;!&ndash; 必须，用于接收消息&ndash;&gt;-->
-                <!--<action android:name="com.huawei.android.push.intent.RECEIVE" />-->
-                <!--&lt;!&ndash; 可选，用于点击通知栏或通知栏上的按钮后触发onEvent回调&ndash;&gt;-->
-                <!--<action android:name="com.huawei.android.push.intent.CLICK" />-->
-                <!--&lt;!&ndash; 可选，查看push通道是否连接，不查看则不需要&ndash;&gt;-->
-                <!--<action android:name="com.huawei.intent.action.PUSH_STATE" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-
-        <!-- 备注：Push相关的android组件需要添加到业务的AndroidManifest.xml,
-          Push相关android组件运行在另外一个进程是为了防止Push服务异常而影响主业务 -->
-
-        <!-- PushSDK:PushSDK接收外部请求事件入口 -->
-        <!--<receiver-->
-            <!--android:name="com.huawei.android.pushagent.PushEventReceiver"-->
-            <!--android:process=":pushservice" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.huawei.android.push.intent.REFRESH_PUSH_CHANNEL" />-->
-                <!--<action android:name="com.huawei.intent.action.PUSH" />-->
-                <!--<action android:name="com.huawei.intent.action.PUSH_ON" />-->
-                <!--<action android:name="com.huawei.android.push.PLUGIN" />-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.PACKAGE_ADDED" />-->
-                <!--<action android:name="android.intent.action.PACKAGE_REMOVED" />-->
-                <!--<data android:scheme="com.siterwell.familywell" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-        <!--<receiver-->
-            <!--android:name="com.huawei.android.pushagent.PushBootReceiver"-->
-            <!--android:process=":pushservice" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.huawei.android.push.intent.REGISTER" />-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-            <!--</intent-filter>-->
-            <!--<meta-data-->
-                <!--android:name="CS_cloud_version"-->
-                <!--android:value="\u0032\u0037\u0030\u0035" />-->
-        <!--</receiver>-->
-
-        <!-- PushSDK:Push服务 -->
-        <!--<service-->
-            <!--android:name="com.huawei.android.pushagent.PushService"-->
-            <!--android:process=":pushservice" >-->
-        <!--</service>-->
-
     </application>
 
 </manifest>

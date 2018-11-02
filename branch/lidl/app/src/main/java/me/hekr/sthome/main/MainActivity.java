@@ -153,20 +153,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             Log.i(TAG,abc+"set alias uid =" + CCPAppManager.getUserId());
         }
 
-
-
-            if( "honor".equals(SystemUtil.getDeviceBrand().toLowerCase()) || "huawei".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-
-                com.huawei.android.pushagent.api.PushManager.requestToken(this);
-            }
-            else{
-
-                String fcmclientid = FirebaseInstanceId.getInstance().getToken();
-                if(!TextUtils.isEmpty(fcmclientid)){
-                    Log.i(TAG,"FCM平台CLIENTID："+fcmclientid);
-                    SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-                    ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
-                    String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
+        String fcmclientid = FirebaseInstanceId.getInstance().getToken();
+        if(!TextUtils.isEmpty(fcmclientid)){
+            Log.i(TAG,"FCM平台CLIENTID："+fcmclientid);
+            SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
+            ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
+            String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
 //                    if("hekr.me".equals(autoflag)){
 //                        String cid = PushManager.getInstance().getClientid(this);
 //                        if(!TextUtils.isEmpty(cid)) {
@@ -193,42 +185,39 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 //                        }
 //                    }else{
 
-                    STEvent stEvent = new STEvent();
-                    stEvent.setRefreshevent(9);
-                    stEvent.setFcm_token(fcmclientid);
-                    EventBus.getDefault().post(stEvent);
+            STEvent stEvent = new STEvent();
+            stEvent.setRefreshevent(9);
+            stEvent.setFcm_token(fcmclientid);
+            EventBus.getDefault().post(stEvent);
 
-                        HekrUserAction.getInstance(this).unPushTagBind(PushManager.getInstance().getClientid(this), 0, new HekrUser.UnPushTagBindListener() {
-                            @Override
-                            public void unPushTagBindSuccess() {
-                                Log.i(TAG,"FCM绑定的同时解绑个推成功");
-                            }
+            HekrUserAction.getInstance(this).unPushTagBind(PushManager.getInstance().getClientid(this), 0, new HekrUser.UnPushTagBindListener() {
 
-                            @Override
-                            public void unPushTagBindFail(int errorCode) {
-                                Log.i(TAG,"FCM绑定的同时解绑个推失败");
-                            }
-                        });
+                @Override
+                public void unPushTagBindSuccess() {
+                    Log.i(TAG,"FCM绑定的同时解绑个推成功");
+                }
+
+                @Override
+                public void unPushTagBindFail(int errorCode) {
+                    Log.i(TAG,"FCM绑定的同时解绑个推失败");
+                }
+            });
 
 //                    }
 
 
-                }else{
-                    String cid = PushManager.getInstance().getClientid(this);
-                    if(!TextUtils.isEmpty(cid)) {
-                        Log.i(TAG, "个推client id =" + cid);
-                        STEvent stEvent = new STEvent();
-                        stEvent.setRefreshevent(11);
-                        stEvent.setFcm_token(cid);
-                        EventBus.getDefault().post(stEvent);
-                    }else{
-                        Log.i(TAG, "个推client id为空");
-                    }
-                }
+        }else{
+            String cid = PushManager.getInstance().getClientid(this);
+            if(!TextUtils.isEmpty(cid)) {
+                Log.i(TAG, "个推client id =" + cid);
+                STEvent stEvent = new STEvent();
+                stEvent.setRefreshevent(11);
+                stEvent.setFcm_token(cid);
+                EventBus.getDefault().post(stEvent);
+            }else{
+                Log.i(TAG, "个推client id为空");
             }
-
-
-
+        }
 
     }
 
