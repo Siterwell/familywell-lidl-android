@@ -514,7 +514,7 @@
             android:name=".updateApp.UpdateService"
             android:exported="true"
             android:label="UpdateService"/>
-        <service android:name=".push.RGTIntentService" />
+        <!--<service android:name=".push.RGTIntentService" />-->
 
         <service
             android:name=".service.SiterService"
