@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.igexin.sdk.PushManager;
-import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.io.InvalidClassException;
 
@@ -197,25 +196,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
 
 
                                 }
-                            } else if ("xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())) {
-
-                                String clientid = MiPushClient.getRegId(ConfigActivity.this);
-                                HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(clientid, 1, new HekrUser.UnPushTagBindListener() {
-                                    @Override
-                                    public void unPushTagBindSuccess() {
-                                        handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                    }
-
-                                    @Override
-                                    public void unPushTagBindFail(int errorCode) {
-                                        if(errorCode == 1){
-                                            handler.sendEmptyMessage(LOGOUT_SUCCESS);
-                                        }else{
-                                            showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
-                                            hideProgressDialog();
-                                        }
-                                    }
-                                });
 
                             } else {
 
