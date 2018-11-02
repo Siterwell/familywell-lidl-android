@@ -1,6 +1,5 @@
 package me.hekr.sthome.equipment;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +14,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.igexin.sdk.PushManager;
-import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.io.InvalidClassException;
 
@@ -28,25 +26,20 @@ import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.commonBaseView.ECListDialog;
 import me.hekr.sthome.commonBaseView.SettingItem;
 
-import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.push.logger.Log;
-import me.hekr.sthome.service.SiterService;
-import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.SystemUtil;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.updateApp.UpdateAppAuto;
 import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
-import me.hekr.sthome.xmipc.ActivityGuideDeviceWifiConfig;
 
 /**
  * Created by xjj on 2016/12/20.
@@ -197,25 +190,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
 
 
                                 }
-                            } else if ("xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())) {
-
-                                String clientid = MiPushClient.getRegId(ConfigActivity.this);
-                                HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(clientid, 1, new HekrUser.UnPushTagBindListener() {
-                                    @Override
-                                    public void unPushTagBindSuccess() {
-                                        handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                    }
-
-                                    @Override
-                                    public void unPushTagBindFail(int errorCode) {
-                                        if(errorCode == 1){
-                                            handler.sendEmptyMessage(LOGOUT_SUCCESS);
-                                        }else{
-                                            showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
-                                            hideProgressDialog();
-                                        }
-                                    }
-                                });
 
                             } else {
 

@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.igexin.sdk.PushManager;
-import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -187,23 +186,6 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
                     });
 
                 }
-            }else if("xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-                String clientid = MiPushClient.getRegId(SwitchLanActivity.this);
-                JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-                jsonObject.put("clientId",clientid);
-                jsonObject.put("locale",lan);
-                jsonObject.put("pushPlatform","XIAOMI");
-                HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
-                    @Override
-                    public void getSuccess(Object object) {
-                        handler.sendMessageDelayed(message,1000);
-                    }
-
-                    @Override
-                    public void getFail(int errorCode) {
-                        handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                    }
-                });
             }
             else{
                 String token = PushManager.getInstance().getClientid(this);
