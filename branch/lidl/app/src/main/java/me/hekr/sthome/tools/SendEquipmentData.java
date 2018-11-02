@@ -3,6 +3,8 @@ package me.hekr.sthome.tools;
 import android.content.Context;
 import android.util.Log;
 
+import com.xiaomi.mipush.sdk.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

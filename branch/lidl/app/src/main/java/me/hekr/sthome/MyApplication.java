@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.multidex.MultiDexApplication;
@@ -14,13 +15,18 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.igexin.sdk.PushManager;
 import com.lib.funsdk.support.FunSupport;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
 
 import me.hekr.sdk.HekrSDK;
+import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.main.HomeFragment;
 import me.hekr.sthome.push.GTPushService;
 import me.hekr.sthome.push.RGTIntentService;
@@ -44,7 +50,11 @@ public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        // 注册push服务，注册成功后会向DemoMessageReceiver发送广播
+        // 可以从DemoMessageReceiver的onCommandResult方法中MiPushCommandMessage对象参数中获取注册信息
+        if (shouldInit()) {
+            MiPushClient.registerPush(this, APP_ID, APP_KEY);
+        }
         FunSupport.getInstance().init(getApplicationContext());
         HekrSDK.init(getApplicationContext(), R.raw.config);
         HekrSDK.enableDebug(true);
