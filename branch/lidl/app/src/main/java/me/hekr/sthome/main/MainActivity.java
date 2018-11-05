@@ -1,13 +1,17 @@
 package me.hekr.sthome.main;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -85,6 +89,9 @@ import me.hekr.sthome.updateApp.UpdateAppAuto;
  */
 public class MainActivity extends AppCompatActivity implements DeviceFragment.SetPagerView{
     private static final String TAG = "MainActivity";
+
+    public static final int REQUEST_PERMISSION = 0xA0;
+
     private CustomViewPager viewPager;// 页卡内容
     private List<Fragment> fragments;// Tab页面列表
     private RadioGroup bottomRg;
@@ -101,12 +108,17 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     private FirmwareBean file;
     private ECAlertDialog ecAlertDialog;
     public static boolean flag_checkfireware;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         initCurrentGateway();
         ConnectionPojo.getInstance().open_app = 1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_home);
         EventBus.getDefault().register(this);
+
+        checkPermissions();
+
         updateAppAuto = new UpdateAppAuto(this);
         initView();
         if(getIntent().getBooleanExtra("empty",false)){
@@ -117,6 +129,49 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             updateAppAuto.initCheckUpate();
             checkUpdatefirm();
         }
+    }
+
+    private void checkPermissions() {
+        List<String> permissionList = new ArrayList<>();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.CAMERA);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.RECORD_AUDIO);
+        }
+
+        if (!permissionList.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    permissionList.toArray(new String[0]), REQUEST_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSION:
+                // do something...
+                break;
+            default:
+                // do something...
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void initView() {
@@ -379,9 +434,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
      * 为选项卡绑定监听器
      */
     public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
-
-
-
 
         public void onPageScrollStateChanged(int index) {
             try {

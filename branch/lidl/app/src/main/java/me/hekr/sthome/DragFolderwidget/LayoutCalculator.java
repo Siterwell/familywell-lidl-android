@@ -66,7 +66,7 @@ public class LayoutCalculator {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         scale = displayMetrics.density;
         int Dpi = displayMetrics.densityDpi;
-        float f = FloatMath.sqrt(displayMetrics.widthPixels * displayMetrics.widthPixels + displayMetrics.heightPixels
+        float f = (float)Math.sqrt(displayMetrics.widthPixels * displayMetrics.widthPixels + displayMetrics.heightPixels
                 * displayMetrics.heightPixels)
                 / Dpi;
         int icon = (int) (0.65F * Dpi * (f / 9.697F));
