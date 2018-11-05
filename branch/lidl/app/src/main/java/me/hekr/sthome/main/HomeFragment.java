@@ -749,7 +749,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                                             + "&appid=b45eb4739891c226b7a36613ce3d1dbd&lang=" + unitTools.readLanguage());
 
 
-                                    Config.getPlaceInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
+                                    Config.getPlaceInfo(getActivity(), new HekrUser.LoginListener() {
                                         @Override
                                         public void loginSuccess(String str) {
                                             try {
@@ -779,7 +779,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                                         public void loginFail(int errorCode) {
                                             Log.i("ceshi","城市信息获取失败:"+errorCode);
                                         }
-                                    },"http://maps.google.cn/maps/api/geocode/json?latlng="+lat+","+lon+"&sensor=true&language="+unitTools.readLanguage());
+                                    },"http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lon+"&sensor=true&language="+unitTools.readLanguage());
 
 
                                 }
