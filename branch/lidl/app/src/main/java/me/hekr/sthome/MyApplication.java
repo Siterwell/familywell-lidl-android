@@ -10,12 +10,14 @@ import android.os.Process;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.igexin.sdk.PushManager;
 import com.lib.funsdk.support.FunSupport;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.List;
 
 import me.hekr.sdk.HekrSDK;
@@ -41,6 +43,7 @@ public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         FunSupport.getInstance().init(getApplicationContext());
         HekrSDK.init(getApplicationContext(), R.raw.config);
         HekrSDK.enableDebug(true);
