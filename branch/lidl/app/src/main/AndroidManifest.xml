@@ -51,14 +51,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<service-->
-            <!--android:name="com.baidu.location.f"-->
-            <!--android:enabled="true"-->
-            <!--android:process=":remote"/>-->
 
-        <!--<meta-data-->
-            <!--android:name="com.baidu.lbsapi.API_KEY"-->
-            <!--android:value="jNjVPKScBhnG99OW78zrVLGEKGTOuUpD" />-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="jNjVPKScBhnG99OW78zrVLGEKGTOuUpD" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
