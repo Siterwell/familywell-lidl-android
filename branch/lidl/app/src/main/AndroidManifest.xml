@@ -506,6 +506,11 @@
             android:label="siterwell服务"
             android:exported="true"/>
 
+        <!-- Fetch Geolocation to address -->
+        <service
+            android:name=".service.FetchAddressIntentService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
