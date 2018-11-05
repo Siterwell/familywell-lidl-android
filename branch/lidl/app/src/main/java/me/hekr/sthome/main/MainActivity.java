@@ -625,11 +625,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 CCPAppManager.setClientUser(null);
                 ControllerWifi.getInstance().wifiTag = false;
 
-                try {
-                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                } catch (InvalidClassException e) {
-                    e.printStackTrace();
-                }
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();

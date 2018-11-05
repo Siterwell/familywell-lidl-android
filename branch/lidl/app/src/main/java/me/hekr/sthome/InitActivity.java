@@ -116,11 +116,6 @@ private static boolean flag_login_timeout = false;
                     int code = d.getInteger("code");
                     //密码错误
                     if(code == 3400010){
-                        try {
-                            ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                        } catch (InvalidClassException e) {
-                            e.printStackTrace();
-                        }
                         HekrUserAction.getInstance(InitActivity.this).userLogout();
                         CCPAppManager.setClientUser(null);
                         startActivity(new Intent(InitActivity.this,LoginActivity.class));
@@ -217,11 +212,6 @@ private static boolean flag_login_timeout = false;
                 CCPAppManager.setClientUser(null);
                 ControllerWifi.getInstance().wifiTag = false;
 
-                try {
-                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                } catch (InvalidClassException e) {
-                    e.printStackTrace();
-                }
                 Intent intent = new Intent(this,LoginActivity.class);
                 startActivity(intent);
                 finish();

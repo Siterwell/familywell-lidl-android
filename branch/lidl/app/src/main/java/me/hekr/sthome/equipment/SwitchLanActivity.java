@@ -120,13 +120,6 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
         lan_now = tools.readLanguage();
     }
 
-    private String getHuaweiToken(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
 
     Handler handler = new Handler() {
         @Override
@@ -161,50 +154,22 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
         String fcmtoken = FirebaseInstanceId.getInstance().getToken();
         if(TextUtils.isEmpty(fcmtoken)){
 
-
-            if("huawei".equals(SystemUtil.getDeviceBrand().toLowerCase()) || "honor".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-                String token = getHuaweiToken();
-                if(TextUtils.isEmpty(token)){
-
-                    handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                }else{
-
-                    JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-                    jsonObject.put("clientId",token);
-                    jsonObject.put("locale",lan);
-                    jsonObject.put("pushPlatform","HUAWEI");
-                    HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
-                        @Override
-                        public void getSuccess(Object object) {
-                            handler.sendMessageDelayed(message,1000);
-                        }
-
-                        @Override
-                        public void getFail(int errorCode) {
-                            handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                        }
-                    });
-
+            String token = PushManager.getInstance().getClientid(this);
+            JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
+            jsonObject.put("clientId",token);
+            jsonObject.put("locale",lan);
+            jsonObject.put("pushPlatform","GETUI");
+            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
+                @Override
+                public void getSuccess(Object object) {
+                    handler.sendMessageDelayed(message,1000);
                 }
-            }
-            else{
-                String token = PushManager.getInstance().getClientid(this);
-                JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-                jsonObject.put("clientId",token);
-                jsonObject.put("locale",lan);
-                jsonObject.put("pushPlatform","GETUI");
-                HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
-                    @Override
-                    public void getSuccess(Object object) {
-                        handler.sendMessageDelayed(message,1000);
-                    }
 
-                    @Override
-                    public void getFail(int errorCode) {
-                        handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                    }
-                });
-            }
+                @Override
+                public void getFail(int errorCode) {
+                    handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
+                }
+            });
 
         }else{
             JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();

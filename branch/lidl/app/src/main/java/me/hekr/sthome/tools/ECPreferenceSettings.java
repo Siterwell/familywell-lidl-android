@@ -14,7 +14,6 @@ public enum ECPreferenceSettings {
     SETTINGS_CONFIG_REMEMBER_PASSWORD("com.siterwell.sthome.configrememberpassword",Boolean.TRUE),
     SETTINGS_LOCK_PASSWORD("com.siterwell.sthome.lockpassword",""),
     SETTINGS_CONFIG_REMEMBER_LOCK_PASSWORD("com.siterwell.sthome.rememberlockpassword",Boolean.TRUE),
-    SETTINGS_HUAWEI_TOKEN("com.siterwell.sthome.huaweitoken",""),
     SETTINGS_DOMAIN("com.siterwell.sthome.domain","hekr.me"),
     SETTINGS_PGS_SETTING("com.siterwell.sthome.gps","yes");
     private final String mId;

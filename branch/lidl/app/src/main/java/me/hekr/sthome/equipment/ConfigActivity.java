@@ -1,5 +1,6 @@
 package me.hekr.sthome.equipment;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -74,14 +75,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
         if(!lan_new.equals(lan_now)){
             finish();
         }
-    }
-
-    private String getHuaweiToken(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
     }
 
     public void setUpViews() {
@@ -164,63 +157,29 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
 
                         showProgressDialog(getResources().getString(R.string.logouting));
 
-                            if ("huawei".equals(SystemUtil.getDeviceBrand().toLowerCase()) || "honor".equals(SystemUtil.getDeviceBrand().toLowerCase())) {
-                                String token = getHuaweiToken();
-                                if (TextUtils.isEmpty(token)) {
+                        String fcmtoken = FirebaseInstanceId.getInstance().getToken();
+                        if(TextUtils.isEmpty(fcmtoken)) {
+                            handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
+                        }else{
+
+                            HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(fcmtoken, 3, new HekrUser.UnPushTagBindListener() {
+                                @Override
+                                public void unPushTagBindSuccess() {
                                     handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                } else {
-
-                                    HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(token, 2, new HekrUser.UnPushTagBindListener() {
-                                        @Override
-                                        public void unPushTagBindSuccess() {
-                                            handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                        }
-
-                                        @Override
-                                        public void unPushTagBindFail(int errorCode) {
-                                            if(errorCode == 1){
-                                                handler.sendEmptyMessage(LOGOUT_SUCCESS);
-                                            }else{
-                                                showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
-                                                hideProgressDialog();
-                                            }
-
-                                        }
-                                    });
-
-
                                 }
 
-                            } else {
-
-                                String fcmtoken = FirebaseInstanceId.getInstance().getToken();
-                                if(TextUtils.isEmpty(fcmtoken)) {
-                                    handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                }else{
-
-                                    HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(fcmtoken, 3, new HekrUser.UnPushTagBindListener() {
-                                        @Override
-                                        public void unPushTagBindSuccess() {
-                                            handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                        }
-
-                                        @Override
-                                        public void unPushTagBindFail(int errorCode) {
-                                            if(errorCode == 1){
-                                                handler.sendEmptyMessage(LOGOUT_SUCCESS);
-                                            }else{
-                                                showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
-                                                hideProgressDialog();
-                                            }
-                                        }
-                                    });
-
+                                @Override
+                                public void unPushTagBindFail(int errorCode) {
+                                    if(errorCode == 1){
+                                        handler.sendEmptyMessage(LOGOUT_SUCCESS);
+                                    }else{
+                                        showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
+                                        hideProgressDialog();
+                                    }
                                 }
+                            });
 
-
-
-
-                            }
+                        }
 
                         String getui = PushManager.getInstance().getClientid(ConfigActivity.this);
                         if(!TextUtils.isEmpty(getui)){
@@ -294,7 +253,7 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
    }
 
 
-
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -306,11 +265,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
                         @Override
                         public void onSuccess() {
                             hideProgressDialog();
-                            try {
-                                ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                            } catch (InvalidClassException e) {
-                                e.printStackTrace();
-                            }
                             HekrUserAction.getInstance(ConfigActivity.this).userLogout();
                             CCPAppManager.setClientUser(null);
                             finish();
@@ -321,11 +275,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
                             hideProgressDialog();
 
                             if(errorCode==1){
-                                try {
-                                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                                } catch (InvalidClassException e) {
-                                    e.printStackTrace();
-                                }
                                 HekrUserAction.getInstance(ConfigActivity.this).userLogout();
 
                                 CCPAppManager.setClientUser(null);
