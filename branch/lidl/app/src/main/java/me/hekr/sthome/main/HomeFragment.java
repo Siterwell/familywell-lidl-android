@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,17 +18,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baidu.location.LocationClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.litesuits.android.log.Log;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -51,7 +50,6 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.MenuDialog;
 import me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer;
 import me.hekr.sthome.commonBaseView.PullListView;
-import me.hekr.sthome.commonBaseView.Weatherlinearlayout;
 import me.hekr.sthome.equipment.ConfigActivity;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
@@ -59,7 +57,6 @@ import me.hekr.sthome.event.ThcheckEvent;
 import me.hekr.sthome.history.HistoryAdapter;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
-import me.hekr.sthome.http.bean.ProfileBean;
 import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.MonitorBean;
@@ -76,7 +73,6 @@ import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.MyLocationListener;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneGroupData;
@@ -124,8 +120,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
     private View empty;
     private int page = 0;
     private UnitTools unitTools;
-    public static LocationClient mLocationClient;
-    private MyLocationListener myLocationListener;
+    private FusedLocationProviderClient mFusedLocationClient;
 
 
     private String gps_place="";
@@ -417,7 +412,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mLocationClient.stop();
         EventBus.getDefault().unregister(this);
     }
 
@@ -639,7 +633,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
         startActivity(intent);
     }
 	
-	    @Override
+    @Override
     public void dmissListener() {
         menuDialog.dismiss();
     }
@@ -704,94 +698,97 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
 
 
     private void initGps(){
-        myLocationListener = new MyLocationListener(this.getActivity()) {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            double lat = location.getLatitude();
+                            double lon = location.getLongitude();
+                            String address = "纬度：" + lat + "经度：" + lon;
+                            Log.i("ceshi", "Google Location > " + address);
 
-            @Override
-            public void logMsg(double lat,double lon) {
-                // TODO Auto-generated method stub
+                            try {
+                                if ("".equals(weather_txt)) {
 
-                String address = "纬度：" + lat + "经度：" + lon;
-                Log.i("ceshi", address);
-                try {
-                    if ("".equals(weather_txt)) {
+                                    Config.getWeatherInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
+                                        @Override
+                                        public void loginSuccess(String str) {
+                                            Log.i("ceshi", "天气数据:" + str);
+                                            try {
+                                                JSONObject jsonObject = JSONObject.parseObject(str);
+                                                JSONArray jsonArray = jsonObject.getJSONArray("weather");
+                                                String weather = jsonArray.getJSONObject(0).getString("description");
+                                                String weather_ico = jsonArray.getJSONObject(0).getString("icon");
+                                                int hum = jsonObject.getJSONObject("main").getInteger("humidity");
+                                                double temp_hua = jsonObject.getJSONObject("main").getDouble("temp");
 
-                        Config.getWeatherInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
-                            @Override
-                            public void loginSuccess(String str) {
-                                Log.i("ceshi", "天气数据:" + str);
-                                try {
-                                    JSONObject jsonObject = JSONObject.parseObject(str);
-                                    JSONArray jsonArray = jsonObject.getJSONArray("weather");
-                                    String weather = jsonArray.getJSONObject(0).getString("description");
-                                    String weather_ico = jsonArray.getJSONObject(0).getString("icon");
-                                    int hum = jsonObject.getJSONObject("main").getInteger("humidity");
-                                    double temp_hua = jsonObject.getJSONObject("main").getDouble("temp");
-
-                                    weather_txt = weather;
-                                    gpshum = ""+hum;
-                                    temp = String.valueOf((int) ((temp_hua - 273)));
-                                    gpsweather_ico = weather_ico;
-                                    initializeWeather();
+                                                weather_txt = weather;
+                                                gpshum = ""+hum;
+                                                temp = String.valueOf((int) ((temp_hua - 273)));
+                                                gpsweather_ico = weather_ico;
+                                                initializeWeather();
 
 
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+
+                                        }
+
+                                        @Override
+                                        public void loginFail(int errorCode) {
+                                            Log.i("ceshi", "errorCode:" + errorCode);
+                                        }
+                                    }, "http://api.openweathermap.org/data/2.5/weather?lat=" +
+                                            lat + "&lon=" + lon
+                                            + "&appid=b45eb4739891c226b7a36613ce3d1dbd&lang=" + unitTools.readLanguage());
+
+
+                                    Config.getPlaceInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
+                                        @Override
+                                        public void loginSuccess(String str) {
+                                            try {
+                                                JSONObject json = JSONArray.parseObject(str);
+                                                JSONArray s = json.getJSONArray("results");
+                                                JSONObject json2 = s.getJSONObject(0);
+                                                JSONArray s2 = json2.getJSONArray("address_components");
+
+                                                if(s2.size()>1){
+                                                    JSONObject json3 = s2.getJSONObject(1);
+                                                    String name = json3.getString("long_name");
+                                                    gps_place = name;
+                                                }else if(s2.size()==1){
+                                                    JSONObject json3 = s2.getJSONObject(0);
+                                                    String name = json3.getString("long_name");
+                                                    gps_place = name;
+                                                }
+                                                Log.i(TAG,"定位到城市:"+gps_place);
+                                                initializeWeather();
+                                            }catch (Exception e){
+                                                e.printStackTrace();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void loginFail(int errorCode) {
+                                            Log.i("ceshi","城市信息获取失败:"+errorCode);
+                                        }
+                                    },"http://maps.google.cn/maps/api/geocode/json?latlng="+lat+","+lon+"&sensor=true&language="+unitTools.readLanguage());
+
+
                                 }
-
-
+                            }catch (Exception e){
+                                e.printStackTrace();
                             }
-
-                            @Override
-                            public void loginFail(int errorCode) {
-                                Log.i("ceshi", "errorCode:" + errorCode);
-                            }
-                        }, "http://api.openweathermap.org/data/2.5/weather?lat=" +
-                                lat + "&lon=" + lon
-                                + "&appid=b45eb4739891c226b7a36613ce3d1dbd&lang=" + unitTools.readLanguage());
-
-
-                        Config.getPlaceInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
-                            @Override
-                            public void loginSuccess(String str) {
-                                try {
-                                    JSONObject json = JSONArray.parseObject(str);
-                                    JSONArray s = json.getJSONArray("results");
-                                    JSONObject json2 = s.getJSONObject(0);
-                                    JSONArray s2 = json2.getJSONArray("address_components");
-
-                                    if(s2.size()>1){
-                                        JSONObject json3 = s2.getJSONObject(1);
-                                        String name = json3.getString("long_name");
-                                        gps_place = name;
-                                    }else if(s2.size()==1){
-                                        JSONObject json3 = s2.getJSONObject(0);
-                                        String name = json3.getString("long_name");
-                                        gps_place = name;
-                                    }
-                                    Log.i(TAG,"定位到城市:"+gps_place);
-                                    initializeWeather();
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-
-                            }
-
-                            @Override
-                            public void loginFail(int errorCode) {
-                                Log.i("ceshi","城市信息获取失败:"+errorCode);
-                            }
-                        },"http://maps.google.cn/maps/api/geocode/json?latlng="+lat+","+lon+"&sensor=true&language="+unitTools.readLanguage());
-
-
+                        }
                     }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        };
-        mLocationClient.registerLocationListener(myLocationListener);
-        mLocationClient.start();
+                });
     }
 
 

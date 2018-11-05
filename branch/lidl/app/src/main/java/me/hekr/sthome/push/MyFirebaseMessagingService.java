@@ -211,12 +211,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     @Override
-    public void handleIntent(Intent intent) {
-        super.handleIntent(intent);
-        Log.i(TAG,"handleIntent");
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG,"onDestroy");

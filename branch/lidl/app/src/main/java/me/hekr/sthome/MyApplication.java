@@ -5,14 +5,11 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.igexin.sdk.PushManager;
 import com.lib.funsdk.support.FunSupport;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,7 +19,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import java.util.List;
 
 import me.hekr.sdk.HekrSDK;
-import me.hekr.sthome.main.HomeFragment;
 import me.hekr.sthome.push.GTPushService;
 import me.hekr.sthome.push.RGTIntentService;
 import me.hekr.sthome.service.SiterService;
@@ -106,7 +102,6 @@ public class MyApplication extends MultiDexApplication {
         String d = tools.readLanguage();
         Log.i("ceshi","语言为:"+d);
         CrashHandler.getInstance().init(getApplicationContext());
-        InitLocation();
         Intent intent = new Intent(this, SiterService.class);
         startService(intent);
     }
@@ -123,16 +118,6 @@ public class MyApplication extends MultiDexApplication {
 
     public static Activity getActivity(){
         return sActivity;
-    }
-
-    private void InitLocation(){
-        HomeFragment.mLocationClient = new LocationClient(this);
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
-        option.setCoorType("gcj02");//返回的定位结果是百度经纬度，默认值gcj02
-        option.setScanSpan(36000000);//设置发起定位请求的间隔时间为1000ms
-        option.setIsNeedAddress(true);
-        HomeFragment.mLocationClient.setLocOption(option);
     }
 
 
