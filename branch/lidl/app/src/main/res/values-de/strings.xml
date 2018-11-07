@@ -408,7 +408,7 @@
     <string name="delete_last_delay">Wenn Sie dieses Gerät löschen, wird auch die vorherige Verzögerung gelöscht</string>
     <string name="unamed">Unbenannt</string>
     <string name="save_or_not">Speichern?</string>
-    <string name="hum">Luftfeuchtigkeit:</string>
+    <string name="hum">Luftfeuchte:</string>
     <string name="gateway_login">Einloggen</string>
     <string name="gateway_login_out">Ausloggen</string>
     <string name="logouting">Jetzt loggen sie Sich aus</string>
