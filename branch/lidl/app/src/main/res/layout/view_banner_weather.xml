@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:id="@+id/gps_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="invisible">
         <ImageView
             android:layout_width="17dp"
             android:layout_height="20dp"

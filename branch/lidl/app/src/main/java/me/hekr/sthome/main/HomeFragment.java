@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
     private int page = 0;
     private UnitTools unitTools;
     private FusedLocationProviderClient mFusedLocationClient;
-    private AddressResultReceiver mResultReceiver;
+//    private AddressResultReceiver mResultReceiver;
 
 
     private String gps_place="";
@@ -757,51 +757,47 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                         }
 
                         // Start service and update UI to reflect new location
-                        startIntentService(location);
+//                        startIntentService(location);
                     }
                 });
     }
 
-    private void startIntentService(final Location location) {
-        mResultReceiver = new AddressResultReceiver(new Handler());
-
-        Intent intent = new Intent(getActivity(), FetchAddressIntentService.class);
-        intent.putExtra(FetchAddressIntentService.Constants.RECEIVER, mResultReceiver);
-        intent.putExtra(FetchAddressIntentService.Constants.LOCATION_DATA_EXTRA, location);
-        getActivity().startService(intent);
-    }
-
-
-    class AddressResultReceiver extends ResultReceiver {
-        public AddressResultReceiver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-
-            if (resultData == null) {
-                return;
-            }
-
-            // Display the address string
-            // or an error message sent from the intent service.
-            String address = resultData.getString(FetchAddressIntentService.Constants.RESULT_DATA_KEY);
-            if (address == null) {
-                address = "";
-            }
-            displayAddressOutput(address);
-
-            // Show a toast message if an address was found.
-//            if (resultCode == FetchAddressIntentService.Constants.SUCCESS_RESULT) {
-//                Toast.makeText(getContext(), "Address found", Toast.LENGTH_SHORT).show();
+    // TODO : [Ryan] get location address from google service
+//    private void startIntentService(final Location location) {
+//        mResultReceiver = new AddressResultReceiver(new Handler());
+//
+//        Intent intent = new Intent(getActivity(), FetchAddressIntentService.class);
+//        intent.putExtra(FetchAddressIntentService.Constants.RECEIVER, mResultReceiver);
+//        intent.putExtra(FetchAddressIntentService.Constants.LOCATION_DATA_EXTRA, location);
+//        getActivity().startService(intent);
+//    }
+//
+//
+//    class AddressResultReceiver extends ResultReceiver {
+//        public AddressResultReceiver(Handler handler) {
+//            super(handler);
+//        }
+//
+//        @Override
+//        protected void onReceiveResult(int resultCode, Bundle resultData) {
+//
+//            if (resultData == null) {
+//                return;
 //            }
-        }
-    }
-
-    private void displayAddressOutput(String address) {
-        gps_place = address;
-        initializeWeather();
-    }
+//
+//            // Display the address string
+//            // or an error message sent from the intent service.
+//            String address = resultData.getString(FetchAddressIntentService.Constants.RESULT_DATA_KEY);
+//            if (address == null) {
+//                address = "";
+//            }
+//            displayAddressOutput(address);
+//        }
+//    }
+//
+//    private void displayAddressOutput(String address) {
+//        gps_place = address;
+//        initializeWeather();
+//    }
 
 }
