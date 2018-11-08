@@ -14,9 +14,13 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
@@ -163,58 +167,25 @@ public class UpdateAppAuto {
     }
 
     public void getUpdateInfo(){
-//        String appname =  context.getPackageName();
-//        Log.i(TAG,"appname:"+appname);
-//        Config.getUpdateInfo(context, new HekrUser.LoginListener() {
-//            @Override
-//            public void loginSuccess(String str) {
-//                try {
-//                    JSONObject object = new JSONObject(str);
-//                    int code = object.getInt("code");
-//                    String name = object.getString("name");
-//                    Config.UpdateInfo ds = new Config.UpdateInfo();
-//                    ds.setCode(code);
-//                    ds.setName(name);
-//                    if (Config.getVerCode(context, context.getPackageName()) < code) {
-//                        handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void loginFail(int errorCode) {
-//                com.litesuits.android.log.Log.i(TAG,"更新消息获取失败");
-//            }
-//        });
+        // get app latest version number from Google Play
+        VersionCheckerTask versionChecker = new VersionCheckerTask();
+        try {
+            Document document = versionChecker.execute().get();
+            Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
+            String version = element.text();
+            int code = (int) (Float.parseFloat(version)*1000);
 
+//            Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
 
-            new Thread(){
-            @Override
-                public void run() {
-                try {
-                        String verinfo =  SiterHttpUtil.getResultForHttpGet();
-
-                    JSONObject object = new JSONObject(verinfo);
-                    int code = object.getInt("code");
-                    String name = object.getString("name");
-                    Config.UpdateInfo ds = new Config.UpdateInfo();
-                    ds.setCode(code);
-                    ds.setName(name);
-                    if (Config.getVerCode(context, context.getPackageName()) < code) {
-                        handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
-                    }
-                    } catch (IOException e) {
-                    e.printStackTrace();
-                    }catch (JSONException e1){
-                        e1.printStackTrace();
-                }
-
+            Config.UpdateInfo ds = new Config.UpdateInfo();
+            ds.setCode(code);
+            ds.setName(version);
+            if (Config.getVerCode(context, context.getPackageName()) < code) {
+                handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
             }
-            }.start();
-
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initCheckUpate(){
