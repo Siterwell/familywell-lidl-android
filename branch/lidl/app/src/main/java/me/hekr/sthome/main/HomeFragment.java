@@ -740,7 +740,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                                     public void loginFail(int errorCode) {
                                         Log.i("ceshi", "errorCode:" + errorCode);
                                     }
-                                }, "http://api.openweathermap.org/data/2.5/weather?lat=" +
+                                }, "https://api.openweathermap.org/data/2.5/weather?lat=" +
                                         lat + "&lon=" + lon
                                         + "&appid=b45eb4739891c226b7a36613ce3d1dbd&lang=" + unitTools.readLanguage());
 
