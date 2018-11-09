@@ -55,21 +55,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        LOG.I(TAG, "From: " + remoteMessage.getFrom());
+        LOG.D(TAG, "From: " + remoteMessage.getFrom());
 
         try {
-            LOG.I(TAG, "Message notification payload: " + remoteMessage.getNotification());
+            LOG.D(TAG, "Message notification payload: " + remoteMessage.getNotification());
 
             if(TextUtils.isEmpty(Hekr.getHekrUser().getToken())){
-
                 return;
             }
+
             // Check if message contains a data payload.
             if (remoteMessage.getData().size() > 0) {
-                LOG.I(TAG, "Message data payload: " + remoteMessage.getData());
+                LOG.D(TAG, "Message data payload: " + remoteMessage.getData());
 
                 PendingIntent pendingIntent = null;
-                NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
                 int current_dev = 0;
                 String action = null;
                 DeviceDAO deviceDAO = new DeviceDAO(this);
@@ -92,7 +91,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 if("报警器".equals(devname)){
                     devname = getResources().getString(R.string.my_home);
                 }
-                LOG.I(TAG,"devname+++++"+devname);
+                LOG.D(TAG,"devname+++++"+devname);
                 if(jsonObject.has("login") && jsonObject.getBoolean("login")==true){
                     action = getResources().getString(R.string.gateway_login);
                 }else if(jsonObject.has("loginout") && jsonObject.getBoolean("loginout")==true){
@@ -135,34 +134,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             }
                         }
                     }else {
-                        LOG.I(TAG,"code error");
+                        LOG.D(TAG,"code error");
                         action = getResources().getString(R.string.receive_one_notice);
                     }
                 }
 
 
-                // 通过Notification.Builder来创建通知，注意API Level
-                // API16之后才支持
-                Notification.Builder builder= new Notification.Builder(this)
-                        .setContentTitle((current_dev==1?getResources().getString(R.string.current_gateway):getResources().getString(R.string.other_gateway)) +":"+devname)
-                        .setContentText(action)
-                        .setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent)
-                        .setContentIntent(pendingIntent);
-                //兼容nexusandroid5.0
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                    builder.setSmallIcon(R.mipmap.ic_launcher_alpha);
-                } else {
-                    builder.setSmallIcon(R.mipmap.ic_launcher);
-                }
-                Notification notification = builder.build(); // 需要注意build()是在API
-                // level16及之后增加的，API11可以使用getNotificatin()来替代
-                notification.flags |= Notification.FLAG_AUTO_CANCEL; // FLAG_AUTO_CANCEL表明当通知被用户点击时，通知将被清除。
-                notification.defaults |= Notification.DEFAULT_SOUND;
-                Vibrator vibrator = (Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
-                long [] pattern = {300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400}; // 停止 开启 停止 开启
-                vibrator.vibrate(pattern,-1); //重复两次上面的pattern 如果只想震动一次，index设为-1
-                manager.notify((int)System.currentTimeMillis(),notification);
-
+                sendNotification(pendingIntent, current_dev, devname, action);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -171,13 +149,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            LOG.I(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            LOG.D(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
     // [END receive_message]
+
+    private void sendNotification(PendingIntent pendingIntent, int current_dev, String devname, String action) {
+        // 通过Notification.Builder来创建通知，注意API Level
+        // API16之后才支持
+        Notification.Builder builder= new Notification.Builder(this)
+                .setContentTitle((current_dev==1?getResources().getString(R.string.current_gateway):getResources().getString(R.string.other_gateway)) +":"+devname)
+                .setContentText(action)
+                .setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent)
+                .setContentIntent(pendingIntent);
+        //兼容nexusandroid5.0
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            builder.setSmallIcon(R.mipmap.ic_launcher_alpha);
+        } else {
+            builder.setSmallIcon(R.mipmap.ic_launcher);
+        }
+        Notification notification = builder.build(); // 需要注意build()是在API
+        // level16及之后增加的，API11可以使用getNotificatin()来替代
+        notification.flags |= Notification.FLAG_AUTO_CANCEL; // FLAG_AUTO_CANCEL表明当通知被用户点击时，通知将被清除。
+        notification.defaults |= Notification.DEFAULT_SOUND;
+        Vibrator vibrator = (Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
+        long [] pattern = {300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400}; // 停止 开启 停止 开启
+        vibrator.vibrate(pattern,-1); //重复两次上面的pattern 如果只想震动一次，index设为-1
+
+        final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify((int)System.currentTimeMillis(),notification);
+    }
 
     /**
      * Schedule a job using FirebaseJobDispatcher.
@@ -197,19 +201,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * Handle time allotted to BroadcastReceivers.
      */
     private void handleNow() {
-        LOG.I(TAG, "Short lived task is done.");
+        LOG.D(TAG, "Short lived task is done.");
     }
 
 
     @Override
     public void onDeletedMessages() {
         super.onDeletedMessages();
-        LOG.I(TAG,"onDeletedMessages");
+        LOG.D(TAG,"onDeletedMessages");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LOG.I(TAG,"onDestroy");
+        LOG.D(TAG,"onDestroy");
     }
 }
