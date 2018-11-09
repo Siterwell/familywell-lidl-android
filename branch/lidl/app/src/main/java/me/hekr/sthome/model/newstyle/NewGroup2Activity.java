@@ -43,6 +43,7 @@ import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.tools.ByteUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.MyInforHandler;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
@@ -117,20 +118,20 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         ssd = new SendSceneData(this) {
             @Override
             protected void sendEquipmentDataFailed() {
-                Log.i(TAG,"operation failed");
+                LOG.I(TAG,"operation failed");
                 myInforHandler.sendEmptyMessage(GETBACK_FAILED);
             }
 
             @Override
             protected void sendEquipmentDataSuccess() {
-                Log.i(TAG,"operation success");
+                LOG.I(TAG,"operation success");
                 myInforHandler.sendEmptyMessage(GETBACK_SUCCESS);
             }
         };
 
         amodle = mcp.sb;
         if(amodle!=null) init_code = amodle.getCode();
-        Log.i(TAG,"init_code:"+init_code);
+        LOG.I(TAG,"init_code:"+init_code);
         inputData = new ArrayList<>();
         outputData = new ArrayList<>();
         if(!mcp.modify) {
@@ -189,7 +190,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                     }
                                 }
                             }catch (Exception e){
-                                Log.i(TAG,"no input data");
+                                LOG.I(TAG,"no input data");
                                 inputShow = new ArrayList<>();
                                 mcp.input = inputShow;
                             }
@@ -231,7 +232,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                     }
                                 }
                             }catch (Exception e){
-                                Log.i(TAG,"no data output");
+                                LOG.I(TAG,"no data output");
                                 outputShow = new ArrayList<>();
                                 mcp.output = outputShow;
                             }
@@ -240,7 +241,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                         }
 
                 }else {
-                    Log.i(TAG,"code is illegal");
+                    LOG.I(TAG,"code is illegal");
                     if(mcp.input == null){
                         inputShow = new ArrayList<>();
                         mcp.input = new ArrayList<>();
@@ -269,7 +270,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
     private void initInput() {
         inputData.clear();
         if(inputShow != null){
-            Log.i(TAG,inputShow.toString());
+            LOG.I(TAG,inputShow.toString());
             for(EquipmentBean bean:inputShow){
                 if( TextUtils.isEmpty(bean.getEquipmentDesc())){
                     mcp.cleanModleCondition();
@@ -423,7 +424,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
     private void initOutput() {
         outputData.clear();
         if(outputShow != null){
-            Log.i(TAG,outputShow.toString());
+            LOG.I(TAG,outputShow.toString());
             for(EquipmentBean bean:outputShow){
                 if(TextUtils.isEmpty(bean.getEquipmentDesc())){
                     mcp.cleanModleCondition();
@@ -930,7 +931,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
             amodle.setSid("-1");
             amodle.setDeviceid(ConnectionPojo.getInstance().deviceTid);
             int amid = getmid();
-            Log.i(TAG,"    ==="+amid);
+            LOG.I(TAG,"    ==="+amid);
             amodle.setMid(String.valueOf(amid));
         }
 
@@ -1087,7 +1088,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
         String deCode =  oooo + ooo + ds + cm3 + UnitTools.timeDecode(settime4,6) + click5 + inf6 + oo + o +inCode +outCode;
-        Log.i(TAG,deCode);
+        LOG.I(TAG,deCode);
         ByteUtil byteUtil = new ByteUtil();
         String crc = byteUtil.CRCmakerCharAndCode(deCode);
 
@@ -1256,8 +1257,8 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
         String deCode =  oooo + ooo + ds + cm3 + UnitTools.timeDecode(settime4,6) + click5 + inf6 + oo + o +inCode +outCode;
-        Log.i(TAG,deCode);
-        Log.i(TAG,"edit code :"+deCode);
+        LOG.I(TAG,deCode);
+        LOG.I(TAG,"edit code :"+deCode);
         return(deCode);
     }
 
@@ -1616,7 +1617,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                 SED = new SceneDAO(this);
                 amodle.setName(getTopBarView().getEditTitleText());
                 amodle.setCode(messageCode);
-                Log.i(TAG,"amodle.getCode()"+amodle.getCode());
+                LOG.I(TAG,"amodle.getCode()"+amodle.getCode());
 
                 if(!mcp.modify){
 
@@ -1624,7 +1625,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
                     try {
-                        Log.i(TAG,"添加前amodle："+amodle.toString());
+                        LOG.I(TAG,"添加前amodle："+amodle.toString());
                         SED.addScence(amodle);
                         SysmodelDAO sysmodelDAO = new SysmodelDAO(this);
                         String sid =  sysmodelDAO.findIdByChoice(ConnectionPojo.getInstance().deviceTid).getSid();
@@ -1633,11 +1634,11 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                         if(e != null && e.size()>0){
                             SED.deleteFromsceneGroup(amodle);
                         }
-                        Log.i(TAG,"添加后amodle："+amodle.toString());
+                        LOG.I(TAG,"添加后amodle："+amodle.toString());
                         SED.addScence(amodle);
                         SceneCopyPojo.getInstance().code = messageCode;
                     }catch (Exception e){
-                        Log.i("ceshi","无选中的情景组");
+                        LOG.I("ceshi","无选中的情景组");
                     }
 
                 }else{
@@ -1684,7 +1685,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                             }
                                     }
                                 } catch (Exception e) {
-                                    Log.i(TAG, "no input data");
+                                    LOG.I(TAG, "no input data");
                                 }
 
                                 try {
@@ -1698,7 +1699,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                         }
                                     }
                                 } catch (Exception e) {
-                                    Log.i(TAG, "no input data");
+                                    LOG.I(TAG, "no input data");
                                 }
                                 if(flag == false){
                                     ecAlertDialog = ECAlertDialog.buildAlert(NewGroup2Activity.this, getResources().getString(R.string.copy_scene_alert), new DialogInterface.OnClickListener() {
@@ -1735,7 +1736,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                                         }
                                                     }
                                                 }catch (Exception e){
-                                                    Log.i(TAG,"no input data");
+                                                    LOG.I(TAG,"no input data");
                                                     inputShow = new ArrayList<>();
                                                     mcp.input = inputShow;
                                                 }
@@ -1774,7 +1775,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                                         }
                                                     }
                                                 }catch (Exception e){
-                                                    Log.i(TAG,"no data output");
+                                                    LOG.I(TAG,"no data output");
                                                     outputShow = new ArrayList<>();
                                                     mcp.output = outputShow;
                                                 }

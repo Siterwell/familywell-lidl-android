@@ -50,6 +50,7 @@ import me.hekr.sthome.model.newstyle.ModelConditionPojo;
 import me.hekr.sthome.model.newstyle.NewGroup2Activity;
 import me.hekr.sthome.model.newstyle.SceneCopyPojo;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneData;
 import me.hekr.sthome.tools.SendSceneGroupData;
@@ -127,23 +128,23 @@ private void initGuider() {
     ssgd = new SendSceneGroupData(this.getActivity()) {
         @Override
         protected void sendEquipmentDataFailed() {
-            Log.i(TAG,"operation failed");
+            LOG.I(TAG,"operation failed");
         }
 
         @Override
         protected void sendEquipmentDataSuccess() {
-            Log.i(TAG,"operation success");
+            LOG.I(TAG,"operation success");
         }
     };
     ssd = new SendSceneData(this.getActivity()) {
         @Override
         protected void sendEquipmentDataFailed() {
-            Log.i(TAG,"operation failed");
+            LOG.I(TAG,"operation failed");
         }
 
         @Override
         protected void sendEquipmentDataSuccess() {
-            Log.i(TAG,"operation success");
+            LOG.I(TAG,"operation success");
         }
     };
     root       = (LinearLayout)view.findViewById(R.id.root);
@@ -291,9 +292,9 @@ private void initGuider() {
             for (SysModelBean b : l){
                 slist.add(b);
             }
-            Log.i(TAG,"有系统情景"+slist.toString());
+            LOG.I(TAG,"有系统情景"+slist.toString());
         }else if(l.size() == 0){
-            Log.i(TAG,"无系统情景");
+            LOG.I(TAG,"无系统情景");
             SysModelBean a = new SysModelBean();
             a.setModleId(-1);
             a.setModleName("Home");

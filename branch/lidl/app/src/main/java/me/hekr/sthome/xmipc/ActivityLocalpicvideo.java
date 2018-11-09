@@ -30,6 +30,7 @@ import java.util.List;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.CustomViewPager;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SystemTintManager;
 
 /**
@@ -254,7 +255,7 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
                         new String[] { "image/jpeg", "image/png" ,"%" + FunPath.PATH_CAPTURE_TEMP+File.separator+path_file+"%"},
                         MediaStore.Images.Media.DATE_MODIFIED  + " DESC");
 
-                Log.i(TAG, mCursor.getCount() + "");
+                LOG.I(TAG, mCursor.getCount() + "");
                 while (mCursor.moveToNext())
                 {
                     // 获取图片的路径
@@ -273,7 +274,7 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
                 mCursor.close();
 
 
-                Log.i(TAG,"localfiles============"+localfiles_pic.toString());
+                LOG.I(TAG,"localfiles============"+localfiles_pic.toString());
                 // 通知Handler扫描图片完成
                 mHandler.sendEmptyMessage(0x110);
 
@@ -308,7 +309,7 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
                         new String[] {  "%" + FunPath.PATH_VIDEO+File.separator+path_file+"%"},
                         MediaStore.Video.Media.DATE_MODIFIED  + " DESC");
 
-                Log.i(TAG, mCursor.getCount() + "");
+                LOG.I(TAG, mCursor.getCount() + "");
                 while (mCursor.moveToNext())
                 {
                     // 获取图片的路径
@@ -327,7 +328,7 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
                 mCursor.close();
 
 
-                Log.i(TAG,"localfiles============"+localfiles_video.toString());
+                LOG.I(TAG,"localfiles============"+localfiles_video.toString());
                 // 通知Handler扫描图片完成
                 mHandler.sendEmptyMessage(0x111);
 

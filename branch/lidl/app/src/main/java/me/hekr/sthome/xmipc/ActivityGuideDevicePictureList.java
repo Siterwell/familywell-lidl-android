@@ -34,6 +34,7 @@ import java.util.List;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;
 import me.hekr.sthome.commonBaseView.DateSelectActivity;
+import me.hekr.sthome.tools.LOG;
 
 /*
 @class ActivityGuideDevicePictureList
@@ -267,7 +268,7 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
 
     @Override
     public void onDeviceFileListChanged(FunDevice funDevice) {
-        Log.i(TAG,"onDeviceFileListChanged1");
+        LOG.I(TAG,"onDeviceFileListChanged1");
     }
 
     private void notifyDataSetChanged() {
@@ -286,7 +287,7 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
 
     @Override
     public void onDeviceFileListChanged(FunDevice funDevice, H264_DVR_FILE_DATA[] datas) {
-        Log.i(TAG,"onDeviceFileListChanged2");
+        LOG.I(TAG,"onDeviceFileListChanged2");
         hideProgressDialog();
 
         if (null != funDevice
@@ -330,7 +331,7 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
 	@Override
 	public void onDeviceFileListGetFailed(FunDevice funDevice) {
 		// TODO Auto-generated method stub
-        Log.i(TAG,"onDeviceFileListGetFailed22");
+        LOG.I(TAG,"onDeviceFileListGetFailed22");
 
         Toast.makeText(this,"No Files!!",Toast.LENGTH_LONG).show();
         hideProgressDialog();

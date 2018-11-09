@@ -24,6 +24,7 @@ import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 public class ActivityGuideDeviceWifiManage extends TopbarSuperActivity implements OnClickListener,MonitorAdapter.DoneWithItemListener {
@@ -75,10 +76,10 @@ public class ActivityGuideDeviceWifiManage extends TopbarSuperActivity implement
 	private void initData(){
 		hekrUserAction = HekrUserAction.getInstance(this);
 		ClientUser clientUser = CCPAppManager.getClientUser();
-		Log.i(TAG,clientUser.toString());
+		LOG.I(TAG,clientUser.toString());
 		lists = new ArrayList<MonitorBean>();
 		lists = CCPAppManager.getClientUser().getMonitorList();
-		Log.i(TAG, CCPAppManager.getClientUser().getMonitorList().toString());
+		LOG.I(TAG, CCPAppManager.getClientUser().getMonitorList().toString());
 //		List<MonitorBean> jsonArray = new ArrayList<>();
 //		for(int i=0;i<5;i++){
 //			MonitorBean bean = new MonitorBean();
@@ -86,7 +87,7 @@ public class ActivityGuideDeviceWifiManage extends TopbarSuperActivity implement
 //			bean.setName("我的摄像头"+(i+1));
 //			jsonArray.add(bean);
 //		}
-//		Log.i(TAG,jsonArray.toString());
+//		LOG.I(TAG,jsonArray.toString());
 //		com.alibaba.fastjson.JSONObject object = new com.alibaba.fastjson.JSONObject();
 //		com.alibaba.fastjson.JSONObject object2 = new com.alibaba.fastjson.JSONObject();
 //		object2.put("monitor",jsonArray.toString());
@@ -116,7 +117,7 @@ public class ActivityGuideDeviceWifiManage extends TopbarSuperActivity implement
 
 		  if(list!=null && list.size()>position){
 			  list.remove(position);
-			  Log.i(TAG,list.toString());
+			  LOG.I(TAG,list.toString());
 			  object = new com.alibaba.fastjson.JSONObject();
 			  com.alibaba.fastjson.JSONObject object2 = new com.alibaba.fastjson.JSONObject();
 			  object2.put("monitor",list.toString());
@@ -125,7 +126,7 @@ public class ActivityGuideDeviceWifiManage extends TopbarSuperActivity implement
 			  hekrUserAction.setProfile(object, new HekrUser.SetProfileListener() {
 				  @Override
 				  public void setProfileSuccess() {
-					  Log.i(TAG,"修改后的数据："+list.toString());
+					  LOG.I(TAG,"修改后的数据："+list.toString());
 					  ClientUser clientUser = CCPAppManager.getClientUser();
 					  clientUser.setMonitor(list.toString());
 					  CCPAppManager.setClientUser(clientUser);
@@ -240,7 +241,7 @@ public class ActivityGuideDeviceWifiManage extends TopbarSuperActivity implement
 			@Override
 			public void setProfileSuccess() {
 				Toast.makeText(ActivityGuideDeviceWifiManage.this, "添加成功",Toast.LENGTH_LONG).show();
-				Log.i(TAG,"修改后的数据："+list.toString());
+				LOG.I(TAG,"修改后的数据："+list.toString());
 				ClientUser clientUser = CCPAppManager.getClientUser();
 				clientUser.setMonitor(list.toString());
 				CCPAppManager.setClientUser(clientUser);

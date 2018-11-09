@@ -7,6 +7,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+import me.hekr.sthome.tools.LOG;
+
 /**
  * Created by Administrator on 2016/12/22 0022.
  */
@@ -29,15 +31,15 @@ public class UDPSendData implements Runnable {
     public void run() {
         dp = new DatagramPacket(bytes,bytes.length,hostip,PORT);
         try {
-            Log.i(TAG," send data start");
+            LOG.I(TAG," send data start");
             ds.send(dp);
-            Log.i(TAG," send data "+ hostip.toString() +"==="+new String(bytes));
+            LOG.I(TAG," send data "+ hostip.toString() +"==="+new String(bytes));
         } catch (IOException e) {
             e.printStackTrace();
-            Log.i(TAG," send data failed IOException");
+            LOG.I(TAG," send data failed IOException");
         }catch (NullPointerException e){
             e.printStackTrace();
-            Log.i(TAG," send data failed NullPointerException");
+            LOG.I(TAG," send data failed NullPointerException");
         }
     }
 }

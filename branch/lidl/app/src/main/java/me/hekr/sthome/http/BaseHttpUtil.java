@@ -3,7 +3,6 @@ package me.hekr.sthome.http;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -16,6 +15,7 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import me.hekr.sdk.utils.HekrLanguageUtil;
+import me.hekr.sthome.tools.LOG;
 
 import static com.loopj.android.http.AsyncHttpClient.HEADER_CONTENT_TYPE;
 
@@ -49,7 +49,7 @@ public class BaseHttpUtil {
      * @param asyncHttpResponseHandler 回调方法
      */
     public static void getData(Context context, String url, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        Log.d(TAG, url + "\n");
+        LOG.D(TAG, url + "\n");
         getData(context, url, null, asyncHttpResponseHandler);
     }
 
@@ -79,7 +79,7 @@ public class BaseHttpUtil {
      * @param asyncHttpResponseHandler 回调方法
      */
     public static void postData(Context context, String url, String entity, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        Log.d(TAG, url + "\n" + entity);
+        LOG.D(TAG, url + "\n" + entity);
         StringEntity entity_post = getEntity(entity);
         client.post(context, url, entity_post, "application/json", asyncHttpResponseHandler);
     }
@@ -93,7 +93,7 @@ public class BaseHttpUtil {
      * @param asyncHttpResponseHandler 回调方法
      */
     public static void getDataToken(Context context, String JWT_TOKEN, String url, Header[] headers, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        Log.d(TAG, url + "\n" + JWT_TOKEN);
+        LOG.D(TAG, url + "\n" + JWT_TOKEN);
         client.get(context, url, getFinalHeader(JWT_TOKEN, headers), null, asyncHttpResponseHandler);
     }
 
@@ -108,7 +108,7 @@ public class BaseHttpUtil {
      */
     public static void postDataToken(Context context, String JWT_TOKEN, String url, Header[] headers, String entity, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
         StringEntity entity_post = getEntity(entity);
-        Log.d(TAG, url + "\n" + JWT_TOKEN + "\n" + entity);
+        LOG.D(TAG, url + "\n" + JWT_TOKEN + "\n" + entity);
         client.post(context, url, getFinalHeader(JWT_TOKEN, headers), entity_post, "application/json", asyncHttpResponseHandler);
     }
 
@@ -121,7 +121,7 @@ public class BaseHttpUtil {
      * @param asyncHttpResponseHandler 回调方法
      */
     public static void deleteDataToken(Context context, String JWT_TOKEN, String url, Header[] headers, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        Log.d(TAG, url + "\n" + JWT_TOKEN);
+        LOG.D(TAG, url + "\n" + JWT_TOKEN);
         BasicHeader basicHeader1 = new BasicHeader("Authorization", "Bearer " + JWT_TOKEN);
         BasicHeader basicHeader2 = new BasicHeader(HEADER_CONTENT_TYPE, "application/json");
         BasicHeader[] firstHeaders = new BasicHeader[]{basicHeader1, basicHeader2};
@@ -138,7 +138,7 @@ public class BaseHttpUtil {
      * @param asyncHttpResponseHandler 回调方法
      */
     public static void patchDataToken(Context context, String JWT_TOKEN, String url, Header[] headers, String entity, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        Log.d(TAG, url + "\n" + JWT_TOKEN + "\n" + entity);
+        LOG.D(TAG, url + "\n" + JWT_TOKEN + "\n" + entity);
         StringEntity entity_post = getEntity(entity);
         client.patch(context, url, getFinalHeader(JWT_TOKEN, headers), entity_post, "application/json", asyncHttpResponseHandler);
     }
@@ -152,7 +152,7 @@ public class BaseHttpUtil {
      * @param asyncHttpResponseHandler 回调方法
      */
     public static void putDataToken(Context context, String JWT_TOKEN, String url, Header[] headers, String entity, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        Log.d(TAG, url + "\n" + JWT_TOKEN + "\n" + entity);
+        LOG.D(TAG, url + "\n" + JWT_TOKEN + "\n" + entity);
         StringEntity entity_post = getEntity(entity);
         client.put(context, url, getFinalHeader(JWT_TOKEN, headers), entity_post, "application/json", asyncHttpResponseHandler);
     }
@@ -167,7 +167,7 @@ public class BaseHttpUtil {
      * @param asyncHttpResponseHandler 回调方法
      */
     public static void postFileToken(Context context, String JWT_TOKEN, String url, RequestParams params, final AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        Log.d(TAG, url + "\n" + JWT_TOKEN + "\n" + params);
+        LOG.D(TAG, url + "\n" + JWT_TOKEN + "\n" + params);
         client.post(context, url, getTokenHeader(JWT_TOKEN), params, null, asyncHttpResponseHandler);
     }
 

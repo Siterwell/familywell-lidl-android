@@ -65,6 +65,7 @@ import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         tcpGetDomain();
-        Log.i(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
+        LOG.I(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
         try{
             if (CCPAppManager.getUserId()==null) {
 
@@ -152,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
             } catch (JSONException e) {
-                Log.i("ceshi","string is null");
+                LOG.I("ceshi","string is null");
             }
         }
 
@@ -253,7 +254,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 @Override
                                 public void getProfileSuccess(Object object) {
                                     JSONObject d = JSON.parseObject(object.toString());
-                                    Log.i("ceshi",object.toString());
+                                    LOG.I("ceshi",object.toString());
                                     ClientUser user = new ClientUser();
                                     user.setId(id);
                                     if(!TextUtils.isEmpty(d.getString("birthday"))) user.setBirthday(d.getLong("birthday"));
@@ -502,7 +503,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
             } catch (JSONException e) {
-                Log.i("ceshi","string is null");
+                LOG.I("ceshi","string is null");
             }
         }
         tools.writeUserLog(userlist.toString());
@@ -512,7 +513,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void tcpGetDomain(){
 
         String domain = getdomain();
-        Log.i(TAG,"设置本地domain:"+domain);
+        LOG.I(TAG,"设置本地domain:"+domain);
         Constants.setOnlineSite(domain);
 
         new Thread(){
@@ -531,7 +532,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 PrintWriter bufw=new PrintWriter(out,true);
                 BufferedReader bufr=new BufferedReader(new InputStreamReader(in));
-                    Log.i(TAG,"发送啦");//打印服务端传来的数据
+                    LOG.I(TAG,"发送啦");//打印服务端传来的数据
                     bufw.println("{\"action\":\"getAppDomain\"}");//发送数据给服务端
                     bufw.flush();
                 while (true)
@@ -540,13 +541,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     line=bufr.readLine();//读取服务端传来的数据
                     if(line==null)
                         break;
-                    Log.i(TAG,"服务端说:"+line);//打印服务端传来的数据
+                    LOG.I(TAG,"服务端说:"+line);//打印服务端传来的数据
                         JSONObject jsonObject = JSONObject.parseObject(line);
                         JSONObject jsonObject1 = jsonObject.getJSONObject("dcInfo");
                         String domain = jsonObject1.getString("domain");
                         try {
                             if(!TextUtils.isEmpty(domain)){
-                                Log.i(TAG,"获取到的domain:"+domain);
+                                LOG.I(TAG,"获取到的domain:"+domain);
                                 ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_DOMAIN, domain, true);
                                 Constants.setOnlineSite(domain);
                                 break;

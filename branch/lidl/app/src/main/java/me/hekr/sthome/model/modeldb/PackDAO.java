@@ -12,6 +12,7 @@ import java.util.List;
 
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
 import me.hekr.sthome.DragFolderwidget.FolderInfo;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by gc-0001 on 2017/2/13.
@@ -44,7 +45,7 @@ public class PackDAO {
             a = cursor.getInt(cursor.getColumnIndex("count(id)"));
         }
         }catch (NullPointerException e){
-            com.litesuits.android.log.Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return a;
@@ -69,7 +70,7 @@ public class PackDAO {
                     list.add(eq);
                 }
             }catch (NullPointerException e){
-                com.litesuits.android.log.Log.i(TAG,"no choosed gateway");
+                LOG.I(TAG,"no choosed gateway");
             }finally {
                 db.close();
                 return list;
@@ -93,7 +94,7 @@ public class PackDAO {
             list.add(eq);
         }
         }catch (NullPointerException e){
-            com.litesuits.android.log.Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -108,7 +109,7 @@ public class PackDAO {
         String where = "deviceid = '"+deviceid+"'";
         db.delete("pactable", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -122,7 +123,7 @@ public class PackDAO {
         String where = "packageid = "+packageid+" and deviceid ='"+deviceid+"' ";
         db.delete("pactable", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -142,7 +143,7 @@ public class PackDAO {
         cv.put("deviceid",eq.getDeviceid());
         row = (int) db.insert("pactable", null, cv);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return row;
@@ -159,9 +160,9 @@ public class PackDAO {
         ContentValues cv = new ContentValues();
         cv.put("sort", eq.getOrder());
         db.update("pactable", cv, where, whereValue);
-        Log.i("update pactable over","data "+eq.toString());
+        LOG.I("update pactable over","data "+eq.toString());
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -177,9 +178,9 @@ public class PackDAO {
         ContentValues cv = new ContentValues();
         cv.put("name", eq.getEquipmentName());
         db.update("pactable", cv, where, whereValue);
-        Log.i("update pactable over","data "+eq.toString());
+        LOG.I("update pactable over","data "+eq.toString());
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }

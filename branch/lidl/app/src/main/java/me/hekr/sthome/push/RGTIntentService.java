@@ -32,6 +32,7 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.NoticeDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 
 /**
@@ -53,7 +54,7 @@ public class RGTIntentService extends GTIntentService {
 
     @Override
     public void onReceiveServicePid(Context context, int pid) {
-        android.util.Log.d(TAG, "onReceiveServicePid -> " + pid);
+        LOG.D(TAG, "onReceiveServicePid -> " + pid);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -68,16 +69,16 @@ public class RGTIntentService extends GTIntentService {
 
         // 第三方回执调用接口，actionid范围为90000-90999，可根据业务场景执行
         boolean result = PushManager.getInstance().sendFeedbackMessage(context, taskid, messageid, 90001);
-        Log.d(TAG, "call sendFeedbackMessage = " + (result ? "success" : "failed"));
+        LOG.D(TAG, "call sendFeedbackMessage = " + (result ? "success" : "failed"));
 
-        Log.d(TAG, "onReceiveMessageData -> " + "appid = " + appid + "\ntaskid = " + taskid + "\nmessageid = " + messageid + "\npkg = " + pkg
+        LOG.D(TAG, "onReceiveMessageData -> " + "appid = " + appid + "\ntaskid = " + taskid + "\nmessageid = " + messageid + "\npkg = " + pkg
                 + "\ncid = " + cid);
 
         if (payload == null) {
             Log.e(TAG, "receiver payload = null");
         } else {
             String data = new String(payload);
-            Log.d(TAG, "receiver payload = " + data);
+            LOG.D(TAG, "receiver payload = " + data);
             // 测试消息为了观察数据变化
             if (data.equals("收到一条透传测试消息")) {
                 data = data + "-" + cnt;
@@ -86,7 +87,7 @@ public class RGTIntentService extends GTIntentService {
             sendMessage(data, 0);
         }
 
-        Log.d(TAG, "----------------------------------------------------------------------------------------------");
+        LOG.D(TAG, "----------------------------------------------------------------------------------------------");
     }
 
     @Override
@@ -98,12 +99,12 @@ public class RGTIntentService extends GTIntentService {
 
     @Override
     public void onReceiveOnlineState(Context context, boolean online) {
-        android.util.Log.d(TAG, "onReceiveOnlineState -> " + (online ? "online" : "offline"));
+        LOG.D(TAG, "onReceiveOnlineState -> " + (online ? "online" : "offline"));
     }
 
     @Override
     public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) {
-        Log.d(TAG, "onReceiveCommandResult -> " + cmdMessage);
+        LOG.D(TAG, "onReceiveCommandResult -> " + cmdMessage);
 
         int action = cmdMessage.getAction();
 
@@ -164,7 +165,7 @@ public class RGTIntentService extends GTIntentService {
                 break;
         }
 
-        Log.d(TAG, "settag result sn = " + sn + ", code = " + code + ", text = " + text);
+        LOG.D(TAG, "settag result sn = " + sn + ", code = " + code + ", text = " + text);
     }
 
     private void feedbackResult(FeedbackCmdMessage feedbackCmdMsg) {
@@ -175,7 +176,7 @@ public class RGTIntentService extends GTIntentService {
         long timestamp = feedbackCmdMsg.getTimeStamp();
         String cid = feedbackCmdMsg.getClientId();
 
-        Log.d(TAG, "onReceiveCommandResult -> " + "appid = " + appid + "\ntaskid = " + taskid + "\nactionid = " + actionid + "\nresult = " + result
+        LOG.D(TAG, "onReceiveCommandResult -> " + "appid = " + appid + "\ntaskid = " + taskid + "\nactionid = " + actionid + "\nresult = " + result
                 + "\ncid = " + cid + "\ntimestamp = " + timestamp);
     }
 
@@ -183,7 +184,7 @@ public class RGTIntentService extends GTIntentService {
     private void sendMessage(String data, int what) {
         switch (what){
             case 0:
-                Log.i(TAG,"data+++++"+data);
+                LOG.I(TAG,"data+++++"+data);
                 try {
                     if(TextUtils.isEmpty(HekrUserAction.getInstance(this).getJWT_TOKEN())){
                         return;
@@ -212,7 +213,7 @@ public class RGTIntentService extends GTIntentService {
                         if("报警器".equals(devname)){
                             devname = getResources().getString(R.string.my_home);
                         }
-                        com.litesuits.android.log.Log.i(TAG,"devname+++++"+devname);
+                        LOG.I(TAG,"devname+++++"+devname);
                         if(jsonObject.has("login") && jsonObject.getBoolean("login")==true){
                             action = getResources().getString(R.string.gateway_login);
                         }else if(jsonObject.has("loginout") && jsonObject.getBoolean("loginout")==true){
@@ -254,7 +255,7 @@ public class RGTIntentService extends GTIntentService {
                                     }
                                 }
                             }else {
-                                android.util.Log.i(TAG,"code error");
+                                LOG.I(TAG,"code error");
                             action = getResources().getString(R.string.receive_one_notice);
                         }
 

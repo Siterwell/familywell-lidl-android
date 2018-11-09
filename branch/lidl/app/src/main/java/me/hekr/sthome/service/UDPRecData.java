@@ -12,6 +12,7 @@ import java.net.InetAddress;
 
 import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by Administrator on 2016/12/22 0022.
@@ -43,18 +44,18 @@ public class UDPRecData implements Runnable {
             bytes = new byte[512];
             datagramPacket = new DatagramPacket(bytes,bytes.length,hostAdd,PORT);
             try {
-                Log.i(TAG," start to receive");
+                LOG.I(TAG," start to receive");
                 datagramSocket.receive(datagramPacket);
                 String msg = new String(datagramPacket.getData());
-                Log.i(TAG,"get udp message:"+msg);
+                LOG.I(TAG,"get udp message:"+msg);
                 hostip = datagramPacket.getAddress();
                 resolveData(msg);
             } catch (IOException e) {
-                Log.i(TAG," receive failed  Socket closed");
+                LOG.I(TAG," receive failed  Socket closed");
                 break;
             }catch (NullPointerException e){
                 e.printStackTrace();
-                Log.i(TAG," receive failed NullPointerException");
+                LOG.I(TAG," receive failed NullPointerException");
             }
         }
     }
@@ -74,25 +75,25 @@ public class UDPRecData implements Runnable {
                 if(msg.length()>20){
                     try{
                         deviceTid = msg.substring(msg.indexOf(":") + 1, msg.indexOf("\n"));
-                        Log.i(TAG +"name", "===" + deviceTid);
+                        LOG.I(TAG +"name", "===" + deviceTid);
                     }catch (StringIndexOutOfBoundsException e){
-                        Log.i(TAG,"get rabish deviceTid");
+                        LOG.I(TAG,"get rabish deviceTid");
                     }
 
                     try{
                         msg = msg.substring(msg.indexOf("\n") + 1);
                         bind = msg.substring(msg.indexOf(":") + 1, msg.indexOf("\n"));
-                        Log.i(TAG +"bind", "===" + bind);
+                        LOG.I(TAG +"bind", "===" + bind);
                     }catch (StringIndexOutOfBoundsException e){
-                        Log.i(TAG,"get rabish bind");
+                        LOG.I(TAG,"get rabish bind");
                     }
 
                     try{
                         msg = msg.substring(msg.indexOf("\n") + 1);
                         ctrlkey = msg.substring(msg.indexOf(":") + 1, msg.indexOf("\n"));
-                        Log.i(TAG +"key", "===" + ctrlkey);
+                        LOG.I(TAG +"key", "===" + ctrlkey);
                     }catch (StringIndexOutOfBoundsException e){
-                        Log.i(TAG,"get rabish ctrlkey");
+                        LOG.I(TAG,"get rabish ctrlkey");
                     }
 
                     if(type==1){
@@ -104,10 +105,10 @@ public class UDPRecData implements Runnable {
                         ControllerWifi.getInstance().deviceTid = deviceTid;
                         ControllerWifi.getInstance().bind = bind;
                         ControllerWifi.getInstance().ctrlKey = ctrlkey;
-                        Log.i(TAG," LAN.targetip="+ hostip.toString());
-                        Log.i(TAG," LAN.deviceTid="+ deviceTid.toString());
-                        Log.i(TAG," LAN.bind="+ bind.toString());
-                        Log.i(TAG," LAN.ctrlKey="+ ctrlkey.toString());
+                        LOG.I(TAG," LAN.targetip="+ hostip.toString());
+                        LOG.I(TAG," LAN.deviceTid="+ deviceTid.toString());
+                        LOG.I(TAG," LAN.bind="+ bind.toString());
+                        LOG.I(TAG," LAN.ctrlKey="+ ctrlkey.toString());
                     }else{
                         if( !TextUtils.isEmpty(ConnectionPojo.getInstance().deviceTid) && ConnectionPojo.getInstance().deviceTid.equals(deviceTid)){
                         ControllerWifi.getInstance().wifiTag = true;
@@ -115,10 +116,10 @@ public class UDPRecData implements Runnable {
                         ControllerWifi.getInstance().deviceTid = deviceTid;
                         ControllerWifi.getInstance().bind = bind;
                         ControllerWifi.getInstance().ctrlKey = ctrlkey;
-                        Log.i(TAG," LAN.targetip="+ hostip.toString());
-                        Log.i(TAG," LAN.deviceTid="+ deviceTid.toString());
-                        Log.i(TAG," LAN.bind="+ bind.toString());
-                        Log.i(TAG," LAN.ctrlKey="+ ctrlkey.toString());
+                        LOG.I(TAG," LAN.targetip="+ hostip.toString());
+                        LOG.I(TAG," LAN.deviceTid="+ deviceTid.toString());
+                        LOG.I(TAG," LAN.bind="+ bind.toString());
+                        LOG.I(TAG," LAN.ctrlKey="+ ctrlkey.toString());
                         }
                     }
                 }

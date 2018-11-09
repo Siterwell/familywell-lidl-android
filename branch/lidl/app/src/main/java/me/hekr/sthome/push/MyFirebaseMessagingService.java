@@ -1,6 +1,5 @@
 package me.hekr.sthome.push;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Vibrator;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -29,6 +27,7 @@ import me.hekr.sthome.model.modelbean.SceneBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -56,10 +55,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.i(TAG, "From: " + remoteMessage.getFrom());
+        LOG.I(TAG, "From: " + remoteMessage.getFrom());
 
         try {
-            Log.i(TAG, "Message notification payload: " + remoteMessage.getNotification());
+            LOG.I(TAG, "Message notification payload: " + remoteMessage.getNotification());
 
             if(TextUtils.isEmpty(Hekr.getHekrUser().getToken())){
 
@@ -67,7 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
             // Check if message contains a data payload.
             if (remoteMessage.getData().size() > 0) {
-                Log.i(TAG, "Message data payload: " + remoteMessage.getData());
+                LOG.I(TAG, "Message data payload: " + remoteMessage.getData());
 
                 PendingIntent pendingIntent = null;
                 NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -93,7 +92,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 if("报警器".equals(devname)){
                     devname = getResources().getString(R.string.my_home);
                 }
-                com.litesuits.android.log.Log.i(TAG,"devname+++++"+devname);
+                LOG.I(TAG,"devname+++++"+devname);
                 if(jsonObject.has("login") && jsonObject.getBoolean("login")==true){
                     action = getResources().getString(R.string.gateway_login);
                 }else if(jsonObject.has("loginout") && jsonObject.getBoolean("loginout")==true){
@@ -136,11 +135,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             }
                         }
                     }else {
-                        Log.i(TAG,"code error");
-                    action = getResources().getString(R.string.receive_one_notice);
-                }
-
-
+                        LOG.I(TAG,"code error");
+                        action = getResources().getString(R.string.receive_one_notice);
+                    }
                 }
 
 
@@ -174,7 +171,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.i(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            LOG.I(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -200,19 +197,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * Handle time allotted to BroadcastReceivers.
      */
     private void handleNow() {
-        Log.i(TAG, "Short lived task is done.");
+        LOG.I(TAG, "Short lived task is done.");
     }
 
 
     @Override
     public void onDeletedMessages() {
         super.onDeletedMessages();
-        Log.i(TAG,"onDeletedMessages");
+        LOG.I(TAG,"onDeletedMessages");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(TAG,"onDestroy");
+        LOG.I(TAG,"onDestroy");
     }
 }

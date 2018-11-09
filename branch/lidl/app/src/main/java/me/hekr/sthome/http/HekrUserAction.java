@@ -53,6 +53,7 @@ import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.http.bean.UserFileBean;
 import me.hekr.sthome.http.bean.WeatherAirBean;
 import me.hekr.sthome.http.bean.WeatherBeanResultsNow;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -120,7 +121,7 @@ public class HekrUserAction {
         JWT_TOKEN = SpCache.getString(SiterConstantsUtil.JWT_TOKEN, "");
         refresh_TOKEN = SpCache.getString(SiterConstantsUtil.REFRESH_TOKEN, "");
         userId = TokenToUid();
-        Log.i(TAG,"userId+++++++++++++++++++++++++++++++++++"+userId);
+        LOG.I(TAG,"userId+++++++++++++++++++++++++++++++++++"+userId);
         //判断是线上还是测试环境
     }
 
@@ -1304,7 +1305,7 @@ public class HekrUserAction {
         getHekrData(url, new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
-                Log.i(TAG, "object:" + object.toString());
+                LOG.I(TAG, "object:" + object.toString());
                 getNewDevicesListener.getSuccess(JSON.parseArray(object.toString(), NewDeviceBean.class));
             }
 
@@ -1970,7 +1971,7 @@ public class HekrUserAction {
                 platform ="FCM";
                 break;
         }
-        Log.i(TAG, phoneType + "调用绑定推送标签接口:" + clientId + "语言:" + Locale.getDefault());
+        LOG.I(TAG, phoneType + "调用绑定推送标签接口:" + clientId + "语言:" + Locale.getDefault());
         JSONObject object = new JSONObject();
         object.put("clientId", clientId);
         String dr = Locale.getDefault().getLanguage();
@@ -1984,13 +1985,13 @@ public class HekrUserAction {
         postHekrData(url, object.toJSONString(), new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
-                Log.i(TAG, finalPhoneType + "绑定推送标签接口调用成功");
+                LOG.I(TAG, finalPhoneType + "绑定推送标签接口调用成功");
                 pushTagBindListener.pushTagBindSuccess();
             }
 
             @Override
             public void getFail(int errorCode) {
-                Log.i(TAG, finalPhoneType + "绑定推送标签接口调用失败");
+                LOG.I(TAG, finalPhoneType + "绑定推送标签接口调用失败");
                 pushTagBindListener.pushTagBindFail(errorCode);
             }
         });
@@ -2024,20 +2025,20 @@ public class HekrUserAction {
                 platform ="FCM";
                 break;
         }
-        Log.i(TAG, phoneType + "调用解绑推送标签接口:" + clientId);
+        LOG.I(TAG, phoneType + "调用解绑推送标签接口:" + clientId);
         JSONObject object = new JSONObject();
         object.put("clientId", clientId);
         object.put("pushPlatform", platform);
         postHekrData(url, object.toJSONString(), new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
-                Log.i(TAG, "推送解绑标签接口调用成功");
+                LOG.I(TAG, "推送解绑标签接口调用成功");
                 unPushTagBindListener.unPushTagBindSuccess();
             }
 
             @Override
             public void getFail(int errorCode) {
-                Log.i(TAG, "推送解绑标签接口调用失败");
+                LOG.I(TAG, "推送解绑标签接口调用失败");
                 unPushTagBindListener.unPushTagBindFail(errorCode);
             }
         });

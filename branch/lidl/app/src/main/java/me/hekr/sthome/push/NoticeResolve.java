@@ -28,6 +28,7 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 
 
@@ -56,7 +57,7 @@ public class NoticeResolve implements INoticeResolve {
                 resolveEquipment(noticeBean,code);
             }
         }else {
-            Log.i(TAG,"code error");
+            LOG.I(TAG,"code error");
         }
         return noticeBean;
 
@@ -69,7 +70,7 @@ public class NoticeResolve implements INoticeResolve {
             noticeBean.setType(code.substring(4, 6));
             noticeBean.setMid(String.valueOf(Integer.parseInt(code.substring(6,8),16)));
         }else {
-            Log.i(TAG,"code error");
+            LOG.I(TAG,"code error");
         }
     }
 
@@ -82,7 +83,7 @@ public class NoticeResolve implements INoticeResolve {
             noticeBean.setEquipmenttype(code.substring(10,14));
             noticeBean.setEqstatus(code.substring(14,22));
         }else {
-            Log.i(TAG,"code error");
+            LOG.I(TAG,"code error");
         }
     }
 
@@ -137,7 +138,7 @@ public class NoticeResolve implements INoticeResolve {
                     nb.setDeviceid(ConnectionPojo.getInstance().deviceTid);
                     Date date = new Date(child.getLong("reportTime"));
                     nb.setActivitytime(sdf.format(date));
-                    Log.i(TAG,nb.toString());
+                    LOG.I(TAG,nb.toString());
                     result.add(nb);
                 }
             }
@@ -155,7 +156,7 @@ public class NoticeResolve implements INoticeResolve {
         DeviceDAO DDO = new DeviceDAO(context);
         MyDeviceBean myDeviceBean = DDO.findByChoice(1);
             if(myDeviceBean!=null){
-                Log.i(TAG,"ppk======"+myDeviceBean.getProductPublicKey());
+                LOG.I(TAG,"ppk======"+myDeviceBean.getProductPublicKey());
                 BasicHeader header = new BasicHeader("X-Hekr-ProdPubKey",myDeviceBean.getProductPublicKey());
                 String url = Constants.UrlUtil.BASE_USER_URL+"api/v1/notification?type=WARNING&" +
                         "ctrlKey="+myDeviceBean.getCtrlKey()+"" +

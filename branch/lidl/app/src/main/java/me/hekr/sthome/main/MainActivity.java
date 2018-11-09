@@ -24,11 +24,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.igexin.sdk.PushManager;
 import com.igexin.sdk.Tag;
-import com.litesuits.android.log.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,10 +34,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 import me.hekr.sdk.Constants;
@@ -78,6 +74,7 @@ import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.SystemUtil;
@@ -205,19 +202,19 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         if(!TextUtils.isEmpty(CCPAppManager.getUserId())){
             boolean t = PushManager.getInstance().bindAlias(this, CCPAppManager.getUserId());
             String abc = t? "设置成功" : "设置失败";
-            Log.i(TAG,abc+"set alias uid =" + CCPAppManager.getUserId());
+            LOG.I(TAG,abc+"set alias uid =" + CCPAppManager.getUserId());
         }
 
         String fcmclientid = FirebaseInstanceId.getInstance().getToken();
         if(!TextUtils.isEmpty(fcmclientid)){
-            Log.i(TAG,"FCM平台CLIENTID："+fcmclientid);
+            LOG.I(TAG,"FCM平台CLIENTID："+fcmclientid);
             SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
             ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
             String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
 //                    if("hekr.me".equals(autoflag)){
 //                        String cid = PushManager.getInstance().getClientid(this);
 //                        if(!TextUtils.isEmpty(cid)) {
-//                            Log.i(TAG, "个推client id =" + cid);
+//                            LOG.I(TAG, "个推client id =" + cid);
 //                            STEvent stEvent = new STEvent();
 //                            stEvent.setRefreshevent(11);
 //                            stEvent.setFcm_token(cid);
@@ -226,17 +223,17 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 //                            HekrUserAction.getInstance(this).unPushTagBind(fcmclientid, 3, new HekrUser.UnPushTagBindListener() {
 //                                @Override
 //                                public void unPushTagBindSuccess() {
-//                                    Log.i(TAG,"个推绑定的同时解绑FCM成功");
+//                                    LOG.I(TAG,"个推绑定的同时解绑FCM成功");
 //                                }
 //
 //                                @Override
 //                                public void unPushTagBindFail(int errorCode) {
-//                                    Log.i(TAG,"个推绑定的同时解绑FCM失败");
+//                                    LOG.I(TAG,"个推绑定的同时解绑FCM失败");
 //                                }
 //                            });
 //
 //                        }else{
-//                            Log.i(TAG, "个推client id为空");
+//                            LOG.I(TAG, "个推client id为空");
 //                        }
 //                    }else{
 
@@ -249,12 +246,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                 @Override
                 public void unPushTagBindSuccess() {
-                    Log.i(TAG,"FCM绑定的同时解绑个推成功");
+                    LOG.I(TAG,"FCM绑定的同时解绑个推成功");
                 }
 
                 @Override
                 public void unPushTagBindFail(int errorCode) {
-                    Log.i(TAG,"FCM绑定的同时解绑个推失败");
+                    LOG.I(TAG,"FCM绑定的同时解绑个推失败");
                 }
             });
 
@@ -264,13 +261,13 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }else{
             String cid = PushManager.getInstance().getClientid(this);
             if(!TextUtils.isEmpty(cid)) {
-                Log.i(TAG, "个推client id =" + cid);
+                LOG.I(TAG, "个推client id =" + cid);
                 STEvent stEvent = new STEvent();
                 stEvent.setRefreshevent(11);
                 stEvent.setFcm_token(cid);
                 EventBus.getDefault().post(stEvent);
             }else{
-                Log.i(TAG, "个推client id为空");
+                LOG.I(TAG, "个推client id为空");
             }
         }
 
@@ -438,7 +435,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         public void onPageScrollStateChanged(int index) {
             try {
                 changeIndex = index;
-                Log.i(TAG,"onPageScrollStateChanged:"+index);
+                LOG.I(TAG,"onPageScrollStateChanged:"+index);
                 if(index==0){
                     switch (currIndex){
                         case 0:
@@ -475,7 +472,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                 }
             }catch (NullPointerException e){
-               Log.i(TAG,"tintManager is null");
+               LOG.I(TAG,"tintManager is null");
             }
 
         }
@@ -607,7 +604,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-       Log.i(TAG,"onNewIntent");
+       LOG.I(TAG,"onNewIntent");
 
         try {
             int current = intent.getIntExtra("current_dev",0);
@@ -633,7 +630,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 checkUpdatefirm();
             }
         }catch (Exception e){
-            Log.i(TAG,"已退出了");
+            LOG.I(TAG,"已退出了");
         }
         if(TextUtils.isEmpty(HekrUserAction.getInstance(this).getJWT_TOKEN())){
             startActivity(new Intent(this,LoginActivity.class));
@@ -737,12 +734,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                         HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 3, new HekrUser.PushTagBindListener() {
                             @Override
                             public void pushTagBindSuccess() {
-                                android.util.Log.i(TAG,"FCM绑定成功getSuccess:");
+                                LOG.I(TAG,"FCM绑定成功getSuccess:");
                             }
 
                             @Override
                             public void pushTagBindFail(int errorCode) {
-                                android.util.Log.i(TAG,"FCM绑定失败getFail:"+errorCode);
+                                LOG.I(TAG,"FCM绑定失败getFail:"+errorCode);
                                 if(errorCode==1){
                                     LogoutEvent tokenTimeoutEvent = new LogoutEvent();
                                     EventBus.getDefault().post(tokenTimeoutEvent);
@@ -761,12 +758,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                             HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 0, new HekrUser.PushTagBindListener() {
                                 @Override
                                 public void pushTagBindSuccess() {
-                                    android.util.Log.i(TAG,"个推绑定成功getSuccess:");
+                                    LOG.I(TAG,"个推绑定成功getSuccess:");
                                 }
 
                                 @Override
                                 public void pushTagBindFail(int errorCode) {
-                                    android.util.Log.i(TAG,"个推绑定失败getFail:"+errorCode);
+                                    LOG.I(TAG,"个推绑定失败getFail:"+errorCode);
                                     if(errorCode==1){
                                         LogoutEvent tokenTimeoutEvent = new LogoutEvent();
                                         EventBus.getDefault().post(tokenTimeoutEvent);
@@ -783,12 +780,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                         HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 2, new HekrUser.PushTagBindListener() {
                             @Override
                             public void pushTagBindSuccess() {
-                                android.util.Log.i(TAG,"HUAWEI绑定成功getSuccess:");
+                                LOG.I(TAG,"HUAWEI绑定成功getSuccess:");
                             }
 
                             @Override
                             public void pushTagBindFail(int errorCode) {
-                                android.util.Log.i(TAG,"HUAWEI绑定失败getFail:"+errorCode);
+                                LOG.I(TAG,"HUAWEI绑定失败getFail:"+errorCode);
                                 if(errorCode==1){
                                     LogoutEvent tokenTimeoutEvent = new LogoutEvent();
                                     EventBus.getDefault().post(tokenTimeoutEvent);
@@ -805,12 +802,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 1, new HekrUser.PushTagBindListener() {
                     @Override
                     public void pushTagBindSuccess() {
-                        android.util.Log.i(TAG, "小米绑定成功getSuccess:");
+                        LOG.I(TAG, "小米绑定成功getSuccess:");
                     }
 
                     @Override
                     public void pushTagBindFail(int errorCode) {
-                        android.util.Log.i(TAG, "小米绑定失败getFail:" + errorCode);
+                        LOG.I(TAG, "小米绑定失败getFail:" + errorCode);
                         if (errorCode == 1) {
                             LogoutEvent tokenTimeoutEvent = new LogoutEvent();
                             EventBus.getDefault().post(tokenTimeoutEvent);
@@ -950,11 +947,11 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 sceneBean6.setName("");
                 sceneDAO.addinit(sceneBean6);
 
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().bind:"+ ConnectionPojo.getInstance().bind);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().deviceTid:"+ ConnectionPojo.getInstance().deviceTid);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
+                LOG.I(TAG,"ConnectionPojo.getInstance().bind:"+ ConnectionPojo.getInstance().bind);
+                LOG.I(TAG,"ConnectionPojo.getInstance().deviceTid:"+ ConnectionPojo.getInstance().deviceTid);
+                LOG.I(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
+                LOG.I(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
+                LOG.I(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
             }
         }
         catch (Exception e){

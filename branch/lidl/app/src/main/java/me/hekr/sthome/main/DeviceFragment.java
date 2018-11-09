@@ -80,6 +80,7 @@ import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.PackDAO;
 import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
@@ -175,7 +176,7 @@ public class DeviceFragment extends Fragment {
                 SendCommand.Command = SendCommand.INCREACE_EQUIPMENT;
                 Intent intent  = new Intent(DeviceFragment.this.getActivity(), AddDeviceActivity.class);
                 if(list!=null && openFolderIndex!=-1&&mFolderView!=null) {
-                    Log.i(TAG,"需要添加到的packID为："+((FolderInfo)list.get(openFolderIndex)).getPackId());
+                    LOG.I(TAG,"需要添加到的packID为："+((FolderInfo)list.get(openFolderIndex)).getPackId());
                     Bundle bundle = new Bundle();
                     bundle.putInt("folderid",((FolderInfo)list.get(openFolderIndex)).getPackId());
                     intent.putExtras(bundle);
@@ -287,12 +288,12 @@ public class DeviceFragment extends Fragment {
 
         if(touchon) return;
 
-        Log.i("ceshi","刷新了哦");
+        LOG.I("ceshi","刷新了哦");
         try {
             list.clear();
             controller.initData(list);
         } catch (Exception e) {
-            Log.i("ceshi", "data err");
+            LOG.I("ceshi", "data err");
         }
 
 
@@ -308,12 +309,12 @@ public class DeviceFragment extends Fragment {
     public void init() {
 
         if(mFolderView==null) {
-            Log.i("ceshi","刷新了哦");
+            LOG.I("ceshi","刷新了哦");
             try {
                 list.clear();
                 controller.initData(list);
             } catch (Exception e) {
-                Log.i("ceshi", "data err");
+                LOG.I("ceshi", "data err");
             }
         }else{
             mContainer.removeView(mFolderView);
@@ -1440,7 +1441,7 @@ public class DeviceFragment extends Fragment {
 
                 try {
                     final ApplicationInfo app = mover.hook();
-                    Log.i("ceshi","mover.hook()"+app.toString());
+                    LOG.I("ceshi","mover.hook()"+app.toString());
                     EquipDAO dao = new EquipDAO(DeviceFragment.this.getActivity());
                     app.setPackId(0);
                     dao.updatePack(app);
@@ -1907,7 +1908,7 @@ public class DeviceFragment extends Fragment {
                                         point.y-out_scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
                                             @Override
                                             public void movingStopped(ApplicationInfo appInfo) {
-                                                Log.i("ceshi","停止了");
+                                                LOG.I("ceshi","停止了");
                                                 top_lay.setVisibility(View.GONE);
                                                 p.addToFolder(i, app);
                                                 p.clearUp(null);
@@ -1957,7 +1958,7 @@ public class DeviceFragment extends Fragment {
             FolderInfo ifno = (FolderInfo) list.get(openFolderIndex);
             ifno.setEquipmentName(mFolderView.getEditContent());
             dao.updateName(ifno);
-            Log.i("ceshi","更新名称为"+mFolderView.getEditContent());
+            LOG.I("ceshi","更新名称为"+mFolderView.getEditContent());
         }catch (Exception e){
 
         }

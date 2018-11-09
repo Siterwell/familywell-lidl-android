@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.hekr.sthome.model.modelbean.SysModelBean;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by jishu0001 on 2016/9/1.
@@ -47,7 +48,7 @@ public class SysmodelDAO {
             row = (int) db.insert("sysmodle", null, cv);
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return row;
@@ -105,7 +106,7 @@ public class SysmodelDAO {
                 sys2.setColor(cursor.getString(cursor.getColumnIndex("color")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -129,7 +130,7 @@ public class SysmodelDAO {
                 sys2.setColor(cursor.getString(cursor.getColumnIndex("color")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -155,7 +156,7 @@ public class SysmodelDAO {
         }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -178,7 +179,7 @@ public class SysmodelDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -204,7 +205,7 @@ public class SysmodelDAO {
         }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -224,7 +225,7 @@ public class SysmodelDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -244,7 +245,7 @@ public class SysmodelDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -261,9 +262,9 @@ public class SysmodelDAO {
             ContentValues cv = new ContentValues();
             cv.put("name", name);
             db.update("sysmodle", cv, where, whereValue);
-            Log.i("update sysmodle over", "data " + name);
+            LOG.I("update sysmodle over", "data " + name);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
         }
@@ -278,9 +279,9 @@ public class SysmodelDAO {
             ContentValues cv = new ContentValues();
             cv.put("color", color);
             db.update("sysmodle", cv, where, whereValue);
-            Log.i("update sysmodle over", "data " + color);
+            LOG.I("update sysmodle over", "data " + color);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
         }
@@ -312,7 +313,7 @@ public class SysmodelDAO {
             cv2.put("choice","Y");
             db.update("sysmodle", cv2, where2, whereValue2);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
         }
@@ -331,7 +332,7 @@ public class SysmodelDAO {
             String[] whereValue ={ sid,deviceid };
             db.delete("sysmodle", where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
         }
@@ -351,7 +352,7 @@ public class SysmodelDAO {
             String where = "deviceid = '"+deviceid+"'";
             db.delete("sysmodle", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
         }
@@ -370,7 +371,7 @@ public class SysmodelDAO {
                 list.add( cursor.getString(cursor.getColumnIndex("sid")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return list;
@@ -456,7 +457,7 @@ public class SysmodelDAO {
 
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return list;
@@ -476,7 +477,7 @@ public class SysmodelDAO {
                 a = cursor.getInt(cursor.getColumnIndex("count(id)"));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return a;
@@ -497,7 +498,7 @@ public class SysmodelDAO {
                 a = cursor.getInt(cursor.getColumnIndex("count(id)"));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return a;

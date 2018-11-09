@@ -77,6 +77,7 @@ import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneGroupData;
@@ -163,12 +164,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
         ssgd = new SendSceneGroupData(this.getActivity()) {
             @Override
             protected void sendEquipmentDataFailed() {
-                Log.i(TAG,"operation failed");
+                LOG.I(TAG,"operation failed");
             }
 
             @Override
             protected void sendEquipmentDataSuccess() {
-                Log.i(TAG,"operation success");
+                LOG.I(TAG,"operation success");
             }
         };
         cycleViewPager = new CycleViewPager(getActivity());
@@ -216,7 +217,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
             total_linearlayout = (LinearLayout) view.findViewById(R.id.totl);
             int top = UnitTools.getStatusBarHeight(getActivity());
             total_linearlayout.setPadding(0,top,0,0);
-            Log.i(TAG,"top="+top);
+            LOG.I(TAG,"top="+top);
             alarm_content = (LinearLayout)view.findViewById(R.id.content);
             alarm_content.setPadding(0,top,0,0);
         }
@@ -259,7 +260,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                 mainHome.setText(bean.getModleName());
             }
         }catch (Exception e){
-             Log.i(TAG,"no choosed mode");
+             LOG.I(TAG,"no choosed mode");
         }
     }
 
@@ -288,7 +289,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                 @Override
                 public void getProfileSuccess(Object object) {
                     try {
-                        Log.i(TAG,"getSuccess"+object.toString());
+                        LOG.I(TAG,"getSuccess"+object.toString());
                         JSONObject d = JSON.parseObject(object.toString());
                         ClientUser user = CCPAppManager.getClientUser();
                         user.setMonitor(d.getJSONObject("extraProperties").getString("monitor"));
@@ -301,7 +302,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
 
                 @Override
                 public void getProfileFail(int errorCode) {
-                    Log.i(TAG,"getFail:"+errorCode);
+                    LOG.I(TAG,"getFail:"+errorCode);
                     if(errorCode==1){
                         LogoutEvent tokenTimeoutEvent = new LogoutEvent();
                         EventBus.getDefault().post(tokenTimeoutEvent);
@@ -364,7 +365,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
             @Override
             public void getSuccess(Object object) {
 
-                Log.i(TAG, "历史告警=============="+object.toString());
+                LOG.I(TAG, "历史告警=============="+object.toString());
                 JSONObject jsonObject = JSONObject.parseObject(object.toString());
 
                 int pageload  = jsonObject.getIntValue("number");
@@ -438,7 +439,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
             views.clear();
             casaul.removeAllViews();
             if(cycleViewPager!=null){
-                Log.i(TAG,"cycleViewPager.removeHandler();");
+                LOG.I(TAG,"cycleViewPager.removeHandler();");
                 cycleViewPager.removeHandler();
             }
             cycleViewPager = new CycleViewPager(getActivity());
@@ -497,7 +498,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
 
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"tuichu");
+            LOG.I(TAG,"tuichu");
         }
 
 
@@ -518,7 +519,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
             views_weather.clear();
             topp.removeAllViews();
             if(cycleViewWeatherPager!=null){
-                Log.i(TAG,"cycleViewWeatherPager.removeHandler();");
+                LOG.I(TAG,"cycleViewWeatherPager.removeHandler();");
                 cycleViewWeatherPager.removeHandler();
             }
             cycleViewWeatherPager = new CycleViewWeatherPager(getActivity());
@@ -599,7 +600,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
 
 
         }catch (NullPointerException e){
-            Log.i(TAG,"tuichu");
+            LOG.I(TAG,"tuichu");
         }
 
 
@@ -647,7 +648,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
     public  void onEventMainThread(STEvent event){
 
         if(event.getRefreshevent()==1 || event.getRefreshevent() == 6){
-            Log.i(TAG,"当前网关状态刷新refreshTitle();");
+            LOG.I(TAG,"当前网关状态刷新refreshTitle();");
              refreshTitle();
         }else if(event.getRefreshevent()==5){
             initializeWeather();
@@ -708,7 +709,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                         double lat = location.getLatitude();
                         double lon = location.getLongitude();
                         String address = "纬度：" + lat + "经度：" + lon;
-                        Log.i("ceshi", "Google Location > " + address);
+                        LOG.I("ceshi", "Google Location > " + address);
 
                         try {
                             if ("".equals(weather_txt)) {
@@ -716,7 +717,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
                                 Config.getWeatherInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
                                     @Override
                                     public void loginSuccess(String str) {
-                                        Log.i("ceshi", "天气数据:" + str);
+                                        LOG.I("ceshi", "天气数据:" + str);
                                         try {
                                             JSONObject jsonObject = JSONObject.parseObject(str);
                                             JSONArray jsonArray = jsonObject.getJSONArray("weather");
@@ -738,7 +739,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
 
                                     @Override
                                     public void loginFail(int errorCode) {
-                                        Log.i("ceshi", "errorCode:" + errorCode);
+                                        LOG.I("ceshi", "errorCode:" + errorCode);
                                     }
                                 }, "https://api.openweathermap.org/data/2.5/weather?lat=" +
                                         lat + "&lon=" + lon

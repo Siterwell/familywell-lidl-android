@@ -26,6 +26,7 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.PorterDuffXfermodeView;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by Administrator on 2017/9/4.
@@ -206,11 +207,11 @@ public class ActivityGuideDeviceSetupStorage extends TopbarIpcSuperActivity impl
                     remainSpace += partRemainSpace;
                 }
             }
-            Log.i(TAG,"totalSpace:"+totalSpace);
-            Log.i(TAG,"remainSpace:"+remainSpace);
+            LOG.I(TAG,"totalSpace:"+totalSpace);
+            LOG.I(TAG,"remainSpace:"+remainSpace);
             if(totalSpace>0 || remainSpace > 0){
                 percent = ((float) totalSpace / ((float)totalSpace+remainSpace));
-                Log.i(TAG,"percent:"+percent);
+                LOG.I(TAG,"percent:"+percent);
                 porterDuffXfermodeView.setPercent(percent);
 
                 mTextPercent.setText(df.format(percent*100)+"%");

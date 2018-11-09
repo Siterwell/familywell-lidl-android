@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.hekr.sthome.model.modelbean.SceneBean;
+import me.hekr.sthome.tools.LOG;
 
 
 /**
@@ -45,7 +46,7 @@ public class SceneDAO {
         cv.put("code",am.getCode());
         db.update("scenetable", cv, where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -72,7 +73,7 @@ public class SceneDAO {
         row = (int) db.insert("scenetable", null, cv);
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return row;
@@ -123,7 +124,7 @@ public class SceneDAO {
         String[] whereValue ={ String.valueOf(sid),deviceid };
         db.delete("scenetable", where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -139,9 +140,9 @@ public class SceneDAO {
         String where = "mid = ? and deviceid = ?";
         String[] whereValue ={ eq.getMid(),eq.getDeviceid()};
         int row = db.delete("scenetable", where, whereValue);
-        Log.i("delete sence list",eq.getMid()+" ============delete"+ row );
+        LOG.I("delete sence list",eq.getMid()+" ============delete"+ row );
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -158,9 +159,9 @@ public class SceneDAO {
         String where = "mid = ? and sid = ? and deviceid = ?";
         String[] whereValue ={ eq.getMid(), eq.getSid(),deviceid };
         int row = db.delete("scenetable", where, whereValue);
-        Log.i("delete sence list",eq.getMid()+" ============delete"+ row );
+        LOG.I("delete sence list",eq.getMid()+" ============delete"+ row );
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -177,7 +178,7 @@ public class SceneDAO {
             String[] whereValue ={ mid,deviceid};
             db.delete("scenetable", where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -196,7 +197,7 @@ public class SceneDAO {
             String[] whereValue ={ eq.getMid(),eq.getSid(),eq.getDeviceid()};
             db.delete("scenetable", where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -210,7 +211,7 @@ public class SceneDAO {
             String where = "deviceid = '"+deviceid+"'";
             db.delete("scenetable", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -235,7 +236,7 @@ public class SceneDAO {
             list.add(eq);
         }
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
@@ -266,7 +267,7 @@ public class SceneDAO {
             list.add(eq);
         }
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
@@ -295,7 +296,7 @@ public class SceneDAO {
             eq.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
         }
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return eq;
@@ -322,7 +323,7 @@ public class SceneDAO {
                 eq.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return eq;
@@ -350,7 +351,7 @@ public class SceneDAO {
         }
 
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return eq;
@@ -369,7 +370,7 @@ public class SceneDAO {
             a = cursor.getInt(cursor.getColumnIndex("count(id)"));
         }
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return a;
@@ -390,7 +391,7 @@ public class SceneDAO {
             list.add( cursor.getString(cursor.getColumnIndex("mid")));
         }
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
@@ -434,7 +435,7 @@ public class SceneDAO {
         }
 
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
@@ -467,7 +468,7 @@ public class SceneDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
@@ -499,7 +500,7 @@ public class SceneDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
@@ -528,7 +529,7 @@ public class SceneDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
@@ -548,7 +549,7 @@ public class SceneDAO {
                 list.add( cursor.getString(cursor.getColumnIndex("mid")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return list;
@@ -566,7 +567,7 @@ public class SceneDAO {
                 in.add(new Integer(cursor.getString(cursor.getColumnIndex("mid"))));
             }
         }catch (NullPointerException e){
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         }finally {
             db.close();
             return in;
@@ -588,7 +589,7 @@ public class SceneDAO {
                 a = cursor.getInt(cursor.getColumnIndex("count(id)"));
             }
         } catch (NullPointerException e) {
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         } finally {
             db.close();
             return a;
@@ -609,7 +610,7 @@ public class SceneDAO {
                 a = cursor.getInt(cursor.getColumnIndex("count(id)"));
             }
         } catch (NullPointerException e) {
-            Log.i(TAG, "no choosed device");
+            LOG.I(TAG, "no choosed device");
         } finally {
             db.close();
             return a;
@@ -630,7 +631,7 @@ public class SceneDAO {
                 a = cursor.getInt(cursor.getColumnIndex("count(id)"));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return a;

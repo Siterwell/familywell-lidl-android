@@ -14,6 +14,7 @@ import java.util.List;
 
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by jishu0001 on 2016/8/22.
@@ -46,7 +47,7 @@ public class EquipDAO {
             localCursor.moveToFirst();
             a = localCursor.getInt(localCursor.getColumnIndex("count(*)"));
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return a;
@@ -63,7 +64,7 @@ public class EquipDAO {
         String[] whereValue ={ eq.getEqid(),eq.getDeviceid() };
         db.delete("equipment", where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -78,7 +79,7 @@ public class EquipDAO {
             String[] whereValue ={ eq.getEqid(),eq.getDeviceid() };
             db.delete("equipment", where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -93,7 +94,7 @@ public class EquipDAO {
         String where = "deviceid = '"+deviceid+"'";
         db.delete("equipment", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -118,7 +119,7 @@ public class EquipDAO {
         row = (int) db.insert("equipment", null, cv);
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return row;
@@ -137,9 +138,9 @@ public class EquipDAO {
         cv.put("state",eq.getState());
         cv.put("equipmentdesc",eq.getEquipmentDesc());
         db.update("equipment", cv, where, whereValue);
-        Log.i(TAG,"data "+eq.toString());
+        LOG.I(TAG,"data "+eq.toString());
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -158,9 +159,9 @@ public class EquipDAO {
             cv.put("state",eq.getState());
             cv.put("equipmentdesc",eq.getEquipmentDesc());
             db.update("equipment", cv, where, whereValue);
-            Log.i(TAG,"data "+eq.toString());
+            LOG.I(TAG,"data "+eq.toString());
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -181,9 +182,9 @@ public class EquipDAO {
         cv.put("state",eq.getState());
         cv.put("equipmentdesc",eq.getEquipmentDesc());
         db.update("equipment", cv, where, whereValue);
-        Log.i(TAG,"data "+eq.toString());
+        LOG.I(TAG,"data "+eq.toString());
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -200,9 +201,9 @@ public class EquipDAO {
         cv.put("name", eq.getEquipmentName());
             cv.put("deviceid",eq.getDeviceid());
         db.update("equipment", cv, where, whereValue);
-        Log.i(TAG," update equipment over data "+eq.toString());
+        LOG.I(TAG," update equipment over data "+eq.toString());
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -219,9 +220,9 @@ public class EquipDAO {
         cv.put("sort", eq.getOrder());
             cv.put("deviceid",eq.getDeviceid());
         db.update("equipment", cv, where, whereValue);
-        Log.i( TAG,"update equipment over data "+eq.toString());
+        LOG.I( TAG,"update equipment over data "+eq.toString());
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -239,7 +240,7 @@ public class EquipDAO {
             cv.put("deviceid",eq.getDeviceid());
         db.update("equipment", cv, where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -271,7 +272,7 @@ public class EquipDAO {
         }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -304,7 +305,7 @@ public class EquipDAO {
             list.add(eq);
         }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -331,7 +332,7 @@ public class EquipDAO {
             list.add(eq);
         }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -358,7 +359,7 @@ public class EquipDAO {
                 list.add(eq);
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -381,7 +382,7 @@ public class EquipDAO {
             list.add(eq);
         }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -401,7 +402,7 @@ public class EquipDAO {
             eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
         }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return eq;

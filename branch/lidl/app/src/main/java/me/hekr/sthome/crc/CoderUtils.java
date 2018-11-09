@@ -25,6 +25,7 @@ import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.model.modeldb.TimerDAO;
 import me.hekr.sthome.tools.ByteUtil;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by jishu0001 on 2017/2/9.
@@ -189,7 +190,7 @@ public class CoderUtils {
                         statusCRC += "0000";
                     }
                 }
-                Log.i(TAG, "ceshi crc " + statusCRC);
+                LOG.I(TAG, "ceshi crc " + statusCRC);
 
                 String oooo = "0", num = "";
                 if (Integer.toHexString(listLength*2+2).length() < 4) {
@@ -203,7 +204,7 @@ public class CoderUtils {
 
                 return (num + statusCRC);
             } else {
-                Log.i(TAG, "there is no equipment exist");
+                LOG.I(TAG, "there is no equipment exist");
                 return "00020000";
             }
 
@@ -247,7 +248,7 @@ public class CoderUtils {
                         statusCRC += "0000";
                     }
                 }
-                Log.i(TAG, "ceshi crc " + statusCRC);
+                LOG.I(TAG, "ceshi crc " + statusCRC);
 
                 String oooo = "0", num = "";
                 if (Integer.toHexString(listLength*2+2).length() < 4) {
@@ -310,7 +311,7 @@ public class CoderUtils {
                     sceneCRC += "0000";
                 }
             }
-            Log.i(TAG, "ceshi crc " + sceneCRC);
+            LOG.I(TAG, "ceshi crc " + sceneCRC);
 
             int totalLength = codeLength ;
             Integer.toHexString(totalLength);

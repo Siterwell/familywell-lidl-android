@@ -66,6 +66,7 @@ import me.hekr.sthome.commonBaseView.FiterImageView;
 import me.hekr.sthome.commonBaseView.HistoryWidget.TimerHistoryHorizonScrollView;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.model.modelbean.MonitorBean;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -471,7 +472,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
             float endt   = (float) DateUtil.getSecondInDay(funFileData.getEndTimeStr()) * TimerHistoryHorizonScrollView.TOTAL_PROCESS /86400f;
 
             int seekposbyfile = (int)((curr-startt)*100f/(endt-startt));
-            Log.i(TAG,"seekRecordVideo+++++++++seekposbyfile:"+seekposbyfile);
+            LOG.I(TAG,"seekRecordVideo+++++++++seekposbyfile:"+seekposbyfile);
             mVideoView.seekbyfile(seekposbyfile);
         }
     }
@@ -685,8 +686,8 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
 
         int startTm = mVideoView.getStartTime();
         int endTm = mVideoView.getEndTime();
-        Log.i("startTm","TTTT----" + startTm);
-        Log.i("endTm","TTTT----" + endTm);
+        LOG.I("startTm","TTTT----" + startTm);
+        LOG.I("endTm","TTTT----" + endTm);
         if (startTm > 0 && endTm > startTm) {
             resetProgressInterval();
         } else {
@@ -712,7 +713,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
         int posTm = mVideoView.getPosition();
         if ( posTm > 0 ) {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
-            Log.i(TAG,"当前时间----" + sdf.format(new Date((long)posTm*1000)));
+            LOG.I(TAG,"当前时间----" + sdf.format(new Date((long)posTm*1000)));
             if(null != textView_time){
                 textView_time.setText(sdf.format(new Date((long)posTm*1000)));
             }
@@ -865,7 +866,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
 
                 for (H264_DVR_FILE_DATA data : datas) {
                     FunFileData funFileData = new FunFileData(data, new OPCompressPic());
-                    Log.i(TAG,"funFileData++++++"+funFileData.toString());
+                    LOG.I(TAG,"funFileData++++++"+funFileData.toString());
 
 
                         float startt = (float)(DateUtil.getSecondInDay(funFileData.getBeginTimeStr())* TimerHistoryHorizonScrollView.TOTAL_PROCESS) /86400f;

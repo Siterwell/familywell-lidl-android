@@ -44,6 +44,7 @@ import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -92,12 +93,12 @@ private static boolean flag_login_timeout = false;
 
     private void login(){
 
-       Log.i(TAG,"自动登录");
+       LOG.I(TAG,"自动登录");
        handler.sendEmptyMessageDelayed(2,4000);
         Hekr.getHekrUser().login(getUsername(), getPassword(), new HekrCallback() {
             @Override
             public void onSuccess() {
-                Log.i(TAG,"自动登录成功");
+                LOG.I(TAG,"自动登录成功");
                 UserBean userBean = new UserBean(getUsername(), getPassword(), CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
                 HekrUserAction.getInstance(InitActivity.this).setUserCache(userBean);
                 if(!flag_login_timeout){
@@ -128,7 +129,7 @@ private static boolean flag_login_timeout = false;
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    Log.i(TAG,"自动登录失败");
+                    LOG.I(TAG,"自动登录失败");
                     if(!flag_login_timeout){
                         flag_login_timeout = true;
                     EventBus.getDefault().post(new AutoSyncEvent());
