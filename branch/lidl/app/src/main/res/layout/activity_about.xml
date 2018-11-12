@@ -142,21 +142,23 @@
                     app:item_showDivider="true"
                     app:item_titleText="@string/click_check_firemare" />
 
-
                 <me.hekr.sthome.commonBaseView.SettingItem
                     android:id="@+id/sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:item_accessoryType = "arrow"
-                    app:item_showDivider="false"
+                    app:item_showDivider="true"
+                    app:item_detailText=""
                     app:item_titleText="@string/sale_number" />
                 <me.hekr.sthome.commonBaseView.SettingItem
                     android:id="@+id/yinsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:item_accessoryType = "arrow"
-                    app:item_showDivider="false"
+                    app:item_showDivider="true"
+                    app:item_detailText=""
                     app:item_titleText="@string/view_yinsi" />
+
             </LinearLayout>
 
             <TextView
