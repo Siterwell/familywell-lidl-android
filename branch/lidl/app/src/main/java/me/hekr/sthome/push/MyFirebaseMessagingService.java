@@ -74,73 +74,71 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 DeviceDAO deviceDAO = new DeviceDAO(this);
 
                 JSONObject jsonObject = new JSONObject(remoteMessage.getData());
+                String title = jsonObject.getString("title");
+                String message = jsonObject.getString("message");
 
-                String devid = null;
-
-                devid = jsonObject.getString("devTid");
-
-
-                if(devid.equals(deviceDAO.findByChoice(1).getDevTid())){
-                    current_dev = 1;
-                }else{
-                    current_dev = 0;
-                }
-
-
-                String devname = deviceDAO.findByDeviceid(devid).getDeviceName();
-                if("报警器".equals(devname)){
-                    devname = getResources().getString(R.string.my_home);
-                }
-                LOG.D(TAG,"devname+++++"+devname);
-                if(jsonObject.has("login") && jsonObject.getBoolean("login")==true){
-                    action = getResources().getString(R.string.gateway_login);
-                }else if(jsonObject.has("loginout") && jsonObject.getBoolean("loginout")==true){
-                    action = getResources().getString(R.string.gateway_login_out);
-                }else{
-
-                    Intent intent1 = new Intent(this, MainActivity.class);
-                    intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent1.putExtra("current_dev",current_dev);
-
-                    pendingIntent = PendingIntent.getActivity(this, 35, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-                    String answer_content2 = jsonObject.getString("data");
-                    JSONObject jsonObject_in = new JSONObject(answer_content2);
-                    String answer_content = jsonObject_in.getString("answer_content");
-                    if(answer_content.length()>6) {
-                        if ("AC".equals(answer_content.substring(4, 6))) {
-                           String mid = String.valueOf(Integer.parseInt(answer_content.substring(6,8),16));
-                            SceneDAO sceneDAO = new SceneDAO(this);
-                           SceneBean sceneBean = sceneDAO.findScenceBymid(mid,devid);
-                           if(sceneBean!=null && !TextUtils.isEmpty(sceneBean.getName())){
-                              action = getResources().getString(R.string.scene) + ":(" + sceneBean.getName()+")" + getResources().getString(R.string.trigger);
-                           }else{
-                               action = getResources().getString(R.string.scene) + ":(id = " + mid +")" + getResources().getString(R.string.trigger);
-                           }
-                        } else if ("AD".equals(answer_content.substring(4, 6))) {
-                            String eqid = String.valueOf(Integer.parseInt(answer_content.substring(6,10),16));
-                            String type = answer_content.substring(10,14);
-                            String status = answer_content.substring(14,22);
-                            String alertinfo = HistoryDataHandler.getAlert(this,type,status);
-                            EquipDAO equipDAO = new EquipDAO(this);
-                            EquipmentBean equipmentBean = equipDAO.findByeqid(eqid,devid);
-                            if(equipmentBean != null && !TextUtils.isEmpty(equipmentBean.getEquipmentName())){
-                                action = equipmentBean.getEquipmentName()+alertinfo;
-                            }else{
-                                action = NameSolve.getDefaultName(this,type,eqid)+alertinfo;
-
-                            }
-                        }
-                    }else {
-                        LOG.D(TAG,"code error");
-                        action = getResources().getString(R.string.receive_one_notice);
-                    }
-                }
+//                String devid = jsonObject.getString("devTid");
+//                if(devid.equals(deviceDAO.findByChoice(1).getDevTid())){
+//                    current_dev = 1;
+//                }else{
+//                    current_dev = 0;
+//                }
+//
+//
+//                String devname = deviceDAO.findByDeviceid(devid).getDeviceName();
+//                if("报警器".equals(devname)){
+//                    devname = getResources().getString(R.string.my_home);
+//                }
+//                LOG.D(TAG,"devname+++++"+devname);
+//                if(jsonObject.has("login") && jsonObject.getBoolean("login")==true){
+//                    action = getResources().getString(R.string.gateway_login);
+//                }else if(jsonObject.has("loginout") && jsonObject.getBoolean("loginout")==true){
+//                    action = getResources().getString(R.string.gateway_login_out);
+//                }else{
+//
+//                    Intent intent1 = new Intent(this, MainActivity.class);
+//                    intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("current_dev",current_dev);
+//
+//                    pendingIntent = PendingIntent.getActivity(this, 35, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//
+//                    String answer_content2 = jsonObject.getString("data");
+//                    JSONObject jsonObject_in = new JSONObject(answer_content2);
+//                    String answer_content = jsonObject_in.getString("answer_content");
+//                    if(answer_content.length()>6) {
+//                        if ("AC".equals(answer_content.substring(4, 6))) {
+//                           String mid = String.valueOf(Integer.parseInt(answer_content.substring(6,8),16));
+//                            SceneDAO sceneDAO = new SceneDAO(this);
+//                           SceneBean sceneBean = sceneDAO.findScenceBymid(mid,devid);
+//                           if(sceneBean!=null && !TextUtils.isEmpty(sceneBean.getName())){
+//                              action = getResources().getString(R.string.scene) + ":(" + sceneBean.getName()+")" + getResources().getString(R.string.trigger);
+//                           }else{
+//                               action = getResources().getString(R.string.scene) + ":(id = " + mid +")" + getResources().getString(R.string.trigger);
+//                           }
+//                        } else if ("AD".equals(answer_content.substring(4, 6))) {
+//                            String eqid = String.valueOf(Integer.parseInt(answer_content.substring(6,10),16));
+//                            String type = answer_content.substring(10,14);
+//                            String status = answer_content.substring(14,22);
+//                            String alertinfo = HistoryDataHandler.getAlert(this,type,status);
+//                            EquipDAO equipDAO = new EquipDAO(this);
+//                            EquipmentBean equipmentBean = equipDAO.findByeqid(eqid,devid);
+//                            if(equipmentBean != null && !TextUtils.isEmpty(equipmentBean.getEquipmentName())){
+//                                action = equipmentBean.getEquipmentName()+alertinfo;
+//                            }else{
+//                                action = NameSolve.getDefaultName(this,type,eqid)+alertinfo;
+//
+//                            }
+//                        }
+//                    }else {
+//                        LOG.D(TAG,"code error");
+//                        action = getResources().getString(R.string.receive_one_notice);
+//                    }
+//                }
 
 
-                sendNotification(pendingIntent, current_dev, devname, action);
+                sendNotification(pendingIntent, title, message);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -157,14 +155,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
     // [END receive_message]
 
-    private void sendNotification(PendingIntent pendingIntent, int current_dev, String devname, String action) {
+    private void sendNotification(PendingIntent pendingIntent, String title, String message) {
         // 通过Notification.Builder来创建通知，注意API Level
         // API16之后才支持
         Notification.Builder builder= new Notification.Builder(this)
-                .setContentTitle((current_dev==1?getResources().getString(R.string.current_gateway):getResources().getString(R.string.other_gateway)) +":"+devname)
-                .setContentText(action)
+                .setContentTitle(title)
+                .setContentText(message)
                 .setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent)
                 .setContentIntent(pendingIntent);
+
         //兼容nexusandroid5.0
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             builder.setSmallIcon(R.mipmap.ic_launcher_alpha);
@@ -172,6 +171,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             builder.setSmallIcon(R.mipmap.ic_launcher);
         }
         Notification notification = builder.build(); // 需要注意build()是在API
+
         // level16及之后增加的，API11可以使用getNotificatin()来替代
         notification.flags |= Notification.FLAG_AUTO_CANCEL; // FLAG_AUTO_CANCEL表明当通知被用户点击时，通知将被清除。
         notification.defaults |= Notification.DEFAULT_SOUND;
