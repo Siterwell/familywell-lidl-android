@@ -32,9 +32,9 @@
         <item>UMSCHALTER</item>
     </string-array>
     <string-array name="door_actions">
-        <item>TÜR OFFEN</item>
-        <item>TÜR GESCHLOSSEN</item>
-        <item>WARTE AUF TÜR</item>
+        <item>Tür geöffnet</item>
+        <item>Tür geschlossen</item>
+        <item>Tür steht offen</item>
     </string-array>
     <string-array name="sos_signs">
         <item>HILFE</item>
