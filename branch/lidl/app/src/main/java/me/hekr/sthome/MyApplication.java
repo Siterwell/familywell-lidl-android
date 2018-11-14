@@ -25,6 +25,7 @@ import me.hekr.sthome.push.GTPushService;
 import me.hekr.sthome.push.RGTIntentService;
 import me.hekr.sthome.service.SiterService;
 import me.hekr.sthome.tools.CrashHandler;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -103,7 +104,7 @@ public class MyApplication extends MultiDexApplication {
         });
         UnitTools tools = new UnitTools(this);
         String d = tools.readLanguage();
-        Log.i("ceshi","语言为:"+d);
+        LOG.I("ceshi","语言为:"+d);
         CrashHandler.getInstance().init(getApplicationContext());
         Intent intent = new Intent(this, SiterService.class);
         startService(intent);

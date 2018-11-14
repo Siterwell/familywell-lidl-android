@@ -23,6 +23,7 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.PackDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 
 public class MyContentView extends View implements IPageView {
     private static final String TAG = "MyContentView";
@@ -520,7 +521,7 @@ public class MyContentView extends View implements IPageView {
     }
 
     public void setIconIntoPage(int index, ApplicationInfo info) {
-        Log.i("ceshi","setIconIntoPage"+index);
+        LOG.I("ceshi","setIconIntoPage"+index);
         if (index < 0 || index >= icons.size())
             return;
         ApplicationInfo oldApp = icons.get(index);

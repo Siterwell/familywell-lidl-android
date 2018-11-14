@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import me.hekr.sthome.tools.LOG;
+
 public class DevCmdOPSCalendarInMonth extends DevCmdGeneral {
 	public static final String CONFIG_NAME = "OPSCalendarInMonth";
 	public static final int JSON_ID = EDEV_JSON_ID.CALENDAR_MONTH_REQ;
@@ -128,7 +130,7 @@ public class DevCmdOPSCalendarInMonth extends DevCmdGeneral {
 				// 排序 
 				Collections.sort(mList);
 			setRet(obj.getInt("Ret"));
-			Log.i("ceshi","有录像的天数:"+mList.toString());
+			LOG.I("ceshi","有录像的天数:"+mList.toString());
 			return ret == 100;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

@@ -25,6 +25,7 @@ import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.SceneBean;
 import me.hekr.sthome.tools.ByteUtil;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.wheelwidget.helper.TimerBean;
 import me.hekr.sthome.wheelwidget.picker.SecondDelayPicker;
 import me.hekr.sthome.wheelwidget.picker.TimerPicker;
@@ -60,7 +61,7 @@ public class TimerNewActivity extends TopbarSuperActivity {
         initView();
         initViewGuider();
     }catch (Exception e){
-        Log.i("ceshi","data is null");
+        LOG.I("ceshi","data is null");
     }
     }
 

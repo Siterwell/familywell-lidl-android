@@ -17,6 +17,7 @@ import me.hekr.sthome.model.modeladapter.GridAdapter;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 
 /**
@@ -47,7 +48,7 @@ public class ModelCellListActivity extends TopbarSuperActivity {
 
     private void initView() {
         gv = (GridView) findViewById(R.id.equipShow);
-        Log.i("ceshi","listDate"+listDate.toString());
+        LOG.I("ceshi","listDate"+listDate.toString());
         listAdapter = new GridAdapter(this,listDate);
         gv.setAdapter(listAdapter);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

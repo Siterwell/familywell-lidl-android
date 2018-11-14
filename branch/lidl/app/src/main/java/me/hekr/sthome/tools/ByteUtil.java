@@ -571,7 +571,7 @@ public class ByteUtil {
 				ret[i] = uniteBytes(src.substring(i * 2, m), src.substring(m, n));
 			}
 		}catch (Exception e){
-               Log.i("ceshi","格式 err");
+               LOG.I("ceshi","格式 err");
 		}
 
 		return ret;

@@ -25,6 +25,7 @@ import me.hekr.sthome.commonBaseView.SlideListView;
 import me.hekr.sthome.model.modelbean.SysModelBean;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by jishu0001 on 2016/9/7.
@@ -84,7 +85,7 @@ public class ModleSysAdapter extends BaseAdapter {
                 }
             }
         }catch (Exception e){
-           Log.i("ceshi","无选中的情景组");
+           LOG.I("ceshi","无选中的情景组");
         }
 
 
