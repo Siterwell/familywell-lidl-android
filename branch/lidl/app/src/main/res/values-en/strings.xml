@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SilverCrest Alarm</string>
+    <string name="app_name">ELRO Connects</string>
     <string name="btnConfirmTitle">CONNECT</string>
     <string name="config_instruction">Five seconds after you plugged in the connector, Press and hold the button for network mode.</string>
     <string name="how_to_config">Please make sure the blue light of the connector flashes and then press "next step".</string>

@@ -25,16 +25,16 @@ android {
             abiFilters  "armeabi"
         }
 
-        applicationId "com.cosa.silvercrest"
+        applicationId "com.cosa.elro"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1102
         versionName "1.102"
 
         manifestPlaceholders = [
-                GETUI_APP_ID    : "QdrGH5nq6m6BDx4ATwKJF9",
-                GETUI_APP_KEY   : "FWbcn1p7Ym5hBUdMS9naQ7",
-                GETUI_APP_SECRET: "79AGJOFRvy8FotbAAYYxu9"
+                GETUI_APP_ID    : "Z4oQtHjgSIAF9Jxs2Ggy83",
+                GETUI_APP_KEY   : "vG7nGkpZMZ8i0j8AdfUTqA",
+                GETUI_APP_SECRET: "lYCtUPsZH96v02qAajLCB9"
         ]
     }
 

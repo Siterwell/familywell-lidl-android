@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SilverCrest Alarm</string>
+    <string name="app_name">ELRO Connects</string>
     <string name="btnConfirmTitle">连接</string>
     <string name="config_instruction">网关上电五秒后，长按网关按钮三秒以上</string>
     <string name="how_to_config">请确认网关蓝灯闪烁，\n然后点击下一步。</string>

@@ -1,27 +1,31 @@
 {
   "project_info": {
-    "project_number": "930272937290",
-    "firebase_url": "https://lidl-f0a6e.firebaseio.com",
-    "project_id": "lidl-f0a6e",
-    "storage_bucket": "lidl-f0a6e.appspot.com"
+    "project_number": "851337315280",
+    "firebase_url": "https://elro-2f71a.firebaseio.com",
+    "project_id": "elro-2f71a",
+    "storage_bucket": "elro-2f71a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:930272937290:android:ed256387da56d5fd",
+        "mobilesdk_app_id": "1:851337315280:android:7cf9da1785369364",
         "android_client_info": {
-          "package_name": "com.cosa.silvercrest"
+          "package_name": "com.cosa.elro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "930272937290-rmo9h4ajmbkqk86uk72o8fc09r1dpf6e.apps.googleusercontent.com",
+          "client_id": "851337315280-2ak8hc3csded4scp6rpv7g38pim3hs0n.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "851337315280-2ak8hc3csded4scp6rpv7g38pim3hs0n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCrEngcnsRoBzFrSSuWatWUPtYStw8X3o"
+          "current_key": "AIzaSyD5Pg-rD2__95KUxxds5XYYD-i0RZ5HgqU"
         }
       ],
       "services": {
