@@ -159,7 +159,7 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
             jsonObject.put("clientId",token);
             jsonObject.put("locale",lan);
             jsonObject.put("pushPlatform","GETUI");
-            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
+            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekreu.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
                 @Override
                 public void getSuccess(Object object) {
                     handler.sendMessageDelayed(message,1000);
@@ -177,7 +177,7 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
             jsonObject.put("clientId",fcmtoken);
             jsonObject.put("locale",lan);
             jsonObject.put("pushPlatform","FCM");
-            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
+            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekreu.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
                 @Override
                 public void getSuccess(Object object) {
                     handler.sendMessageDelayed(message,1000);

@@ -42,8 +42,8 @@ public class SiterConstantsUtil {
         public static final String BASE_CONFIG_HElP_URL = "https://hekr.daikeapp.com/kb/articles/1672";
         public static final String BASE_CONFIG_HElP_URL_EN = "https://hekr.daikeapp.com/kb/articles/1688";
 
-        public static String BASE_UAA_URL = "https://uaa-openapi.hekr.me/";
-        public static String BASE_USER_URL = "https://user-openapi.hekr.me/";
+        public static String BASE_UAA_URL = "https://uaa-openapi.hekreu.me/";
+        public static String BASE_USER_URL = "https://user-openapi.hekreu.me/";
         public static String BASE_CONSOLE_URL = "https://console-openapi.hekr.me/";
         public static String APP_WEBSOCKET_CONNECT_CLOUD_URL = "ws://asia.app.hekr.me:86";
         //public static final String BASE_UAA_URL = "http://123.59.81.102:8080/";
