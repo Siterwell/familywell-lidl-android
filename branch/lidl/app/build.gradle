@@ -54,7 +54,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:22.2.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'me.hekr.sdk:core:2.0.0_beta8'
     implementation 'org.greenrobot:eventbus:3.0.0'
