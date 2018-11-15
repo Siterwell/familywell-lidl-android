@@ -170,10 +170,6 @@
         <item>查看远程视频</item>
         <item>查看本地视频</item>
     </string-array>
-    <array name="lianxi">
-        <item>+31(0)76-5977401</item>
-        <item>info@elro.eu</item>
-    </array>
     <array name="lock_input">
         <item>开锁</item>
         <item>密码开锁</item>
