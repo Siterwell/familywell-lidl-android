@@ -170,10 +170,6 @@
         <item>Afficher la vidéo à distance</item>
         <item>Afficher la vidéo locale</item>
     </string-array>
-    <array name="lianxi">
-        <item>+31(0)76-5977401</item>
-        <item>info@elro.eu</item>
-    </array>
     <array name="lock_input">
         <item>Déverrouillage</item>
         <item>Code de déverrouillage</item>

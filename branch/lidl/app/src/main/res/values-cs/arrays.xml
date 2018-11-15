@@ -170,10 +170,6 @@
         <item>Remote video</item>
         <item>Local video</item>
     </string-array>
-    <array name="lianxi">
-        <item>+31(0)76-5977401</item>
-        <item>info@elro.eu</item>
-    </array>
     <array name="lock_input">
         <item>Lock Open</item>
         <item>Password Open</item>
