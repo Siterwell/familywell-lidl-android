@@ -518,4 +518,5 @@
     <string name="click_check_firemare">Klicken sie auf ein firmware Update</string>
     <string name="view_yinsi">Um DATENSCHUTZ</string>
     <string name="fireware_is_lastest">Gateway version hin ist die neueste Version</string>
+    <string name="gateway_version">Connector-Version</string>
 </resources>

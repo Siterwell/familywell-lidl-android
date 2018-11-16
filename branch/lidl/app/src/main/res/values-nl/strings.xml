@@ -518,4 +518,5 @@
    <string name="click_check_firemare">Klik op de software update</string>
    <string name="view_yinsi">Om privé overeenkomsten</string>
    <string name="fireware_is_lastest">Firmware is bijgewerkt</string>
+   <string name="gateway_version">Connector-versie</string>
 </resources>

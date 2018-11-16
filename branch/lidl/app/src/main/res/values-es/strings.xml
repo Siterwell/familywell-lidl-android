@@ -518,4 +518,5 @@
     <string name="click_check_firemare">Clic Para ver la actualización</string>
     <string name="view_yinsi">Protocolo de privacidad</string>
     <string name="fireware_is_lastest">esta es la ultima version</string>
+    <string name="gateway_version">version acceso</string>
 </resources>

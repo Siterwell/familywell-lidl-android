@@ -7,57 +7,53 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/home_half_height"
-       android:orientation="vertical"
-       android:id="@+id/totl"
-       android:background="@mipmap/mainbackground">
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="@dimen/toolbar_height">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_half_height"
+        android:orientation="vertical"
+        android:id="@+id/totl"
+        android:background="@mipmap/mainbackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height">
 
-           <RadioButton
-               android:id="@+id/title_home"
-               android:textAllCaps="false"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/title_size"
-               android:drawableLeft="@drawable/arrow_down"
-               android:drawablePadding="@dimen/NormalPadding"
-               android:clickable="true"
-               android:button="@null"
-               android:text="@string/my_home"
-               android:textColor="@color/white"
-               android:layout_centerInParent="true" />
+            <RadioButton
+                android:id="@+id/title_home"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/title_size"
+                android:drawableLeft="@drawable/arrow_down"
+                android:drawablePadding="@dimen/NormalPadding"
+                android:clickable="true"
+                android:button="@null"
+                android:text="@string/my_home"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true" />
 
-           <ImageButton
-               android:layout_marginRight="@dimen/setting_marginRight"
-               android:id="@+id/detailEdit_img"
-               android:background="@drawable/setting"
-               android:layout_gravity="right"
-               android:layout_width="@dimen/setting_width"
-               android:layout_height="@dimen/setting_height"
-               android:layout_alignParentRight="true"
-               android:layout_centerVertical="true"/>
-       </RelativeLayout>
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="@dimen/home_weather_height"
-           android:id="@+id/topp"
-           android:orientation="vertical">
+            <ImageButton
+                android:layout_marginRight="@dimen/setting_marginRight"
+                android:id="@+id/detailEdit_img"
+                android:background="@drawable/setting"
+                android:layout_gravity="right"
+                android:layout_width="@dimen/setting_width"
+                android:layout_height="@dimen/setting_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_weather_height"
+            android:id="@+id/topp"
+            android:orientation="vertical">
 
-       </LinearLayout>
-   </LinearLayout>
-
-
-
+        </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout
-        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/home_half_height">
 
@@ -67,8 +63,7 @@
             android:orientation="horizontal"
             android:gravity="bottom"
             android:paddingBottom="@dimen/home_middleImg_padding"
-            android:id="@+id/casaul"
-            >
+            android:id="@+id/casaul">
         </LinearLayout>
     </LinearLayout>
 
@@ -100,6 +95,8 @@
             android:gravity="center_horizontal"
             android:id="@+id/zouma"/>
     </LinearLayout>
+
+
     <me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -518,4 +518,5 @@
     <string name="click_check_firemare">Cliquez pour voir le Micrologiciel mis à jour</string>
     <string name="view_yinsi">Voir l’Accord de confidentialité</string>
     <string name="fireware_is_lastest">Cette version est la plus récente</string>
+    <string name="gateway_version">Passerelle version</string>
 </resources>

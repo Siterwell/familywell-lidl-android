@@ -518,4 +518,5 @@
    <string name="click_check_firemare">Vista l’aggiornamento Firmware</string>
    <string name="view_yinsi">Vista la Privacy del protocollo</string>
    <string name="fireware_is_lastest">Il firmware è aggiornato</string>
+   <string name="gateway_version">Versione del server</string>
 </resources>
