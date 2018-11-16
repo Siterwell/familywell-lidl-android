@@ -10,6 +10,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -83,24 +84,24 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
     }
 
     private void initview(){
-        bar         = (ProgressBar)findViewById(R.id.jindu);
-        downing_txt = (LinearLayout)findViewById(R.id.downing);
+        bar         = findViewById(R.id.jindu);
+        downing_txt = findViewById(R.id.downing);
         if(UpdateService.flag_updating){
             downing_txt.setVisibility(View.VISIBLE);
         }else{
             downing_txt.setVisibility(View.GONE);
         }
-        siter       = (TextView)findViewById(R.id.guanwang);
-        yinsi       = (SettingItem)findViewById(R.id.yinsi);
-        sale        = (SettingItem)findViewById(R.id.sale);
-        app_txt     = (SettingItem)findViewById(R.id.app_version);
+        siter       = findViewById(R.id.guanwang);
+        yinsi       = findViewById(R.id.yinsi);
+        sale        = findViewById(R.id.sale);
+        app_txt     = findViewById(R.id.app_version);
         updateAppAuto = new UpdateAppAuto(this,app_txt,true);
-        version_txt = (SettingItem)findViewById(R.id.gateway_version);
-        intro_txt =   (TextView)findViewById(R.id.intro);
+        version_txt = findViewById(R.id.gateway_version);
+        intro_txt =   findViewById(R.id.intro);
         String verName = Config.getVerName(this, getPackageName());
         app_txt.setDetailText(verName);
-        siter.setText(getClickableSpan(0));
-        siter.setMovementMethod(LinkMovementMethod.getInstance());//必须设置否则无效
+        siter.setText(getWebSite(siter));
+//        siter.setMovementMethod(LinkMovementMethod.getInstance());//必须设置否则无效
         sale.setOnClickListener(this);
         yinsi.setOnClickListener(this);
         try {
@@ -236,42 +237,30 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
         EventBus.getDefault().unregister(this);
     }
 
-    private SpannableString getClickableSpan(int start) {
-        String dd = "";
+    private SpannableString getWebSite(TextView tv) {
+        final String link;
         final UnitTools unitTools = new UnitTools(this);
         if("zh".equals(unitTools.readLanguage())){
-            dd = "http://www.elro.eu";
+            link = "http://www.elro.eu";
         }else{
-            dd = "http://www.elro.eu";
+            link = "http://www.elro.eu";
         }
 
+        SpannableString content = new SpannableString(link);
+        content.setSpan(new UnderlineSpan(), 0, link.length(), 0);
 
-        View.OnClickListener l = new View.OnClickListener() {
+        tv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                if("zh".equals(unitTools.readLanguage())){
-                    Uri content_url = Uri.parse("http://www.elro.eu");
-                    intent.setData(content_url);
-                    startActivity(intent);
-                }else{
-                    Uri content_url = Uri.parse("http://www.elro.eu");
-                    intent.setData(content_url);
-                    startActivity(intent);
-                }
+                Uri content_url = Uri.parse(link);
+                intent.setData(content_url);
+                startActivity(intent);
             }
-        };
+        });
 
-
-
-
-        SpannableString spanableInfo = new SpannableString(dd);
-
-        int end = spanableInfo.length();
-        spanableInfo.setSpan(new Clickable(l), start, end,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spanableInfo;
+        return content;
     }
 
     @Override
