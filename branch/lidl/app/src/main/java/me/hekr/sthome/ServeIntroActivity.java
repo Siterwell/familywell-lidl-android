@@ -50,6 +50,10 @@ public class ServeIntroActivity extends TopbarSuperActivity {
         if (language.equals("cs")){
             url = "file:///android_asset/privacy_czech.html";
         } else if (language.equals("de")){
+            url = "file:///android_asset/privacy_german.html";
+        } else if (language.equals("es")){
+            url = "file:///android_asset/privacy_spanish.html";
+        } else if (language.equals("nl")){
             url = "file:///android_asset/privacy_dutch.html";
         } else if (language.equals("fr")) {
             url = "file:///android_asset/privacy_french.html";
