@@ -518,4 +518,5 @@
     <string name="click_check_firemare">点击查看固件更新</string>
     <string name="view_yinsi">查看隐私协议</string>
     <string name="fireware_is_lastest">固件版本已是最新</string>
+    <string name="gateway_version">固件版本</string>
 </resources>

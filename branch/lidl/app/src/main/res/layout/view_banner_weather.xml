@@ -5,15 +5,14 @@
     android:id="@+id/topp"
     android:background="@null"
     android:orientation="vertical">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="30dp">
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:layout_centerInParent="true"
         android:id="@+id/gps_content"
         android:orientation="horizontal"
+        android:gravity="center"
         android:visibility="invisible">
         <ImageView
             android:layout_width="17dp"
@@ -31,71 +30,73 @@
             android:id="@+id/gps"/>
     </LinearLayout>
 
-</RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center_horizontal"
-    android:id="@+id/weater_content"
-    >
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="@dimen/home_middle_MarginTop"
-        android:layout_marginLeft="@dimen/home_middle_MarginLeft"
-        android:gravity="center_horizontal"
-        >
-        <ImageView
-            android:layout_width="@dimen/home_weather_ico_width"
-            android:layout_height="@dimen/home_weather_ico_height"
-            android:src="@mipmap/weather"
-            android:id="@+id/weather"/>
-        <LinearLayout
-            android:id="@+id/desp"
-            android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/weater_content">
+
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal|left"
-            android:layout_toRightOf="@id/weather"
-            android:layout_toEndOf="@id/weather">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/content_size"
-                android:textColor="@color/white"
-                android:gravity="center_vertical"
-                android:text="- -"
-                android:id="@+id/weater_txt"/>
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/home_middle_MarginTop"
+            android:layout_marginLeft="@dimen/home_middle_MarginLeft"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/home_weather_ico_width"
+                android:layout_height="@dimen/home_weather_ico_height"
+                android:src="@mipmap/weather"
+                android:id="@+id/weather"/>
+
+            <LinearLayout
+                android:id="@+id/desp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal|left"
+                android:layout_toRightOf="@id/weather"
+                android:layout_toEndOf="@id/weather">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/content_size"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:text="- -"
+                    android:id="@+id/weater_txt"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="- -"
+                    android:id="@+id/HShow" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/home_middle_MarginTop"
+            android:paddingLeft="@dimen/home_houseImg_padding"
+            android:paddingRight="@dimen/home_houseImg_padding"
+            android:gravity="center_horizontal|top">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
+                android:id="@+id/TShow"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:text="- -"
-                android:id="@+id/HShow" />
+                android:textSize="55sp" />
         </LinearLayout>
 
-
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="@dimen/home_middle_MarginTop"
-        android:paddingLeft="@dimen/home_houseImg_padding"
-        android:paddingRight="@dimen/home_houseImg_padding"
-        android:gravity="center_horizontal|top">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/TShow"
-            android:textColor="@color/white"
-            android:text="- -"
-            android:textSize="60sp" />
     </LinearLayout>
-</LinearLayout>
 </me.hekr.sthome.commonBaseView.Weatherlinearlayout>

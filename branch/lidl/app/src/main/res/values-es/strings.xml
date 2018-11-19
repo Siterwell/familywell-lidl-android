@@ -396,7 +396,7 @@
     <string name="temp_or_hum">dispato de temperatura o disparo de humedad</string>
     <string name="trigger_style"> modo de disparo</string>
     <string name="server_intro">1, la confirmación y aceptación de los términos de servicio \nEl contenido de este sitio web y la aplicación son propiedad de Cosa Connects BV. Los usuarios deben leer detenidamente los términos y condiciones antes de aceptar este servicio.</string>
-    <string name="about_app">El sistema SilverCrest Alarm consta de dos partes principales: el conector y los dispositivos inteligentes. El Connector, un componente clave del sistema, se comunica con dispositivos inteligentes que usan tecnología de comunicación RF y! </string>
+    <string name="about_app">Los principales sistemas de seguridad inteligente SilverCrest Alarm consta de un Gateway inteligente y todo tipo de dispositivos inteligentes, como servidor de la nube, internet móvil, compañía de tecnología de comunicaciones RF para enlace de datos, aplicación de terminal remoto inteligente para el ambiente de control remoto y control, sistemas de apoyo de una variedad de situaciones y escenarios de La costumbre de modo flexible de aplicación de las normas, la aplicación automática de respuesta a todo tipo de incidentes de Seguridad.El dispositivo inteligente en la actualidad ya hay alarma de humo, alarma de gas, alarma de monóxido de carbono, el agua la sensación de alarma, detectores de infrarrojos, detectores de movimientos del cuerpo humano, el botón de llamada de emergencia, el enchufe inteligente y detectores de temperatura y humedad.¡Recientemente, el aumento de equipos de inteligencia también tiene una webcam, llave inteligente, panel de interruptores, enchufes inteligentes del panel, la purificación del aire y agua válvula electromagnética, espera, por favor!</string>
     <string name="modebutton_ins">Botón de acceso directo a la escena</string>
     <string name="input_exist">El dispositivo de entrada no puede repetirse</string>
     <string name="output_exist">Los dispositivos de salida adyacentes no pueden repetirse</string>
@@ -518,4 +518,5 @@
     <string name="click_check_firemare">Clic Para ver la actualización</string>
     <string name="view_yinsi">Protocolo de privacidad</string>
     <string name="fireware_is_lastest">esta es la ultima version</string>
+    <string name="gateway_version">version acceso</string>
 </resources>
