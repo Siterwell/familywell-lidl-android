@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     app:item_accessoryType = "none"
                     app:item_showDivider="true"
-                    app:item_titleText="@string/click_check_firemare" />
+                    app:item_titleText="@string/gateway_version_hint" />
 
                 <me.hekr.sthome.commonBaseView.SettingItem
                     android:id="@+id/sale"

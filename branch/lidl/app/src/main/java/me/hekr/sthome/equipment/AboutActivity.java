@@ -151,11 +151,9 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
             e.printStackTrace();
         }
 
-
-
         updateAppAuto.getUpdateInfo();
 
-        intro_txt.setText(getResources().getString(R.string.about_app));
+        intro_txt.setText(R.string.about_app);
 
     }
 

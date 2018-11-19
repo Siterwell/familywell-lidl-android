@@ -173,13 +173,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
             }
         };
         cycleViewPager = new CycleViewPager(getActivity());
-        nowmode      =  (LinearLayout)view.findViewById(R.id.nowmode);
+        nowmode = view.findViewById(R.id.nowmode);
         nowmode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SysmodelDAO dao = new SysmodelDAO(HomeFragment.this.getActivity());
                 final List<SysModelBean> listnow = dao.findAllSys(ConnectionPojo.getInstance().deviceTid);
-               MenuDialog.Builder builder = new  MenuDialog.Builder(HomeFragment.this.getActivity());
+                MenuDialog.Builder builder = new  MenuDialog.Builder(HomeFragment.this.getActivity());
                 builder.setSysModellist(listnow);
                 builder.setDissmins(HomeFragment.this);
                 menuDialog =  builder.create();
