@@ -139,7 +139,7 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit_firm.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(pwd)) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
@@ -159,7 +159,7 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(email) ) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));

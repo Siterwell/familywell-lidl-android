@@ -24,7 +24,7 @@
    <string name="connect_alert">Connettore attuale:</string>
    <string name="connect_equipment_alert">Per favore scegli il connettore</string>
    <string name="please_input_complete">Completa l’ingresso</string>
-   <string name="password_length">La password deve contenere almeno 6 caratteri!</string>
+   <string name="password_length">La password deve contenere almeno 10 caratteri!</string>
    <string name="password_two_different">La password inserita non corrisponde</string>
    <string name="name_hint">E-mail</string>
    <string name="password_hint">Inserisci password</string>

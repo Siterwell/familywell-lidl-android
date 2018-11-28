@@ -65,7 +65,7 @@ public class ChangePasswordActivity extends TopbarSuperActivity {
         }else if(!confirmpsw.equals(newpsw)){
             Toast.makeText(this,getResources().getString(R.string.password_two_different),Toast.LENGTH_SHORT).show();
             return;
-        }else if(confirmpsw.length()<6){
+        }else if(confirmpsw.length()<10){
             Toast.makeText(this,getResources().getString(R.string.password_length),Toast.LENGTH_SHORT).show();
             return;
         }else{
