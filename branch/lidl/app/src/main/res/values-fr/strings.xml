@@ -513,7 +513,7 @@
     <string name="door_default_scene_hint">Scène par défaut: alarme et notification push lors de l’ouverture d’un contact magnétique</string>
     <string name="old_man_default_scene_hint">Scène standard: notification push et bip du connecteur à Pas de mouvement pendant 5 heures</string>
 <string name="alert_elder_care">De soins pour les personnes âgées</string>
-    <string name="three_zifu">Le mot de passe doit contenir des lettres, des lettres, des chiffres, des chiffres, au moins trois caractères spéciaux.</string>
+    <string name="three_zifu">Les mots de passe doivent contenir au moins trois des lettres majuscules et minuscules, des chiffres / caractères spéciaux.</string>
     <string name="config_fail_reason">Les raisons de l’échec de distribution</string>
     <string name="click_check_firemare">Cliquez pour voir le Micrologiciel mis à jour</string>
     <string name="view_yinsi">Voir l’Accord de confidentialité</string>

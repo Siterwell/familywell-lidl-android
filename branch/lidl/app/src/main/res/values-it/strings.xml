@@ -513,7 +513,7 @@
    <string name="door_default_scene_hint">Scena predefinita: allarme e notifica push quando si apre un contatto magnetico</string>
    <string name="old_man_default_scene_hint">Scena standard: notifica push e bip del connettore su Nessun movimento per 5 ore</string>
    <string name="alert_elder_care">Per l’assistenza agli Anziani</string>
-   <string name="three_zifu">Password deve contenere le Lettere maiuscole, minuscole Lettere, CIFRE, almeno tre di carattere PARTICOLARE.</string>
+   <string name="three_zifu">Password devono contenere almeno tre delle lettere maiuscole e minuscole, numeri / caratteri speciali.</string>
    <string name="config_fail_reason">Le ragioni del fallimento della Rete di Distribuzione</string>
    <string name="click_check_firemare">Vista l’aggiornamento Firmware</string>
    <string name="view_yinsi">Vista la Privacy del protocollo</string>
