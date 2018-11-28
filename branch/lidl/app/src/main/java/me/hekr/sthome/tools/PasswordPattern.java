@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
  */
 public class PasswordPattern {
 
+    // Password (UpperCase, LowerCase, Number/SpecialChar and min 10 Chars)
     private static final String REGEX = "(?=^.{10,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
     private static final Pattern MY_PATTERN = Pattern.compile(REGEX);
 
