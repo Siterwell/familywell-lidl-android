@@ -22,6 +22,7 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.VerfyDialog;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
 public class ResetCodeActivity extends TopbarSuperActivity implements View.OnClickListener{
@@ -145,8 +146,11 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
-                            reset(phone, pwd, code);
-
+                            if(PasswordPattern.matchs(pwd)){
+                                reset(phone, pwd, code);
+                            }else {
+                                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+                            }
                         }
 
 
@@ -165,8 +169,11 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
-                            resetByEmail(email,pwd,code);
-
+                            if(PasswordPattern.matchs(pwd)){
+                                resetByEmail(email, pwd, code);
+                            }else {
+                                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+                            }
                         }
                     }
                     else{
