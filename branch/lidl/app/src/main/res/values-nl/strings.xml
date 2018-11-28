@@ -24,7 +24,7 @@
    <string name="connect_alert">Huidige connector</string>
    <string name="connect_equipment_alert">Kies een connector</string>
    <string name="please_input_complete">Voltooi de invoer</string>
-   <string name="password_length">Het wachtwoord moet minimaal zes tekens bevatten</string>
+   <string name="password_length">Het wachtwoord moet minimaal tien tekens bevatten</string>
    <string name="password_two_different">Wachtwoorden komen niet overeen</string>
    <string name="name_hint">E-mail</string>
    <string name="password_hint">Wachtwoord invoeren</string>

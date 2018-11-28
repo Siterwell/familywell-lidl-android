@@ -24,7 +24,7 @@
     <string name="connect_alert">Current Connector:</string>
     <string name="connect_equipment_alert">Please Choose Connector</string>
     <string name="please_input_complete">please input complete</string>
-    <string name="password_length">The password must contain at least 6 characters!</string>
+    <string name="password_length">The password must contain at least 10 characters!</string>
     <string name="password_two_different">The entered passwords are not consistent</string>
     <string name="name_hint">Email</string>
     <string name="password_hint">Input Password</string>

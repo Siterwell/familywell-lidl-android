@@ -24,7 +24,7 @@
     <string name="connect_alert">当前网关:</string>
     <string name="connect_equipment_alert">请选择网关</string>
     <string name="please_input_complete">请输入完整！</string>
-    <string name="password_length">密码长度至少6位！</string>
+    <string name="password_length">密码长度至少10位！</string>
     <string name="password_two_different">两次密码不相同</string>
     <string name="name_hint">手机号/邮箱</string>
     <string name="password_hint">请输入密码</string>

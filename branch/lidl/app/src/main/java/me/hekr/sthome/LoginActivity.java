@@ -1,17 +1,13 @@
 package me.hekr.sthome;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -25,7 +21,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.litesuits.common.assist.Toastor;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -38,8 +33,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 
@@ -50,15 +43,11 @@ import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sdk.utils.ErrorCodeUtil;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.CodeEdit;
-import me.hekr.sthome.commonBaseView.ECListDialog;
 import me.hekr.sthome.commonBaseView.LoginLogPopupwindow;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.crc.CoderUtils;
-import me.hekr.sthome.event.AutoSyncEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
-import me.hekr.sthome.http.bean.JWTBean;
-import me.hekr.sthome.http.bean.MOAuthBean;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.ClientUser;

@@ -143,14 +143,14 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit_firm.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(pwd)) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
 
-                            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()-+=]+$)(?![0-9\\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()-+=]{6,30}$";
+                            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()-+=]+$)(?![0-9\\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()-+=]{10,30}$";
 
                             Pattern r = Pattern.compile(pattern);
                             Matcher m = r.matcher(pwd);
@@ -174,14 +174,21 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(email) ) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
-                            registerByEmail(email,pwd,code);
+                            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()-+=]+$)(?![0-9\\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()-+=]{10,30}$";
 
+                            Pattern r = Pattern.compile(pattern);
+                            Matcher m = r.matcher(pwd);
+                            if(m.matches()){
+                                registerByEmail(email,pwd,code);
+                            }else {
+                                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+                            }
                         }
                     }
                     else{

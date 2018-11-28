@@ -24,7 +24,7 @@
    <string name="connect_alert">Aktuální konektor:</string>
    <string name="connect_equipment_alert">Vyberte konektor, prosím</string>
    <string name="please_input_complete">Dokončete zadání, prosím</string>
-   <string name="password_length">Heslo musí obsahovat minimálně 6 znaků!</string>
+   <string name="password_length">Heslo musí obsahovat minimálně 10 znaků!</string>
    <string name="password_two_different">Zadaná hesla se neshodují.</string>
    <string name="name_hint">E-mail</string>
    <string name="password_hint">Zadejte heslo</string>

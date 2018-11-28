@@ -24,7 +24,7 @@
     <string name="connect_alert">Passerelles associées :</string>
     <string name="connect_equipment_alert">Merci de choisir une passerelle</string>
     <string name="please_input_complete">Merci de saisir la totalité des informations</string>
-    <string name="password_length">Merci de choisir un mot de passe de 6 caractères!</string>
+    <string name="password_length">Merci de choisir un mot de passe de 10 caractères!</string>
     <string name="password_two_different">Les deux mots de passe ne correspondent pas</string>
     <string name="name_hint">E-mail</string>
     <string name="password_hint">Merci de saisir le mot de passe</string>
