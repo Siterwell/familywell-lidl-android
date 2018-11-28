@@ -26,6 +26,7 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.VerfyDialog;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
 public class RegisterActivity extends TopbarSuperActivity implements View.OnClickListener{
@@ -180,11 +181,7 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
-                            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()-+=]+$)(?![0-9\\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()-+=]{10,30}$";
-
-                            Pattern r = Pattern.compile(pattern);
-                            Matcher m = r.matcher(pwd);
-                            if(m.matches()){
+                            if(PasswordPattern.matchs(pwd)){
                                 registerByEmail(email,pwd,code);
                             }else {
                                 toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
