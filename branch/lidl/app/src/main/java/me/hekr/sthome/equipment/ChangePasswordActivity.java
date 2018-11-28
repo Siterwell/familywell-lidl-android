@@ -5,10 +5,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.litesuits.common.assist.Toastor;
+
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -69,29 +72,38 @@ public class ChangePasswordActivity extends TopbarSuperActivity {
             Toast.makeText(this,getResources().getString(R.string.password_length),Toast.LENGTH_SHORT).show();
             return;
         }else{
-             showProgressDialog(getResources().getString(R.string.modifying_newpassword));
-            HekrUserAction.getInstance(this).changePassword(newpsw, oldpsw, new HekrUser.ChangePwdListener() {
-                @Override
-                public void changeSuccess() {
-                    Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.success),Toast.LENGTH_SHORT).show();
-                    hideProgressDialog();
-                    hideSoftKeyboard();
-                    finish();
-                }
 
-                @Override
-                public void changeFail(int errorCode) {
-                    hideProgressDialog();
-                    if(errorCode == 400014){
-                        Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.code_fault),Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(ChangePasswordActivity.this, UnitTools.errorCode2Msg(ChangePasswordActivity.this,errorCode),Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            });
-
+            if(PasswordPattern.matchs(newpsw)) {
+                updatePassword(oldpsw, newpsw);
+            } else {
+                Toastor toastor = new Toastor(this);
+                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+            }
         }
 
+    }
+
+    private void updatePassword(String oldpsw, String newpsw) {
+        showProgressDialog(getResources().getString(R.string.modifying_newpassword));
+        HekrUserAction.getInstance(this).changePassword(newpsw, oldpsw, new HekrUser.ChangePwdListener() {
+            @Override
+            public void changeSuccess() {
+                Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.success),Toast.LENGTH_SHORT).show();
+                hideProgressDialog();
+                hideSoftKeyboard();
+                finish();
+            }
+
+            @Override
+            public void changeFail(int errorCode) {
+                hideProgressDialog();
+                if(errorCode == 400014){
+                    Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.code_fault),Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(ChangePasswordActivity.this, UnitTools.errorCode2Msg(ChangePasswordActivity.this,errorCode),Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 }
