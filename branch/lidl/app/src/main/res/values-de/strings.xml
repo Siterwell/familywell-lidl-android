@@ -513,7 +513,7 @@
     <string name="door_default_scene_hint">Standard Szene: Alarm und Push-Notification bei Öffnen eines Magnetkontaktes</string>
     <string name="old_man_default_scene_hint">Standard Szene: Push-Notification und Connector Hinweiston bei Keine Bewegung Für 5 Stunden</string>
    <string name="alert_elder_care">Betreuung für ältere Menschen</string>
-    <string name="three_zifu">Das passwort muss MIT großbuchstaben, kleinbuchstaben, Zahlen, sonderzeichen mindestens drei</string>
+    <string name="three_zifu">Passwörter müssen mindestens drei aus Groß- und Kleinbuchstaben, Zahlen / Sonderzeichen enthalten.</string>
     <string name="config_fail_reason">Die gründe für das scheitern</string>
     <string name="click_check_firemare">Klicken sie auf ein firmware Update</string>
     <string name="view_yinsi">Um DATENSCHUTZ</string>

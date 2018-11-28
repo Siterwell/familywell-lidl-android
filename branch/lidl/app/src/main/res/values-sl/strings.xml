@@ -513,7 +513,7 @@
    <string name="door_default_scene_hint">Privzeta scena: alarm in potisni obvestilo pri odpiranju magnetnega kontakta</string>
    <string name="old_man_default_scene_hint">Standardna Scena: Push Notification in Konektor piska na Ni gibanja 5 ur</string>
    <string name="alert_elder_care">starejše sestre</string>
-   <string name="three_zifu">geslo mora vsebovati ime z velikimi tiskanimi črkami, male črke, številke, vsaj tri posebnega značaja.</string>
+   <string name="three_zifu">Geslo mora vsebovati vsaj tri velike črke, male črke, številke / posebne znake.</string>
    <string name="config_fail_reason">razlog za neuspeh distribucijskega omrežja</string>
    <string name="click_check_firemare">Klik na usb posodobitev</string>
    <string name="view_yinsi">Preveri zasebnosti</string>

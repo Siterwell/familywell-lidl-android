@@ -513,7 +513,7 @@
     <string name="door_default_scene_hint">Default scene: door triggers gateway alarm and Push-Notification</string>
     <string name="old_man_default_scene_hint">Default scene: PIR 5 hours without triggering, gateway sound and Push-Notification</string>
    <string name="alert_elder_care">Elderly care</string>
-    <string name="three_zifu">Passwords must contain uppercase letters, lowercase letters, numbers, and at least three special characters.</string>
+    <string name="three_zifu">Passwords must contain at least three of uppercase letters, lowercase letters, numbers/special characters.</string>
     <string name="config_fail_reason">Failure of connectting</string>
     <string name="click_check_firemare">Click to check firmware updates</string>
     <string name="view_yinsi">View privacy protocols</string>

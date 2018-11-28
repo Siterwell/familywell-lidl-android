@@ -513,7 +513,7 @@
    <string name="door_default_scene_hint">Standaardscène: Deur/raam activeert Connector-alarm en Push-notificatie</string>
    <string name="old_man_default_scene_hint">Standaardscène: PIR 5 uur zonder beweging, Connector -alarm en Push-notificatie</string>
    <string name="alert_elder_care">De ouderen</string>
-   <string name="three_zifu">De code moet met hoofdletters en kleine letters, cijfers, het bijzondere karakter van ten minste drie</string>
+   <string name="three_zifu">Wachtwoorden moeten ten minste drie van hoofdletters, kleine letters, cijfers / speciale tekens bevatten.</string>
    <string name="config_fail_reason">De distributie van de oorzaak van de mislukking</string>
    <string name="click_check_firemare">Klik op de software update</string>
    <string name="view_yinsi">Om privé overeenkomsten</string>
