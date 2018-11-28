@@ -24,7 +24,7 @@
     <string name="connect_alert">Enrutador actual</string>
     <string name="connect_equipment_alert">por favor seleccione enrutador</string>
     <string name="please_input_complete">por favor introduzca completo</string>
-    <string name="password_length">La contraseña debe tener minimo 6 catacteres!</string>
+    <string name="password_length">La contraseña debe tener minimo 10 catacteres!</string>
     <string name="password_two_different">L contrasena introducida no es válida</string>
     <string name="name_hint">Correo electrónico</string>
     <string name="password_hint">Introduzca contraseña</string>

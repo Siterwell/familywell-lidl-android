@@ -24,7 +24,7 @@
    <string name="connect_alert">Trenutni konektor:</string>
    <string name="connect_equipment_alert">Prosimo, izberite konektor</string>
    <string name="please_input_complete">Prosimo, izpolnite polje</string>
-   <string name="password_length">Geslo mora vsebovati vsaj 6 znakov</string>
+   <string name="password_length">Geslo mora vsebovati vsaj 10 znakov</string>
    <string name="password_two_different">Vnešeni gesli se ne ujemata</string>
    <string name="name_hint">E-mail</string>
    <string name="password_hint">Vnašanje gesla</string>
