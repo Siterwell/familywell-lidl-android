@@ -205,7 +205,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             rem_img.setImageResource(R.drawable.save_pass_0);
         }
         et_phone.setText(phone);
-        codeEdit.getCodeEdit().setText(pwd);
+        if (isauto) {
+            codeEdit.getCodeEdit().setText(pwd);
+        }
         btn_login.setOnClickListener(this);
 //        btn_wechat.setOnClickListener(this);
 //        btn_weibo.setOnClickListener(this);
@@ -258,16 +260,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CCPAppManager.setClientUser(user);
                                     try {
                                         ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_REMEMBER_PASSWORD, isauto, true);
-                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_USERNAME,phone,true);
-                                        if(isauto){
-                                            ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD,CoderUtils.getEncrypt(pwd),true);
-                                        }
-                                        else      ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD,"",true);
+                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_USERNAME, phone,true);
+                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD,CoderUtils.getEncrypt(pwd),true);
                                     } catch (InvalidClassException e) {
                                         e.printStackTrace();
                                     }
-                                    if(isauto) addToLog(phone,pwd);
-                                    else       addToLog(phone,"");
+
+                                    if(isauto) {
+                                        addToLog(phone,pwd);
+                                    }
+                                    else {
+                                        addToLog(phone,"");
+                                    }
+
                                     if(progressDialog!=null&progressDialog.isShowing()){
                                         progressDialog.dismiss();
                                     }

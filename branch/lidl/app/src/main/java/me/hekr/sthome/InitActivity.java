@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -24,6 +25,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InvalidClassException;
+import java.util.HashSet;
+import java.util.List;
 
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
@@ -32,6 +35,7 @@ import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
+import me.hekr.sthome.commonBaseView.SlideListView;
 import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.equipment.ConfigActivity;
 import me.hekr.sthome.equipment.EmergencyEditActivity;
@@ -39,9 +43,15 @@ import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
 import me.hekr.sthome.event.LogoutEvent;
+import me.hekr.sthome.event.STEvent;
+import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.http.bean.DcInfo;
+import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
+import me.hekr.sthome.model.modelbean.MyDeviceBean;
+import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
@@ -71,8 +81,6 @@ private static boolean flag_login_timeout = false;
         }else{
             EventBus.getDefault().post(new AutoSyncEvent());
         }
-
-
     }
 
     private String getUsername(){
@@ -92,10 +100,12 @@ private static boolean flag_login_timeout = false;
     }
 
     private void login(){
+        final String username = getUsername();
+        final String password = getPassword();
 
-       LOG.I(TAG,"自动登录");
-       handler.sendEmptyMessageDelayed(2,4000);
-        Hekr.getHekrUser().login(getUsername(), getPassword(), new HekrCallback() {
+        LOG.I(TAG,"自动登录");
+        handler.sendEmptyMessageDelayed(2,4000);
+        Hekr.getHekrUser().login(username, password, new HekrCallback() {
             @Override
             public void onSuccess() {
                 LOG.I(TAG,"自动登录成功");
@@ -115,6 +125,7 @@ private static boolean flag_login_timeout = false;
                 try {
                     JSONObject d = JSON.parseObject(message);
                     int code = d.getInteger("code");
+
                     //密码错误
                     if(code == 3400010){
                         HekrUserAction.getInstance(InitActivity.this).userLogout();
@@ -139,6 +150,7 @@ private static boolean flag_login_timeout = false;
 
             }
         });
+
     }
 
     Handler handler = new Handler() {

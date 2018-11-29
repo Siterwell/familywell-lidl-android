@@ -18,12 +18,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.igexin.sdk.PushManager;
 import com.igexin.sdk.Tag;
@@ -37,13 +40,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.HekrSDK;
 import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sdk.utils.CacheUtil;
+import me.hekr.sthome.InitActivity;
 import me.hekr.sthome.LoginActivity;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
@@ -53,13 +56,12 @@ import me.hekr.sthome.commonBaseView.CustomViewPager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
-import me.hekr.sthome.equipment.EmergencyEditActivity;
+import me.hekr.sthome.crc.CoderUtils;
+import me.hekr.sthome.event.AutoSyncEvent;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.event.TokenTimeoutEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
-import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.FirmwareBean;
 import me.hekr.sthome.http.bean.UserBean;
@@ -108,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        checkLoginState();
+
         initCurrentGateway();
         ConnectionPojo.getInstance().open_app = 1;
         super.onCreate(savedInstanceState);
@@ -169,6 +173,31 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void checkLoginState(){
+        final String username = getUsername();
+        final String password = getPassword();
+        LOG.I(TAG,"自动登录");
+        Hekr.getHekrUser().login(username, password, new HekrCallback() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onError(int errorCode, String message) {
+                JSONObject d = JSON.parseObject(message);
+                int code = d.getInteger("code");
+
+                //密码错误
+                if(code == 3400010){
+                    HekrUserAction.getInstance(MainActivity.this).userLogout();
+                    CCPAppManager.setClientUser(null);
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 
     private void initView() {
@@ -837,13 +866,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        // super.onSaveInstanceState(outState);
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//         super.onSaveInstanceState(outState);
+//    }
 
     private String getUsername(){
-
         SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
         ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
         String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
@@ -851,11 +879,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     }
 
     private String getPassword(){
-
         SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
         ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
         String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
+        return CoderUtils.getDecrypt(autoflag);
     }
 
     private void initCurrentGateway(){
