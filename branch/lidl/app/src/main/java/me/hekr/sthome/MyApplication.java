@@ -45,7 +45,7 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-        FunSupport.getInstance().init(getApplicationContext());
+//        FunSupport.getInstance().init(getApplicationContext());
         HekrSDK.init(getApplicationContext(), R.raw.config);
         HekrSDK.enableDebug(true);
         //推送服务初始化

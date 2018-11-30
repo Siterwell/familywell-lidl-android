@@ -7,10 +7,15 @@ import android.widget.Toast;
 
 import com.litesuits.common.assist.Toastor;
 
+import java.io.InvalidClassException;
+
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
+import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.ECPreferenceSettings;
+import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -83,15 +88,22 @@ public class ChangePasswordActivity extends TopbarSuperActivity {
 
     }
 
-    private void updatePassword(String oldpsw, String newpsw) {
+    private void updatePassword(final String oldpsw, final String newpsw) {
         showProgressDialog(getResources().getString(R.string.modifying_newpassword));
         HekrUserAction.getInstance(this).changePassword(newpsw, oldpsw, new HekrUser.ChangePwdListener() {
             @Override
             public void changeSuccess() {
                 Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.success),Toast.LENGTH_SHORT).show();
-                hideProgressDialog();
-                hideSoftKeyboard();
-                finish();
+
+                try {
+                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD, CoderUtils.getEncrypt(newpsw),true);
+                } catch (InvalidClassException e) {
+                    e.printStackTrace();
+                } finally {
+                    hideProgressDialog();
+                    hideSoftKeyboard();
+                    finish();
+                }
             }
 
             @Override
