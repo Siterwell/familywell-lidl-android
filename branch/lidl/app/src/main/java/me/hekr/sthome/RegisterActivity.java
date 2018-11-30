@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.litesuits.common.assist.Toastor;
 
+import java.io.InvalidClassException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +27,8 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.VerfyDialog;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.ECPreferenceSettings;
+import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -217,6 +220,13 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
             @Override
             public void registerSuccess(String uid) {
                 toastor.showSingleLongToast(getResources().getString(R.string.success_register));
+
+                try {
+                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED, false, true);
+                } catch (InvalidClassException e) {
+                    e.printStackTrace();
+                }
+
                 Intent intent = new Intent();
                 intent.putExtra("username",phoneNumber);
                 intent.putExtra("password",pwd);
@@ -238,6 +248,12 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
                 ECAlertDialog D = ECAlertDialog.buildPositiveAlert(RegisterActivity.this, R.string.check_email, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED, false, true);
+                        } catch (InvalidClassException e) {
+                            e.printStackTrace();
+                        }
+
                         Intent intent = new Intent();
                         intent.putExtra("username",email);
                         intent.putExtra("password",pwd);

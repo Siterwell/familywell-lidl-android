@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -115,8 +116,6 @@ private static boolean flag_login_timeout = false;
                     flag_login_timeout = true;
                 EventBus.getDefault().post(new AutoSyncEvent());
                 }
-
-
             }
 
             @Override
@@ -153,13 +152,18 @@ private static boolean flag_login_timeout = false;
 
     }
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
 
-                    try {
+                    if (isNumberChecked()) {
+                        gotoMainActivity();
+                    } else {
+                        checkedEmergencyNumber();
+
                         empty  = (boolean)msg.obj;
                         String ds = CCPAppManager.getClientUser().getDescription();
                         if(TextUtils.isEmpty(ds)){
@@ -183,14 +187,8 @@ private static boolean flag_login_timeout = false;
                             ecAlertDialog2.setCanceledOnTouchOutside(false);
                             ecAlertDialog2.show();
                         }else{
-                            Intent intent = new Intent(InitActivity.this, MainActivity.class);
-                            intent.putExtra("empty",empty);
-                            startActivity(intent);
-                            finish();
+                            gotoMainActivity();
                         }
-
-                    }catch (Exception e){
-                        e.printStackTrace();
                     }
 
                     break;
@@ -203,6 +201,27 @@ private static boolean flag_login_timeout = false;
             }
         }
     };
+
+    private boolean isNumberChecked() {
+        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
+        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED;
+        return sharedPreferences.getBoolean(flag.getId(), (boolean) flag.getDefaultValue());
+    }
+
+    private void checkedEmergencyNumber() {
+        try {
+            ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED, true, true);
+        } catch (InvalidClassException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void gotoMainActivity() {
+        Intent intent = new Intent(InitActivity.this, MainActivity.class);
+        intent.putExtra("empty",empty);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
