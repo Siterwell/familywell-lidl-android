@@ -187,11 +187,13 @@ public class UnitTools {
             throws IOException {
         // paly music ...
 
+        LOG.I("UtilTools", "[RYAN] playNotifycationMusic > mediaPlayer = " + mediaPlayer);
+
         if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
             return;
         }
 
-            mediaPlayer = MediaPlayer.create(context, R.raw.phonering);
+        mediaPlayer = MediaPlayer.create(context, R.raw.phonering);
 
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();

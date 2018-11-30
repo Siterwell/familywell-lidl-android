@@ -1,5 +1,6 @@
 package me.hekr.sthome.push;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -40,7 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
      */
     // [START receive_message]
-//    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // [START_EXCLUDE]
@@ -55,20 +56,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        LOG.D(TAG, "From: " + remoteMessage.getFrom());
+        LOG.I(TAG, "From: " + remoteMessage.getFrom());
 
         try {
-            LOG.D(TAG, "Message notification payload: " + remoteMessage.getNotification());
+
 
             if(TextUtils.isEmpty(Hekr.getHekrUser().getToken())){
+
                 return;
             }
-
             // Check if message contains a data payload.
             if (remoteMessage.getData().size() > 0) {
-                LOG.D(TAG, "Message data payload: " + remoteMessage.getData());
+                LOG.I(TAG, "Message data payload: " + remoteMessage.getData());
 
                 PendingIntent pendingIntent = null;
+                NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
                 int current_dev = 0;
                 String action = null;
                 DeviceDAO deviceDAO = new DeviceDAO(this);
@@ -77,68 +79,95 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 String title = jsonObject.getString("title");
                 String message = jsonObject.getString("message");
 
-//                String devid = jsonObject.getString("devTid");
-//                if(devid.equals(deviceDAO.findByChoice(1).getDevTid())){
-//                    current_dev = 1;
-//                }else{
-//                    current_dev = 0;
-//                }
-//
-//
-//                String devname = deviceDAO.findByDeviceid(devid).getDeviceName();
-//                if("报警器".equals(devname)){
-//                    devname = getResources().getString(R.string.my_home);
-//                }
-//                LOG.D(TAG,"devname+++++"+devname);
-//                if(jsonObject.has("login") && jsonObject.getBoolean("login")==true){
-//                    action = getResources().getString(R.string.gateway_login);
-//                }else if(jsonObject.has("loginout") && jsonObject.getBoolean("loginout")==true){
-//                    action = getResources().getString(R.string.gateway_login_out);
-//                }else{
-//
-//                    Intent intent1 = new Intent(this, MainActivity.class);
-//                    intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    intent1.putExtra("current_dev",current_dev);
-//
-//                    pendingIntent = PendingIntent.getActivity(this, 35, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//
-//                    String answer_content2 = jsonObject.getString("data");
-//                    JSONObject jsonObject_in = new JSONObject(answer_content2);
-//                    String answer_content = jsonObject_in.getString("answer_content");
-//                    if(answer_content.length()>6) {
-//                        if ("AC".equals(answer_content.substring(4, 6))) {
-//                           String mid = String.valueOf(Integer.parseInt(answer_content.substring(6,8),16));
-//                            SceneDAO sceneDAO = new SceneDAO(this);
-//                           SceneBean sceneBean = sceneDAO.findScenceBymid(mid,devid);
-//                           if(sceneBean!=null && !TextUtils.isEmpty(sceneBean.getName())){
-//                              action = getResources().getString(R.string.scene) + ":(" + sceneBean.getName()+")" + getResources().getString(R.string.trigger);
-//                           }else{
-//                               action = getResources().getString(R.string.scene) + ":(id = " + mid +")" + getResources().getString(R.string.trigger);
-//                           }
-//                        } else if ("AD".equals(answer_content.substring(4, 6))) {
-//                            String eqid = String.valueOf(Integer.parseInt(answer_content.substring(6,10),16));
-//                            String type = answer_content.substring(10,14);
-//                            String status = answer_content.substring(14,22);
-//                            String alertinfo = HistoryDataHandler.getAlert(this,type,status);
-//                            EquipDAO equipDAO = new EquipDAO(this);
-//                            EquipmentBean equipmentBean = equipDAO.findByeqid(eqid,devid);
-//                            if(equipmentBean != null && !TextUtils.isEmpty(equipmentBean.getEquipmentName())){
-//                                action = equipmentBean.getEquipmentName()+alertinfo;
-//                            }else{
-//                                action = NameSolve.getDefaultName(this,type,eqid)+alertinfo;
-//
-//                            }
-//                        }
-//                    }else {
-//                        LOG.D(TAG,"code error");
-//                        action = getResources().getString(R.string.receive_one_notice);
-//                    }
-//                }
+                String devid = null;
+
+                devid = jsonObject.getString("devTid");
 
 
-                sendNotification(pendingIntent, title, message);
+                if(devid.equals(deviceDAO.findByChoice(1).getDevTid())){
+                    current_dev = 1;
+                }else{
+                    current_dev = 0;
+                }
+
+                String devname = deviceDAO.findByDeviceid(devid).getDeviceName();
+                if("报警器".equals(devname)){
+                    devname = getResources().getString(R.string.my_home);
+                }
+                LOG.I(TAG,"devname+++++"+devname);
+                if(jsonObject.has("login") && jsonObject.getBoolean("login")==true){
+                    action = getResources().getString(R.string.gateway_login);
+                }else if(jsonObject.has("loginout") && jsonObject.getBoolean("loginout")==true){
+                    action = getResources().getString(R.string.gateway_login_out);
+                }else{
+
+                    Intent intent1 = new Intent(this, MainActivity.class);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent1.putExtra("current_dev",current_dev);
+
+                    pendingIntent = PendingIntent.getActivity(this, 35, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    String answer_content2 = jsonObject.getString("data");
+                    JSONObject jsonObject_in = new JSONObject(answer_content2);
+                    String answer_content = jsonObject_in.getString("answer_content");
+                    if(answer_content.length()>6) {
+                        if ("AC".equals(answer_content.substring(4, 6))) {
+                            String mid = String.valueOf(Integer.parseInt(answer_content.substring(6,8),16));
+                            SceneDAO sceneDAO = new SceneDAO(this);
+                            SceneBean sceneBean = sceneDAO.findScenceBymid(mid,devid);
+                            if(sceneBean!=null && !TextUtils.isEmpty(sceneBean.getName())){
+                                action = getResources().getString(R.string.scene) + ":(" + sceneBean.getName()+")" + getResources().getString(R.string.trigger);
+                            }else{
+                                action = getResources().getString(R.string.scene) + ":(id = " + mid +")" + getResources().getString(R.string.trigger);
+                            }
+                        } else if ("AD".equals(answer_content.substring(4, 6))) {
+                            String eqid = String.valueOf(Integer.parseInt(answer_content.substring(6,10),16));
+                            String type = answer_content.substring(10,14);
+                            String status = answer_content.substring(14,22);
+                            String alertinfo = HistoryDataHandler.getAlert(this,type,status);
+                            EquipDAO equipDAO = new EquipDAO(this);
+                            EquipmentBean equipmentBean = equipDAO.findByeqid(eqid,devid);
+                            if(equipmentBean != null && !TextUtils.isEmpty(equipmentBean.getEquipmentName())){
+                                action = equipmentBean.getEquipmentName()+alertinfo;
+                            }else{
+                                action = NameSolve.getDefaultName(this,type,eqid)+alertinfo;
+
+                            }
+                        }
+                    }else {
+                        LOG.I(TAG,"code error");
+                        action = getResources().getString(R.string.receive_one_notice);
+                    }
+
+
+                }
+
+
+                // 通过Notification.Builder来创建通知，注意API Level
+                // API16之后才支持
+                Notification.Builder builder= new Notification.Builder(this)
+//                        .setContentTitle((current_dev==1?getResources().getString(R.string.current_gateway):getResources().getString(R.string.other_gateway)) +":"+devname)
+//                        .setContentText(action)
+                        .setContentTitle(title)
+                        .setContentText(message)
+                        .setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent)
+                        .setContentIntent(pendingIntent);
+                //兼容nexusandroid5.0
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    builder.setSmallIcon(R.mipmap.ic_launcher_alpha);
+                } else {
+                    builder.setSmallIcon(R.mipmap.ic_launcher);
+                }
+                Notification notification = builder.build(); // 需要注意build()是在API
+                // level16及之后增加的，API11可以使用getNotificatin()来替代
+                notification.flags |= Notification.FLAG_AUTO_CANCEL; // FLAG_AUTO_CANCEL表明当通知被用户点击时，通知将被清除。
+                notification.defaults |= Notification.DEFAULT_SOUND;
+                Vibrator vibrator = (Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
+                long [] pattern = {300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400}; // 停止 开启 停止 开启
+                vibrator.vibrate(pattern,-1); //重复两次上面的pattern 如果只想震动一次，index设为-1
+                manager.notify((int)System.currentTimeMillis(),notification);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -147,41 +176,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            LOG.D(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            LOG.I(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
     // [END receive_message]
-
-    private void sendNotification(PendingIntent pendingIntent, String title, String message) {
-        // 通过Notification.Builder来创建通知，注意API Level
-        // API16之后才支持
-        Notification.Builder builder= new Notification.Builder(this)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent)
-                .setContentIntent(pendingIntent);
-
-        //兼容nexusandroid5.0
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            builder.setSmallIcon(R.mipmap.ic_launcher_alpha);
-        } else {
-            builder.setSmallIcon(R.mipmap.ic_launcher);
-        }
-        Notification notification = builder.build(); // 需要注意build()是在API
-
-        // level16及之后增加的，API11可以使用getNotificatin()来替代
-        notification.flags |= Notification.FLAG_AUTO_CANCEL; // FLAG_AUTO_CANCEL表明当通知被用户点击时，通知将被清除。
-        notification.defaults |= Notification.DEFAULT_SOUND;
-        Vibrator vibrator = (Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
-        long [] pattern = {300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400,300,400}; // 停止 开启 停止 开启
-        vibrator.vibrate(pattern,-1); //重复两次上面的pattern 如果只想震动一次，index设为-1
-
-        final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify((int)System.currentTimeMillis(),notification);
-    }
 
     /**
      * Schedule a job using FirebaseJobDispatcher.
@@ -201,19 +202,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * Handle time allotted to BroadcastReceivers.
      */
     private void handleNow() {
-        LOG.D(TAG, "Short lived task is done.");
+        LOG.I(TAG, "Short lived task is done.");
     }
 
 
     @Override
     public void onDeletedMessages() {
         super.onDeletedMessages();
-        LOG.D(TAG,"onDeletedMessages");
+        LOG.I(TAG,"onDeletedMessages");
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LOG.D(TAG,"onDestroy");
-    }
 }
