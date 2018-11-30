@@ -110,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        checkLoginState();
-
         initCurrentGateway();
         ConnectionPojo.getInstance().open_app = 1;
         super.onCreate(savedInstanceState);
@@ -130,6 +128,13 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             updateAppAuto.initCheckUpate();
             checkUpdatefirm();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        checkLoginState();
     }
 
     private void checkPermissions() {
