@@ -140,10 +140,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     private void checkPermissions() {
         List<String> permissionList = new ArrayList<>();
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.CAMERA);
-        }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.READ_PHONE_STATE);
@@ -156,10 +152,14 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.RECORD_AUDIO);
-        }
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            permissionList.add(Manifest.permission.CAMERA);
+//        }
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            permissionList.add(Manifest.permission.RECORD_AUDIO);
+//        }
 
         if (!permissionList.isEmpty()) {
             ActivityCompat.requestPermissions(this,
@@ -169,12 +169,17 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSION:
-                // do something...
-                break;
-            default:
-                // do something...
+        if (requestCode == REQUEST_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                LOG.I(TAG, "[RYAN] permissions[0] = " +  permissions[0]);
+            }
+            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                LOG.I(TAG, "[RYAN] permissions[1] = " +  permissions[1]);
+            }
+            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                LOG.I(TAG, "[RYAN] permissions[2] = " +  permissions[2]);
+
+            }
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
