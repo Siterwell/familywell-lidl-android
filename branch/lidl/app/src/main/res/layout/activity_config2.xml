@@ -71,6 +71,7 @@
             android:id="@+id/wificonfig"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:item_accessoryType = "arrow"
             app:item_showDivider="true"
             app:item_detailText=""

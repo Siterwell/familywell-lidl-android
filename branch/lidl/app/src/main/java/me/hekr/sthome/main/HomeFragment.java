@@ -91,7 +91,13 @@ import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
  */
 
 @SuppressLint("ValidFragment")
-public class HomeFragment extends Fragment implements View.OnClickListener,MultiDirectionSlidingDrawer.OnDrawerOpenListener,MultiDirectionSlidingDrawer.OnDrawerCloseListener,CycleViewPager.ImageCycleViewListener,CycleViewWeatherPager.ImageCycleViewListener,MenuDialog.Dissmins,PullListView.IXListViewListener {
+public class HomeFragment extends Fragment implements View.OnClickListener,
+        MultiDirectionSlidingDrawer.OnDrawerOpenListener,
+        MultiDirectionSlidingDrawer.OnDrawerCloseListener,
+        CycleViewPager.ImageCycleViewListener,
+        CycleViewWeatherPager.ImageCycleViewListener,
+        MenuDialog.Dissmins,
+        PullListView.IXListViewListener {
     private PullListView listView;
     private View view = null;
     private static final String TAG = "MyHomeFragment";
@@ -150,7 +156,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
         if (viewparent != null) {
             viewparent.removeView(view);
         }
-
 
         return view;
     }
@@ -609,8 +614,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
 
     @Override
     public void onImageClick(MonitorBean info, int position, View imageView) {
-
-        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
+//        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
     }
 
 
@@ -626,8 +630,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Multi
 
     @Override
     public void onNoContentAlert() {
-        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
-        startActivity(intent);
+//        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
+//        startActivity(intent);
     }
 	
     @Override

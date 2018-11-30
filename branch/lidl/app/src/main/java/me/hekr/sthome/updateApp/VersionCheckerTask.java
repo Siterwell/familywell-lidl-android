@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import me.hekr.sthome.BuildConfig;
 import me.hekr.sthome.push.logger.Log;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by ryanhsueh on 2018/11/8
@@ -21,7 +22,7 @@ public class VersionCheckerTask extends AsyncTask<String, Document, Document> {
     protected Document doInBackground(String... params) {
 
         try {
-            Log.d("VersionCheckerTask", "[RYAN] doInBackground > ");
+            LOG.D("VersionCheckerTask", "[RYAN] doInBackground > ");
 
 
             document = Jsoup.connect("https://play.google.com/store/apps/details?id="+ BuildConfig.APPLICATION_ID +"&hl=en")

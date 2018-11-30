@@ -15,6 +15,7 @@ public enum ECPreferenceSettings {
     SETTINGS_LOCK_PASSWORD("com.siterwell.sthome.lockpassword",""),
     SETTINGS_CONFIG_REMEMBER_LOCK_PASSWORD("com.siterwell.sthome.rememberlockpassword",Boolean.TRUE),
     SETTINGS_DOMAIN("com.siterwell.sthome.domain","hekreu.me"),
+    SETTINGS_EMERGENCY_NUMBER_CHECKED("com.siterwell.sthome.emergencynumberchecked",Boolean.TRUE),
     SETTINGS_PGS_SETTING("com.siterwell.sthome.gps","yes");
     private final String mId;
     private final Object mDefaultValue;

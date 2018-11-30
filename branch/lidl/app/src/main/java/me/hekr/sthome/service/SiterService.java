@@ -1476,6 +1476,8 @@ public class SiterService extends Service {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void doCXSMAlertShow(String aaaa,String eqid,String deviceid){
+        LOG.I(TAG, "[RYAN] doCXSMAlertShow");
+
         DeviceDAO deviceDAO = new DeviceDAO(this);
         EquipDAO equipDAO = new EquipDAO(this);
         String draw = aaaa.substring(4,6);
@@ -1502,6 +1504,7 @@ public class SiterService extends Service {
         MyDeviceBean deviceBean = deviceDAO.findByDeviceid(deviceid);
         boolean currentgateway = ConnectionPojo.getInstance().deviceTid.equals(deviceid)?true:false;
 
+        LOG.I(TAG, "[RYAN] doCXSMAlertShow 111");
 
         if(deviceBean == null){
             gateway = getResources().getString(R.string.my_home);
@@ -1529,7 +1532,7 @@ public class SiterService extends Service {
             title = String.format(getResources().getString(R.string.other_gateway_eq_is_happen_has_eq),gateway,deviceid.substring(deviceid.length()-4),place,ds);
         }
 
-
+        LOG.I(TAG, "[RYAN] doCXSMAlertShow 222");
 
         if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
             ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(), title,
