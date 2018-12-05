@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="thtrigger_method">
+        <item>Temperature</item>
+        <item>Humidity</item>
+    </array>
+    <array name="thtrigger_style">
+        <item>&lt;=</item>
+        <item>>=</item>
+    </array>
+    <string-array name="week">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+    <string-array name="week3">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+    <string-array name="socket_actions">
+        <item>Socket Open</item>
+        <item>Socket Close</item>
+        <item>Socket Switch</item>
+    </string-array>
+    <string-array name="door_actions">
+        <item>Door Open</item>
+        <item>Door Close</item>
+        <item>Door Await</item>
+    </string-array>
+    <string-array name="sos_signs">
+        <item>Help</item>
+        <item>Offline</item>
+    </string-array>
+    <string-array name="pir_signs">
+        <item>Somebody There</item>
+        <item>Normal</item>
+    </string-array>
+    <string-array name="gateway_actions">
+        <item>Illegal Encroachment</item>
+        <item>Warn Alarm</item>
+        <item>Silence</item>
+    <item>Doorbell Alarm</item>
+    </string-array>
+    <string-array name="guard_actions">
+        <item>Open</item>
+        <item>Close</item>
+    </string-array>
+    <string-array name="cx_alert_actions">
+        <item>Smoke Alarm</item>
+        <item>Temperature Alarm</item>
+        <item>Test Alarm</item>
+    </string-array>
+    <string-array name="lamp_actions">
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>RedGreen</item>
+        <item>RedBlue</item>
+        <item>GreenBlue</item>
+        <item>Open</item>
+        <item>Close</item>
+        <item>Alarm</item>
+        <item>Colorful</item>
+    </string-array>
+    <string-array name="mode_button_signs">
+        <item>Help</item>
+        <item>Offline</item>
+    </string-array>
+    <string-array name="DeivceOperation">
+        <item>Replace Device</item>
+        <item>Delete Device</item>
+        <item>Edit Name</item>
+    </string-array>
+    <string-array name="device_setup_alarm_level">
+        <item>Lower</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="device_setup_camera_definition_values">
+        <item>Best</item>
+        <item>Very good</item>
+        <item>Good</item>
+        <item>Commonly</item>
+        <item>Not Good</item>
+        <item>Poor</item>
+    </string-array>
+    <string-array name="device_setup_camera_noise_reduction_values">
+        <item>Close</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="device_setup_camera_metering_values">
+        <item>Over-all integral metering</item>
+        <item>Central metering</item>
+        <item>Spot</item>
+    </string-array>
+    <string-array name="device_setup_record_mode_values">
+        <item>Always</item>
+        <item>Never</item>
+        <item>Linkage</item>
+    </string-array>
+    <string-array name="device_setup_exposure_time_values">
+        <item>auto</item>
+        <item>1/50</item>
+        <item>1/120</item>
+        <item>1/250</item>
+        <item>1/500</item>
+        <item>1/1000</item>
+        <item>1/2000</item>
+        <item>1/4000</item>
+        <item>1/10000</item>
+    </string-array>
+    <string-array name="device_setup_scene_mode_values">
+        <item>Auto</item>
+        <item>Indoor</item>
+        <item>Outdoor</item>
+    </string-array>
+    <string-array name="device_setup_electronic_slow_shutter_values">
+        <item>Close</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="device_setup_color_mode_values">
+        <item>ColorFul</item>
+        <item>BlackWhite</item>
+    </string-array>
+    <string-array name="pic_type">
+        <item>All</item>
+        <item>Alarm</item>
+        <item>Detection</item>
+        <item>Ordinary</item>
+        <item>Remote</item>
+        <item>Key</item>
+        <item>Time-lapse</item>
+        <item>Continuous</item>
+    </string-array>
+    <string-array name="record_type">
+        <item>ALL Video</item>
+        <item>Alert Video</item>
+        <item>Detection Video</item>
+        <item>Normal Video</item>
+        <item>Manual Video</item>
+        <item>Remote Video</item>
+    </string-array>
+    <string-array name="gatewaycolor">
+        <item>Dark Green</item>
+        <item>Sky Blue</item>
+        <item>Deep Purple</item>
+        <item>Pink</item>
+        <item>Light Green</item>
+        <item>Grass Green</item>
+        <item>Tangerine</item>
+        <item>Navy Blue</item>
+        <item>No Color</item>
+    </string-array>
+    <string-array name="check_pics">
+        <item>Remote images</item>
+        <item>Local screenshots</item>
+    </string-array>
+    <string-array name="check_videos">
+        <item>Remote video</item>
+        <item>Local video</item>
+    </string-array>
+    <array name="lock_input">
+        <item>Lock Open</item>
+        <item>Password Open</item>
+        <item>Card Open</item>
+        <item>Footprint Open</item>
+        <item>Illegal Operation</item>
+        <item>Dismantling alarm</item>
+        <item>Coercion alarm</item>
+    </array>
+    <array name="socket_channel">
+        <item>Channel1</item>
+        <item>Channel2</item>
+    </array>
+    <array name="dimming_modlue_action">
+        <item>Open</item>
+        <item>Close</item>
+    </array>
+    <array name="question">
+        <item>WIFI password error</item>
+        <item>Space problem</item>
+        <item>2.4GHZ-WIFI</item>
+    </array>
+    <array name="question_detail">
+        <item>The WIFI password you filled in may be wrong</item>
+        <item>The SSID or password of your router may contain spaces.</item>
+        <item>This product only supports 2.4GHZ frequency WIFI and does not support 5GHZ. Please ensure that the router is set correctly.</item>
+    </array>
+</resources>
