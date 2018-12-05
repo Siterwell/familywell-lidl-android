@@ -88,9 +88,9 @@ public class ModifyAdapeter extends BaseAdapter  {
         }
 
         if(sp.isOnline()){
-            holder.status.setText("onLine");
+            holder.status.setText(R.string.on_line);
         }else{
-            holder.status.setText("offLine");
+            holder.status.setText(R.string.off_line);
         }
         if(sp.getChoice()==1){
             holder.gouzi.setVisibility(View.VISIBLE);
