@@ -42,7 +42,7 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
     private TextView tv_pid;
     private ImageView save_xieyi;
     private LinearLayout liner_phone,liner_email;
-    private int type = 1; //1代表手机 2代表邮箱
+    private int type = 2; //1代表手机 2代表邮箱
     private int xieyi = 0;
 
     @Override
@@ -85,7 +85,10 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
         btn_get_code.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         btn_register.setEnabled(false);
-        getTopBarView().setTopBarStatus(1, 2, getResources().getString(R.string.register), type == 1 ? getResources().getString(R.string.email_register) : getResources().getString(R.string.phone_register), new View.OnClickListener() {
+        getTopBarView().setTopBarStatus(1, 2,
+                getResources().getString(R.string.register),
+                getResources().getString(R.string.email_register),
+                new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -93,7 +96,7 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
         }, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchType();
+//                switchType();
             }
         });
 

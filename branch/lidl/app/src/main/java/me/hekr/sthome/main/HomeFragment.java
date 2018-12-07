@@ -261,7 +261,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 mode.setImageResource(R.mipmap.sleep_mode2);
                 mainHome.setText(getResources().getString(R.string.sleep_mode));
             }else{
-                mode.setImageResource(R.mipmap.home_mode2);
+                mode.setImageResource(R.mipmap.other_mode2);
                 mainHome.setText(bean.getModleName());
             }
         }catch (Exception e){

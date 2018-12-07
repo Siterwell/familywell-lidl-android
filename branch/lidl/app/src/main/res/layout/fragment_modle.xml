@@ -32,17 +32,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:background="@color/mainGround"
+                    android:layout_marginBottom="@dimen/modle_scenceList_title_padding"
                     />
-
-                <LinearLayout
-                    android:paddingTop="@dimen/modle_scenceList_title_padding"
-                    android:paddingBottom="@dimen/modle_scenceList_title_padding"
-                    android:layout_marginLeft="@dimen/modle_main_padding"
-                    android:paddingRight="@dimen/modle_main_padding"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                </LinearLayout>
                 <me.hekr.sthome.commonBaseView.SlideListView
                     android:divider="@null"
                     android:id="@+id/sysModleList"
@@ -57,7 +48,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:background="@color/mainGround"
-                    />
+                    android:layout_marginTop="@dimen/modle_scenceList_title_padding" />
             </LinearLayout>
 
             <LinearLayout
