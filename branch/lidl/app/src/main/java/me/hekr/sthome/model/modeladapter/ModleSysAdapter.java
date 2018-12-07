@@ -45,7 +45,8 @@ public class ModleSysAdapter extends BaseAdapter {
             R.drawable.out1,
             R.drawable.out2,
             R.drawable.sleep1,
-            R.drawable.sleep2
+            R.drawable.sleep2,
+            R.drawable.other1
     };
 
     private int[] color = new int[]{
@@ -129,7 +130,7 @@ public class ModleSysAdapter extends BaseAdapter {
         }else if(position ==2){//sleep
             holder.image.setBackgroundResource(image[5]);
         }else{//add
-            holder.image.setBackgroundResource(image[1]);
+            holder.image.setBackgroundResource(image[7]);
         }
         if(position==0){
             holder.text1.setText(mContext.getResources().getString(R.string.home_mode));
