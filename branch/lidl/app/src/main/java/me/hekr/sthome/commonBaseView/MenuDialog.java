@@ -137,7 +137,7 @@ public class MenuDialog extends Dialog {
                    }else if("2".equals(getSysModellist().get(i).getSid())){
                        imageView.setImageResource(R.mipmap.sleep_mode22);
                    }else {
-                       imageView.setImageResource(R.mipmap.home_mode22);
+                       imageView.setImageResource(R.mipmap.other_mode22);
                    }
 
                    linearLayout.addView(imageView);
