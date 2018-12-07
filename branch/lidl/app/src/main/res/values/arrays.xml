@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="thtrigger_method">
         <item>@string/Temperature</item>
@@ -108,7 +107,7 @@
         <item>@string/Never</item>
         <item>@string/Linkage</item>
     </string-array>
-    <string-array name="device_setup_exposure_time_values">
+    <array name="device_setup_exposure_time_values">
         <item>@string/auto</item>
         <item>1/50</item>
         <item>1/120</item>
@@ -118,7 +117,7 @@
         <item>1/2000</item>
         <item>1/4000</item>
         <item>1/10000</item>
-    </string-array>
+    </array>
     <string-array name="device_setup_scene_mode_values">
         <item>@string/Auto</item>
         <item>@string/Indoor</item>
