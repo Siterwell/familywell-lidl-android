@@ -65,7 +65,7 @@ public class LOG {
     public static void I(String TAG, String info) {
         if (isLoggingToLogcatEnabled()) {
             if (isFabricInitialized()) {
-                Crashlytics.log(Log.VERBOSE, TAG, info);
+                Crashlytics.log(Log.INFO, TAG, info);
             }
             else {
                 Log.i(TAG, info);
@@ -73,7 +73,7 @@ public class LOG {
         }
         else {
             if (isFabricInitialized()) {
-                Crashlytics.log(TAG + "\tV\t" + info);
+                Crashlytics.log(TAG + "\tI\t" + info);
             }
         }
     }
@@ -81,7 +81,7 @@ public class LOG {
     public static void D(String TAG, String info) {
         if (isLoggingToLogcatEnabled()) {
             if (isFabricInitialized()) {
-                Crashlytics.log(Log.VERBOSE, TAG, info);
+                Crashlytics.log(Log.DEBUG, TAG, info);
             }
             else {
                 Log.d(TAG, info);
@@ -89,7 +89,7 @@ public class LOG {
         }
         else {
             if (isFabricInitialized()) {
-                Crashlytics.log(TAG + "\tV\t" + info);
+                Crashlytics.log(TAG + "\tD\t" + info);
             }
         }
     }
