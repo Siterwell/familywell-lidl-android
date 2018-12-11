@@ -76,9 +76,11 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.EncryptUtil;
 import me.hekr.sthome.tools.InforTotalReceiver;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
@@ -1006,8 +1008,8 @@ public class SiterService extends Service {
 
     @Subscribe(threadMode = ThreadMode.MAIN)         //订阅事件TokenTimeoutEvent
     public  void onEventMainThread(TokenTimeoutEvent event){
-        final String loginname = getUsername();
-        final String loginpsw = getPassword();
+        final String loginname = AccountUtil.getUsername();
+        final String loginpsw = AccountUtil.getPassword();
         if(event.getType()==1){
             Hekr.getHekrUser().refreshToken(new HekrRawCallback() {
                 @Override
@@ -1275,23 +1277,6 @@ public class SiterService extends Service {
 
         }
     }
-
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
 
     /**
      * doAlertShow:

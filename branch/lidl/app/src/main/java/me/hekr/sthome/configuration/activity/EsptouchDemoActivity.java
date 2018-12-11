@@ -18,6 +18,7 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.EncryptUtil;
 import me.hekr.sthome.tools.UnitTools;
 
 public class EsptouchDemoActivity extends TopbarSuperActivity implements View.OnClickListener {
@@ -86,8 +87,8 @@ public class EsptouchDemoActivity extends TopbarSuperActivity implements View.On
 		UnitTools unitTools = new UnitTools(this);
 		String ds = unitTools.readSSidcode(apSsid);
        if(ds!=null){
-		   mEdtApPassword.getCodeEdit().setText(CoderUtils.getDecrypt(ds));
-		   mEdtApPassword.getCodeEdit().setSelection(CoderUtils.getDecrypt(ds).length());
+		   mEdtApPassword.getCodeEdit().setText(EncryptUtil.decrypt(ds));
+		   mEdtApPassword.getCodeEdit().setSelection(EncryptUtil.decrypt(ds).length());
 		   mEdtApPassword.setCodeShow(true);
 	   }
 
@@ -117,7 +118,7 @@ public class EsptouchDemoActivity extends TopbarSuperActivity implements View.On
 			}else{
 				if(rem.isChecked()){
 					UnitTools unitTools = new UnitTools(this);
-					unitTools.writeSSidcode(apSsid,CoderUtils.getEncrypt(apPassword));
+					unitTools.writeSSidcode(apSsid, EncryptUtil.encrypt(apPassword));
 					try {
 						ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_CONFIG_REMEMBER_PASSWORD,true, true);
 					} catch (InvalidClassException e) {

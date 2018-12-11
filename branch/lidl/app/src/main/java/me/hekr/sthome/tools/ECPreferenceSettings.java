@@ -6,8 +6,8 @@ public enum ECPreferenceSettings {
      * Whether is the first use of the application
      *
      */
-	
-	
+
+    SETTINGS_FORCE_LOGOUT("com.siterwell.sthome.forcelogout.v1106",Boolean.TRUE),
     SETTINGS_USERNAME("com.siterwell.sthome.username" , ""),
     SETTINGS_PASSWORD("com.siterwell.sthome.password" , ""),
     SETTINGS_REMEMBER_PASSWORD("com.siterwell.sthome.rememberpassword",Boolean.FALSE),

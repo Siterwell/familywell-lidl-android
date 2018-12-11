@@ -53,8 +53,10 @@ import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.EncryptUtil;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -63,11 +65,13 @@ import me.hekr.sthome.tools.UnitTools;
  */
 
 public class InitActivity extends AppCompatActivity {
-private final static String TAG = "InitActivity";
-private ImageView imageView1;
-private boolean empty;
-private boolean flag = false;
-private static boolean flag_login_timeout = false;
+
+    private final static String TAG = "InitActivity";
+    private ImageView imageView1;
+    private boolean empty;
+    private boolean flag = false;
+    private static boolean flag_login_timeout = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -77,32 +81,27 @@ private static boolean flag_login_timeout = false;
         propetyAnim2(imageView1);
         boolean flag = getIntent().getBooleanExtra("login_flag",false);
 
-        if(!flag){
-            login();
-        }else{
-            EventBus.getDefault().post(new AutoSyncEvent());
+        if (AccountUtil.forceLogout()) {
+            logout();
+        } else {
+            if(!flag){
+                login();
+            }else{
+                EventBus.getDefault().post(new AutoSyncEvent());
+            }
         }
     }
 
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return CoderUtils.getDecrypt(autoflag);
+    private void logout() {
+        HekrUserAction.getInstance(InitActivity.this).userLogout();
+        CCPAppManager.setClientUser(null);
+        startActivity(new Intent(InitActivity.this,LoginActivity.class));
+        finish();
     }
 
     private void login(){
-        final String username = getUsername();
-        final String password = getPassword();
+        final String username = AccountUtil.getUsername();
+        final String password = AccountUtil.getPassword();
 
         LOG.I(TAG,"自动登录");
         handler.sendEmptyMessageDelayed(2,4000);
@@ -110,7 +109,7 @@ private static boolean flag_login_timeout = false;
             @Override
             public void onSuccess() {
                 LOG.I(TAG,"自动登录成功");
-                UserBean userBean = new UserBean(getUsername(), getPassword(), CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
+                UserBean userBean = new UserBean(username, password, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
                 HekrUserAction.getInstance(InitActivity.this).setUserCache(userBean);
                 if(!flag_login_timeout){
                     flag_login_timeout = true;
@@ -127,10 +126,7 @@ private static boolean flag_login_timeout = false;
 
                     //密码错误
                     if(code == 3400010){
-                        HekrUserAction.getInstance(InitActivity.this).userLogout();
-                        CCPAppManager.setClientUser(null);
-                        startActivity(new Intent(InitActivity.this,LoginActivity.class));
-                        finish();
+                        logout();
                     }else {
                         if(!flag_login_timeout){
                             flag_login_timeout = true;

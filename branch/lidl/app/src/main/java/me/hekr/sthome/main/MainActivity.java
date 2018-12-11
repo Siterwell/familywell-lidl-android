@@ -74,6 +74,7 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.service.SiterService;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
@@ -190,8 +191,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     }
 
     private void checkLoginState(){
-        final String username = getUsername();
-        final String password = getPassword();
+        final String username = AccountUtil.getUsername();
+        final String password = AccountUtil.getPassword();
         LOG.I(TAG,"自动登录");
         Hekr.getHekrUser().login(username, password, new HekrCallback() {
             @Override
@@ -701,8 +702,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             mProgressDialog.dismiss();
         }
 
-        final String loginname = getUsername();
-        final String loginpsw = getPassword();
+        final String loginname = AccountUtil.getUsername();
+        final String loginpsw = AccountUtil.getPassword();
 
         Hekr.getHekrUser().login(loginname, loginpsw, new HekrCallback() {
             @Override
@@ -884,20 +885,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 //    protected void onSaveInstanceState(Bundle outState) {
 //         super.onSaveInstanceState(outState);
 //    }
-
-    private String getUsername(){
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return CoderUtils.getDecrypt(autoflag);
-    }
 
     private void initCurrentGateway(){
 
