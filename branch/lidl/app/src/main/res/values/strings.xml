@@ -118,7 +118,7 @@ The connector has entered the networking mode."</string>
     <string name="set_first">Please set first </string>
     <string name="set_weekday">Choose on which days you want to set the timer</string>
     <string name="set_delay">Please set delay time</string>
-    <string name="manage">Manage device</string>
+    <string name="manage">manage</string>
     <string name="offline">Offline</string>
     <string name="alarm">Alarm</string>
     <string name="lowvolt_alarm">Low battery warning</string>
