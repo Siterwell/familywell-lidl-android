@@ -86,24 +86,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         tcpGetDomain();
         LOG.I(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
-        try{
-            if (CCPAppManager.getUserId()==null) {
 
-                initData();
-                initView();
-                initLog();
-                initSystemBar();
-            } else {
-                login();
+        if (AccountUtil.forceLogout()) {
+            // Force logout because of updated data encryption algorithm
+            HekrUserAction.getInstance(this).userLogout();
+            CCPAppManager.setClientUser(null);
+
+            initView();
+            initSystemBar();
+        } else {
+            try{
+                if (CCPAppManager.getUserId()==null) {
+                    initData();
+                    initView();
+                    initLog();
+                    initSystemBar();
+                } else {
+                    login();
+                }
+            } catch (Exception e){
+                e.getStackTrace();
             }
         }
-        catch (Exception e){
-            initData();
-            initView();
-            initLog();
-            initSystemBar();
-        }
-
     }
 
 
