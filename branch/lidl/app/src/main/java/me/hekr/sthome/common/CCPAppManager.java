@@ -9,6 +9,7 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.model.modelbean.ClientUser;
+import me.hekr.sthome.tools.LOG;
 
 public class CCPAppManager {
     public static Md5FileNameGenerator md5FileNameGenerator = new Md5FileNameGenerator();
@@ -32,6 +33,8 @@ public class CCPAppManager {
             SharedPreferences.Editor mydata = users.edit();
             mydata.putString("userinfo" ,user.toString());
             mydata.commit();
+
+//            LOG.D("CCPAppManager", "[RYAN] setClientUser > " + user.toString());
         }
     }
 

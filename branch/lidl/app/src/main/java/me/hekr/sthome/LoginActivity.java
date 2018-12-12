@@ -105,7 +105,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     login();
                 }
             } catch (Exception e){
-                e.getStackTrace();
+                initData();
+                initView();
+                initLog();
+                initSystemBar();
             }
         }
     }
@@ -384,8 +387,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }else{
-        startActivity(new Intent(LoginActivity.this, InitActivity.class));
-        finish();
+            startActivity(new Intent(LoginActivity.this, InitActivity.class));
+            finish();
         }
 
 

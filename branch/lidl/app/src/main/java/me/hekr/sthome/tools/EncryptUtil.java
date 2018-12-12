@@ -21,7 +21,11 @@ public class EncryptUtil {
     private final static String IvAES = "78909876shwmwkbq" ; // 16 bytes
     private final static String KeyAES = "322jdf9whsdiwqwq921mmekqow10k8dw"; // 32 bytes
 
-    public static String encrypt(@NonNull final String text) {
+    public static String encrypt(final String text) {
+        if (text == null) {
+            return null;
+        }
+
         try {
             byte[] TextByte = EncryptAES(IvAES.getBytes("UTF-8"),
                     KeyAES.getBytes("UTF-8"),
@@ -35,7 +39,11 @@ public class EncryptUtil {
         return null;
     }
 
-    public static String decrypt(@NonNull final String text) {
+    public static String decrypt(final String text) {
+        if (text == null) {
+            return null;
+        }
+
         try {
             byte[] TextByte = DecryptAES(IvAES.getBytes("UTF-8"),
                     KeyAES.getBytes("UTF-8"),
