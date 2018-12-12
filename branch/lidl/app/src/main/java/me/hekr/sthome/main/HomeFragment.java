@@ -699,12 +699,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
 
     private void initGps(){
+        LOG.I(TAG, "initGps");
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
+
+                        LOG.I(TAG, "Google Location > location = " + location);
                         if (location == null) {
                             return;
                         }
@@ -713,7 +717,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                         double lat = location.getLatitude();
                         double lon = location.getLongitude();
                         String address = "纬度：" + lat + "经度：" + lon;
-                        LOG.I("ceshi", "Google Location > " + address);
+                        LOG.I(TAG, "Google Location > " + address);
 
                         try {
                             if ("".equals(weather_txt)) {
@@ -721,7 +725,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                                 Config.getWeatherInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
                                     @Override
                                     public void loginSuccess(String str) {
-                                        LOG.I("ceshi", "天气数据:" + str);
+                                        LOG.I(TAG, "天气数据:" + str);
                                         try {
                                             JSONObject jsonObject = JSONObject.parseObject(str);
                                             JSONArray jsonArray = jsonObject.getJSONArray("weather");
@@ -743,7 +747,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
                                     @Override
                                     public void loginFail(int errorCode) {
-                                        LOG.I("ceshi", "errorCode:" + errorCode);
+                                        LOG.I(TAG, "errorCode:" + errorCode);
                                     }
                                 }, "https://api.openweathermap.org/data/2.5/weather?lat=" +
                                         lat + "&lon=" + lon

@@ -40,7 +40,7 @@
     <string name="pid_does_not_exist">Das PID existiert nicht</string>
     <string name="there_is_no_authority_on_this_instruction">Es gibt keine Berechtigung für diese Anweisung</string>
     <string name="specified_template_does_not_exist">Die angegebende Vorlage existiert nicht</string>
-    <string name="device_cannot_be_found_due_to_an_incorrect_internal_condition">Der Connector kann aufgrund einer inkorrekten internen Bedingung nicht </string>
+    <string name="device_cannot_be_found_due_to_an_incorrect_internal_condition">Der Connector kann aufgrund einer inkorrekten internen Bedingung nicht</string>
     <string name="the_specified_task_does_not_exist">Die angegebene Aufgabe existiert nicht</string>
     <string name="unable_to_create_duplicate_template">Das Erstellen einer duplizierten Vorlage ist nicht möglich</string>
     <string name="deviceid_does_not_match">Die Connector ID stimmen nicht überein</string>
