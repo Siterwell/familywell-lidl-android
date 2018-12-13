@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
@@ -46,7 +45,6 @@ import me.hekr.sdk.HekrSDK;
 import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sdk.utils.CacheUtil;
-import me.hekr.sthome.InitActivity;
 import me.hekr.sthome.LoginActivity;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
@@ -56,8 +54,6 @@ import me.hekr.sthome.commonBaseView.CustomViewPager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
-import me.hekr.sthome.crc.CoderUtils;
-import me.hekr.sthome.event.AutoSyncEvent;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.http.HekrUser;
@@ -72,6 +68,7 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.service.SiterService;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
@@ -110,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LOG.D(TAG, "[RYAN] onCreate");
+
         initCurrentGateway();
         ConnectionPojo.getInstance().open_app = 1;
         super.onCreate(savedInstanceState);
@@ -128,11 +127,13 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             updateAppAuto.initCheckUpate();
             checkUpdatefirm();
         }
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        LOG.D(TAG, "[RYAN] onStart");
 
         checkLoginState();
     }
@@ -186,9 +187,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     }
 
     private void checkLoginState(){
-        final String username = getUsername();
-        final String password = getPassword();
-        LOG.I(TAG,"自动登录");
+        LOG.I(TAG,"[RYAN] checkLoginState");
+
+        final String username = AccountUtil.getUsername();
+        final String password = AccountUtil.getPassword();
         Hekr.getHekrUser().login(username, password, new HekrCallback() {
             @Override
             public void onSuccess() {
@@ -697,8 +699,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             mProgressDialog.dismiss();
         }
 
-        final String loginname = getUsername();
-        final String loginpsw = getPassword();
+        final String loginname = AccountUtil.getUsername();
+        final String loginpsw = AccountUtil.getPassword();
 
         Hekr.getHekrUser().login(loginname, loginpsw, new HekrCallback() {
             @Override
@@ -881,20 +883,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 //         super.onSaveInstanceState(outState);
 //    }
 
-    private String getUsername(){
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return CoderUtils.getDecrypt(autoflag);
-    }
-
     private void initCurrentGateway(){
 
         try{
@@ -1025,7 +1013,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"doActionSend > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
 

@@ -1,18 +1,13 @@
 package com.lib.funsdk.support.config;
 
-import android.util.Log;
-
 import com.lib.EDEV_JSON_ID;
 import com.lib.funsdk.support.FunLog;
-import com.lib.sdk.struct.SDK_SYSTEM_TIME;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import me.hekr.sthome.tools.LOG;
 

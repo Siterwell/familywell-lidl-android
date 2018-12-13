@@ -1,7 +1,6 @@
 package me.hekr.sthome.xmipc;
 
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;

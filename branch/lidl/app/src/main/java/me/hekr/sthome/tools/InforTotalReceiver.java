@@ -1,16 +1,11 @@
 package me.hekr.sthome.tools;
 
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
-import android.os.Vibrator;
-import android.text.TextUtils;
 
 import com.litesuits.android.log.Log;
 
@@ -18,23 +13,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
-import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
+import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.event.TokenTimeoutEvent;
-import me.hekr.sthome.MyApplication;
-import me.hekr.sthome.R;
-import me.hekr.sthome.autoudp.ControllerWifi;
-import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.model.ResolveData;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
-import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
-import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.service.NetWorkUtils;
 import me.hekr.sthome.service.SiterService;
 

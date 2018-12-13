@@ -3,7 +3,6 @@ package me.hekr.sthome.DragFolderwidget;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
-import android.util.FloatMath;
 import android.view.ViewGroup;
 
 public class LayoutCalculator {

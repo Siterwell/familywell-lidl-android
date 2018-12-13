@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.text.TextUtils;
 
-import com.litesuits.android.log.Log;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -20,7 +18,6 @@ import me.hekr.sthome.model.modelbean.ShortcutBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
 import me.hekr.sthome.model.modelbean.TimerGatewayBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
-import me.hekr.sthome.model.modeldb.PackDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;

@@ -26,7 +26,6 @@ import com.lib.funsdk.support.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.TopbarSuperActivity;

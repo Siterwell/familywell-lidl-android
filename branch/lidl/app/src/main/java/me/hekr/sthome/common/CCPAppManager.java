@@ -32,6 +32,8 @@ public class CCPAppManager {
             SharedPreferences.Editor mydata = users.edit();
             mydata.putString("userinfo" ,user.toString());
             mydata.commit();
+
+//            LOG.D("CCPAppManager", "[RYAN] setClientUser > " + user.toString());
         }
     }
 

@@ -5,7 +5,6 @@ import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
@@ -14,14 +13,11 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -40,19 +36,14 @@ import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.dispatcher.IMessageFilter;
 import me.hekr.sdk.http.HekrRawCallback;
-import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
-import me.hekr.sthome.LoginActivity;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.autoudp.ControllerWifi;
-import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
 import me.hekr.sthome.crc.CoderUtils;
-import me.hekr.sthome.equipment.EmergencyEditActivity;
 import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
@@ -65,7 +56,6 @@ import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.http.bean.DcInfo;
 import me.hekr.sthome.http.bean.DeviceBean;
-import me.hekr.sthome.http.bean.FirmwareBean;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.model.ResolveData;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
@@ -76,9 +66,8 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
-import me.hekr.sthome.tools.ECPreferenceSettings;
-import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.InforTotalReceiver;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
@@ -86,7 +75,6 @@ import me.hekr.sthome.tools.SendEquipmentData;
 import me.hekr.sthome.tools.SendOtherData;
 import me.hekr.sthome.tools.SendSceneData;
 import me.hekr.sthome.tools.UnitTools;
-import me.hekr.sthome.updateApp.UpdateAppAuto;
 
 /**
  * Created by Administrator on 2017/7/3.
@@ -1006,8 +994,8 @@ public class SiterService extends Service {
 
     @Subscribe(threadMode = ThreadMode.MAIN)         //订阅事件TokenTimeoutEvent
     public  void onEventMainThread(TokenTimeoutEvent event){
-        final String loginname = getUsername();
-        final String loginpsw = getPassword();
+        final String loginname = AccountUtil.getUsername();
+        final String loginpsw = AccountUtil.getPassword();
         if(event.getType()==1){
             Hekr.getHekrUser().refreshToken(new HekrRawCallback() {
                 @Override
@@ -1275,23 +1263,6 @@ public class SiterService extends Service {
 
         }
     }
-
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
 
     /**
      * doAlertShow:

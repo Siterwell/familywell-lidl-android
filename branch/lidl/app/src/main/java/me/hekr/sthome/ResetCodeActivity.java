@@ -1,18 +1,11 @@
 package me.hekr.sthome;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.litesuits.common.assist.Toastor;
 

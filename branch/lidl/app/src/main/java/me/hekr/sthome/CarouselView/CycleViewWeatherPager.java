@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,10 +22,7 @@ import java.util.List;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.Weatherlinearlayout;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
-import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.model.modelbean.WeatherInfoBean;
-import me.hekr.sthome.tools.NameSolve;
 
 
 /**

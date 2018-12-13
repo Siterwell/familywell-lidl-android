@@ -7,9 +7,9 @@
  */
 package com.lib.sdk.struct;
 
-import java.util.Arrays;
-
 import com.lib.SDKCONST;
+
+import java.util.Arrays;
 
 /**
  * Android_NetSdk SDK_STORAGEDISK.java

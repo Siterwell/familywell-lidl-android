@@ -1,7 +1,6 @@
 package me.hekr.sthome.push;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
@@ -23,7 +22,6 @@ import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modelbean.SceneBean;
-
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;

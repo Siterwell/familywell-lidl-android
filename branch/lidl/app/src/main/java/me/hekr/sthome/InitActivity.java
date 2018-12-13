@@ -1,9 +1,7 @@
 package me.hekr.sthome;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -26,8 +21,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InvalidClassException;
-import java.util.HashSet;
-import java.util.List;
 
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
@@ -36,38 +29,30 @@ import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.commonBaseView.SlideListView;
-import me.hekr.sthome.crc.CoderUtils;
-import me.hekr.sthome.equipment.ConfigActivity;
 import me.hekr.sthome.equipment.EmergencyEditActivity;
-import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
 import me.hekr.sthome.event.LogoutEvent;
-import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
-import me.hekr.sthome.http.bean.DcInfo;
-import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
-import me.hekr.sthome.model.modelbean.MyDeviceBean;
-import me.hekr.sthome.model.modeldb.DeviceDAO;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
-import me.hekr.sthome.tools.UnitTools;
 
 /**
  * Created by TracyHenry on 2018/5/9.
  */
 
 public class InitActivity extends AppCompatActivity {
-private final static String TAG = "InitActivity";
-private ImageView imageView1;
-private boolean empty;
-private boolean flag = false;
-private static boolean flag_login_timeout = false;
+
+    private final static String TAG = "InitActivity";
+    private ImageView imageView1;
+    private boolean empty;
+    private boolean flag = false;
+    private static boolean flag_login_timeout = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -77,32 +62,27 @@ private static boolean flag_login_timeout = false;
         propetyAnim2(imageView1);
         boolean flag = getIntent().getBooleanExtra("login_flag",false);
 
-        if(!flag){
-            login();
-        }else{
-            EventBus.getDefault().post(new AutoSyncEvent());
+        if (AccountUtil.forceLogout()) {
+            logout();
+        } else {
+            if(!flag){
+                login();
+            }else{
+                EventBus.getDefault().post(new AutoSyncEvent());
+            }
         }
     }
 
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return CoderUtils.getDecrypt(autoflag);
+    private void logout() {
+        HekrUserAction.getInstance(InitActivity.this).userLogout();
+        CCPAppManager.setClientUser(null);
+        startActivity(new Intent(InitActivity.this, LoginActivity.class));
+        finish();
     }
 
     private void login(){
-        final String username = getUsername();
-        final String password = getPassword();
+        final String username = AccountUtil.getUsername();
+        final String password = AccountUtil.getPassword();
 
         LOG.I(TAG,"自动登录");
         handler.sendEmptyMessageDelayed(2,4000);
@@ -110,7 +90,7 @@ private static boolean flag_login_timeout = false;
             @Override
             public void onSuccess() {
                 LOG.I(TAG,"自动登录成功");
-                UserBean userBean = new UserBean(getUsername(), getPassword(), CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
+                UserBean userBean = new UserBean(username, password, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
                 HekrUserAction.getInstance(InitActivity.this).setUserCache(userBean);
                 if(!flag_login_timeout){
                     flag_login_timeout = true;
@@ -127,10 +107,7 @@ private static boolean flag_login_timeout = false;
 
                     //密码错误
                     if(code == 3400010){
-                        HekrUserAction.getInstance(InitActivity.this).userLogout();
-                        CCPAppManager.setClientUser(null);
-                        startActivity(new Intent(InitActivity.this,LoginActivity.class));
-                        finish();
+                        logout();
                     }else {
                         if(!flag_login_timeout){
                             flag_login_timeout = true;
@@ -159,6 +136,7 @@ private static boolean flag_login_timeout = false;
             switch (msg.what) {
                 case 1:
 
+                    LOG.D(TAG, "[RYAN] ClientUser = " + CCPAppManager.getClientUser().toString());
                     if (isNumberChecked()) {
                         gotoMainActivity();
                     } else {

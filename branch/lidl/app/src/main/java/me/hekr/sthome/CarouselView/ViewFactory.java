@@ -12,10 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lib.funsdk.support.FunPath;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.File;
@@ -23,9 +20,7 @@ import java.io.File;
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.FuncSDKImage;
 import me.hekr.sthome.commonBaseView.Weatherlinearlayout;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.WeatherInfoBean;
-import me.hekr.sthome.tools.NameSolve;
 
 /**
  * ImageView创建工厂

@@ -8,8 +8,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -30,7 +28,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.litesuits.android.log.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,7 +45,6 @@ import me.hekr.sthome.DeviceListActivity;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
-import me.hekr.sthome.common.DeviceActivitys;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.MenuDialog;
 import me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer;
@@ -72,7 +68,6 @@ import me.hekr.sthome.model.modeldb.NoticeDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.push.NoticeBean;
 import me.hekr.sthome.push.NoticeResolve;
-import me.hekr.sthome.service.FetchAddressIntentService;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
@@ -83,7 +78,6 @@ import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneGroupData;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.UnitTools;
-import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
 
 
 /**
@@ -100,7 +94,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         PullListView.IXListViewListener {
     private PullListView listView;
     private View view = null;
-    private static final String TAG = "MyHomeFragment";
+    private static final String TAG = HomeFragment.class.getSimpleName();
     private RadioButton title_view;
     private ImageButton setting_btn;
     private LinearLayout total_linearlayout;
@@ -294,7 +288,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 @Override
                 public void getProfileSuccess(Object object) {
                     try {
-                        LOG.I(TAG,"getSuccess"+object.toString());
+                        LOG.I(TAG,"getSuccess : " + object.toString());
                         JSONObject d = JSON.parseObject(object.toString());
                         ClientUser user = CCPAppManager.getClientUser();
                         user.setMonitor(d.getJSONObject("extraProperties").getString("monitor"));
@@ -699,12 +693,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
 
     private void initGps(){
+        LOG.I(TAG, "initGps");
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
+
+                        LOG.I(TAG, "Google Location > location = " + location);
                         if (location == null) {
                             return;
                         }
@@ -713,7 +711,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                         double lat = location.getLatitude();
                         double lon = location.getLongitude();
                         String address = "纬度：" + lat + "经度：" + lon;
-                        LOG.I("ceshi", "Google Location > " + address);
+                        LOG.I(TAG, "Google Location > " + address);
 
                         try {
                             if ("".equals(weather_txt)) {
@@ -721,7 +719,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                                 Config.getWeatherInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
                                     @Override
                                     public void loginSuccess(String str) {
-                                        LOG.I("ceshi", "天气数据:" + str);
+                                        LOG.I(TAG, "天气数据:" + str);
                                         try {
                                             JSONObject jsonObject = JSONObject.parseObject(str);
                                             JSONArray jsonArray = jsonObject.getJSONArray("weather");
@@ -743,7 +741,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
                                     @Override
                                     public void loginFail(int errorCode) {
-                                        LOG.I("ceshi", "errorCode:" + errorCode);
+                                        LOG.I(TAG, "errorCode:" + errorCode);
                                     }
                                 }, "https://api.openweathermap.org/data/2.5/weather?lat=" +
                                         lat + "&lon=" + lon
