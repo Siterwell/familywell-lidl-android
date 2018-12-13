@@ -53,7 +53,7 @@ public abstract class SendSceneData {
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"sendAction > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
             } catch (JSONException e) {

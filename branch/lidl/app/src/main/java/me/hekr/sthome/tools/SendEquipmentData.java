@@ -15,7 +15,7 @@ import me.hekr.sthome.service.SiterwellUtil;
  * Created by jishu0001 on 2016/11/16.
  */
 public abstract class SendEquipmentData {
-    private static final String TAG = "SendEquipmentData";
+    private static final String TAG = SendEquipmentData.class.getSimpleName();
     private Context context;
     private SendCommand sc;
     private boolean wifiTag;
@@ -31,19 +31,23 @@ public abstract class SendEquipmentData {
      * @param groupCode
      */
     private void sendAction(String groupCode){
+        LOG.I(TAG,"sendAction ====send groupCode=== " + groupCode);
+        LOG.I(TAG,"sendAction ====domain=== " + ConnectionPojo.getInstance().domain);
+
         ControllerWifi controllerWifi = ControllerWifi.getInstance();
         wifiTag = controllerWifi.wifiTag;
-        Log.i(TAG,"====send tag=== "+wifiTag);
+        LOG.I(TAG,"====send tag=== "+wifiTag);
         if(wifiTag){
+            LOG.I(TAG,"sendAction ==== UDP");
             new SiterwellUtil(context).sendData(groupCode);
         }else {
-
+            LOG.I(TAG,"sendAction ==== TCP");
             try {
 
                 Hekr.getHekrClient().sendMessage(new JSONObject(groupCode), new HekrMsgCallback() {
                     @Override
                     public void onReceived(String msg) {
-
+                        LOG.I(TAG,"sendAction > onReceived > " + msg);
                     }
 
                     @Override
@@ -53,7 +57,7 @@ public abstract class SendEquipmentData {
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"sendAction > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
             } catch (JSONException e) {

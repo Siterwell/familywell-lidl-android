@@ -1016,7 +1016,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"doActionSend > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
 

@@ -41,6 +41,7 @@ import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.FirmwareBean;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.updateApp.ProgressEvent;
 import me.hekr.sthome.updateApp.UpdateAppAuto;
@@ -181,7 +182,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
                 @Override
                 public void onError(int errorCode, String message) {
-
+                    LOG.E(TAG,"doActionSend > onError > " + message);
                 }
             }, ConnectionPojo.getInstance().domain);
 

@@ -52,7 +52,7 @@ public class SendOtherData {
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"sendAction > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
 
