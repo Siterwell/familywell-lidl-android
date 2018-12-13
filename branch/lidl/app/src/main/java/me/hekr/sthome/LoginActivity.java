@@ -35,25 +35,24 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.utils.CacheUtil;
-import me.hekr.sdk.utils.ErrorCodeUtil;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.CodeEdit;
 import me.hekr.sthome.commonBaseView.LoginLogPopupwindow;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
-import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.ClientUser;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.EncryptUtil;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.UnitTools;
@@ -84,24 +83,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         tcpGetDomain();
         LOG.I(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
-        try{
-            if (CCPAppManager.getUserId()==null) {
 
+        if (AccountUtil.forceLogout()) {
+            // Force logout because of updated data encryption algorithm
+            HekrUserAction.getInstance(this).userLogout();
+            CCPAppManager.setClientUser(null);
+
+            initView();
+            initSystemBar();
+        } else {
+            try{
+                if (CCPAppManager.getUserId()==null) {
+                    initData();
+                    initView();
+                    initLog();
+                    initSystemBar();
+                } else {
+                    login();
+                }
+            } catch (Exception e){
                 initData();
                 initView();
                 initLog();
                 initSystemBar();
-            } else {
-                login();
             }
         }
-        catch (Exception e){
-            initData();
-            initView();
-            initLog();
-            initSystemBar();
-        }
-
     }
 
 
@@ -109,8 +115,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         toastor = new Toastor(this);
        // hekrUserAction = HekrUserAction.getInstance(this);
         isauto = isAutologin();
-        phone = getUsername();
-        pwd = getPassword();
+        phone = AccountUtil.getUsername();
+        pwd = AccountUtil.getPassword();
 
     }
 
@@ -157,29 +163,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return autoflag;
     }
 
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return CoderUtils.getDecrypt(autoflag);
-    }
-
-    private String getdomain(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
     private void initView() {
 
         root     = (RelativeLayout)findViewById(R.id.root);
@@ -259,9 +242,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     user.setMonitor(d.getJSONObject("extraProperties").getString("monitor"));
                                     CCPAppManager.setClientUser(user);
                                     try {
+                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_FORCE_LOGOUT, false, true);
                                         ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_REMEMBER_PASSWORD, isauto, true);
-                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_USERNAME, phone,true);
-                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD,CoderUtils.getEncrypt(pwd),true);
+                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_USERNAME, EncryptUtil.encrypt(phone),true);
+                                        ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD, EncryptUtil.encrypt(pwd),true);
                                     } catch (InvalidClassException e) {
                                         e.printStackTrace();
                                     }
@@ -400,8 +384,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }else{
-        startActivity(new Intent(LoginActivity.this, InitActivity.class));
-        finish();
+            startActivity(new Intent(LoginActivity.this, InitActivity.class));
+            finish();
         }
 
 
@@ -506,7 +490,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void tcpGetDomain(){
 
-        String domain = getdomain();
+        String domain = AccountUtil.getDomain();
         LOG.I(TAG,"设置本地domain:"+domain);
         Constants.setOnlineSite(domain);
 

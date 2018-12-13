@@ -2,11 +2,8 @@ package me.hekr.sthome.model.modeldb;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.litesuits.android.log.Log;
 
 import java.util.ArrayList;
 import java.util.List;

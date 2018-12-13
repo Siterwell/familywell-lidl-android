@@ -19,7 +19,6 @@ import me.hekr.sthome.http.bean.NewDeviceBean;
 import me.hekr.sthome.http.bean.NewsBean;
 import me.hekr.sthome.http.bean.OAuthListBean;
 import me.hekr.sthome.http.bean.OAuthRequestBean;
-import me.hekr.sthome.http.bean.ProfileBean;
 import me.hekr.sthome.http.bean.RuleBean;
 import me.hekr.sthome.http.bean.UserFileBean;
 import me.hekr.sthome.http.bean.WeatherAirBean;

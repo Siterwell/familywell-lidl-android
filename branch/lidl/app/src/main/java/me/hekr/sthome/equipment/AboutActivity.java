@@ -5,10 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -41,6 +39,7 @@ import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.FirmwareBean;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.updateApp.ProgressEvent;
 import me.hekr.sthome.updateApp.UpdateAppAuto;
@@ -181,7 +180,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
                 @Override
                 public void onError(int errorCode, String message) {
-
+                    LOG.E(TAG,"doActionSend > onError > " + message);
                 }
             }, ConnectionPojo.getInstance().domain);
 

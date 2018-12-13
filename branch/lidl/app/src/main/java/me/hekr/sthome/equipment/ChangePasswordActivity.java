@@ -11,11 +11,11 @@ import java.io.InvalidClassException;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
-import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.EncryptUtil;
 import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -96,7 +96,7 @@ public class ChangePasswordActivity extends TopbarSuperActivity {
                 Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.success),Toast.LENGTH_SHORT).show();
 
                 try {
-                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD, CoderUtils.getEncrypt(newpsw),true);
+                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD, EncryptUtil.encrypt(newpsw),true);
                 } catch (InvalidClassException e) {
                     e.printStackTrace();
                 } finally {

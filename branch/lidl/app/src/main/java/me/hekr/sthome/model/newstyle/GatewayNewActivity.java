@@ -1,7 +1,6 @@
 package me.hekr.sthome.model.newstyle;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;

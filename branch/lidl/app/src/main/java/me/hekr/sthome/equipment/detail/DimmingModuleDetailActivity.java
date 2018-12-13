@@ -3,7 +3,6 @@ package me.hekr.sthome.equipment.detail;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,7 +24,6 @@ import java.io.UnsupportedEncodingException;
 
 import me.hekr.sthome.AddDeviceActivity;
 import me.hekr.sthome.R;
-import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ECListDialog;
 import me.hekr.sthome.commonBaseView.ProtractorView;

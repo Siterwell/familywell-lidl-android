@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.hekr.sthome.tools.EncryptUtil;
+
 /**
  * Created by gc-0001 on 2017/2/7.
  */
@@ -30,7 +32,6 @@ public class ClientUser {
     public String getMonitor() {
         return monitor;
     }
-
     public void setMonitor(String monitor) {
         this.monitor = monitor;
     }
@@ -38,79 +39,69 @@ public class ClientUser {
     public long getBirthday() {
         return birthday;
     }
-
     public void setBirthday(long birthday) {
         this.birthday = birthday;
     }
 
     public String getFirstName() {
-        return firstName;
+        return EncryptUtil.decrypt(firstName);
     }
-
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = EncryptUtil.encrypt(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return EncryptUtil.decrypt(lastName);
     }
-
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = EncryptUtil.encrypt(lastName);
     }
 
     public long getUpdateDate() {
         return updateDate;
     }
-
     public void setUpdateDate(long updateDate) {
         this.updateDate = updateDate;
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return EncryptUtil.decrypt(phoneNumber);
     }
-
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = EncryptUtil.encrypt(phoneNumber);
     }
 
     public String getGender() {
-        return gender;
+        return EncryptUtil.decrypt(gender);
     }
-
     public void setGender(String gender) {
-        this.gender = gender;
+        this.gender = EncryptUtil.encrypt(gender);
     }
 
     public String getDescription() {
-        return description;
+        return EncryptUtil.decrypt(description);
     }
-
     public void setDescription(String description) {
-        this.description = description;
+        this.description = EncryptUtil.encrypt(description);
     }
 
     public String getEmail() {
-        return email;
+        return EncryptUtil.decrypt(email);
     }
-
     public void setEmail(String email) {
-        this.email = email;
+        this.email = EncryptUtil.encrypt(email);
     }
 
     public String getAge() {
-        return age;
+        return EncryptUtil.decrypt(age);
     }
-
     public void setAge(String age) {
-        this.age = age;
+        this.age = EncryptUtil.encrypt(age);
     }
 
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -122,14 +113,14 @@ public class ClientUser {
         try {
             jsonObject.put("id" , id);
             jsonObject.put("birthday" , birthday);
-            jsonObject.put("firstName" , firstName);
-            jsonObject.put("lastName" , lastName);
+            jsonObject.put("firstName" , EncryptUtil.decrypt(firstName));
+            jsonObject.put("lastName" , EncryptUtil.decrypt(lastName));
             jsonObject.put("updateDate" , updateDate);
-            jsonObject.put("phoneNumber" , phoneNumber);
-            jsonObject.put("gender" , gender);
-            jsonObject.put("description" , description);
-            jsonObject.put("email" , email);
-            jsonObject.put("age" , age);
+            jsonObject.put("phoneNumber" , EncryptUtil.decrypt(phoneNumber));
+            jsonObject.put("gender" , EncryptUtil.decrypt(gender));
+            jsonObject.put("description" , EncryptUtil.decrypt(description));
+            jsonObject.put("email" , EncryptUtil.decrypt(email));
+            jsonObject.put("age" , EncryptUtil.decrypt(age));
             jsonObject.put("monitor" , monitor);
             return jsonObject.toString();
         } catch (JSONException e) {
@@ -139,14 +130,14 @@ public class ClientUser {
         return "ClientUser{" +
                 "id=" + id +
                 "birthday=" + birthday +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", firstName='" + EncryptUtil.decrypt(firstName) + '\'' +
+                ", lastName='" + EncryptUtil.decrypt(lastName) + '\'' +
                 ", updateDate=" + updateDate +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", gender='" + gender + '\'' +
-                ", description='" + description + '\'' +
-                ", email='" + email + '\'' +
-                ", age='" + age + '\'' +
+                ", phoneNumber='" + EncryptUtil.decrypt(phoneNumber) + '\'' +
+                ", gender='" + EncryptUtil.decrypt(gender) + '\'' +
+                ", description='" + EncryptUtil.decrypt(description) + '\'' +
+                ", email='" + EncryptUtil.decrypt(email) + '\'' +
+                ", age='" + EncryptUtil.decrypt(age) + '\'' +
                 ", monitor='" + monitor + '\'' +
                 '}';
     }
@@ -162,28 +153,28 @@ public class ClientUser {
                 this.birthday = object.getLong("birthday");
             }
             if(object.has("firstName")) {
-                this.firstName = object.getString("firstName");
+                this.firstName = EncryptUtil.encrypt(object.getString("firstName"));
             }
             if(object.has("lastName")) {
-                this.lastName = object.getString("lastName");
+                this.lastName = EncryptUtil.encrypt(object.getString("lastName"));
             }
             if(object.has("updateDate")) {
                 this.updateDate = object.getLong("updateDate");
             }
             if(object.has("phoneNumber")) {
-                this.phoneNumber = object.getString("phoneNumber");
+                this.phoneNumber = EncryptUtil.encrypt(object.getString("phoneNumber"));
             }
             if(object.has("gender")) {
-                this.gender = object.getString("gender");
+                this.gender = EncryptUtil.encrypt(object.getString("gender"));
             }
             if(object.has("description")) {
-                this.description = object.getString("description");
+                this.description = EncryptUtil.encrypt(object.getString("description"));
             }
             if(object.has("email")) {
-                this.email = object.getString("email");
+                this.email = EncryptUtil.encrypt(object.getString("email"));
             }
             if(object.has("age")) {
-                this.age = object.getString("age");
+                this.age = EncryptUtil.encrypt(object.getString("age"));
             }
             if(object.has("monitor")){
                 this.monitor = object.getString("monitor");

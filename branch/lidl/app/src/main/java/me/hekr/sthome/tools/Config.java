@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
-
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import cz.msebera.android.httpclient.Header;

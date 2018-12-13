@@ -27,12 +27,10 @@ import com.lib.sdk.struct.H264_DVR_FILE_DATA;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.http.HekrCodeUtil;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.main.MainActivity;

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sthome.autoudp.ControllerWifi;
@@ -53,7 +54,7 @@ public abstract class SendSceneData {
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"sendAction > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
             } catch (JSONException e) {

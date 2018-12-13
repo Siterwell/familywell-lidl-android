@@ -8,7 +8,6 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 
 import me.hekr.sthome.BuildConfig;
-import me.hekr.sthome.push.logger.Log;
 import me.hekr.sthome.tools.LOG;
 
 /**

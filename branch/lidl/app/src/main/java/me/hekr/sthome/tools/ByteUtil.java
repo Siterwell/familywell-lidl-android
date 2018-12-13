@@ -1,8 +1,6 @@
 package me.hekr.sthome.tools;
 
 
-import android.util.Log;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 

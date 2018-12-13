@@ -3,7 +3,6 @@ package me.hekr.sthome.service;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

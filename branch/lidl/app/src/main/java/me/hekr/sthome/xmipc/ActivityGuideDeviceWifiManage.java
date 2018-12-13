@@ -3,7 +3,6 @@ package me.hekr.sthome.xmipc;
 
 import android.content.DialogInterface;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -12,18 +11,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.SoftInputUtils;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.SlideListView;
+import me.hekr.sthome.http.HekrUser;
+import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modeladapter.MonitorAdapter;
 import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.MonitorBean;
-import me.hekr.sthome.http.HekrUser;
-import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 

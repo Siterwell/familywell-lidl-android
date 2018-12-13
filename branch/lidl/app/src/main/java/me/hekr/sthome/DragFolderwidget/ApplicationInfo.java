@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.TextUtils;
-import android.util.FloatMath;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
