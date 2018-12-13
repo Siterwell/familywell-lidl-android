@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/gateway_color_7"
     android:id="@+id/root">
     <ImageView
         android:id="@+id/imageView1"
@@ -11,6 +11,8 @@
         android:layout_marginBottom="10dp"
         android:layout_centerInParent="true"
         android:alpha="0.0"
-        android:src="@drawable/logo1" android:layout_gravity="center_horizontal" android:layout_marginTop="40dp"/>
+        android:src="@drawable/logo1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"/>
 
 </RelativeLayout>
