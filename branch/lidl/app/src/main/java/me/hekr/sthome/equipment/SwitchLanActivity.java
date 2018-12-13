@@ -1,6 +1,5 @@
 package me.hekr.sthome.equipment;
 
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -14,13 +13,10 @@ import com.igexin.sdk.PushManager;
 
 import org.greenrobot.eventbus.EventBus;
 
-import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.tools.ECPreferenceSettings;
-import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.SystemUtil;
+import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.tools.UnitTools;
 
 /**

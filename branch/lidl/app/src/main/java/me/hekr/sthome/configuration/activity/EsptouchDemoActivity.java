@@ -15,7 +15,6 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.CodeEdit;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.EncryptUtil;

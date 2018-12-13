@@ -6,7 +6,6 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
 
 import io.fabric.sdk.android.Fabric;
 import me.hekr.sthome.BuildConfig;

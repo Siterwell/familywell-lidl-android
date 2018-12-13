@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.Display;
 import android.view.WindowManager;
 
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;

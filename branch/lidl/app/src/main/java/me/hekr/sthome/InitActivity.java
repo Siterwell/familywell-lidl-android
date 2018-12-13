@@ -136,6 +136,7 @@ public class InitActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 1:
 
+                    LOG.D(TAG, "[RYAN] ClientUser = " + CCPAppManager.getClientUser().toString());
                     if (isNumberChecked()) {
                         gotoMainActivity();
                     } else {

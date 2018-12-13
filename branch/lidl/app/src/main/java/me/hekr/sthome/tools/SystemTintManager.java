@@ -15,6 +15,7 @@ package me.hekr.sthome.tools;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -34,7 +35,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout.LayoutParams;
-
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

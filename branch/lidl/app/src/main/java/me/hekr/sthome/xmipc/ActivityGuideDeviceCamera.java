@@ -78,7 +78,6 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ECAlertDialog_ipc;
 import me.hekr.sthome.commonBaseView.ECListDialog;
 import me.hekr.sthome.commonBaseView.SuberPager;
-import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.service.NetWorkUtils;
 import me.hekr.sthome.tools.SystemTintManager;

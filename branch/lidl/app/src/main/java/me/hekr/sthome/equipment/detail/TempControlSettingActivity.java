@@ -9,17 +9,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.event.ThcheckEvent;
-import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
-import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ByteUtil;
-import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
 import me.hekr.sthome.wheelwidget.view.WheelView;

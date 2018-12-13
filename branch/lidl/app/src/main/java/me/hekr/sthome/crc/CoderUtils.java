@@ -4,8 +4,6 @@ package me.hekr.sthome.crc;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.litesuits.android.log.Log;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;

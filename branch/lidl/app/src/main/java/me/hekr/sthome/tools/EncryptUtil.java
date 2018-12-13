@@ -1,6 +1,5 @@
 package me.hekr.sthome.tools;
 
-import android.support.annotation.NonNull;
 import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;

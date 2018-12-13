@@ -2,22 +2,15 @@ package me.hekr.sthome.model.modeldb;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-
-import com.litesuits.android.log.Log;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-import me.hekr.sthome.LoginActivity;
-import me.hekr.sthome.autoudp.ControllerWifi;
-import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.model.modelbean.ShortcutBean;
 import me.hekr.sthome.tools.LOG;
 

@@ -1,7 +1,6 @@
 package me.hekr.sthome.tools;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;

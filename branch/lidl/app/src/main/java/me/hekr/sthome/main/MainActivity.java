@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
@@ -37,8 +36,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +45,6 @@ import me.hekr.sdk.HekrSDK;
 import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sdk.utils.CacheUtil;
-import me.hekr.sthome.InitActivity;
 import me.hekr.sthome.LoginActivity;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
@@ -58,8 +54,6 @@ import me.hekr.sthome.commonBaseView.CustomViewPager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
-import me.hekr.sthome.crc.CoderUtils;
-import me.hekr.sthome.event.AutoSyncEvent;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.http.HekrUser;
@@ -79,7 +73,6 @@ import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.EncryptUtil;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SystemTintManager;
@@ -114,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LOG.D(TAG, "[RYAN] onCreate");
+
         initCurrentGateway();
         ConnectionPojo.getInstance().open_app = 1;
         super.onCreate(savedInstanceState);
@@ -138,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     @Override
     protected void onStart() {
         super.onStart();
+        LOG.D(TAG, "[RYAN] onStart");
 
         checkLoginState();
     }
@@ -191,9 +187,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     }
 
     private void checkLoginState(){
+        LOG.I(TAG,"[RYAN] checkLoginState");
+
         final String username = AccountUtil.getUsername();
         final String password = AccountUtil.getPassword();
-        LOG.I(TAG,"自动登录");
         Hekr.getHekrUser().login(username, password, new HekrCallback() {
             @Override
             public void onSuccess() {

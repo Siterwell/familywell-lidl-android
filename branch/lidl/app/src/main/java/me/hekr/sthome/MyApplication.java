@@ -8,18 +8,16 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.igexin.sdk.PushManager;
-import com.lib.funsdk.support.FunSupport;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-import io.fabric.sdk.android.Fabric;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import me.hekr.sdk.HekrSDK;
 import me.hekr.sthome.push.GTPushService;
 import me.hekr.sthome.push.RGTIntentService;

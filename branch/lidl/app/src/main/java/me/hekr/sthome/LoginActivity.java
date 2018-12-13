@@ -35,17 +35,14 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.utils.CacheUtil;
-import me.hekr.sdk.utils.ErrorCodeUtil;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.CodeEdit;
 import me.hekr.sthome.commonBaseView.LoginLogPopupwindow;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
-import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.bean.UserBean;

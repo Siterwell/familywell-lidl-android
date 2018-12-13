@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.litesuits.android.log.Log;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -26,8 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import me.hekr.sthome.commonBaseView.ToastTools;
-import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.RefreshableView;
@@ -36,11 +32,11 @@ import me.hekr.sthome.commonBaseView.TopBarView;
 import me.hekr.sthome.equipment.adapter.EqpAdapter;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.history.DataFromSceneGroup;
+import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.SysDetaiActivity;
 import me.hekr.sthome.model.TimerListActivity;
 import me.hekr.sthome.model.addsmodel.AddSystemActivity;
 import me.hekr.sthome.model.modeladapter.ModleSysAdapter;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.SceneBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
 import me.hekr.sthome.model.modeldb.SceneDAO;

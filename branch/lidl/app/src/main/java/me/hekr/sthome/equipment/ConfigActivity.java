@@ -3,7 +3,6 @@ package me.hekr.sthome.equipment;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -16,9 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.igexin.sdk.PushManager;
 
-import java.io.InvalidClassException;
-
-
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sthome.DeviceListActivity;
@@ -28,16 +24,12 @@ import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.SettingItem;
-
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.push.logger.Log;
-import me.hekr.sthome.tools.ECPreferenceSettings;
-import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.SystemUtil;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.updateApp.UpdateAppAuto;
 import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;

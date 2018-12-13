@@ -10,26 +10,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.SettingItem;
-import me.hekr.sthome.http.HekrUser;
-import me.hekr.sthome.http.SiterHttpUtil;
 import me.hekr.sthome.service.NetWorkUtils;
-import me.hekr.sthome.service.SiterService;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
