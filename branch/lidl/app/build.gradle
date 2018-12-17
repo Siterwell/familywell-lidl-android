@@ -25,7 +25,7 @@ android {
             abiFilters  "armeabi"
         }
 
-        applicationId "com.cosa.silvercrest"
+        applicationId "com.cosa.base"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1105

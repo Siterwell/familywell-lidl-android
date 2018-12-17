@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "930272937290",
-    "firebase_url": "https://lidl-f0a6e.firebaseio.com",
-    "project_id": "lidl-f0a6e",
-    "storage_bucket": "lidl-f0a6e.appspot.com"
+    "project_number": "251308537217",
+    "firebase_url": "https://base-5345c.firebaseio.com",
+    "project_id": "base-5345c",
+    "storage_bucket": "base-5345c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:930272937290:android:ed256387da56d5fd",
+        "mobilesdk_app_id": "1:251308537217:android:3f0da1283c97d0fd",
         "android_client_info": {
-          "package_name": "com.cosa.silvercrest"
+          "package_name": "com.cosa.base"
         }
       },
       "oauth_client": [
         {
-          "client_id": "930272937290-rmo9h4ajmbkqk86uk72o8fc09r1dpf6e.apps.googleusercontent.com",
+          "client_id": "251308537217-6c1v2l5ep58521ub1kdsgr8aev9luqlu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCrEngcnsRoBzFrSSuWatWUPtYStw8X3o"
+          "current_key": "AIzaSyAhES2ebEswEBrIU-sTa_7wV5UL0sBz3yI"
         }
       ],
       "services": {
