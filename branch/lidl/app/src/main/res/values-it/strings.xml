@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <string name="app_name">SilverCrest Alarm</string>
+   <string name="app_name">BASE</string>
    <string name="btnConfirmTitle">CONNETTI</string>
    <string name="config_instruction">Tieni premuto il pulsante per la modalità network cinque secondi dopo aver inserito il connettore.</string>
    <string name="how_to_config">Assicurarsi che la luce blu del connettore lampeggi e poi premere "passaggio successivo".</string>

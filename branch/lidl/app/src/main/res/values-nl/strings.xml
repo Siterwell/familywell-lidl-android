@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <string name="app_name">SilverCrest Alarm</string>
+   <string name="app_name">BASE</string>
    <string name="btnConfirmTitle">VERBINDEN</string>
    <string name="config_instruction">Houd vijf seconden na het inpluggen van de connector de knop ingedrukt om de netwerkmodus te activeren.</string>
    <string name="how_to_config">Druk zodra het licht van de connector blauw knippert  op volgende.</string>

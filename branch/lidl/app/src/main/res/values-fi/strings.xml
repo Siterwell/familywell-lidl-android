@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SilverCrest Alarm</string>
+    <string name="app_name">BASE</string>
     <string name="btnConfirmTitle">YHDISTÄ</string>
     <string name="config_instruction">Odota 5 sekuntia tukiaseman käynnistämisen jälkeen, ja paina sen jälkeen tukiaseman painiketta vähintään 5 sekunnin ajan</string>
     <string name="how_to_config">Tarkista, että sininen valo vilkkuu tukiasemassa, ja klikkaa sen jälkeen seuraavaan vaiheeseen</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <string name="app_name">SilverCrest Alarm</string>
+   <string name="app_name">BASE</string>
    <string name="btnConfirmTitle">POVEŽI</string>
    <string name="config_instruction">Pet sekund po vklopu konektorja pritisnite in držite gumb za omrežni način.</string>
    <string name="how_to_config">Prosimo, prepričajte se, da modra lučka na konektorju utripa in nato pritisnite “naslednji korak”.</string>
