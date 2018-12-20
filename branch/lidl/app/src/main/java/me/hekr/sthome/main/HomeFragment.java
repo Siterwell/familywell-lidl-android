@@ -94,6 +94,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         CycleViewWeatherPager.ImageCycleViewListener,
         MenuDialog.Dissmins,
         PullListView.IXListViewListener {
+
+    private static final String DEV_LIST = "device_list";
+
     private PullListView listView;
     private View view = null;
     private static final String TAG = HomeFragment.class.getSimpleName();
@@ -448,18 +451,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
 
             if(list.size()>0){
+                MonitorBean monitorBean = new MonitorBean();
+                monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
+                monitorBean.setDevid("");
+                infos.add(monitorBean); // add a empty fake MonitorBean first
+
                 for(int i = 0; i < list.size(); i ++){
 
                     infos.add(list.get(i));
                 }
 
+
                 // 将最后一个ImageView添加进来
                 views.add(ViewFactory.getImageView(getActivity(),list.get(list.size()-1).getDevid()));
                 for (int i = 0; i < infos.size(); i++) {
-                    views.add(ViewFactory.getImageView(getActivity(),infos.get(i).getDevid()));
+                    MonitorBean monitor = infos.get(i);
+                    if (monitor.equals("")) {
+                        views.add(ViewFactory.getDeviceListView(getActivity()));
+                    } else {
+                        views.add(ViewFactory.getImageView(getActivity(),monitor.getDevid()));
+                    }
                 }
                 // 将第一个ImageView添加进来
-                views.add(ViewFactory.getImageView(getActivity(),list.get(0).getDevid()));
+                views.add(ViewFactory.getDeviceListView(getActivity()));
 
                 // 设置循环，在调用setData方法前调用
                 cycleViewPager.setCycle(true);
@@ -477,11 +491,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 MonitorBean monitorBean = new MonitorBean();
                 monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
                 monitorBean.setDevid("");
-                infos.add(monitorBean);
+                infos.add(monitorBean); // add a empty fake MonitorBean first
 
                 // 将最后一个ImageView添加进来
-                views.add(ViewFactory.getImageView2(getActivity()));
-
+                views.add(ViewFactory.getImageView2(getActivity())); // last one
 
                 // 设置循环，在调用setData方法前调用
                 cycleViewPager.setCycle(false);

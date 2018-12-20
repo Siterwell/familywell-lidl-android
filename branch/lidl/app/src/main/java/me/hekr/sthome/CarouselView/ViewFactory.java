@@ -44,10 +44,10 @@ public class ViewFactory {
 				Bitmap mm = BitmapFactory.decodeFile(path);
 				imageView.setImageBitmap(mm);
 			}else{
-				imageView.setImageResource(R.drawable.u3);
+				imageView.setImageResourceNoMark(R.drawable.u3);
 			}
 		}catch (Exception e){
-			imageView.setImageResource(R.drawable.u3);
+			imageView.setImageResourceNoMark(R.drawable.u3);
 		}
 
 		return imageView;
@@ -59,6 +59,12 @@ public class ViewFactory {
 		imageView.setImageResourceNoMark(R.drawable.u3);
 		imageView.setVisibility(View.VISIBLE);
 		return imageView;
+	}
+
+	public static FrameLayout getDeviceListView(Context context) {
+		FrameLayout layout = (FrameLayout) LayoutInflater.from(context).inflate(
+				R.layout.view_device_list, null);
+		return layout;
 	}
 
 

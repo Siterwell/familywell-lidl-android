@@ -39,8 +39,7 @@
             android:id="@+id/title"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="5dp"
-            android:layout_alignParentLeft="true"
-            android:visibility="gone"/>
+            android:layout_alignParentLeft="true"/>
     </me.hekr.sthome.commonBaseView.MyRelativeLayout>
 
 </FrameLayout>

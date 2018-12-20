@@ -357,7 +357,7 @@ public class CycleViewPager extends FrameLayout implements OnPageChangeListener 
 			FrameLayout v = imageViews.get(position);
 			if (mImageCycleViewListener != null) {
 				v.getChildAt(0).setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 
