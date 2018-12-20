@@ -9,7 +9,7 @@
   <View
       android:layout_width="fill_parent"
       android:layout_height="1dp"
-      android:background="@color/black"
+      android:background="@color/title_low_black"
       />  
  <LinearLayout
      android:layout_width="fill_parent"
@@ -24,7 +24,7 @@
     android:layout_width="fill_parent"  
     android:layout_weight="1"  
     android:orientation="horizontal"
-    android:background="#2d2d2d"
+    android:background="@color/base_dark_background"
     android:paddingTop="5dp" >
     
     <RadioButton

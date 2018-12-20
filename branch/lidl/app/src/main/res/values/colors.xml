@@ -79,4 +79,7 @@
     <color name="test_history">#d57e89</color>
     <color name="common_history">#678fbb</color>
     <color name="empty_history">#c1bec1</color>
+
+    <!-- Customized Base UI -->
+    <color name="base_dark_background">#2d2d2d</color>
 </resources>
