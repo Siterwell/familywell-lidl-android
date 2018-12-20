@@ -163,6 +163,10 @@ public class UpdateAppAuto {
         VersionCheckerTask versionChecker = new VersionCheckerTask();
         try {
             Document document = versionChecker.execute().get();
+            if (document == null) {
+                return;
+            }
+
             Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
             String version = element.text();
             int code = (int) (Float.parseFloat(version)*1000);
