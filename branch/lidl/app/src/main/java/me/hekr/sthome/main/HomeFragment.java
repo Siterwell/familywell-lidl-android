@@ -45,6 +45,7 @@ import me.hekr.sthome.DeviceListActivity;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
+import me.hekr.sthome.common.DeviceActivitys;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.MenuDialog;
 import me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer;
@@ -78,6 +79,7 @@ import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneGroupData;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.UnitTools;
+import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
 
 
 /**
@@ -608,7 +610,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onImageClick(MonitorBean info, int position, View imageView) {
-//        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
+        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
     }
 
 
@@ -624,8 +626,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onNoContentAlert() {
-//        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
-//        startActivity(intent);
+        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
+        startActivity(intent);
     }
 	
     @Override

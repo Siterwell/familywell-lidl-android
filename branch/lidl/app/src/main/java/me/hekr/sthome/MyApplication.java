@@ -11,6 +11,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.igexin.sdk.PushManager;
+import com.lib.funsdk.support.FunSupport;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -43,7 +44,7 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-//        FunSupport.getInstance().init(getApplicationContext());
+        FunSupport.getInstance().init(getApplicationContext());
         HekrSDK.init(getApplicationContext(), R.raw.config);
         HekrSDK.enableDebug(true);
         //推送服务初始化
