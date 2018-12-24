@@ -61,6 +61,8 @@ public class ServeIntroActivity extends TopbarSuperActivity {
             url = "file:///android_asset/privacy_italian.html";
         } else if (language.equals("sl")) {
             url = "file:///android_asset/privacy_slovenian.html";
+        } else if (language.equals("fi")) {
+            url = "file:///android_asset/privacy_finnish.html";
         }
 
         webView.loadUrl(url);
