@@ -40,7 +40,7 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import me.hekr.sdk.Constants;
-import me.hekr.sthome.CarouselView.CycleViewWeatherPager;
+import me.hekr.sthome.CarouselView.CycleViewPager;
 import me.hekr.sthome.CarouselView.ViewFactory;
 import me.hekr.sthome.DeviceListActivity;
 import me.hekr.sthome.MyApplication;
@@ -89,7 +89,6 @@ import me.hekr.sthome.tools.UnitTools;
 public class HomeFragment extends Fragment implements View.OnClickListener,
         MultiDirectionSlidingDrawer.OnDrawerOpenListener,
         MultiDirectionSlidingDrawer.OnDrawerCloseListener,
-        CycleViewWeatherPager.ImageCycleViewListener,
         MenuDialog.Dissmins,
         PullListView.IXListViewListener {
     private PullListView listView;
@@ -434,73 +433,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             infos.clear();
             ipcPagers.clear();
 
-            ipcPagers.add(ViewFactory.getImageView2(getActivity()));
-            ipcPagers.add(ViewFactory.getImageView2(getActivity()));
-            ipcPagers.add(ViewFactory.getImageView2(getActivity()));
+            List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
+
+            if(list.size()>0){
+                infos.addAll(list);
+
+                for (int i = 0; i < infos.size(); i++) {
+                    ipcPagers.add(ViewFactory.getImageView(getActivity(),infos.get(i).getDevid()));
+                }
+            }else{
+                MonitorBean monitorBean = new MonitorBean();
+                monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
+                monitorBean.setDevid("");
+                infos.add(monitorBean);
+
+                ipcPagers.add(ViewFactory.getImageView2(getActivity()));
+            }
 
             ipcViewPager = view.findViewById(R.id.viewpager_ipc);
             ipcViewPager.setAdapter(new IpcPagerAdapter());
 
-
-//            if(cycleViewPager!=null){
-//                LOG.I(TAG,"cycleViewPager.removeHandler();");
-//                cycleViewPager.removeHandler();
-//            }
-//            cycleViewPager = new CycleViewPager(getActivity());
-//            casaul.addView(cycleViewPager);
-//            List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
-//
-//            if(list.size()>0){
-//                for(int i = 0; i < list.size(); i ++){
-//
-//                    infos.add(list.get(i));
-//                }
-//
-//                // 将最后一个ImageView添加进来
-//                views.add(ViewFactory.getImageView(getActivity(),list.get(list.size()-1).getDevid()));
-//                for (int i = 0; i < infos.size(); i++) {
-//                    views.add(ViewFactory.getImageView(getActivity(),infos.get(i).getDevid()));
-//                }
-//                // 将第一个ImageView添加进来
-//                views.add(ViewFactory.getImageView(getActivity(),list.get(0).getDevid()));
-//
-//                // 设置循环，在调用setData方法前调用
-//                cycleViewPager.setCycle(true);
-//
-//                // 在加载数据前设置是否循环
-//                cycleViewPager.setData(views, infos, this);
-//                //设置轮播
-//                cycleViewPager.setWheel(true);
-//
-//                // 设置轮播时间，默认5000ms
-//                cycleViewPager.setTime(5000);
-//                //设置圆点指示图标组居中显示，默认靠右
-//                cycleViewPager.setIndicatorCenter();
-//            }else{
-//                MonitorBean monitorBean = new MonitorBean();
-//                monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
-//                monitorBean.setDevid("");
-//                infos.add(monitorBean);
-//
-//                // 将最后一个ImageView添加进来
-//                views.add(ViewFactory.getImageView2(getActivity()));
-//
-//
-//                // 设置循环，在调用setData方法前调用
-//                cycleViewPager.setCycle(false);
-//
-//                // 在加载数据前设置是否循环
-//                cycleViewPager.setData(views, infos, this);
-//                //设置轮播
-//                cycleViewPager.setWheel(false);
-//
-//                // 设置轮播时间，默认5000ms
-//                cycleViewPager.setTime(5000);
-//                //设置圆点指示图标组居中显示，默认靠右
-//                cycleViewPager.setIndicatorCenter();
-//
-//
-//            }
         }catch (NullPointerException e){
             LOG.I(TAG,"tuichu");
         }
@@ -511,7 +463,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
 
     private String getGpsSetting(){
-
         SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
         ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PGS_SETTING;
         String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
@@ -572,32 +523,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             }
 
 
-            weatherViewPager = view.findViewById(R.id.viewpager_weather);
-            if(infos_weather.size()>0){
-//                  // 将最后一个ImageView添加进来
-//                  views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(infos_weather.size()-1)));
-
-                  for (int i = 0; i < infos_weather.size(); i++) {
-                      views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(i)));
-                  }
-
-//                  // 将第一个ImageView添加进来
-//                  views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(0)));
-//
-//                  // 设置循环，在调用setData方法前调用
-//                  cycleViewWeatherPager.setCycle(true);
-//
-//                  // 在加载数据前设置是否循环
-//                  cycleViewWeatherPager.setData(views_weather, infos_weather, this);
-//                  //设置轮播
-//                  cycleViewWeatherPager.setWheel(true);
-//
-//                  // 设置轮播时间，默认5000ms
-//                  cycleViewWeatherPager.setTime(5000);
-//                  //设置圆点指示图标组居中显示，默认靠右
-//                  cycleViewWeatherPager.setIndicatorCenter();
-
+            for (int i = 0; i < infos_weather.size(); i++) {
+                views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(i)));
             }
+
+            weatherViewPager = view.findViewById(R.id.viewpager_weather);
             weatherViewPager.setAdapter(new WeatherPagerAdapter());
 
 
@@ -609,27 +539,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     }
 
 
-//    @Override
-//    public void onImageClick(MonitorBean info, int position, View imageView) {
-////        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
-//    }
-
-
-    @Override
-    public void onTesClick(WeatherInfoBean info, int position, View imageView) {
-
+    public void onImageClick(MonitorBean info, int position, View imageView) {
+        LOG.D(TAG, "[RYAN] onImageClick");
+//        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
     }
 
-    @Override
-    public void onGpsContentSet() {
-
+    public void onNoContentAlert() {
+        LOG.D(TAG, "[RYAN] onNoContentAlert");
+//        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
+//        startActivity(intent);
     }
-
-//    @Override
-//    public void onNoContentAlert() {
-////        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
-////        startActivity(intent);
-//    }
 	
     @Override
     public void dmissListener() {
@@ -844,7 +763,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
+            FrameLayout v = ipcPagers.get(position);
+            v.getChildAt(0).setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    MonitorBean monitor = infos.get(position);
+                    if (TextUtils.isEmpty(monitor.getDevid())) {
+                        onNoContentAlert();
+                    } else {
+                        onImageClick(infos.get(position), position, v);
+                    }
+                }
+            });
+
             container.addView(ipcPagers.get(position));
             return ipcPagers.get(position);
         }
