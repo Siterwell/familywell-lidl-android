@@ -80,16 +80,15 @@
             <!--</LinearLayout>-->
 
             <TextView
+                android:id="@+id/tv_ipc_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dsds"
+                android:layout_marginTop="@dimen/home_half_margin_top"
+                android:paddingLeft="5dp"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textColor="@color/text_color_selected"
-                android:id="@+id/title"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="5dp"
-                android:layout_alignParentLeft="true"
+                android:text="dsdsdsdsdsdsdsdsdsds"
                 android:visibility="gone"/>
 
         </RelativeLayout>
