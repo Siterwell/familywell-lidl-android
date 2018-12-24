@@ -238,9 +238,9 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
         final String link;
         final UnitTools unitTools = new UnitTools(this);
         if("zh".equals(unitTools.readLanguage())){
-            link = "http://www.elro.eu";
+            link = "https://be1ce773.dream.press/";
         }else{
-            link = "http://www.elro.eu";
+            link = "https://be1ce773.dream.press/";
         }
 
         SpannableString content = new SpannableString(link);
