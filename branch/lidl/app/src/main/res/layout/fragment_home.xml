@@ -88,8 +88,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textColor="@color/text_color_selected"
-                android:text="dsdsdsdsdsdsdsdsdsds"
-                android:visibility="gone"/>
+                android:text="dsdsdsdsdsdsdsdsdsds"/>
 
         </RelativeLayout>
 
