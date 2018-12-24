@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -41,31 +39,26 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
-        <LinearLayout
+
+        <!--<android.support.v4.view.ViewPager-->
+            <!--android:id="@+id/viewpager_weather"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/home_weather_height"-->
+            <!--android:layout_marginTop="@dimen/home_half_height"/>-->
+        <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_weather_height"
-            android:id="@+id/topp"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/home_half_height"
+            android:background="@color/black"/>
 
-        </LinearLayout>
     </LinearLayout>
 
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_ipc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/home_half_height">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="bottom"
-            android:paddingBottom="@dimen/home_middleImg_padding"
-            android:id="@+id/casaul">
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_marginTop="@dimen/home_half_height"/>
 
     <LinearLayout
         android:layout_width="@dimen/home_middle_icon_size"

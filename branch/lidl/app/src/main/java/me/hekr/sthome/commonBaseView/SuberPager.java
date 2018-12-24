@@ -65,7 +65,7 @@ public class SuberPager extends FrameLayout implements ViewPager.OnPageChangeLis
         View view = LayoutInflater.from(context).inflate(
                 R.layout.view_cycle_viewpager_contet_sub, null);
 
-        viewPager = (CustomViewPager) view.findViewById(R.id.viewPager);
+        viewPager = (CustomViewPager) view.findViewById(R.id.viewpager_ipc);
         viewPager.setOffscreenPageLimit(1);
         indicatorLayout = (LinearLayout) view
                 .findViewById(R.id.layout_viewpager_indicator);
