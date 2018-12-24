@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:id="@+id/mu">
-        <LinearLayout
-            android:id="@+id/boss"
-            android:layout_width="@dimen/home_middle_icon_size"
-            android:layout_height="@dimen/home_middle_icon_size"
-            android:layout_marginTop="@dimen/home_half_margin_top"
-            android:gravity="center"
-            android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:id="@+id/mu">
 
-            <Button
-                android:id="@+id/main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@mipmap/menu_middle" />
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/boss"
+        android:layout_width="@dimen/home_middle_icon_size"
+        android:layout_height="@dimen/home_middle_icon_size"
+        android:layout_marginTop="@dimen/home_half_margin_top"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="@dimen/home_middle_icon_size"-->
-            <!--android:layout_height="@dimen/home_middle_icon_size"-->
-            <!--android:orientation="vertical"-->
-            <!--android:gravity="center"-->
-            <!--android:background="@drawable/cell_mode_ground"-->
-            <!--android:id="@+id/nowmode"-->
-            <!--&gt;-->
-            <!--<ImageView-->
-                <!--android:layout_width="@dimen/home_middle_icon_size2"-->
-                <!--android:layout_height="@dimen/home_middle_icon_size2"-->
-                <!--android:src="@mipmap/home_mode2"-->
-                <!--android:id="@+id/mode"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="@dimen/home_middle_text_width"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="dddddd"-->
-                <!--android:ellipsize="marquee"-->
-                <!--android:focusable="true"-->
-                <!--android:focusableInTouchMode="true"-->
-                <!--android:marqueeRepeatLimit="marquee_forever"-->
-                <!--android:singleLine="true"-->
-                <!--android:textColor="@color/text_color_selected"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:id="@+id/zouma"/>-->
-        <!--</LinearLayout>-->
+        <Button
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/menu_middle" />
+    </LinearLayout>
 
-    </RelativeLayout>
-</FrameLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="@dimen/home_middle_icon_size"-->
+    <!--android:layout_height="@dimen/home_middle_icon_size"-->
+    <!--android:orientation="vertical"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@drawable/cell_mode_ground"-->
+    <!--android:id="@+id/nowmode"-->
+    <!--&gt;-->
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/home_middle_icon_size2"-->
+    <!--android:layout_height="@dimen/home_middle_icon_size2"-->
+    <!--android:src="@mipmap/home_mode2"-->
+    <!--android:id="@+id/mode"/>-->
+    <!--<TextView-->
+    <!--android:layout_width="@dimen/home_middle_text_width"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="dddddd"-->
+    <!--android:ellipsize="marquee"-->
+    <!--android:focusable="true"-->
+    <!--android:focusableInTouchMode="true"-->
+    <!--android:marqueeRepeatLimit="marquee_forever"-->
+    <!--android:singleLine="true"-->
+    <!--android:textColor="@color/text_color_selected"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:id="@+id/zouma"/>-->
+    <!--</LinearLayout>-->
+
+</RelativeLayout>

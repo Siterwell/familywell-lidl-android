@@ -83,7 +83,7 @@ public class CycleViewWeatherPager extends FrameLayout implements OnPageChangeLi
 		View view = LayoutInflater.from(context).inflate(
 				R.layout.view_cycle_viewpager_contet, null);
 
-		viewPager = (BaseViewPager) view.findViewById(R.id.viewPager);
+		viewPager = (BaseViewPager) view.findViewById(R.id.viewpager_ipc);
 		viewPager.setOffscreenPageLimit(1);
 		indicatorLayout = (LinearLayout) view
 				.findViewById(R.id.layout_viewpager_indicator);
