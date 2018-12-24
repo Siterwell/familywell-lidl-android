@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class IpcViewPager extends RelativeLayout {
     private static final String TAG = IpcViewPager.class.getSimpleName();
 
     private ViewPager ipcViewPager;
+    private TextView textIpcName;
 
     private List<FrameLayout> ipcPagers = new ArrayList<>();
     private List<MonitorBean> infos = new ArrayList<>();
@@ -38,6 +40,8 @@ public class IpcViewPager extends RelativeLayout {
     }
 
     private void initView(View rootView) {
+        textIpcName =  rootView.findViewById(R.id.tv_ipc_name);
+
         try {
             infos.clear();
             ipcPagers.clear();
@@ -59,8 +63,28 @@ public class IpcViewPager extends RelativeLayout {
                 ipcPagers.add(ViewFactory.getImageView2(getContext()));
             }
 
+            textIpcName.setText(infos.get(0).getName());
+
             ipcViewPager = rootView.findViewById(R.id.viewpager_ipc);
             ipcViewPager.setAdapter(new IpcPagerAdapter());
+            ipcViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    LOG.D(TAG, "[RYAN] onPageSelected > position: " + position);
+
+                    final MonitorBean monitor = infos.get(position);
+                    textIpcName.setText(monitor.getName());
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+            });
+            ipcViewPager.setCurrentItem(0);
 
         }catch (NullPointerException e){
             LOG.I(TAG,"tuichu");
@@ -92,12 +116,12 @@ public class IpcViewPager extends RelativeLayout {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
+            final MonitorBean monitor = infos.get(position);
             FrameLayout v = ipcPagers.get(position);
             v.getChildAt(0).setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    MonitorBean monitor = infos.get(position);
                     if (TextUtils.isEmpty(monitor.getDevid())) {
                         onNoContentAlert();
                     } else {
