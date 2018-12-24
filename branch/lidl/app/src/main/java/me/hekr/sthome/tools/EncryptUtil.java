@@ -18,7 +18,7 @@ public class EncryptUtil {
 
     // Do not modify this if unnecessary
     private final static String IvAES = "78909876shwmwkbq" ; // 16 bytes
-    private final static String KeyAES = "322jdf9whsdiwqwq921mmekqow10k8dw"; // 32 bytes
+    private final static String KeyAES = "322jdf9whsdiwqwq921mmekqow10k8dw"; // 32 bytes (AES 256)
 
     public static String encrypt(final String text) {
         if (text == null) {
