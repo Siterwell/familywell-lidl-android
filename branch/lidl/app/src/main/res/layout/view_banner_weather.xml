@@ -11,7 +11,7 @@
         android:id="@+id/gps_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:visibility="invisible">
+        android:visibility="gone">
         <ImageView
             android:layout_width="17dp"
             android:layout_height="20dp"
