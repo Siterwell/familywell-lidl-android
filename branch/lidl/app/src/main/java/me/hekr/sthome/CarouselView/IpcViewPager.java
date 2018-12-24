@@ -1,6 +1,7 @@
 package me.hekr.sthome.CarouselView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -14,8 +15,10 @@ import java.util.List;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
+import me.hekr.sthome.common.DeviceActivitys;
 import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.tools.LOG;
+import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
 
 /**
  * Created by ryanhsueh on 2018/12/24
@@ -69,13 +72,13 @@ public class IpcViewPager extends RelativeLayout {
 
     public void onImageClick(MonitorBean info, int position, View imageView) {
         LOG.D(TAG, "[RYAN] onImageClick");
-//        DeviceActivitys.startDeviceActivity(getContext(),info.getDevid(),info.getName());
+        DeviceActivitys.startDeviceActivity(getContext(),info.getDevid(),info.getName());
     }
 
     public void onNoContentAlert() {
         LOG.D(TAG, "[RYAN] onNoContentAlert");
-//        Intent intent = new Intent(getContext(), ActivityGuideDeviceAdd.class);
-//        getContext().startActivity(intent);
+        Intent intent = new Intent(getContext(), ActivityGuideDeviceAdd.class);
+        getContext().startActivity(intent);
     }
 
     private class IpcPagerAdapter extends PagerAdapter {
