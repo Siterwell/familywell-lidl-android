@@ -40,7 +40,7 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import me.hekr.sdk.Constants;
-import me.hekr.sthome.CarouselView.CycleViewPager;
+import me.hekr.sthome.CarouselView.IpcViewPager;
 import me.hekr.sthome.CarouselView.ViewFactory;
 import me.hekr.sthome.DeviceListActivity;
 import me.hekr.sthome.MyApplication;
@@ -103,13 +103,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private Button btn_clear;
     private MultiDirectionSlidingDrawer drawer;
     private SystemTintManager tintManager;
-    private List<FrameLayout> ipcPagers = new ArrayList<FrameLayout>();
-    private List<MonitorBean> infos = new ArrayList<MonitorBean>();
 
     private List<LinearLayout> views_weather = new ArrayList<LinearLayout>();
     private List<WeatherInfoBean> infos_weather = new ArrayList<WeatherInfoBean>();
     private ViewPager weatherViewPager;
-    private ViewPager ipcViewPager;
+    private IpcViewPager ipcViewPager;
     private SendSceneGroupData ssgd;
     private int nowmodeindex = -1;
     private MenuDialog menuDialog;
@@ -399,8 +397,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     }
 
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -424,43 +420,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     }
 
 
-
-
     @SuppressLint("NewApi")
     private void initialize() {
-
-        try {
-            infos.clear();
-            ipcPagers.clear();
-
-            List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
-
-            if(list.size()>0){
-                infos.addAll(list);
-
-                for (int i = 0; i < infos.size(); i++) {
-                    ipcPagers.add(ViewFactory.getImageView(getActivity(),infos.get(i).getDevid()));
-                }
-            }else{
-                MonitorBean monitorBean = new MonitorBean();
-                monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
-                monitorBean.setDevid("");
-                infos.add(monitorBean);
-
-                ipcPagers.add(ViewFactory.getImageView2(getActivity()));
-            }
-
-            ipcViewPager = view.findViewById(R.id.viewpager_ipc);
-            ipcViewPager.setAdapter(new IpcPagerAdapter());
-
-        }catch (NullPointerException e){
-            LOG.I(TAG,"tuichu");
-        }
-
-
+        ipcViewPager = new IpcViewPager(getActivity(), view);
     }
-
-
 
     private String getGpsSetting(){
         SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
@@ -536,18 +499,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         }
 
 
-    }
-
-
-    public void onImageClick(MonitorBean info, int position, View imageView) {
-        LOG.D(TAG, "[RYAN] onImageClick");
-//        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
-    }
-
-    public void onNoContentAlert() {
-        LOG.D(TAG, "[RYAN] onNoContentAlert");
-//        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
-//        startActivity(intent);
     }
 	
     @Override
@@ -741,45 +692,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         public Object instantiateItem(ViewGroup container, int position) {
             container.addView(views_weather.get(position));
             return views_weather.get(position);
-        }
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-    }
-
-
-    private class IpcPagerAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return ipcPagers.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object o) {
-            return o == view;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
-            FrameLayout v = ipcPagers.get(position);
-            v.getChildAt(0).setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    MonitorBean monitor = infos.get(position);
-                    if (TextUtils.isEmpty(monitor.getDevid())) {
-                        onNoContentAlert();
-                    } else {
-                        onImageClick(infos.get(position), position, v);
-                    }
-                }
-            });
-
-            container.addView(ipcPagers.get(position));
-            return ipcPagers.get(position);
         }
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
