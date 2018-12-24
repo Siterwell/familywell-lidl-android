@@ -11,7 +11,7 @@
         android:paddingBottom="5dp" >
 
         <me.hekr.sthome.CarouselView.BaseViewPager
-            android:id="@+id/viewPager"
+            android:id="@+id/viewpager_ipc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </me.hekr.sthome.CarouselView.BaseViewPager>

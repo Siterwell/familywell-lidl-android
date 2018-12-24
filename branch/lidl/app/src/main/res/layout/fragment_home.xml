@@ -3,97 +3,126 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/base_dark_background"
-    android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_half_height"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/totl">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height">
 
-            <RadioButton
-                android:id="@+id/title_home"
-                android:textAllCaps="false"
+        <LinearLayout
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@mipmap/mainbackground">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height">
+
+                <RadioButton
+                    android:id="@+id/title_home"
+                    android:textAllCaps="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size"
+                    android:drawableLeft="@drawable/arrow_down"
+                    android:drawablePadding="@dimen/NormalPadding"
+                    android:clickable="true"
+                    android:button="@null"
+                    android:text="@string/my_home"
+                    android:textColor="@color/white"
+                    android:layout_centerInParent="true" />
+
+                <ImageButton
+                    android:layout_marginRight="@dimen/setting_marginRight"
+                    android:id="@+id/detailEdit_img"
+                    android:background="@drawable/setting"
+                    android:layout_gravity="right"
+                    android:layout_width="@dimen/setting_width"
+                    android:layout_height="@dimen/setting_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager_weather"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_weather_height" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_ipc_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_view">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager_ipc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/layout_viewpager_indicator"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_margin="1dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:paddingRight="5dp" >-->
+            <!--</LinearLayout>-->
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/title_size"
-                android:drawableLeft="@drawable/arrow_down"
-                android:drawablePadding="@dimen/NormalPadding"
-                android:clickable="true"
-                android:button="@null"
-                android:text="@string/my_home"
-                android:textColor="@color/white"
-                android:layout_centerInParent="true" />
+                android:text="dsds"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/text_color_selected"
+                android:id="@+id/title"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentLeft="true"
+                android:visibility="gone"/>
 
-            <ImageButton
-                android:layout_marginRight="@dimen/setting_marginRight"
-                android:id="@+id/detailEdit_img"
-                android:background="@drawable/setting"
-                android:layout_gravity="right"
-                android:layout_width="@dimen/setting_width"
-                android:layout_height="@dimen/setting_height"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
         </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/home_weather_height"
-            android:id="@+id/topp"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/home_half_height">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="bottom"
-            android:paddingBottom="@dimen/home_middleImg_padding"
-            android:id="@+id/casaul">
+            android:id="@+id/nowmode"
+            android:layout_width="@dimen/home_middle_icon_size"
+            android:layout_height="@dimen/home_middle_icon_size"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/home_half_margin_top"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:background="@drawable/cell_mode_ground">
+            <ImageView
+                android:layout_width="@dimen/home_middle_icon_size2"
+                android:layout_height="@dimen/home_middle_icon_size2"
+                android:src="@mipmap/home_mode2"
+                android:id="@+id/mode"/>
+            <TextView
+                android:layout_width="@dimen/home_middle_text_width"
+                android:layout_height="wrap_content"
+                android:text="@string/home_mode"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:textColor="@color/text_color_selected"
+                android:gravity="center_horizontal"
+                android:id="@+id/zouma"/>
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="@dimen/home_middle_icon_size"
-        android:layout_height="@dimen/home_middle_icon_size"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/home_half_margin_top"
-        android:background="@drawable/cell_mode_ground"
-        android:id="@+id/nowmode"
-        >
-        <ImageView
-            android:layout_width="@dimen/home_middle_icon_size2"
-            android:layout_height="@dimen/home_middle_icon_size2"
-            android:src="@mipmap/home_mode2"
-            android:id="@+id/mode"/>
-        <TextView
-            android:layout_width="@dimen/home_middle_text_width"
-            android:layout_height="wrap_content"
-            android:text="@string/home_mode"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
-            android:textColor="@color/text_color_selected"
-            android:gravity="center_horizontal"
-            android:id="@+id/zouma"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer
@@ -139,8 +168,6 @@
                     android:layout_height="20dp"
                     android:src="@drawable/arrow_up"/>
             </LinearLayout>
-
-
 
         </LinearLayout>
     </me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer>

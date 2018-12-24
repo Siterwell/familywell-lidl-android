@@ -9,12 +9,13 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,7 +40,7 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import me.hekr.sdk.Constants;
 import me.hekr.sthome.CarouselView.CycleViewPager;
-import me.hekr.sthome.CarouselView.CycleViewWeatherPager;
+import me.hekr.sthome.CarouselView.IpcViewPager;
 import me.hekr.sthome.CarouselView.ViewFactory;
 import me.hekr.sthome.DeviceListActivity;
 import me.hekr.sthome.MyApplication;
@@ -90,8 +91,6 @@ import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
 public class HomeFragment extends Fragment implements View.OnClickListener,
         MultiDirectionSlidingDrawer.OnDrawerOpenListener,
         MultiDirectionSlidingDrawer.OnDrawerCloseListener,
-        CycleViewPager.ImageCycleViewListener,
-        CycleViewWeatherPager.ImageCycleViewListener,
         MenuDialog.Dissmins,
         PullListView.IXListViewListener {
 
@@ -102,22 +101,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private static final String TAG = HomeFragment.class.getSimpleName();
     private RadioButton title_view;
     private ImageButton setting_btn;
-    private LinearLayout total_linearlayout;
-    private LinearLayout topp;
+    private View total_linearlayout;
     private LinearLayout alarm_content;
-    private LinearLayout casaul;
     private LinearLayout nowmode;
     private ImageView btn_cancel;
     private Button btn_clear;
     private MultiDirectionSlidingDrawer drawer;
     private SystemTintManager tintManager;
-    private List<FrameLayout> views = new ArrayList<FrameLayout>();
-    private List<MonitorBean> infos = new ArrayList<MonitorBean>();
 
     private List<LinearLayout> views_weather = new ArrayList<LinearLayout>();
     private List<WeatherInfoBean> infos_weather = new ArrayList<WeatherInfoBean>();
-    private CycleViewPager cycleViewPager;
-    private CycleViewWeatherPager cycleViewWeatherPager;
+    private ViewPager weatherViewPager;
+    private IpcViewPager ipcViewPager;
     private SendSceneGroupData ssgd;
     private int nowmodeindex = -1;
     private MenuDialog menuDialog;
@@ -176,7 +171,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 LOG.I(TAG,"operation success");
             }
         };
-        cycleViewPager = new CycleViewPager(getActivity());
+//        cycleViewPager = new CycleViewPager(getActivity());
         nowmode = view.findViewById(R.id.nowmode);
         nowmode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,8 +198,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         listView.setXListViewListener(this);
         drawer.setOnDrawerOpenListener(this);
         drawer.setOnDrawerCloseListener(this);
-        casaul = (LinearLayout)view.findViewById(R.id.casaul);
-        topp = (LinearLayout)view.findViewById(R.id.topp);
+
         btn_cancel = (ImageView)view.findViewById(R.id.cancel);
         btn_clear  = (Button)view.findViewById(R.id.clear);
         btn_cancel.setOnClickListener(this);
@@ -218,11 +212,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
-            total_linearlayout = (LinearLayout) view.findViewById(R.id.totl);
+            total_linearlayout = view.findViewById(R.id.totl);
             int top = UnitTools.getStatusBarHeight(getActivity());
             total_linearlayout.setPadding(0,top,0,0);
             LOG.I(TAG,"top="+top);
-            alarm_content = (LinearLayout)view.findViewById(R.id.content);
+            alarm_content = view.findViewById(R.id.content);
             alarm_content.setPadding(0,top,0,0);
         }
 
@@ -408,8 +402,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     }
 
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -433,92 +425,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     }
 
 
-
-
     @SuppressLint("NewApi")
     private void initialize() {
-
-        try {
-            infos.clear();
-            views.clear();
-            casaul.removeAllViews();
-            if(cycleViewPager!=null){
-                LOG.I(TAG,"cycleViewPager.removeHandler();");
-                cycleViewPager.removeHandler();
-            }
-            cycleViewPager = new CycleViewPager(getActivity());
-            casaul.addView(cycleViewPager);
-            List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
-
-            if(list.size()>0){
-                MonitorBean monitorBean = new MonitorBean();
-                monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
-                monitorBean.setDevid("");
-                infos.add(monitorBean); // add a empty fake MonitorBean first
-
-                for(int i = 0; i < list.size(); i ++){
-
-                    infos.add(list.get(i));
-                }
-
-
-                // 将最后一个ImageView添加进来
-                views.add(ViewFactory.getImageView(getActivity(),list.get(list.size()-1).getDevid()));
-                for (int i = 0; i < infos.size(); i++) {
-                    MonitorBean monitor = infos.get(i);
-                    if (monitor.equals("")) {
-                        views.add(ViewFactory.getDeviceListView(getActivity()));
-                    } else {
-                        views.add(ViewFactory.getImageView(getActivity(),monitor.getDevid()));
-                    }
-                }
-                // 将第一个ImageView添加进来
-                views.add(ViewFactory.getDeviceListView(getActivity()));
-
-                // 设置循环，在调用setData方法前调用
-                cycleViewPager.setCycle(true);
-
-                // 在加载数据前设置是否循环
-                cycleViewPager.setData(views, infos, this);
-                //设置轮播
-                cycleViewPager.setWheel(true);
-
-                // 设置轮播时间，默认5000ms
-                cycleViewPager.setTime(5000);
-                //设置圆点指示图标组居中显示，默认靠右
-                cycleViewPager.setIndicatorCenter();
-            }else{
-                MonitorBean monitorBean = new MonitorBean();
-                monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
-                monitorBean.setDevid("");
-                infos.add(monitorBean); // add a empty fake MonitorBean first
-
-                // 将最后一个ImageView添加进来
-                views.add(ViewFactory.getImageView2(getActivity())); // last one
-
-                // 设置循环，在调用setData方法前调用
-                cycleViewPager.setCycle(false);
-
-                // 在加载数据前设置是否循环
-                cycleViewPager.setData(views, infos, this);
-                //设置轮播
-                cycleViewPager.setWheel(false);
-
-                // 设置轮播时间，默认5000ms
-                cycleViewPager.setTime(5000);
-                //设置圆点指示图标组居中显示，默认靠右
-                cycleViewPager.setIndicatorCenter();
-
-
-            }
-        }catch (NullPointerException e){
-            LOG.I(TAG,"tuichu");
-        }
-
-
+        ipcViewPager = new IpcViewPager(getActivity(), view);
     }
-    private String getGpsSetting(){
 
+    private String getGpsSetting(){
         SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
         ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PGS_SETTING;
         String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
@@ -531,15 +443,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         try {
             infos_weather.clear();
             views_weather.clear();
-            topp.removeAllViews();
-            if(cycleViewWeatherPager!=null){
-                LOG.I(TAG,"cycleViewWeatherPager.removeHandler();");
-                cycleViewWeatherPager.removeHandler();
-            }
-            cycleViewWeatherPager = new CycleViewWeatherPager(getActivity());
-            topp.addView(cycleViewWeatherPager);
-
-
 
             if("yes".equals(getGpsSetting())){
                 WeatherInfoBean weatherInfoBean = new WeatherInfoBean();
@@ -553,94 +456,53 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             }
 
 
-             if(ConnectionPojo.getInstance().deviceTid!=null){
-                 List<EquipmentBean> equipmentBeans = equipDAO.findThChecks(ConnectionPojo.getInstance().deviceTid);
-                 for(int i=0;i<equipmentBeans.size();i++){
-                     WeatherInfoBean weatherInfoBean1 = new WeatherInfoBean();
-                     weatherInfoBean1.setFlag_first(false);
+            if(ConnectionPojo.getInstance().deviceTid!=null){
+                List<EquipmentBean> equipmentBeans = equipDAO.findThChecks(ConnectionPojo.getInstance().deviceTid);
+                for(int i=0;i<equipmentBeans.size();i++){
+                    WeatherInfoBean weatherInfoBean1 = new WeatherInfoBean();
+                    weatherInfoBean1.setFlag_first(false);
 
-                     String realT="";
-                     String realH ="";
-                     String temp = equipmentBeans.get(i).getState().substring(4,6);
-                     String humidity = equipmentBeans.get(i).getState().substring(6,8);
-                     String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
-                     if (temp2.length()==8){
-                         realT = "-"+ (128 - Integer.parseInt(temp2.substring(1,temp2.length()),2));
-                     }else{
-                         realT = "" + Integer.parseInt(temp2,2);
-                     }
+                    String realT="";
+                    String realH ="";
+                    String temp = equipmentBeans.get(i).getState().substring(4,6);
+                    String humidity = equipmentBeans.get(i).getState().substring(6,8);
+                    String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
+                    if (temp2.length()==8){
+                        realT = "-"+ (128 - Integer.parseInt(temp2.substring(1,temp2.length()),2));
+                    }else{
+                        realT = "" + Integer.parseInt(temp2,2);
+                    }
 
-                     if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || Integer.parseInt(humidity,16)<0 || Integer.parseInt(humidity,16)>100){
-                         weatherInfoBean1.setHum("");
-                         weatherInfoBean1.setTemp("");
-                         weatherInfoBean1.setName((TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()))
-                                 +(this.getActivity().getResources().getString(R.string.off_line)));
-                     }else{
-                         realH = "" +Integer.parseInt(humidity,16);
-                         weatherInfoBean1.setHum(realH+"%");
-                         weatherInfoBean1.setTemp(realT+"℃");
-                         weatherInfoBean1.setName(TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()));
-                     }
-
-
-                     infos_weather.add(weatherInfoBean1);
-                 }
-             }
+                    if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || Integer.parseInt(humidity,16)<0 || Integer.parseInt(humidity,16)>100){
+                        weatherInfoBean1.setHum("");
+                        weatherInfoBean1.setTemp("");
+                        weatherInfoBean1.setName((TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()))
+                                +(this.getActivity().getResources().getString(R.string.off_line)));
+                    }else{
+                        realH = "" +Integer.parseInt(humidity,16);
+                        weatherInfoBean1.setHum(realH+"%");
+                        weatherInfoBean1.setTemp(realT+"℃");
+                        weatherInfoBean1.setName(TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()));
+                    }
 
 
+                    infos_weather.add(weatherInfoBean1);
+                }
+            }
 
-              if(infos_weather.size()>0){
-                  // 将最后一个ImageView添加进来
-                  views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(infos_weather.size()-1)));
-                  for (int i = 0; i < infos_weather.size(); i++) {
-                      views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(i)));
-                  }
-                  // 将第一个ImageView添加进来
-                  views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(0)));
 
-                  // 设置循环，在调用setData方法前调用
-                  cycleViewWeatherPager.setCycle(true);
+            for (int i = 0; i < infos_weather.size(); i++) {
+                views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(i)));
+            }
 
-                  // 在加载数据前设置是否循环
-                  cycleViewWeatherPager.setData(views_weather, infos_weather, this);
-                  //设置轮播
-                  cycleViewWeatherPager.setWheel(true);
-
-                  // 设置轮播时间，默认5000ms
-                  cycleViewWeatherPager.setTime(5000);
-                  //设置圆点指示图标组居中显示，默认靠右
-                  cycleViewWeatherPager.setIndicatorCenter();
-              }
+            weatherViewPager = view.findViewById(R.id.viewpager_weather);
+            weatherViewPager.setAdapter(new WeatherPagerAdapter());
 
 
         }catch (NullPointerException e){
             LOG.I(TAG,"tuichu");
         }
 
-
-    }
-
-
-    @Override
-    public void onImageClick(MonitorBean info, int position, View imageView) {
-        DeviceActivitys.startDeviceActivity(this.getActivity(),info.getDevid(),info.getName());
-    }
-
-
-    @Override
-    public void onTesClick(WeatherInfoBean info, int position, View imageView) {
-
-    }
-
-    @Override
-    public void onGpsContentSet() {
-
-    }
-
-    @Override
-    public void onNoContentAlert() {
-        Intent intent = new Intent(HomeFragment.this.getActivity(), ActivityGuideDeviceAdd.class);
-        startActivity(intent);
     }
 	
     @Override
@@ -817,5 +679,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 //        gps_place = address;
 //        initializeWeather();
 //    }
+
+    private class WeatherPagerAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return views_weather.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object o) {
+            return o == view;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            container.addView(views_weather.get(position));
+            return views_weather.get(position);
+        }
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+    }
 
 }
