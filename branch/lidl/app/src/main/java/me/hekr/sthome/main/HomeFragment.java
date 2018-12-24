@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,6 @@ import me.hekr.sdk.Constants;
 import me.hekr.sthome.CarouselView.CycleViewWeatherPager;
 import me.hekr.sthome.CarouselView.ViewFactory;
 import me.hekr.sthome.DeviceListActivity;
-import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
@@ -58,7 +58,6 @@ import me.hekr.sthome.history.HistoryAdapter;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.ClientUser;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
@@ -74,7 +73,6 @@ import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
-import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneGroupData;
 import me.hekr.sthome.tools.SystemTintManager;
@@ -97,7 +95,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private static final String TAG = HomeFragment.class.getSimpleName();
     private RadioButton title_view;
     private ImageButton setting_btn;
-    private LinearLayout total_linearlayout;
+    private View total_linearlayout;
 //    private LinearLayout topp;
     private LinearLayout alarm_content;
     private LinearLayout nowmode;
@@ -212,11 +210,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
-            total_linearlayout = (LinearLayout) view.findViewById(R.id.totl);
+            total_linearlayout = view.findViewById(R.id.totl);
             int top = UnitTools.getStatusBarHeight(getActivity());
             total_linearlayout.setPadding(0,top,0,0);
             LOG.I(TAG,"top="+top);
-            alarm_content = (LinearLayout)view.findViewById(R.id.content);
+            alarm_content = view.findViewById(R.id.content);
             alarm_content.setPadding(0,top,0,0);
         }
 
