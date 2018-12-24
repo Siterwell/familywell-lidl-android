@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +43,7 @@ import me.hekr.sdk.Constants;
 import me.hekr.sthome.CarouselView.CycleViewWeatherPager;
 import me.hekr.sthome.CarouselView.ViewFactory;
 import me.hekr.sthome.DeviceListActivity;
+import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
@@ -58,6 +58,7 @@ import me.hekr.sthome.history.HistoryAdapter;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.ClientUser;
+import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
@@ -73,6 +74,7 @@ import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
+import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneGroupData;
 import me.hekr.sthome.tools.SystemTintManager;
@@ -96,7 +98,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private RadioButton title_view;
     private ImageButton setting_btn;
     private View total_linearlayout;
-//    private LinearLayout topp;
     private LinearLayout alarm_content;
     private LinearLayout nowmode;
     private ImageView btn_cancel;
@@ -108,9 +109,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     private List<LinearLayout> views_weather = new ArrayList<LinearLayout>();
     private List<WeatherInfoBean> infos_weather = new ArrayList<WeatherInfoBean>();
-//    private CycleViewPager cycleViewPager;
+    private ViewPager weatherViewPager;
     private ViewPager ipcViewPager;
-//    private CycleViewWeatherPager cycleViewWeatherPager;
     private SendSceneGroupData ssgd;
     private int nowmodeindex = -1;
     private MenuDialog menuDialog;
@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         listView.setXListViewListener(this);
         drawer.setOnDrawerOpenListener(this);
         drawer.setOnDrawerCloseListener(this);
-//        topp = (LinearLayout)view.findViewById(R.id.topp);
+
         btn_cancel = (ImageView)view.findViewById(R.id.cancel);
         btn_clear  = (Button)view.findViewById(R.id.clear);
         btn_cancel.setOnClickListener(this);
@@ -439,7 +439,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             ipcPagers.add(ViewFactory.getImageView2(getActivity()));
 
             ipcViewPager = view.findViewById(R.id.viewpager_ipc);
-            ipcViewPager.setAdapter(new SamplePagerAdapter());
+            ipcViewPager.setAdapter(new IpcPagerAdapter());
 
 
 //            if(cycleViewPager!=null){
@@ -524,70 +524,63 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         try {
             infos_weather.clear();
             views_weather.clear();
-//            topp.removeAllViews();
-//            if(cycleViewWeatherPager!=null){
-//                LOG.I(TAG,"cycleViewWeatherPager.removeHandler();");
-//                cycleViewWeatherPager.removeHandler();
-//            }
-//            cycleViewWeatherPager = new CycleViewWeatherPager(getActivity());
-//            topp.addView(cycleViewWeatherPager);
-//
-//
-//
-//            if("yes".equals(getGpsSetting())){
-//                WeatherInfoBean weatherInfoBean = new WeatherInfoBean();
-//                weatherInfoBean.setFlag_first(true);
-//                weatherInfoBean.setWeather_ico_url(gpsweather_ico);
-//                weatherInfoBean.setWeather(weather_txt);
-//                weatherInfoBean.setHum(MyApplication.getAppResources().getString(R.string.hum)+gpshum+"%");
-//                weatherInfoBean.setName(gps_place);
-//                weatherInfoBean.setTemp(temp+"℃");
-//                infos_weather.add(weatherInfoBean);
-//            }
-//
-//
-//             if(ConnectionPojo.getInstance().deviceTid!=null){
-//                 List<EquipmentBean> equipmentBeans = equipDAO.findThChecks(ConnectionPojo.getInstance().deviceTid);
-//                 for(int i=0;i<equipmentBeans.size();i++){
-//                     WeatherInfoBean weatherInfoBean1 = new WeatherInfoBean();
-//                     weatherInfoBean1.setFlag_first(false);
-//
-//                     String realT="";
-//                     String realH ="";
-//                     String temp = equipmentBeans.get(i).getState().substring(4,6);
-//                     String humidity = equipmentBeans.get(i).getState().substring(6,8);
-//                     String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
-//                     if (temp2.length()==8){
-//                         realT = "-"+ (128 - Integer.parseInt(temp2.substring(1,temp2.length()),2));
-//                     }else{
-//                         realT = "" + Integer.parseInt(temp2,2);
-//                     }
-//
-//                     if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || Integer.parseInt(humidity,16)<0 || Integer.parseInt(humidity,16)>100){
-//                         weatherInfoBean1.setHum("");
-//                         weatherInfoBean1.setTemp("");
-//                         weatherInfoBean1.setName((TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()))
-//                                 +(this.getActivity().getResources().getString(R.string.off_line)));
-//                     }else{
-//                         realH = "" +Integer.parseInt(humidity,16);
-//                         weatherInfoBean1.setHum(realH+"%");
-//                         weatherInfoBean1.setTemp(realT+"℃");
-//                         weatherInfoBean1.setName(TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()));
-//                     }
-//
-//
-//                     infos_weather.add(weatherInfoBean1);
-//                 }
-//             }
-//
-//
-//
-//              if(infos_weather.size()>0){
+
+            if("yes".equals(getGpsSetting())){
+                WeatherInfoBean weatherInfoBean = new WeatherInfoBean();
+                weatherInfoBean.setFlag_first(true);
+                weatherInfoBean.setWeather_ico_url(gpsweather_ico);
+                weatherInfoBean.setWeather(weather_txt);
+                weatherInfoBean.setHum(MyApplication.getAppResources().getString(R.string.hum)+gpshum+"%");
+                weatherInfoBean.setName(gps_place);
+                weatherInfoBean.setTemp(temp+"℃");
+                infos_weather.add(weatherInfoBean);
+            }
+
+
+            if(ConnectionPojo.getInstance().deviceTid!=null){
+                List<EquipmentBean> equipmentBeans = equipDAO.findThChecks(ConnectionPojo.getInstance().deviceTid);
+                for(int i=0;i<equipmentBeans.size();i++){
+                    WeatherInfoBean weatherInfoBean1 = new WeatherInfoBean();
+                    weatherInfoBean1.setFlag_first(false);
+
+                    String realT="";
+                    String realH ="";
+                    String temp = equipmentBeans.get(i).getState().substring(4,6);
+                    String humidity = equipmentBeans.get(i).getState().substring(6,8);
+                    String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
+                    if (temp2.length()==8){
+                        realT = "-"+ (128 - Integer.parseInt(temp2.substring(1,temp2.length()),2));
+                    }else{
+                        realT = "" + Integer.parseInt(temp2,2);
+                    }
+
+                    if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || Integer.parseInt(humidity,16)<0 || Integer.parseInt(humidity,16)>100){
+                        weatherInfoBean1.setHum("");
+                        weatherInfoBean1.setTemp("");
+                        weatherInfoBean1.setName((TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()))
+                                +(this.getActivity().getResources().getString(R.string.off_line)));
+                    }else{
+                        realH = "" +Integer.parseInt(humidity,16);
+                        weatherInfoBean1.setHum(realH+"%");
+                        weatherInfoBean1.setTemp(realT+"℃");
+                        weatherInfoBean1.setName(TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()));
+                    }
+
+
+                    infos_weather.add(weatherInfoBean1);
+                }
+            }
+
+
+            weatherViewPager = view.findViewById(R.id.viewpager_weather);
+            if(infos_weather.size()>0){
 //                  // 将最后一个ImageView添加进来
 //                  views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(infos_weather.size()-1)));
-//                  for (int i = 0; i < infos_weather.size(); i++) {
-//                      views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(i)));
-//                  }
+
+                  for (int i = 0; i < infos_weather.size(); i++) {
+                      views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(i)));
+                  }
+
 //                  // 将第一个ImageView添加进来
 //                  views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(0)));
 //
@@ -603,7 +596,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 //                  cycleViewWeatherPager.setTime(5000);
 //                  //设置圆点指示图标组居中显示，默认靠右
 //                  cycleViewWeatherPager.setIndicatorCenter();
-//              }
+
+            }
+            weatherViewPager.setAdapter(new WeatherPagerAdapter());
 
 
         }catch (NullPointerException e){
@@ -811,7 +806,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 //        initializeWeather();
 //    }
 
-    private class SamplePagerAdapter extends PagerAdapter {
+    private class WeatherPagerAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return views_weather.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object o) {
+            return o == view;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            container.addView(views_weather.get(position));
+            return views_weather.get(position);
+        }
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+    }
+
+
+    private class IpcPagerAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
