@@ -17,6 +17,7 @@ import java.util.List;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.DeviceActivitys;
+import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
@@ -27,6 +28,9 @@ import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
 public class IpcViewPager extends RelativeLayout {
     private static final String TAG = IpcViewPager.class.getSimpleName();
 
+    private static final String DEV_LIST = "device_list";
+
+    private MainActivity activity;
     private ViewPager ipcViewPager;
     private TextView textIpcName;
 
@@ -37,8 +41,9 @@ public class IpcViewPager extends RelativeLayout {
         super(context);
     }
 
-    public IpcViewPager(Context context, View rootView) {
-        super(context);
+    public IpcViewPager(MainActivity activity, View rootView) {
+        super(activity);
+        this.activity = activity;
         initView(rootView);
     }
 
@@ -51,20 +56,37 @@ public class IpcViewPager extends RelativeLayout {
 
             List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
 
+            MonitorBean monitorBean;
             if(list.size()>0){
                 infos.addAll(list);
 
                 for (int i = 0; i < infos.size(); i++) {
                     ipcPagers.add(ViewFactory.getImageView(getContext(),infos.get(i).getDevid()));
                 }
+
             }else{
-                MonitorBean monitorBean = new MonitorBean();
+                monitorBean = new MonitorBean();
                 monitorBean.setName(getResources().getString(R.string.no_monitor_hint));
                 monitorBean.setDevid("");
                 infos.add(monitorBean);
-
                 ipcPagers.add(ViewFactory.getImageView2(getContext()));
             }
+
+            // Added device list page at last one
+            monitorBean = new MonitorBean();
+            monitorBean.setName(DEV_LIST);
+            monitorBean.setDevid(DEV_LIST);
+            infos.add(monitorBean);
+
+            FrameLayout layout = ViewFactory.getDeviceListView(activity);
+            layout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onDeviceList();
+                }
+            });
+            ipcPagers.add(layout);
+
 
             textIpcName.setText(infos.get(0).getName());
 
@@ -80,7 +102,12 @@ public class IpcViewPager extends RelativeLayout {
                     LOG.D(TAG, "[RYAN] onPageSelected > position: " + position);
 
                     final MonitorBean monitor = infos.get(position);
-                    textIpcName.setText(monitor.getName());
+                    if (monitor.getDevid().equals(DEV_LIST)) {
+                        textIpcName.setText("");
+                    } else {
+                        textIpcName.setText(monitor.getName());
+                    }
+
                 }
 
                 @Override
@@ -91,6 +118,7 @@ public class IpcViewPager extends RelativeLayout {
 
         }catch (NullPointerException e){
             LOG.I(TAG,"tuichu");
+            e.printStackTrace();
         }
     }
 
@@ -103,6 +131,11 @@ public class IpcViewPager extends RelativeLayout {
         LOG.D(TAG, "[RYAN] onNoContentAlert");
         Intent intent = new Intent(getContext(), ActivityGuideDeviceAdd.class);
         getContext().startActivity(intent);
+    }
+
+    public void onDeviceList() {
+        LOG.D(TAG, "[RYAN] onDeviceList");
+        activity.jumpToDevice();
     }
 
     private class IpcPagerAdapter extends PagerAdapter {

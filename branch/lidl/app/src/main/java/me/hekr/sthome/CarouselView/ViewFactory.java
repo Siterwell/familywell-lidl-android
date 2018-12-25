@@ -19,7 +19,9 @@ import java.io.File;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.FuncSDKImage;
+import me.hekr.sthome.commonBaseView.LayoutDeviceList;
 import me.hekr.sthome.commonBaseView.Weatherlinearlayout;
+import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.WeatherInfoBean;
 
 /**
@@ -61,10 +63,11 @@ public class ViewFactory {
 		return imageView;
 	}
 
-	public static FrameLayout getDeviceListView(Context context) {
-		FrameLayout layout = (FrameLayout) LayoutInflater.from(context).inflate(
-				R.layout.view_device_list, null);
-		return layout;
+	public static FrameLayout getDeviceListView(MainActivity activity) {
+//		FrameLayout layout = (FrameLayout) LayoutInflater.from(context).inflate(
+//				R.layout.view_device_list, null);
+		LayoutDeviceList layout = new LayoutDeviceList(activity);
+		return layout.getRoot();
 	}
 
 

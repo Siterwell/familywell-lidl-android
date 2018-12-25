@@ -2,11 +2,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    android:background="@color/gateway_color_7"
+    android:clickable="true"
+    android:focusable="true">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_device_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hellor World"/>
+        android:layout_gravity="center"
+        android:clickable="false"/>
 
 </FrameLayout>

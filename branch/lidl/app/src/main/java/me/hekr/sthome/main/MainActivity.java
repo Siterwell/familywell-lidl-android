@@ -468,6 +468,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }
     }
 
+    public void jumpToDevice() {
+        viewPager.setCurrentItem(2,false);
+    }
+
     @Override
     public void setdrag(boolean flag) {
         if(viewPager!=null) viewPager.setScanScroll(flag);

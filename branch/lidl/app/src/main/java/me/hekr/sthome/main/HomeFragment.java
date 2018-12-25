@@ -414,7 +414,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     @SuppressLint("NewApi")
     private void initialize() {
-        ipcViewPager = new IpcViewPager(getActivity(), view);
+        ipcViewPager = new IpcViewPager((MainActivity) getActivity(), view);
     }
 
     @SuppressLint("NewApi")

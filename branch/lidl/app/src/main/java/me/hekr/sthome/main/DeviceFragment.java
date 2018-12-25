@@ -331,6 +331,8 @@ public class DeviceFragment extends Fragment {
 
            List<ApplicationInfo> list = ED.findAllEqByNoPack(ConnectionPojo.getInstance().deviceTid);
 
+           LOG.D(TAG, "[RYAN] initData > list size = " + list.size());
+
             for (int i = 0; i < list.size(); i++) {
                 if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {      //menci
                     list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
