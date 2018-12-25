@@ -60,11 +60,14 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
 
     @Override
     public void onBindViewHolder(EquipmentRecyclerAdapter.ViewHolder holder, int position) {
+        ApplicationInfo equipment = list.get(position);
 
+        holder.imageView.setImageBitmap(equipment.getIcon());
+        holder.textName.setText(equipment.getEquipmentName());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return (list.size() > 6 ? 6 : list.size());
     }
 }

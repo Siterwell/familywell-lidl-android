@@ -114,7 +114,7 @@ public class IpcViewPager extends RelativeLayout {
                 public void onPageScrollStateChanged(int state) {
                 }
             });
-            ipcViewPager.setCurrentItem(0);
+//            ipcViewPager.setCurrentItem(0);
 
         }catch (NullPointerException e){
             LOG.I(TAG,"tuichu");

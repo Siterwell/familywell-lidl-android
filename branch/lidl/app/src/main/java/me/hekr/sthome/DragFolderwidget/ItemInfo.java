@@ -36,6 +36,10 @@ public class ItemInfo extends EquipmentBean {
         iconRef = new SoftReference<Bitmap>(icon);
     }
 
+    public Bitmap getIcon() {
+        return iconRef.get();
+    }
+
     public int getOrder() {
         return order;
     }
