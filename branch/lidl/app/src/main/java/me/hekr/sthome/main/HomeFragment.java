@@ -279,7 +279,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                         ClientUser user = CCPAppManager.getClientUser();
                         user.setMonitor(d.getJSONObject("extraProperties").getString("monitor"));
                         CCPAppManager.setClientUser(user);
-                        initialize();
+//                        initialize();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
