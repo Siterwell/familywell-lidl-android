@@ -135,7 +135,7 @@ public class IpcViewPager extends RelativeLayout {
 
     public void onDeviceList() {
         LOG.D(TAG, "[RYAN] onDeviceList");
-        activity.jumpToDevice();
+//        activity.jumpToDevice();
     }
 
     private class IpcPagerAdapter extends PagerAdapter {

@@ -54,6 +54,27 @@ import me.hekr.sthome.commonBaseView.CustomViewPager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
+import me.hekr.sthome.equipment.detail.ButtonDetailActivity;
+import me.hekr.sthome.equipment.detail.Channel2SocketDetailActivity;
+import me.hekr.sthome.equipment.detail.CoDetailActivity;
+import me.hekr.sthome.equipment.detail.CurtainDetailActivity;
+import me.hekr.sthome.equipment.detail.CxSmDetailActivity;
+import me.hekr.sthome.equipment.detail.DimmingModuleDetailActivity;
+import me.hekr.sthome.equipment.detail.DoorDetailActivity;
+import me.hekr.sthome.equipment.detail.GasDetailActivity;
+import me.hekr.sthome.equipment.detail.GuardDetailActivity;
+import me.hekr.sthome.equipment.detail.LampDetailActivity;
+import me.hekr.sthome.equipment.detail.LockDetailActivity;
+import me.hekr.sthome.equipment.detail.ModeButtonDetailActivity;
+import me.hekr.sthome.equipment.detail.PirDetailActivity;
+import me.hekr.sthome.equipment.detail.SmDetailActivity;
+import me.hekr.sthome.equipment.detail.SocketDetailActivity;
+import me.hekr.sthome.equipment.detail.SosDetailActivity;
+import me.hekr.sthome.equipment.detail.THCheckDetailActivity;
+import me.hekr.sthome.equipment.detail.TempControlDetailActivity;
+import me.hekr.sthome.equipment.detail.ThermalDetailActivity;
+import me.hekr.sthome.equipment.detail.ValveDetailActivity;
+import me.hekr.sthome.equipment.detail.WaterDetailActivity;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.http.HekrUser;
@@ -74,6 +95,7 @@ import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
+import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.SystemUtil;
@@ -468,9 +490,9 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }
     }
 
-    public void jumpToDevice() {
-        viewPager.setCurrentItem(2,false);
-    }
+//    public void jumpToDevice() {
+//        viewPager.setCurrentItem(2,false);
+//    }
 
     @Override
     public void setdrag(boolean flag) {

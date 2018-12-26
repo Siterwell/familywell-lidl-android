@@ -13,6 +13,8 @@ import java.util.List;
 
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
 import me.hekr.sthome.R;
+import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.tools.ConnectionPojo;
 
 /**
  * Created by ryanhsueh on 2018/12/25
@@ -23,7 +25,7 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
 
     private OnItemClickListener listener;
     public interface OnItemClickListener {
-        void onItemClicked();
+        void onItemClicked(EquipmentBean device);
     }
 
     public EquipmentRecyclerAdapter(Context context, List<ApplicationInfo> list, OnItemClickListener listener) {
@@ -51,7 +53,20 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClicked();
+                if (listener != null) {
+                    int position = viewHolder.getAdapterPosition();
+
+                    ApplicationInfo info = list.get(position);
+
+                    EquipmentBean bean = new EquipmentBean();
+                    bean.setEqid(info.getEqid());
+                    bean.setState(info.getState());
+                    bean.setEquipmentName(info.getEquipmentName());
+                    bean.setEquipmentDesc(info.getEquipmentDesc());
+                    bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
+
+                    listener.onItemClicked(bean);
+                }
             }
         });
 

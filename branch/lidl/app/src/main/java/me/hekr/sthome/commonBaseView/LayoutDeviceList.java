@@ -1,7 +1,9 @@
 package me.hekr.sthome.commonBaseView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +14,29 @@ import java.util.List;
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
 import me.hekr.sthome.R;
 import me.hekr.sthome.equipment.adapter.EquipmentRecyclerAdapter;
+import me.hekr.sthome.equipment.detail.ButtonDetailActivity;
+import me.hekr.sthome.equipment.detail.Channel2SocketDetailActivity;
+import me.hekr.sthome.equipment.detail.CoDetailActivity;
+import me.hekr.sthome.equipment.detail.CurtainDetailActivity;
+import me.hekr.sthome.equipment.detail.CxSmDetailActivity;
+import me.hekr.sthome.equipment.detail.DimmingModuleDetailActivity;
+import me.hekr.sthome.equipment.detail.DoorDetailActivity;
+import me.hekr.sthome.equipment.detail.GasDetailActivity;
+import me.hekr.sthome.equipment.detail.GuardDetailActivity;
+import me.hekr.sthome.equipment.detail.LampDetailActivity;
+import me.hekr.sthome.equipment.detail.LockDetailActivity;
+import me.hekr.sthome.equipment.detail.ModeButtonDetailActivity;
+import me.hekr.sthome.equipment.detail.PirDetailActivity;
+import me.hekr.sthome.equipment.detail.SmDetailActivity;
+import me.hekr.sthome.equipment.detail.SocketDetailActivity;
+import me.hekr.sthome.equipment.detail.SosDetailActivity;
+import me.hekr.sthome.equipment.detail.THCheckDetailActivity;
+import me.hekr.sthome.equipment.detail.TempControlDetailActivity;
+import me.hekr.sthome.equipment.detail.ThermalDetailActivity;
+import me.hekr.sthome.equipment.detail.ValveDetailActivity;
+import me.hekr.sthome.equipment.detail.WaterDetailActivity;
 import me.hekr.sthome.main.MainActivity;
+import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.LOG;
@@ -457,13 +481,77 @@ public class LayoutDeviceList extends FrameLayout implements EquipmentRecyclerAd
         return list;
     }
 
+    private void onAppClicked(EquipmentBean device) {
+        Intent detail = null;
+        
+        String type = NameSolve.getEqType(device.getEquipmentDesc());
+        if(NameSolve.DOOR_CHECK.equals(type)) {      //menci
+            detail = new Intent(activity, DoorDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("device", device);
+            detail.putExtras(bundle);
+
+        }else if(NameSolve.SOCKET.equals(type)){   //chazuo
+            detail = new Intent(activity, SocketDetailActivity.class);
+        }else if(NameSolve.PIR_CHECK.equals(type)) {  //pir
+            detail = new Intent(activity, PirDetailActivity.class);
+        }else if(NameSolve.SOS_KEY.equals(type)) {  //sos
+            detail = new Intent(activity, SosDetailActivity.class);
+            //Bundle bundle = new Bundle();
+            //bundle.putSerializable("device", device);
+            detail.putExtra("device",device);
+        }else if(NameSolve.SM_ALARM.equals(type)) {  //sm
+            detail = new Intent(activity, SmDetailActivity.class);
+        }else if(NameSolve.CO_ALARM.equals(type)) {  //co
+            detail = new Intent(activity, CoDetailActivity.class);
+        }else if(NameSolve.GAS_ALARM.equals(type)) {  //co
+            detail = new Intent(activity, GasDetailActivity.class);
+        }else if(NameSolve.WT_ALARM.equals(type)) {  //water
+            detail = new Intent(activity, WaterDetailActivity.class);
+        }else if(NameSolve.TH_CHECK.equals(type)) {  //temprature and hib
+            detail = new Intent(activity, THCheckDetailActivity.class);
+        }else if(NameSolve.LAMP.equals(type)) {  //lamp
+            detail = new Intent(activity, LampDetailActivity.class);
+        }else if(NameSolve.GUARD.equals(type)) {  //door guard
+            detail = new Intent(activity, GuardDetailActivity.class);
+        }else if(NameSolve.VALVE.equals(type)) {  //door guard
+            detail = new Intent(activity, ValveDetailActivity.class);
+        }else if(NameSolve.BUTTON.equals(type)) {  //door guard
+            detail = new Intent(activity, ButtonDetailActivity.class);
+        }else if(NameSolve.CURTAIN.equals(type)) {  //door guard
+            detail = new Intent(activity, CurtainDetailActivity.class);
+        }else if(NameSolve.CXSM_ALARM.equals(type)) {  //door guard
+            detail = new Intent(activity, CxSmDetailActivity.class);
+        }else if(NameSolve.THERMAL_ALARM.equals(type)) {  //door guard
+            detail = new Intent(activity, ThermalDetailActivity.class);
+        }else if(NameSolve.MODE_BUTTON.equals(type)) {  //door guard
+            detail = new Intent(activity, ModeButtonDetailActivity.class);
+        }else if(NameSolve.LOCK.equals(type)) {  //door guard
+            detail = new Intent(activity, LockDetailActivity.class);
+        }else if(NameSolve.TWO_SOCKET.equals(type)) {  //door guard
+            detail = new Intent(activity, Channel2SocketDetailActivity.class);
+        }else if(NameSolve.TEMP_CONTROL.equals(type)) {  //door guard
+            detail = new Intent(activity, TempControlDetailActivity.class);
+        }else if(NameSolve.DIMMING_MODULE.equals(type)) {  //door guard
+            detail = new Intent(activity, DimmingModuleDetailActivity.class);
+        }
+
+        if (detail != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("device", device);
+            detail.putExtras(bundle);
+            activity.startActivity(detail);
+        }
+    }
+
     public FrameLayout getRoot() {
         return root;
     }
 
     @Override
-    public void onItemClicked() {
-        activity.jumpToDevice();
+    public void onItemClicked(EquipmentBean device) {
+//        activity.jumpToDevice();
+        onAppClicked(device);
     }
 
 }
