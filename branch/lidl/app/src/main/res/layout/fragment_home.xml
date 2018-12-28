@@ -66,19 +66,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <!--<LinearLayout-->
-                <!--android:id="@+id/layout_viewpager_indicator"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_margin="1dp"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:paddingBottom="5dp"-->
-                <!--android:paddingRight="5dp" >-->
-            <!--</LinearLayout>-->
-
             <TextView
                 android:id="@+id/tv_ipc_name"
                 android:layout_width="wrap_content"
@@ -90,6 +77,16 @@
                 android:textColor="@color/text_color_selected"
                 android:text="dsdsdsdsdsdsdsdsdsds"
                 android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/layout_viewpager_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_half_margin_top"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"/>
 
         </RelativeLayout>
 
