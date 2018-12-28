@@ -54,14 +54,27 @@ public class IpcViewPager extends RelativeLayout {
             infos.clear();
             ipcPagers.clear();
 
-            List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
+            // Added device list page at last one
+            MonitorBean monitorBean = new MonitorBean();
+            monitorBean.setName(DEV_LIST);
+            monitorBean.setDevid(DEV_LIST);
+            infos.add(monitorBean);
 
-            MonitorBean monitorBean;
+            FrameLayout layout = ViewFactory.getDeviceListView(activity);
+            ipcPagers.add(layout);
+//            layout.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onDeviceList();
+//                }
+//            });
+
+            List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
             if(list.size()>0){
                 infos.addAll(list);
 
-                for (int i = 0; i < infos.size(); i++) {
-                    ipcPagers.add(ViewFactory.getImageView(getContext(),infos.get(i).getDevid()));
+                for (int i = 0; i < list.size(); i++) {
+                    ipcPagers.add(ViewFactory.getImageView(getContext(),list.get(i).getDevid()));
                 }
 
             }else{
@@ -72,23 +85,7 @@ public class IpcViewPager extends RelativeLayout {
                 ipcPagers.add(ViewFactory.getImageView2(getContext()));
             }
 
-            // Added device list page at last one
-            monitorBean = new MonitorBean();
-            monitorBean.setName(DEV_LIST);
-            monitorBean.setDevid(DEV_LIST);
-            infos.add(monitorBean);
-
-            FrameLayout layout = ViewFactory.getDeviceListView(activity);
-            layout.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onDeviceList();
-                }
-            });
-            ipcPagers.add(layout);
-
-
-            textIpcName.setText(infos.get(0).getName());
+            textIpcName.setText("");
 
             ipcViewPager = rootView.findViewById(R.id.viewpager_ipc);
             ipcViewPager.setAdapter(new IpcPagerAdapter());
@@ -114,7 +111,7 @@ public class IpcViewPager extends RelativeLayout {
                 public void onPageScrollStateChanged(int state) {
                 }
             });
-//            ipcViewPager.setCurrentItem(0);
+            ipcViewPager.setCurrentItem(0);
 
         }catch (NullPointerException e){
             LOG.I(TAG,"tuichu");
