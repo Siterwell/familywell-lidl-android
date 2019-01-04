@@ -23,6 +23,7 @@ public class SiterwellUtil {
         }
     }
 
+    // TODO: [RYAN] don't call this until data encryption
     public void sendData(final String code){
             UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,code);
             executorService.execute(udpSendData);

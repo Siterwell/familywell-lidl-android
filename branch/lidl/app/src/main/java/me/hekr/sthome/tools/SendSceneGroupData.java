@@ -29,9 +29,9 @@ public abstract class SendSceneGroupData {
      */
     private void sendAction(String groupCode){
         Log.i(TAG,"===send tag==="+ControllerWifi.getInstance().wifiTag);
-        if(ControllerWifi.getInstance().wifiTag){
-            new SiterwellUtil(context).sendData(groupCode);
-        }else {
+//        if(ControllerWifi.getInstance().wifiTag){
+//            new SiterwellUtil(context).sendData(groupCode);
+//        }else {
             try {
                 Hekr.getHekrClient().sendMessage(new JSONObject(groupCode), new HekrMsgCallback() {
                     @Override
@@ -52,7 +52,7 @@ public abstract class SendSceneGroupData {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+//        }
     }
     protected abstract void sendEquipmentDataFailed();
 

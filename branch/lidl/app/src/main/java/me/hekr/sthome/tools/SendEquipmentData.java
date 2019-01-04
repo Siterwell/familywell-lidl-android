@@ -36,10 +36,10 @@ public abstract class SendEquipmentData {
         ControllerWifi controllerWifi = ControllerWifi.getInstance();
         wifiTag = controllerWifi.wifiTag;
         LOG.I(TAG,"====send tag=== "+wifiTag);
-        if(wifiTag){
-            LOG.I(TAG,"sendAction ==== UDP");
-            new SiterwellUtil(context).sendData(groupCode);
-        }else {
+//        if(wifiTag){
+//            LOG.I(TAG,"sendAction ==== UDP");
+//            new SiterwellUtil(context).sendData(groupCode);
+//        }else {
             LOG.I(TAG,"sendAction ==== TCP");
             try {
 
@@ -62,7 +62,7 @@ public abstract class SendEquipmentData {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+//        }
     }
     /**
      * send control command
