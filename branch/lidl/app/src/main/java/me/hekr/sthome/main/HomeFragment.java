@@ -9,14 +9,11 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,9 +38,9 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import me.hekr.sdk.Constants;
 import me.hekr.sthome.CarouselView.IpcViewPager;
-import me.hekr.sthome.CarouselView.ViewFactory;
+import me.hekr.sthome.CarouselView.WeatherViewPager;
+import me.hekr.sthome.CarouselView.WeatherViewPager.WeatherInfo;
 import me.hekr.sthome.DeviceListActivity;
-import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
@@ -58,11 +55,8 @@ import me.hekr.sthome.history.HistoryAdapter;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.ClientUser;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
-import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
-import me.hekr.sthome.model.modelbean.WeatherInfoBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.NoticeDAO;
@@ -71,10 +65,7 @@ import me.hekr.sthome.push.NoticeBean;
 import me.hekr.sthome.push.NoticeResolve;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
-import me.hekr.sthome.tools.ECPreferenceSettings;
-import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
-import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneGroupData;
 import me.hekr.sthome.tools.SystemTintManager;
@@ -104,10 +95,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private MultiDirectionSlidingDrawer drawer;
     private SystemTintManager tintManager;
 
-    private List<LinearLayout> views_weather = new ArrayList<LinearLayout>();
-    private List<WeatherInfoBean> infos_weather = new ArrayList<WeatherInfoBean>();
-    private ViewPager weatherViewPager;
+    private WeatherViewPager weatherViewPager;
     private IpcViewPager ipcViewPager;
+
+    private WeatherInfo weatherInfo = new WeatherInfo();
+
     private SendSceneGroupData ssgd;
     private int nowmodeindex = -1;
     private MenuDialog menuDialog;
@@ -122,13 +114,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     private UnitTools unitTools;
     private FusedLocationProviderClient mFusedLocationClient;
 //    private AddressResultReceiver mResultReceiver;
-
-
-    private String gps_place="";
-    private String gpsweather_ico="";
-    private String weather_txt="";
-    private String gpshum="";
-    private String temp="";
 
 
     @Override
@@ -425,80 +410,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         ipcViewPager = new IpcViewPager(getActivity(), view);
     }
 
-    private String getGpsSetting(){
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PGS_SETTING;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
     @SuppressLint("NewApi")
     private void initializeWeather() {
-
-        try {
-            infos_weather.clear();
-            views_weather.clear();
-
-            if("yes".equals(getGpsSetting())){
-                WeatherInfoBean weatherInfoBean = new WeatherInfoBean();
-                weatherInfoBean.setFlag_first(true);
-                weatherInfoBean.setWeather_ico_url(gpsweather_ico);
-                weatherInfoBean.setWeather(weather_txt);
-                weatherInfoBean.setHum(MyApplication.getAppResources().getString(R.string.hum)+gpshum+"%");
-                weatherInfoBean.setName(gps_place);
-                weatherInfoBean.setTemp(temp+"℃");
-                infos_weather.add(weatherInfoBean);
-            }
-
-
-            if(ConnectionPojo.getInstance().deviceTid!=null){
-                List<EquipmentBean> equipmentBeans = equipDAO.findThChecks(ConnectionPojo.getInstance().deviceTid);
-                for(int i=0;i<equipmentBeans.size();i++){
-                    WeatherInfoBean weatherInfoBean1 = new WeatherInfoBean();
-                    weatherInfoBean1.setFlag_first(false);
-
-                    String realT="";
-                    String realH ="";
-                    String temp = equipmentBeans.get(i).getState().substring(4,6);
-                    String humidity = equipmentBeans.get(i).getState().substring(6,8);
-                    String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
-                    if (temp2.length()==8){
-                        realT = "-"+ (128 - Integer.parseInt(temp2.substring(1,temp2.length()),2));
-                    }else{
-                        realT = "" + Integer.parseInt(temp2,2);
-                    }
-
-                    if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || Integer.parseInt(humidity,16)<0 || Integer.parseInt(humidity,16)>100){
-                        weatherInfoBean1.setHum("");
-                        weatherInfoBean1.setTemp("");
-                        weatherInfoBean1.setName((TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()))
-                                +(this.getActivity().getResources().getString(R.string.off_line)));
-                    }else{
-                        realH = "" +Integer.parseInt(humidity,16);
-                        weatherInfoBean1.setHum(realH+"%");
-                        weatherInfoBean1.setTemp(realT+"℃");
-                        weatherInfoBean1.setName(TextUtils.isEmpty(equipmentBeans.get(i).getEquipmentName())?(NameSolve.getDefaultName(this.getActivity(),equipmentBeans.get(i).getEquipmentDesc(),equipmentBeans.get(i).getEqid())):(equipmentBeans.get(i).getEquipmentName()));
-                    }
-
-
-                    infos_weather.add(weatherInfoBean1);
-                }
-            }
-
-
-            for (int i = 0; i < infos_weather.size(); i++) {
-                views_weather.add(ViewFactory.getweatherLinearLayout(getActivity(),infos_weather.get(i)));
-            }
-
-            weatherViewPager = view.findViewById(R.id.viewpager_weather);
-            weatherViewPager.setAdapter(new WeatherPagerAdapter());
-
-
-        }catch (NullPointerException e){
-            LOG.I(TAG,"tuichu");
-        }
-
-
+        weatherViewPager = new WeatherViewPager(getActivity(), view, weatherInfo, equipDAO);
     }
 	
     @Override
@@ -522,15 +436,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             LOG.I(TAG,"当前网关状态刷新refreshTitle();");
              refreshTitle();
         }else if(event.getRefreshevent()==5){
-            initializeWeather();
+            weatherViewPager.update(weatherInfo);
         }
     }
 
 
     @Subscribe          //订阅更新温湿度界面
     public  void onEventMainThread(ThcheckEvent event){
-
-         initializeWeather();
+        weatherViewPager.update(weatherInfo);
     }
 
     private void clearNotices(){
@@ -587,7 +500,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                         LOG.I(TAG, "Google Location > " + address);
 
                         try {
-                            if ("".equals(weather_txt)) {
+                            if ("".equals(weatherInfo.weather_txt)) {
 
                                 Config.getWeatherInfo(HomeFragment.this.getActivity(), new HekrUser.LoginListener() {
                                     @Override
@@ -601,11 +514,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                                             int hum = jsonObject.getJSONObject("main").getInteger("humidity");
                                             double temp_hua = jsonObject.getJSONObject("main").getDouble("temp");
 
-                                            weather_txt = weather;
-                                            gpshum = ""+hum;
-                                            temp = String.valueOf((int) ((temp_hua - 273)));
-                                            gpsweather_ico = weather_ico;
-                                            initializeWeather();
+                                            weatherInfo.weather_txt = weather;
+                                            weatherInfo.gpshum = ""+hum;
+                                            weatherInfo.temp = String.valueOf((int) ((temp_hua - 273)));
+                                            weatherInfo.gpsweather_ico = weather_ico;
+                                            weatherViewPager.update(weatherInfo);
 
                                         } catch (Exception e) {
                                             e.printStackTrace();
@@ -675,29 +588,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 //        gps_place = address;
 //        initializeWeather();
 //    }
-
-    private class WeatherPagerAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return views_weather.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object o) {
-            return o == view;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(views_weather.get(position));
-            return views_weather.get(position);
-        }
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-    }
 
 }
