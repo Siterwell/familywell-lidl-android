@@ -112,6 +112,7 @@ public class IpcViewPager extends RelativeLayout {
                         textIpcName.setText(monitor.getName());
                     }
 
+                    setIndicator(position);
                 }
 
                 @Override
