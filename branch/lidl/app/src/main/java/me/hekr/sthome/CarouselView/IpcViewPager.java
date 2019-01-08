@@ -20,6 +20,7 @@ import java.util.List;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.DeviceActivitys;
+import me.hekr.sthome.commonBaseView.LayoutDeviceList;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.tools.LOG;
@@ -37,6 +38,7 @@ public class IpcViewPager extends RelativeLayout {
     private ViewPager ipcViewPager;
     private TextView textIpcName;
 
+    private LayoutDeviceList layoutDevices;
     private LinearLayout indicatorLayout;
     private ImageView[] indicators;
 
@@ -67,8 +69,8 @@ public class IpcViewPager extends RelativeLayout {
             monitorBean.setDevid(DEV_LIST);
             infos.add(monitorBean);
 
-            FrameLayout layout = ViewFactory.getDeviceListView(activity);
-            ipcPagers.add(layout);
+            layoutDevices = ViewFactory.getDeviceListView(activity);
+            ipcPagers.add(layoutDevices.getRoot());
 //            layout.setOnClickListener(new OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
@@ -126,6 +128,10 @@ public class IpcViewPager extends RelativeLayout {
             LOG.I(TAG,"tuichu");
             e.printStackTrace();
         }
+    }
+
+    public void updateView() {
+        layoutDevices.updateDeviceList();
     }
 
     private void initIndicator() {

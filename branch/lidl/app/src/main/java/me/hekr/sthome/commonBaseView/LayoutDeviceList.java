@@ -46,11 +46,13 @@ import me.hekr.sthome.tools.NameSolve;
  * Created by ryanhsueh on 2018/12/25
  */
 public class LayoutDeviceList extends FrameLayout implements EquipmentRecyclerAdapter.OnItemClickListener {
+    private static final String TAG = LayoutDeviceList.class.getSimpleName();
 
     private MainActivity activity;
 
     private FrameLayout root;
     private RecyclerView recyclerView;
+    private EquipmentRecyclerAdapter adapter;
 
     public LayoutDeviceList(Context context) {
         super(context);
@@ -70,14 +72,23 @@ public class LayoutDeviceList extends FrameLayout implements EquipmentRecyclerAd
         EquipDAO ED = new EquipDAO(activity);
         List<ApplicationInfo> list = ED.findAllEqByNoPack(ConnectionPojo.getInstance().deviceTid);
         list = updateDeviceList(list);
-        LOG.D("FrameLayout", "[RYAN] getDeviceListView > list size = " + list.size());
+        LOG.D(TAG, "[RYAN] getDeviceListView > list size = " + list.size());
 
         recyclerView = root.findViewById(R.id.rv_device_list);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        EquipmentRecyclerAdapter adapter = new EquipmentRecyclerAdapter(getContext(), list, this);
+        adapter = new EquipmentRecyclerAdapter(getContext(), list, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void updateDeviceList() {
+        EquipDAO ED = new EquipDAO(activity);
+        List<ApplicationInfo> list = ED.findAllEqByNoPack(ConnectionPojo.getInstance().deviceTid);
+        list = updateDeviceList(list);
+        LOG.D(TAG, "[RYAN] updateDeviceList > list size = " + list.size());
+
+        adapter.update(list);
     }
 
     private List<ApplicationInfo> updateDeviceList(List<ApplicationInfo> list) {

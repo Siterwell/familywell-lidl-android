@@ -33,6 +33,11 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
         this.listener = listener;
     }
 
+    public void update(List<ApplicationInfo> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         View view;
         ImageView imageView;

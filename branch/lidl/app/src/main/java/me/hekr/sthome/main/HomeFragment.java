@@ -268,18 +268,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     public void onResume(){
         super.onResume();
 
+        LOG.D(TAG, "[RYAN] onResume");
 
         if(!TextUtils.isEmpty(HekrUserAction.getInstance(this.getActivity()).getJWT_TOKEN())){
             HekrUserAction.getInstance(this.getActivity()).getProfile(new HekrUser.GetProfileListener() {
                 @Override
                 public void getProfileSuccess(Object object) {
                     try {
-                        LOG.I(TAG,"getSuccess : " + object.toString());
+                        LOG.I(TAG,"[RYAN] getSuccess : " + object.toString());
                         JSONObject d = JSON.parseObject(object.toString());
                         ClientUser user = CCPAppManager.getClientUser();
                         user.setMonitor(d.getJSONObject("extraProperties").getString("monitor"));
                         CCPAppManager.setClientUser(user);
-//                        initialize();
+
+                        ipcViewPager.updateView();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -287,7 +289,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
                 @Override
                 public void getProfileFail(int errorCode) {
-                    LOG.I(TAG,"getFail:"+errorCode);
+                    LOG.I(TAG,"[RYAN] getFail:"+errorCode);
                     if(errorCode==1){
                         LogoutEvent tokenTimeoutEvent = new LogoutEvent();
                         EventBus.getDefault().post(tokenTimeoutEvent);

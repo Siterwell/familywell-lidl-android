@@ -63,11 +63,8 @@ public class ViewFactory {
 		return imageView;
 	}
 
-	public static FrameLayout getDeviceListView(MainActivity activity) {
-//		FrameLayout layout = (FrameLayout) LayoutInflater.from(context).inflate(
-//				R.layout.view_device_list, null);
-		LayoutDeviceList layout = new LayoutDeviceList(activity);
-		return layout.getRoot();
+	public static LayoutDeviceList getDeviceListView(MainActivity activity) {
+        return new LayoutDeviceList(activity);
 	}
 
 
