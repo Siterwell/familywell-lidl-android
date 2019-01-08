@@ -51,9 +51,9 @@
     <string name="Over_all_integral_metering">Integroitu mittaus</string>
     <string name="Central_metering">Keskimittaus</string>
     <string name="Spot">Paikka</string>
-    <string name="Always">Aina</string>
-    <string name="Never">Ei ikinä</string>
-    <string name="Linkage">Sidottu</string>
+    <string name="Always">Jatkuva tallennus</string>
+    <string name="Never">Ei tallenna koskaan</string>
+    <string name="Linkage">Yhdistetty tallennus</string>
     <string name="auto">Automaattinen</string>
     <string name="Auto">Automaattinen</string>
     <string name="Indoor">Sisälle</string>
@@ -83,7 +83,7 @@
     <string name="Navy_Blue">Laivastonsininen</string>
     <string name="No_Color">Väritön</string>
     <string name="Remote_images">Hallinnoi kuvia</string>
-    <string name="Local_screenshots">Näyttökuva</string>
+    <string name="Local_screenshots">Näyttökuvat</string>
     <string name="Remote_video">Hallinnoi videoita</string>
     <string name="Local_video">Videot</string>
     <string name="Lock_Open">Avaa</string>
