@@ -2,15 +2,15 @@
 <resources>
     <string name="app_name">BASE</string>
     <string name="btnConfirmTitle">YHDISTÄ</string>
-    <string name="config_instruction">Odota 5 sekuntia tukiaseman käynnistämisen jälkeen, ja paina sen jälkeen tukiaseman painiketta vähintään 5 sekunnin ajan</string>
-    <string name="how_to_config">Tarkista, että sininen valo vilkkuu tukiasemassa, ja klikkaa sen jälkeen seuraavaan vaiheeseen</string>
+    <string name="config_instruction">Resetoidaksesi tukiaseman, paina tukiaseman painiketta yli 3 sekuntia.</string>
+    <string name="how_to_config">Varmista, että tukiaseman sininen valo vilkkuu ja siirry seuraavaan vaiheeseen.</string>
     <string name="next">Seuraava</string>
     <string name="retry">Yritä uudelleen</string>
     <string name="sure_to_logout">Oletko varma, että haluat kirjautua ulos?</string>
     <string name="loading_press">Ladataan…</string>
     <string name="dialog_btn_confim">Vahvista</string>
     <string name="dialog_btn_cancel">Peruuta</string>
-    <string name="dialog_title_alert">Hälytys</string>
+    <string name="dialog_title_alert">Huomio</string>
     <string name="home_mode">Kotona</string>
     <string name="out_mode">Pois kotoa</string>
     <string name="sleep_mode">Yötila</string>
@@ -50,8 +50,8 @@
     <string name="modify_password">Vaihda salasana</string>
     <string name="modifying_newpassword">Anna uusi salasana</string>
     <string name="code_fault">Virhe salasanassa</string>
-    <string name="setting_old_password">Anna vanha salasana</string>
-    <string name="setting_password_hint">Anna uusi salasana</string>
+    <string name="setting_old_password">Syötä vanha salasana</string>
+    <string name="setting_password_hint">Syötä uusi salasana</string>
     <string name="setting_confirm_password_hint">Vahvista salasana</string>
     <string name="setting_new_password_hint">Anna uusi salasana</string>
     <string name="setting_confirm_new_password_hint">Vahvista uusi salasana</string>
@@ -71,7 +71,7 @@
     <string name="exit_hint">klikkaa poistuaksesi %1$s</string>
     <string name="my_home">Etusivu</string>
     <string name="system_scene">Teemat</string>
-    <string name="scene_list">Valitse teeman väri</string>
+    <string name="scene_list">Säännöt</string>
     <string name="choose_color">Tukiaseman väri</string>
     <string name="edit">Muokkaa</string>
     <string name="get_max_scene_group">Sääntöjen enimmäismäärä on saavutettu</string>
@@ -120,7 +120,7 @@
     <string name="alarm">Hälytys</string>
     <string name="lowvolt_alarm">Matalan jännitteen hälytys</string>
     <string name="help">Apua</string>
-    <string name="normal">Normaali</string>
+    <string name="normal">Online</string>
     <string name="silence">Mykistä</string>
     <string name="test">Testi</string>
     <string name="operation">Toiminto</string>
@@ -132,8 +132,8 @@
     <string name="Illegal_demolition">Vika</string>
     <string name="has_been_moved">Siirretty</string>
     <string name="has_people">Aktivoitunut</string>
-    <string name="recent_device">Viimeisin tukiasema</string>
-    <string name="net_configuration">Verkon asetukset</string>
+    <string name="recent_device">Nykyinen tukiasema</string>
+    <string name="net_configuration">Tukiaseman asetukset</string>
     <string name="logout">Kirjaudu ulos</string>
     <string name="setting">Asetukset</string>
     <string name="remember_password">Muista salasana</string>
@@ -163,9 +163,9 @@
     <string name="click_to_call">Klikkaa soittaaksesi hätänumeroon</string>
     <string name="not_setting">Ei asetettu</string>
     <string name="set_emergency_call">Aseta hätänumero</string>
-    <string name="please_input_emergency_call">Ole hyvä ja anna hätänumero</string>
-    <string name="emergency_desc_first">Tämä voi olla oma puhelinnumerosi tai jonkun läheisesi numero.</string>
-    <string name="emergency_desc_second">Soittaaksesi klikkaa hätäpuhelu -painiketta yksittäisen laitteen yksityiskohdat -sivulla.</string>
+    <string name="please_input_emergency_call">Syötä hätänumero</string>
+    <string name="emergency_desc_first">Puhelinnumero voi olla sinun tai jonkun läheisesi.</string>
+    <string name="emergency_desc_second">Puhelinnumero voi olla sinun tai jonkun läheisesi.</string>
     <string name="set_username">Syötä käyttäjänimi</string>
     <string name="set_devname_success">Tukiaseman nimi vaihdettu onnistuneesti</string>
     <string name="add_device_hint">Paina lisättävän laitteen painiketta kolme kertaa</string>
@@ -230,7 +230,7 @@
     <string name="receive_one_notice">Olet vastaanottanut hälytysviestin, ole hyvä ja lue viesti</string>
     <string name="save">Tallenna</string>
     <string name="no_save">Älä tallenna</string>
-    <string name="on_line">(Online)</string>
+    <string name="on_line">(Verkossa)</string>
     <string name="off_line">(Offline)</string>
     <string name="btn_silence">Hiljainen</string>
     <string name="dev_type_monitor">Kamera</string>
@@ -264,8 +264,8 @@
     <string name="device_net_connect_type_ip">Suora IP-yhteys</string>
     <string name="device_net_connect_type_rps">RPS</string>
     <string name="device_net_connect_type_unknown">Tuntematon tyyppi</string>
-    <string name="device_setup_record">Tallennusasetukset</string>
-    <string name="device_setup_image">Kuva-asetukset</string>
+    <string name="device_setup_record">Videoasetukset</string>
+    <string name="device_setup_image">Kuvien hallinta</string>
     <string name="device_setup_expert">Lisäasetukset</string>
     <string name="device_setup_other">Muut asetukset</string>
     <string name="common">Tietoja</string>
@@ -273,8 +273,8 @@
     <string name="device_setup_change_password">Vaihda salasana</string>
     <string name="device_time_in_AP_or_local_mode">Ole hyvä ja synkronoi aika AP-tilassa tai paikallisessa tilassa</string>
     <string name="device_setup_camera_definition">Terävyys</string>
-    <string name="device_setup_camera_flip">Etäohjaus pystysuunnassa</string>
-    <string name="device_setup_camera_mirror">Etäohjaus vaakasuunnassa</string>
+    <string name="device_setup_camera_flip">Käännä näkymä pystysuunnassa</string>
+    <string name="device_setup_camera_mirror">Käännä näkymä vaakasuunnassa</string>
     <string name="device_setup_camera_osd_switch">Muokattava vesileiman valitsin</string>
     <string name="device_setup_camera_osd_timeswitch">Ajan vesileiman valitsin</string>
     <string name="device_setup_camera_osd">Vapaavalintaisen tekstin vesileima</string>
@@ -420,8 +420,8 @@
     <string name="battery_low">Akku vähissä</string>
     <string name="gateway_alert">Tukiaseman hälytys</string>
     <string name="choose_gateway_type">Valitsen tukiaseman tyyppi</string>
-    <string name="trigger">Aktivoitua</string>
-    <string name="ipc_tip">Jos laite on lisätty reitittimelle aiemmin, ole hyvä ja paina Aseta-painiketta laitteen takana (tai pohjassa) palauttaaksesi tehdasasetukset</string>
+    <string name="trigger">Aktivoitunut</string>
+    <string name="ipc_tip">Jos laite on lisätty reitittimeen, palauta tehdasasetukset pitämällä laitteen takana olevaa SET-painiketta pohjassa.</string>
     <string name="add_my_ipc">Lisää uusi kamera</string>
     <string name="add_share_ipc">Lisää jaettu kamera</string>
     <string name="add_localnet_ipc">Lisää kameroita samaan reitittimeen</string>
@@ -466,7 +466,7 @@
     <string name="success_set">Asetettu onnistuneesti</string>
     <string name="alarm_remove">Tyhjennä hälytys</string>
     <string name="already_in_gateway">Tämä laite on jo yhdistetty tukiasemaan. Ole hyvä ja anna %1$s nimi</string>
-    <string name="gps_setting">Sijainti</string>
+    <string name="gps_setting">Sijainnin asetukset</string>
     <string name="no_gps">Älä salli sijaintia</string>
     <string name="gps_phone">Salli sijainti</string>
     <string name="re_login">Rekisteröidy uudelleen</string>
@@ -515,7 +515,7 @@
     <string name="three_zifu">Salasanan pitää sisältää isoja kirjaimia, pieniä kirjaimia, numeroita tai vähintään kolme erikoismerkkiä.</string>
     <string name="config_fail_reason">Yhteyden muodostaminen epäonnistui</string>
     <string name="click_check_firemare">Paina tästä tarkastaaksesi päivitykset</string>
-    <string name="view_yinsi">Katso yksityisyysprotokollat</string>
+    <string name="view_yinsi">Tietosuojakäytäntö</string>
     <string name="fireware_is_lastest">Tämä on viimeisin versio</string>
     <string name="gateway_version">Tukiaseman versio</string>
 </resources>
