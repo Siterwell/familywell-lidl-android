@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
+import me.hekr.sthome.DragFolderwidget.FolderInfo;
 import me.hekr.sthome.R;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.tools.ConnectionPojo;
@@ -25,7 +26,8 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
 
     private OnItemClickListener listener;
     public interface OnItemClickListener {
-        void onItemClicked(EquipmentBean device);
+        void onEquipmentClicked(EquipmentBean device);
+        void onFolderClicked();
     }
 
     public EquipmentRecyclerAdapter(Context context, List<ApplicationInfo> list, OnItemClickListener listener) {
@@ -63,14 +65,18 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
 
                     ApplicationInfo info = list.get(position);
 
-                    EquipmentBean bean = new EquipmentBean();
-                    bean.setEqid(info.getEqid());
-                    bean.setState(info.getState());
-                    bean.setEquipmentName(info.getEquipmentName());
-                    bean.setEquipmentDesc(info.getEquipmentDesc());
-                    bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
+                    if (info instanceof FolderInfo) {
+                        listener.onFolderClicked();
+                    } else {
+                        EquipmentBean bean = new EquipmentBean();
+                        bean.setEqid(info.getEqid());
+                        bean.setState(info.getState());
+                        bean.setEquipmentName(info.getEquipmentName());
+                        bean.setEquipmentDesc(info.getEquipmentDesc());
+                        bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
 
-                    listener.onItemClicked(bean);
+                        listener.onEquipmentClicked(bean);
+                    }
                 }
             }
         });
@@ -80,10 +86,19 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
 
     @Override
     public void onBindViewHolder(EquipmentRecyclerAdapter.ViewHolder holder, int position) {
-        ApplicationInfo equipment = list.get(position);
+        try {
+            ApplicationInfo equipment = list.get(position);
 
-        holder.imageView.setImageBitmap(equipment.getIcon());
-        holder.textName.setText(equipment.getEquipmentName());
+            if (equipment instanceof FolderInfo) {
+                holder.imageView.setImageResource(R.drawable.folder);
+                holder.textName.setText(equipment.getText());
+            } else {
+                holder.imageView.setImageBitmap(equipment.getIcon());
+                holder.textName.setText(equipment.getEquipmentName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -490,9 +490,9 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }
     }
 
-//    public void jumpToDevice() {
-//        viewPager.setCurrentItem(2,false);
-//    }
+    public void jumpToDevice() {
+        viewPager.setCurrentItem(2,false);
+    }
 
     @Override
     public void setdrag(boolean flag) {
