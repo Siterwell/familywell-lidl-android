@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SilverCrest Alarm</string>
+    <string name="app_name">ELRO Connects</string>
     <string name="btnConfirmTitle">YHDISTÄ</string>
     <string name="config_instruction">Resetoidaksesi tukiaseman, paina tukiaseman painiketta yli 3 sekuntia.</string>
     <string name="how_to_config">Varmista, että tukiaseman sininen valo vilkkuu ja siirry seuraavaan vaiheeseen.</string>
