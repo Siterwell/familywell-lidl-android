@@ -89,7 +89,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             HekrUserAction.getInstance(this).userLogout();
             CCPAppManager.setClientUser(null);
 
+            initData();
             initView();
+            initLog();
             initSystemBar();
         } else {
             try{
