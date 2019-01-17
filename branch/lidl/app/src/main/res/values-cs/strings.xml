@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <string name="app_name">ELRO Connects</string>
    <string name="btnConfirmTitle">PŘIPOJIT</string>
    <string name="config_instruction">Pět sekund po zapojení konektoru stiskněte a podržte tlačítko pro režim sítě.</string>
    <string name="how_to_config">Zkontrolujte, zda modrá kontrolka konektoru bliká a potom stiskněte „Další krok“.</string>
