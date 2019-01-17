@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BASE</string>
     <string name="btnConfirmTitle">Connecting</string>
     <string name="config_instruction">"Plug in your connector.
 When the green led stops flashing and lights up continuously, press and hold the button.
