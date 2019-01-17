@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SilverCrest Alarm</string>
     <string name="btnConfirmTitle">Verbinden</string>
     <string name="config_instruction">Nach Einstecken 5 Sekunden warten, dann drücken Sie min. 3 Sekunden den Knopf, um in den Netzmodus zu gelangen.</string>
     <string name="how_to_config">Sobald der Connector blau blinkt, drücken Sie Weiter.</string>

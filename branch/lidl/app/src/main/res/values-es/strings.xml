@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SilverCrest Alarm</string>
     <string name="btnConfirmTitle">Conectar</string>
     <string name="config_instruction">cinco segundos despues de insertar el enrutador, pulse i mantega apretado el pulsador de modo red.</string>
     <string name="how_to_config">Por favor, asegúrese de que el conector de la luz azul de los flashes y luego presione "siguiente paso".</string>
