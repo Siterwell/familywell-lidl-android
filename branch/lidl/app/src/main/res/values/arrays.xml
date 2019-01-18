@@ -30,6 +30,10 @@
         <item>@string/Socket_Close</item>
         <item>@string/Socket_Switch</item>
     </string-array>
+    <string-array name="socket_status">
+        <item>@string/Socket_ON</item>
+        <item>@string/Socket_OFF</item>
+    </string-array>
     <string-array name="door_actions">
         <item>@string/Door_Open</item>
         <item>@string/Door_Close</item>

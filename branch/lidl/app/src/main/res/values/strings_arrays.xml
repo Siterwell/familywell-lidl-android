@@ -9,9 +9,11 @@
     <string name="Fri">Fri</string>
     <string name="Sat">Sat</string>
     <string name="Sun">Sun</string>
-    <string name="Socket_Open">Socket opened</string>
-    <string name="Socket_Close">Socket closed</string>
-    <string name="Socket_Switch">Socket switched</string>
+    <string name="Socket_Open">Socket turn on</string>
+    <string name="Socket_Close">Socket turn off</string>
+    <string name="Socket_Switch">Socket switch</string>
+    <string name="Socket_ON">Socket ON</string>
+    <string name="Socket_OFF">Socket OFF</string>
     <string name="Door_Open">Door opened</string>
     <string name="Door_Close">Door closed</string>
     <string name="Door_Await">Door remains opened</string>
