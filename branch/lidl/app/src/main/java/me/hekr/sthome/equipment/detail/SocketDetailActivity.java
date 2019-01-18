@@ -293,13 +293,13 @@ public class SocketDetailActivity extends AppCompatActivity {
                 root.setBackgroundColor(getResources().getColor(R.color.device_error));
                 showStatus.setTextColor(getResources().getColor(R.color.device_error));
                 operation_img.setImageResource(R.drawable.detail_switch_on);
-                showStatus.setText(getResources().getStringArray(R.array.socket_actions)[0]);
+                showStatus.setText(getResources().getStringArray(R.array.socket_status)[0]);
             } else if ("00".equals(socketStatus)) {
 //                    holder.s.setText("断开");
                 root.setBackgroundColor(getResources().getColor(R.color.device_normal));
                 showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 operation_img.setImageResource(R.drawable.detail_switch_off);
-                showStatus.setText(getResources().getStringArray(R.array.socket_actions)[1]);
+                showStatus.setText(getResources().getStringArray(R.array.socket_status)[1]);
             }else {
                 root.setBackgroundColor(getResources().getColor(R.color.device_offine));
                 showStatus.setTextColor(getResources().getColor(R.color.device_offine));
