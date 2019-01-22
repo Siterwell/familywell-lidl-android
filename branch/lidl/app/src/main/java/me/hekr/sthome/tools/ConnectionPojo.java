@@ -15,6 +15,8 @@ public class ConnectionPojo {
     public int folderid = 0;
     public int open_app = 0;
     public int msgid = 0;
+    public boolean encryption = false;
+
 
     private static ConnectionPojo instance = null;
     private ConnectionPojo (){

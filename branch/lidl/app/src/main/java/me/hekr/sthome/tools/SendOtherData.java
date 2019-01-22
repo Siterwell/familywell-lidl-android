@@ -36,7 +36,13 @@ public class SendOtherData {
         wifiTag = controllerWifi.wifiTag;
         Log.i(TAG,"===send tag==="+wifiTag);
         if(wifiTag){
-            new SiterwellUtil(context).sendData(groupCode);
+            if(ConnectionPojo.getInstance().encryption){
+                Log.i(TAG,"Udp before encryption:"+groupCode);
+                byte[] encode = ByteUtil.getAllEncryption(groupCode);
+                new SiterwellUtil(context).sendData(encode);
+            }else {
+                new SiterwellUtil(context).sendData(groupCode);
+            }
         }else {
             try {
                 Hekr.getHekrClient().sendMessage(new JSONObject(groupCode), new HekrMsgCallback() {

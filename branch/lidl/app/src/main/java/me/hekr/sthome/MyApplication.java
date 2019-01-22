@@ -104,7 +104,7 @@ public class MyApplication extends MultiDexApplication {
         UnitTools tools = new UnitTools(this);
         String d = tools.readLanguage();
         LOG.I("ceshi","语言为:"+d);
-        CrashHandler.getInstance().init(getApplicationContext());
+//        CrashHandler.getInstance().init(getApplicationContext());
         Intent intent = new Intent(this, SiterService.class);
         startService(intent);
     }
