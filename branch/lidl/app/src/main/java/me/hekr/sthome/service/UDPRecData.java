@@ -3,6 +3,10 @@ package me.hekr.sthome.service;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -10,6 +14,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import me.hekr.sthome.autoudp.ControllerWifi;
+import me.hekr.sthome.crc.CoderUtils;
+import me.hekr.sthome.tools.ByteUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.LOG;
 
@@ -45,8 +51,18 @@ public class UDPRecData implements Runnable {
             try {
                 LOG.I(TAG," start to receive");
                 datagramSocket.receive(datagramPacket);
-                String msg = new String(datagramPacket.getData());
-                LOG.I(TAG,"get udp message:"+msg);
+                String msg = null;
+                if("7b".equals(ByteUtil.getAllDescryption(datagramPacket.getData()).substring(0,2))){
+                    ConnectionPojo.getInstance().encryption = true;
+                    msg = CoderUtils.getStringFromAscii2(ByteUtil.getAllDescryption(datagramPacket.getData()));
+                    Log.i(TAG,"get en udp message:"+msg);
+                }else {
+                    ConnectionPojo.getInstance().encryption = false;
+                    msg = new String(datagramPacket.getData());
+                    Log.i(TAG,"get udp message:"+msg);
+                }
+
+
                 hostip = datagramPacket.getAddress();
                 resolveData(msg);
             } catch (IOException e) {
@@ -63,7 +79,7 @@ public class UDPRecData implements Runnable {
         String deviceTid = "",bind="",ctrlkey="";
 
         if(type == 2){
-            if(msg.contains("ST_answer_OK")){
+            if(msg.contains("ST_answer_OK") ||  msg.contains("answer_yes_or_no")){
                 ControllerWifi.getInstance().switch_server_ok = true;
             }
             return;
@@ -122,14 +138,58 @@ public class UDPRecData implements Runnable {
                         }
                     }
                 }
-
-
         }else{
-            if(ControllerWifi.getInstance().wifiTag){
-                Intent intent = new Intent(SiterService.UDP_BROADCAST);
-                intent.putExtra("message",msg);
-                context.sendBroadcast(intent);
+
+            try {
+                JSONObject jsonObject = new JSONObject(msg);
+                if(jsonObject.has("NAME")&&jsonObject.has("KEY")){
+                     String devTid2 = jsonObject.getString("NAME");
+                     String bindkey2 = jsonObject.getString("BIND");
+                     String ctrlkey2 = jsonObject.getString("KEY");
+                    if(type==1){
+
+                        if( !TextUtils.isEmpty(ConnectionPojo.getInstance().deviceTid) && ConnectionPojo.getInstance().deviceTid.equals(devTid2)){
+                            ControllerWifi.getInstance().wifiTag = true;
+                        }
+                        ControllerWifi.getInstance().targetip = hostip;
+                        ControllerWifi.getInstance().deviceTid = devTid2;
+                        ControllerWifi.getInstance().bind = bindkey2;
+                        ControllerWifi.getInstance().ctrlKey = ctrlkey2;
+                        Log.i(TAG,"en: LAN.targetip="+ hostip.toString());
+                        Log.i(TAG,"en: LAN.deviceTid="+ devTid2.toString());
+                        Log.i(TAG,"en: LAN.bind="+ bindkey2.toString());
+                        Log.i(TAG,"en: LAN.ctrlKey="+ ctrlkey2.toString());
+                    }else{
+                        if( !TextUtils.isEmpty(ConnectionPojo.getInstance().deviceTid) && ConnectionPojo.getInstance().deviceTid.equals(devTid2)){
+                            ControllerWifi.getInstance().wifiTag = true;
+                            ControllerWifi.getInstance().targetip = hostip;
+                            ControllerWifi.getInstance().deviceTid = devTid2;
+                            ControllerWifi.getInstance().bind = bindkey2;
+                            ControllerWifi.getInstance().ctrlKey = ctrlkey2;
+                            Log.i(TAG,"en: LAN.targetip="+ hostip.toString());
+                            Log.i(TAG,"en: LAN.deviceTid="+ devTid2.toString());
+                            Log.i(TAG,"en: LAN.bind="+ bindkey2.toString());
+                            Log.i(TAG,"en: LAN.ctrlKey="+ ctrlkey2.toString());
+                        }
+                    }
+
+                }else {
+                    if(ControllerWifi.getInstance().wifiTag){
+                        Intent intent = new Intent(SiterService.UDP_BROADCAST);
+                        intent.putExtra("message",msg);
+                        context.sendBroadcast(intent);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                if(ControllerWifi.getInstance().wifiTag){
+                    Intent intent = new Intent(SiterService.UDP_BROADCAST);
+                    intent.putExtra("message",msg);
+                    context.sendBroadcast(intent);
+                }
             }
+
+
         }
     }
 

@@ -68,6 +68,29 @@ public class CoderUtils {
 
     }
 
+        /*
+    @method getStringFromAscii2
+    @autor Administrator
+    @time 2017/6/30 9:51
+    @email xuejunju_4595@qq.com
+    从ascii 码转成GBK编码的String类型变量，若格式不对则返回NUll
+    */
+    public static String getStringFromAscii2(String input){
+
+        try {
+
+            byte[]a = ByteUtil.hexStr2Bytes(input);
+            String name  = new String(a,"GBK");
+            return  name;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+
+
+    }
+
 
     /**
      * the scene name to code
@@ -106,6 +129,30 @@ public class CoderUtils {
         return ds;
     }
 
+
+    /**
+     * 获取字符串的ascii码
+     * @param input
+     * @return
+     */
+
+    public static String getAscii2(String input){
+
+        byte[] nameBt = new byte[input.length()];
+        try {
+            nameBt = input.getBytes("GBK");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String ds = "";
+        for(int i=0;i<nameBt.length;i++){
+            String str = ByteUtil.convertByte2HexString(nameBt[i]);
+            ds+=str;
+        }
+
+        return ds;
+    }
 
     public static String getEncrypt(String input){
         String ds = "";
