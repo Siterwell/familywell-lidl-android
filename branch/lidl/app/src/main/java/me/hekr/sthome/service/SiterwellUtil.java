@@ -29,4 +29,10 @@ public class SiterwellUtil {
             executorService.execute(udpSendData);
 
     }
+
+    public void sendData(final byte[] code){
+        UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,code);
+        executorService.execute(udpSendData);
+
+    }
 }

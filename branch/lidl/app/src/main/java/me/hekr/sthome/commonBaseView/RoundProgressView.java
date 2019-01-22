@@ -39,10 +39,10 @@ public class RoundProgressView extends View {
     /**Err的宽度*/
     private int errWidth = 10;
 
-    private int[] colors = {Color.WHITE,Color.RED};
+    private int[] colors = {Color.WHITE, Color.RED};
     /***字体颜色*/
     private int mTextColor = Color.rgb(51, 167, 255);
-    private float mPencentTextSize = 100;
+    private float mPencentTextSize = 200;
 
     private int mWidth,mHeight;
     private int mPaddingX;
@@ -139,7 +139,7 @@ public class RoundProgressView extends View {
 
             float textWidth = mPaint.measureText(number);
             mPaint.setTextSize(mPencentTextSize/2);
-            canvas.drawText("%", mWidth/2+mPaddingX+textWidth/2+15, mHeight/2-mPencentTextSize/8, mPaint);
+            canvas.drawText(" %", mWidth/2+mPaddingX+textWidth/2+15, mHeight/2-mPencentTextSize/8, mPaint);
         }else{
             mPaint.reset();
             mPaint.setColor(colors[0]);
