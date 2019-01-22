@@ -854,6 +854,19 @@ public class SendCommand {
     }
 
 
+    /**
+     * udp应答
+     * 251
+     * @param
+     * @return
+     */
+    public String appAnswerOk(){
+        String Code ="{" +
+                "  \"answer\": "+"\"APP_answer_OK\""+
+                "}";
+        return jsonToString(Code);
+    }
+
     public static void clearCommnad(){
         Command = 0;
     }

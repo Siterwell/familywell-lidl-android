@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sthome.autoudp.ControllerWifi;
+import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.service.SiterwellUtil;
 
 /**
@@ -37,8 +38,15 @@ public abstract class SendEquipmentData {
         wifiTag = controllerWifi.wifiTag;
         LOG.I(TAG,"====send tag=== "+wifiTag);
         if(wifiTag){
-            LOG.I(TAG,"sendAction ==== UDP");
-            new SiterwellUtil(context).sendData(groupCode);
+
+            if(ConnectionPojo.getInstance().encryption){
+                LOG.I(TAG,"Udp before encryption:"+groupCode);
+                 byte[] encode = ByteUtil.getAllEncryption(groupCode);
+                new SiterwellUtil(context).sendData(encode);
+            }else {
+                new SiterwellUtil(context).sendData(groupCode);
+            }
+
         }else {
             LOG.I(TAG,"sendAction ==== TCP");
             try {

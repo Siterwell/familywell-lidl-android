@@ -25,6 +25,12 @@ public class UDPSendData implements Runnable {
         bytes = code.getBytes();
     }
 
+    public UDPSendData(DatagramSocket ds, InetAddress hostip, byte[] code){
+        this.ds = ds;
+        this.hostip = hostip;
+        bytes = code;
+    }
+
     @Override
     public void run() {
         dp = new DatagramPacket(bytes,bytes.length,hostip,PORT);
