@@ -12,6 +12,8 @@
     <string name="Socket_Open">enchufe abierto</string>
     <string name="Socket_Close">enchufe cerrado</string>
     <string name="Socket_Switch">interruptor enchufe</string>
+    <string name="Socket_ON">Socket ON</string>
+    <string name="Socket_OFF">Socket OFF</string>
     <string name="Door_Open">puerta abierta</string>
     <string name="Door_Close">puerta cerrada</string>
     <string name="Door_Await">puerta en espera</string>
