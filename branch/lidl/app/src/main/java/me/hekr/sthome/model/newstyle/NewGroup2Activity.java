@@ -1437,6 +1437,9 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         }else if("es".equals(lan))
         {
             dr = R.layout.highlight_info_up_es;
+        }else if("fi".equals(lan))
+        {
+            dr = R.layout.highlight_info_up_fi;
         }else {
             dr = R.layout.highlight_info_up_en;
         }
