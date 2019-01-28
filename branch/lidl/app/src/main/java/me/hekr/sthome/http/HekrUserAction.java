@@ -1084,6 +1084,8 @@ public class HekrUserAction {
         getHekrData(url, new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
+                LOG.D(TAG, "[RYAN] getDevices > getSuccess > " + object.toString());
+
                 List<DeviceBean> lists = JSON.parseArray(object.toString(), DeviceBean.class);
                 getDevicesListener.getDevicesSuccess(lists);
             }

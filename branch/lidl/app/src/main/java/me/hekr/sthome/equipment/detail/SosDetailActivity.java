@@ -34,6 +34,7 @@ import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ByteUtil;
 import me.hekr.sthome.tools.EmojiFilter;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
 import me.hekr.sthome.tools.UnitTools;
@@ -145,7 +146,7 @@ public class SosDetailActivity extends AppCompatActivity {
                                         if(!TextUtils.isEmpty(newname)){
 
                                             try {
-                                                if(newname.getBytes("GBK").length<=15){
+                                                if(newname.getBytes("UTF-8").length<=15){
 
                                                     if(!EmojiFilter.containsEmoji(newname)){
                                                         alertDialog.setDismissFalse(true);
@@ -155,6 +156,8 @@ public class SosDetailActivity extends AppCompatActivity {
                                                         updateName(newname);
                                                         String ds = CoderUtils.getAscii(newname);
                                                         String dsCRC= ByteUtil.CRCmaker(ds);
+                                                        LOG.D(TAG, "[RYAN] SOS rename > newname: " + newname + ", ds: " + ds + ", dsCRC: " + dsCRC);
+
                                                         SendCommand.Command = SendCommand.MODIFY_EQUIPMENT_NAME;
                                                         sd.modifyEquipmentName(device.getEqid(),ds + dsCRC);
                                                     }else {
