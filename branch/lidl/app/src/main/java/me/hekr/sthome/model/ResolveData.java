@@ -484,6 +484,7 @@ public abstract class ResolveData {
 
          try {
              EquipDAO equipDAO = new EquipDAO(context);
+             LOG.D(TAG, "[RYAN] resolveEqName > info: " + info + ", deviceid: " + deviceid);
              if("NAME_OVER".equals(info)){
                  EndSyncEqName();
              }else{
