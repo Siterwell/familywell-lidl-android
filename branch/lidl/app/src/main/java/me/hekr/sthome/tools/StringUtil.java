@@ -9,6 +9,7 @@ import java.net.URLEncoder;
  */
 public class StringUtil {
     public static final String UTF_8 = "UTF-8";
+    public static final String GBK = "GBK";
 
     public static String encodeUTF8(String src) {
         String dst = src;
@@ -26,6 +27,29 @@ public class StringUtil {
         String dst = src;
         try {
             dst = URLDecoder.decode(src, UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return dst;
+    }
+
+    public static String encodeGBK(String src) {
+        String dst = src;
+
+        try {
+            dst = URLEncoder.encode(src, GBK);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return dst;
+    }
+
+    public static String decodeGBK(String src) {
+        String dst = src;
+        try {
+            dst = URLDecoder.decode(src, GBK);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

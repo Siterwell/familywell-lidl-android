@@ -75,6 +75,7 @@ import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
+import me.hekr.sthome.tools.StringUtil;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.SystemUtil;
 import me.hekr.sthome.tools.UnitTools;
@@ -108,6 +109,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LOG.D(TAG, "[RYAN] onCreate");
+
+//        String encode = StringUtil.encodeUTF8("ÄÖÅ");
+//        LOG.D(TAG, "[RYAN] onCreate > UTF8 encode: " + encode + ", decode: " + StringUtil.decodeUTF8(encode));
+//
+//        encode = StringUtil.encodeGBK("ÄÖÅ");
+//        LOG.D(TAG, "[RYAN] onCreate > GBK encode: " + encode + ", decode: " + StringUtil.decodeGBK(encode));
 
         initCurrentGateway();
         ConnectionPojo.getInstance().open_app = 1;

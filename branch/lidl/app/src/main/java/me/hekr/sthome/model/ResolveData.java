@@ -491,6 +491,8 @@ public abstract class ResolveData {
                  String eqid = info.substring(0, 4);
                  int ds = Integer.parseInt(eqid, 16);
                  String value = info.substring(4);
+                 LOG.I(TAG, "value+++++" + value);
+
                  if (value.length() == 32) {
                      String lastname = CoderUtils.getStringFromAscii(value);
                      LOG.I(TAG, "name+++++" + lastname);
