@@ -12,6 +12,8 @@
     <string name="Socket_Open">Prise active</string>
     <string name="Socket_Close">Prise éteinte</string>
     <string name="Socket_Switch">Prise intelligente</string>
+    <string name="Socket_ON">Socket ON</string>
+    <string name="Socket_OFF">Socket OFF</string>
     <string name="Door_Open">Porte ouverte</string>
     <string name="Door_Close">Porte fermée</string>
     <string name="Door_Await">Porte entrebaillée, merci de la refermer</string>

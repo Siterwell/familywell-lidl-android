@@ -12,6 +12,8 @@
     <string name="Socket_Open">Pistorasia ON</string>
     <string name="Socket_Close">Pistorasia OFF</string>
     <string name="Socket_Switch">Katkaisija</string>
+    <string name="Socket_ON">Socket ON</string>
+    <string name="Socket_OFF">Socket OFF</string>
     <string name="Door_Open">Ovi/ikkuna auki</string>
     <string name="Door_Close">Ovi/ikkuna kiinni</string>
     <string name="Door_Await">Ovi/ikkuna auenneena</string>

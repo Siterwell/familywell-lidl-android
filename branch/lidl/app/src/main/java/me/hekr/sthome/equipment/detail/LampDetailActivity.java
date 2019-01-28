@@ -135,7 +135,7 @@ public class LampDetailActivity extends TopbarSuperActivity {
                 String edit = getTopBarView().getEditTitle().getText().toString().trim();
                 if(!TextUtils.isEmpty(edit)){
                     try {
-                        if(edit.getBytes("GBK").length<=15){
+                        if(edit.getBytes("UTF-8").length<=15){
                             if(!EmojiFilter.containsEmoji(edit)) {
                                 getTopBarView().setEditTitle(edit);
                                 updateName(edit);
