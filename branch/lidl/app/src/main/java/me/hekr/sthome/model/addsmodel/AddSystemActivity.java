@@ -203,7 +203,7 @@ public class AddSystemActivity extends TopbarSuperActivity {
             if(TextUtils.isEmpty(getTopBarView().getEditTitleText())){
                 confirmNum = -1;
             }
-            else if(getTopBarView().getEditTitleText().getBytes("GBK").length>15){
+            else if(getTopBarView().getEditTitleText().getBytes("UTF-8").length>15){
                 confirmNum = -2;
             }   else if(getTopBarView().getEditTitleText().indexOf("@")!=-1||getTopBarView().getEditTitleText().indexOf("$")!=-1){
                 confirmNum = -3;
