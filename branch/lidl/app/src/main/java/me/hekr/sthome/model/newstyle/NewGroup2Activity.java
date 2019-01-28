@@ -890,7 +890,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
             Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.name_is_illegal),Toast.LENGTH_LONG).show();
         }
         else
-            if(getTopBarView().getEditTitleText().getBytes("GBK").length>15){
+            if(getTopBarView().getEditTitleText().getBytes("UTF-8").length>15){
                 Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.name_is_too_long),Toast.LENGTH_LONG).show();
                 confirmNum = 0;
             }

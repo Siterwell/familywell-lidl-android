@@ -163,7 +163,7 @@ public class ValveDetailActivity extends AppCompatActivity {
                                         if(!TextUtils.isEmpty(newname)){
 
                                             try {
-                                                if(newname.getBytes("GBK").length<=15){
+                                                if(newname.getBytes("UTF-8").length<=15){
                                                     if(!EmojiFilter.containsEmoji(newname)) {
                                                         alertDialog.setDismissFalse(true);
                                                         eq_name.setText(newname);
