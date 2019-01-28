@@ -3,6 +3,7 @@ package me.hekr.sthome.equipment.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import me.hekr.sthome.DragFolderwidget.FolderInfo;
 import me.hekr.sthome.R;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.NameSolve;
 
 /**
  * Created by ryanhsueh on 2018/12/25
@@ -94,7 +96,11 @@ public class EquipmentRecyclerAdapter extends RecyclerView.Adapter<EquipmentRecy
                 holder.textName.setText(equipment.getText());
             } else {
                 holder.imageView.setImageBitmap(equipment.getIcon());
-                holder.textName.setText(equipment.getEquipmentName());
+                String name = equipment.getEquipmentName();
+                if(TextUtils.isEmpty(name)){
+                    name = NameSolve.getDefaultName(holder.view.getContext() ,equipment.getEquipmentDesc(),equipment.getEqid());
+                }
+                holder.textName.setText(name);
             }
         } catch (Exception e) {
             e.printStackTrace();
