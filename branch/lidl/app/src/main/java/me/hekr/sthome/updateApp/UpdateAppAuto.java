@@ -19,6 +19,12 @@ import org.jsoup.nodes.Element;
 import java.io.File;
 import java.io.IOException;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import me.hekr.sthome.BuildConfig;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
@@ -28,6 +34,7 @@ import me.hekr.sthome.service.NetWorkUtils;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * ClassName:UpdateAppAuto
@@ -161,10 +168,10 @@ public class UpdateAppAuto {
         context.startActivity(intent);
     }
 
-    public void getUpdateInfo(){
-        new Thread(new Runnable() {
+    public void getUpdateInfo() {
+        Observable.create(new ObservableOnSubscribe<Document>() {
             @Override
-            public void run() {
+            public void subscribe(ObservableEmitter<Document> emitter) {
                 Document document = null;
                 try {
                     document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "&hl=en")
@@ -178,23 +185,52 @@ public class UpdateAppAuto {
                 }
 
                 if (document == null) {
-                    return;
-                }
-
-                Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
-                String version = element.text();
-                int code = (int) (Float.parseFloat(version)*1000);
-
-//                Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
-
-                Config.UpdateInfo ds = new Config.UpdateInfo();
-                ds.setCode(code);
-                ds.setName(version);
-                if (Config.getVerCode(context, context.getPackageName()) < code) {
-                    handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
+                    emitter.onComplete();
+                } else {
+                    emitter.onNext(document);
                 }
             }
-        }).start();
+        }).subscribeOn(Schedulers.io()) // subscribe run on multi-thread
+                .subscribe(new Observer<Document>() {
+
+                    private Disposable disposable;
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                    }
+
+                    @Override
+                    public void onNext(Document document) {
+                        LOG.D(TAG, "getUpdateInfo > onNext");
+
+                        Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
+                        String version = element.text();
+                        int code = (int) (Float.parseFloat(version)*1000);
+
+        //                Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
+
+                        Config.UpdateInfo ds = new Config.UpdateInfo();
+                        ds.setCode(code);
+                        ds.setName(version);
+                        if (Config.getVerCode(context, context.getPackageName()) < code) {
+                            handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LOG.E(TAG, "getUpdateInfo > onError > ");
+                        e.printStackTrace();
+                        disposable.dispose();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LOG.D(TAG, "getUpdateInfo > onComplete");
+                        disposable.dispose();
+                    }
+                });
     }
 
     public void initCheckUpate(){
