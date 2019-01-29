@@ -56,6 +56,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation "com.android.support.constraint:constraint-layout:1.1.3"
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'me.hekr.sdk:core:2.0.0_beta8'
     implementation 'org.greenrobot:eventbus:3.0.0'
