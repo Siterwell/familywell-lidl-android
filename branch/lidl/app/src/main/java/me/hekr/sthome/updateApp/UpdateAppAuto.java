@@ -11,12 +11,15 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.File;
-import java.util.concurrent.ExecutionException;
+import java.io.IOException;
 
+import me.hekr.sthome.BuildConfig;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
@@ -159,29 +162,39 @@ public class UpdateAppAuto {
     }
 
     public void getUpdateInfo(){
-        // get app latest version number from Google Play
-        VersionCheckerTask versionChecker = new VersionCheckerTask();
-        try {
-            Document document = versionChecker.execute().get();
-            if (document == null) {
-                return;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Document document = null;
+                try {
+                    document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "&hl=en")
+                            .timeout(5000)
+                            .userAgent("Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
+                            .get();
+                } catch (HttpStatusException ex2) {
+                    ex2.printStackTrace();
+                } catch (IOException ex1) {
+                    ex1.printStackTrace();
+                }
+
+                if (document == null) {
+                    return;
+                }
+
+                Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
+                String version = element.text();
+                int code = (int) (Float.parseFloat(version)*1000);
+
+//                Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
+
+                Config.UpdateInfo ds = new Config.UpdateInfo();
+                ds.setCode(code);
+                ds.setName(version);
+                if (Config.getVerCode(context, context.getPackageName()) < code) {
+                    handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
+                }
             }
-
-            Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
-            String version = element.text();
-            int code = (int) (Float.parseFloat(version)*1000);
-
-//            Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
-
-            Config.UpdateInfo ds = new Config.UpdateInfo();
-            ds.setCode(code);
-            ds.setName(version);
-            if (Config.getVerCode(context, context.getPackageName()) < code) {
-                handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     public void initCheckUpate(){
