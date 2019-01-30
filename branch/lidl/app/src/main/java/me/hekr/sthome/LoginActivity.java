@@ -41,6 +41,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
@@ -524,10 +525,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Socket socket = new Socket();
                     socket.connect(new InetSocketAddress(HOST,91),5000);
                     OutputStream out = socket.getOutputStream();//获取服务端的输出流，为了向服务端输出数据
-                    InputStream in=socket.getInputStream();//获取服务端的输入流，为了获取服务端输入的数据
+                    InputStream in = socket.getInputStream();//获取服务端的输入流，为了获取服务端输入的数据
 
-                    PrintWriter bufw=new PrintWriter(out,true);
-                    BufferedReader bufr=new BufferedReader(new InputStreamReader(in));
+                    PrintWriter bufw = new PrintWriter(out, true);
+                    BufferedReader bufr = new BufferedReader(new InputStreamReader(in));
                     LOG.I(TAG,"发送啦");//打印服务端传来的数据
                     bufw.println("{\"action\":\"getAppDomain\"}");//发送数据给服务端
                     bufw.flush();
@@ -546,6 +547,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             break;
                         }
                     }
+
+                    out.close();
+                    in.close();
+                    bufw.close();
+                    bufr.close();
 
                 } catch (IOException e) {
                     emitter.onError(e.fillInStackTrace());

@@ -24,6 +24,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.hekr.sthome.BuildConfig;
 import me.hekr.sthome.MyApplication;
@@ -43,7 +44,7 @@ import me.hekr.sthome.tools.LOG;
  * 描述:自动更新，HTT访问服务器地址文件中的版本号大小，与APP的版本号进行比较，若大于本地版本则弹出对话框
  */
 public class UpdateAppAuto {
-    private final String TAG = "UpdateAppAuto";
+    private final String TAG = UpdateAppAuto.class.getSimpleName();
     private Context context;
     private Handler handlerUpdate;
     private final static int DOWN_UPDATE = 11;
@@ -170,29 +171,39 @@ public class UpdateAppAuto {
 
     public void getUpdateInfo() {
         Observable.create(new ObservableOnSubscribe<Document>() {
-            @Override
-            public void subscribe(ObservableEmitter<Document> emitter) {
-                Document document = null;
-                try {
-                    document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "&hl=en")
-                            .timeout(5000)
-                            .userAgent("Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
-                            .get();
-                } catch (HttpStatusException ex2) {
-                    ex2.printStackTrace();
-                } catch (IOException ex1) {
-                    ex1.printStackTrace();
-                }
 
-                if (document == null) {
-                    emitter.onComplete();
-                } else {
-                    emitter.onNext(document);
+                @Override
+                public void subscribe(ObservableEmitter<Document> emitter) {
+                    Document document = null;
+                    try {
+                        document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "&hl=en")
+                                .timeout(5000)
+                                .userAgent("Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
+                                .get();
+                    } catch (HttpStatusException ex2) {
+                        ex2.printStackTrace();
+                    } catch (IOException ex1) {
+                        ex1.printStackTrace();
+                    }
+
+                    if (document == null) {
+                        emitter.onComplete();
+                    } else {
+                        emitter.onNext(document);
+                    }
                 }
+        }).subscribeOn(Schedulers.io()) // subscribe run on multi-thread
+        .map(new Function<Document, String>() {
+            @Override
+            public String apply(Document document) throws Exception {
+                Element element = document.select("div:matchesOwn(^Current Version$)")
+                        .first()
+                        .parent()
+                        .select("span")
+                        .first();
+                return element.text();
             }
-        })
-        .subscribeOn(Schedulers.io()) // subscribe run on multi-thread
-        .subscribe(new Observer<Document>() {
+        }).subscribe(new Observer<String>() {
 
             private Disposable disposable;
 
@@ -202,11 +213,9 @@ public class UpdateAppAuto {
             }
 
             @Override
-            public void onNext(Document document) {
+            public void onNext(String version) {
                 LOG.D(TAG, "getUpdateInfo > onNext");
 
-                Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
-                String version = element.text();
                 int code = (int) (Float.parseFloat(version)*1000);
 
 //                Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
