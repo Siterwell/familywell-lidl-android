@@ -190,47 +190,48 @@ public class UpdateAppAuto {
                     emitter.onNext(document);
                 }
             }
-        }).subscribeOn(Schedulers.io()) // subscribe run on multi-thread
-                .subscribe(new Observer<Document>() {
+        })
+        .subscribeOn(Schedulers.io()) // subscribe run on multi-thread
+        .subscribe(new Observer<Document>() {
 
-                    private Disposable disposable;
+            private Disposable disposable;
 
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable = d;
-                    }
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
 
-                    @Override
-                    public void onNext(Document document) {
-                        LOG.D(TAG, "getUpdateInfo > onNext");
+            @Override
+            public void onNext(Document document) {
+                LOG.D(TAG, "getUpdateInfo > onNext");
 
-                        Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
-                        String version = element.text();
-                        int code = (int) (Float.parseFloat(version)*1000);
+                Element element = document.select("div:matchesOwn(^Current Version$)").first().parent().select("span").first();
+                String version = element.text();
+                int code = (int) (Float.parseFloat(version)*1000);
 
-        //                Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
+//                Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
 
-                        Config.UpdateInfo ds = new Config.UpdateInfo();
-                        ds.setCode(code);
-                        ds.setName(version);
-                        if (Config.getVerCode(context, context.getPackageName()) < code) {
-                            handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
-                        }
-                    }
+                Config.UpdateInfo ds = new Config.UpdateInfo();
+                ds.setCode(code);
+                ds.setName(version);
+                if (Config.getVerCode(context, context.getPackageName()) < code) {
+                    handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
+                }
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        LOG.E(TAG, "getUpdateInfo > onError > ");
-                        e.printStackTrace();
-                        disposable.dispose();
-                    }
+            @Override
+            public void onError(Throwable e) {
+                LOG.E(TAG, "getUpdateInfo > onError > ");
+                e.printStackTrace();
+                disposable.dispose();
+            }
 
-                    @Override
-                    public void onComplete() {
-                        LOG.D(TAG, "getUpdateInfo > onComplete");
-                        disposable.dispose();
-                    }
-                });
+            @Override
+            public void onComplete() {
+                LOG.D(TAG, "getUpdateInfo > onComplete");
+                disposable.dispose();
+            }
+        });
     }
 
     public void initCheckUpate(){
