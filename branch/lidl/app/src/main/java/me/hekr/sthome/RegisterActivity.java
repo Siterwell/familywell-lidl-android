@@ -87,7 +87,7 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
         btn_register.setEnabled(false);
         getTopBarView().setTopBarStatus(1, 2,
                 getResources().getString(R.string.register),
-                getResources().getString(R.string.email_register),
+                "   ",
                 new View.OnClickListener() {
             @Override
             public void onClick(View v) {
