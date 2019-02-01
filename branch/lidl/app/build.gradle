@@ -28,8 +28,8 @@ android {
         applicationId "com.cosa.silvercrest"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1106
-        versionName "1.106"
+        versionCode 1107
+        versionName "1.107"
 
         manifestPlaceholders = [
                 GETUI_APP_ID    : "QdrGH5nq6m6BDx4ATwKJF9",
