@@ -514,8 +514,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LOG.I(TAG,"设置本地domain:"+domain);
         Constants.setOnlineSite(domain);
 
-
-        disposable = Observable.create(new ObservableOnSubscribe<String>() {
+        Observable.create(new ObservableOnSubscribe<String>() {
 
             @Override
             public void subscribe(ObservableEmitter<String> emitter) {
@@ -558,11 +557,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
             }
-        })
-        .subscribeOn(Schedulers.io())
-        .subscribe(new Consumer<String>() {
+        }).subscribe(new Observer<String>() {
+
+            private Disposable disposable;
+
             @Override
-            public void accept(String domain) throws Exception {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onNext(String domain) {
                 try {
                     LOG.I(TAG,"获取到的domain:"+domain);
                     ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_DOMAIN, domain, true);
@@ -570,6 +575,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } catch (InvalidClassException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                disposable.dispose();
+            }
+
+            @Override
+            public void onComplete() {
+                disposable.dispose();
             }
         });
 
