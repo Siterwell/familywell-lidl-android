@@ -28,8 +28,8 @@ android {
         applicationId "com.cosa.elro"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1108
-        versionName "1.108"
+        versionCode 1109
+        versionName "1.109"
 
         manifestPlaceholders = [
                 GETUI_APP_ID    : "Z4oQtHjgSIAF9Jxs2Ggy83",
