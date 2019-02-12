@@ -557,7 +557,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
             }
-        }).subscribe(new Observer<String>() {
+        }).subscribeOn(Schedulers.io())
+                .subscribe(new Observer<String>() {
 
             private Disposable disposable;
 
