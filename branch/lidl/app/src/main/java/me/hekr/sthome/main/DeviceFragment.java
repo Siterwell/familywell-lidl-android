@@ -124,14 +124,6 @@ public class DeviceFragment extends Fragment {
     private LinearLayout top_lay;
     private EquipmentBean deleteBean;
 
-    public DeviceFragment()
-    {
-        super();
-
-    }
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -209,20 +201,20 @@ public class DeviceFragment extends Fragment {
 
         ED = new EquipDAO(this.getActivity());
         shortcutDAO = new ShortcutDAO(this.getActivity());
-        top_lay = (LinearLayout)view.findViewById(R.id.eq_option);
-        mFrame = (RelativeLayout) view.findViewById(R.id.frame);
-        lay_empty =(RelativeLayout)view.findViewById(R.id.empty);
-        repalce_tabview = (CCPTabView)view.findViewById(R.id.tihuan);
-        delete_tabview  = (CCPTabView)view.findViewById(R.id.shanchu);
+        top_lay = view.findViewById(R.id.eq_option);
+        mFrame =  view.findViewById(R.id.frame);
+        lay_empty = view.findViewById(R.id.empty);
+        repalce_tabview = view.findViewById(R.id.tihuan);
+        delete_tabview  = view.findViewById(R.id.shanchu);
         repalce_tabview.setText(R.string.replace_equipment);
         repalce_tabview.setComP(R.mipmap.rep_eq);
         delete_tabview.setText(R.string.delete_equipment);
         delete_tabview.setComP(R.mipmap.del_eq);
         top_lay.setVisibility(View.GONE);
-        scrollView = (LinearLayout) view.findViewById(R.id.container);
-        mContainer = (RelativeLayout) view.findViewById(R.id.springboard_container);
-        mTouchController = (RelativeLayout) view.findViewById(R.id.touchController);
-        myScrollView = (MyScrollView)view.findViewById(R.id.myscrollView);
+        scrollView =  view.findViewById(R.id.container);
+        mContainer =  view.findViewById(R.id.springboard_container);
+        mTouchController =  view.findViewById(R.id.touchController);
+        myScrollView = view.findViewById(R.id.myscrollView);
         mTouchController.setOnTouchListener(scrollContainer_OnTouch);
         lc = new LayoutCalculator(this.getActivity());
         pp = new ObjectPool(this.getActivity(), lc);
@@ -1166,23 +1158,11 @@ public class DeviceFragment extends Fragment {
         public void onAppClick(EquipmentBean device) {
 
             if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {      //menci
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), DoorDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), DoorDetailActivity.class);
             }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(device.getEquipmentDesc()))){   //chazuo
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), SocketDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), SocketDetailActivity.class);
             }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //pir
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), PirDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), PirDetailActivity.class);
             }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //sos
                 Intent detail = new Intent(DeviceFragment.this.getActivity(), SosDetailActivity.class);
                 //Bundle bundle = new Bundle();
@@ -1190,109 +1170,48 @@ public class DeviceFragment extends Fragment {
                 detail.putExtra("device",device);
                 startActivity(detail);
             }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //sm
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), SmDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), SmDetailActivity.class);
             }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //co
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), CoDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), CoDetailActivity.class);
             }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //co
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), GasDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), GasDetailActivity.class);
             }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //water
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), WaterDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), WaterDetailActivity.class);
             }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //temprature and hib
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), THCheckDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), THCheckDetailActivity.class);
             }else if(NameSolve.LAMP.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //lamp
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), LampDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), LampDetailActivity.class);
             }else if(NameSolve.GUARD.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), GuardDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), GuardDetailActivity.class);
             }else if(NameSolve.VALVE.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ValveDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ValveDetailActivity.class);
             }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ButtonDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ButtonDetailActivity.class);
             }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), CurtainDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), CurtainDetailActivity.class);
             }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), CxSmDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), CxSmDetailActivity.class);
             }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ThermalDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ThermalDetailActivity.class);
             }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ModeButtonDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ModeButtonDetailActivity.class);
             }else if(NameSolve.LOCK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), LockDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), LockDetailActivity.class);
             }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), Channel2SocketDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), Channel2SocketDetailActivity.class);
             }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), TempControlDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), TempControlDetailActivity.class);
             }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), DimmingModuleDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), DimmingModuleDetailActivity.class);
             }
+        }
 
+        private void startDetailActivity(EquipmentBean device, Context context, Class<?> cls) {
+            Intent detail = new Intent(context, cls);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("device", device);
+            detail.putExtras(bundle);
+            startActivity(detail);
         }
 
         @Override
@@ -1457,209 +1376,219 @@ public class DeviceFragment extends Fragment {
             }
         };
 
-        public boolean onTouchFolder(View v, final MotionEvent ev) {
+        boolean onTouchFolder(View v, final MotionEvent ev) {
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    try {
-                        touchon = true;
-                        if (mover.isMoving()) {
-                            return false;
-                        }
-                        x = ev.getX();
-                        y = ev.getY();
-                        isDrag = false;
-                        oldHitTest2.index = -1;
-                        oldHitTest2.inIcon = false;
-                        folderScrollView = mFolderView.getScrollView();
-                        mover.setAboveFolder(false);
-                        scrollPointY = folderScrollView.getScrollY();
-                        currentPage = getPage(true);
-                        if (x < mFolderView.getTranslateLeft() || y < mFolderView.getTranslateTop()
-                                || x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
-                                || y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
-                            closeFolder();
-                        }
-                        isDesktopActionDown = false;
-                        isFolderActionDown = true;
-                        if (currentPage != null) {
-                            currentPage.hitTest3((int) x - mFolderView.getTranslateLeft(),
-                                    (int) y - mFolderView.getTranslateTop() + scrollPointY, hitTest3);
-                            if (hitTest3.index >= 0) {
-                                currentPage.select(hitTest3.index);
-                                ApplicationInfo info = currentPage.getIcon(hitTest3.index);
-                                if (info != null) {
-                                            if (startDragWaiter == null) {
-                                                startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
-                                            }
-                                }
-                            }
-
-                        }
-                    }catch (Exception e){
-
-                    }
-
-
-                    return true;
+                    return actionDownFolder(ev);
                 case MotionEvent.ACTION_MOVE:
-
-                    if (!isFolderActionDown) {
-                        folderScrollView = mFolderView.getScrollView();
-                        x = ev.getX();
-                        y = ev.getY();
-                        mover.setAboveFolder(false);
-                        scrollPointY = folderScrollView.getScrollY();
-                        currentPage = getPage(true);
-                        isFolderActionDown = true;
-                        isDesktopActionDown = false;
-                    }
-                        if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
-                            if (currentPage != null) {
-                                if (isDrag) {
-                                    detachIcon(currentPage,currentPage.getSelectedIndex(), true);
-                                }
-                            }
-                        } else {
-                            if (currentPage != null) {
-                                currentPage.deselect();
-                            }
-                            if (startDragWaiter != null) {
-                                startDragWaiter.cancel();
-                                startDragWaiter = null;
-                            }
-                            hitTest3.buttonRemove = false;
-                        }
-                        if (mover.isMoving()) {
-                            Point point = new Point((int) ev.getX(), (int) ev.getY());
-                            mover.moveTo(point.x, point.y);
-                            mFolderView.invalidate(mover.getBounds());
-                            if (currentPage != null) {
-                                if (point.x < mFolderView.getTranslateLeft() || point.y < mFolderView.getTranslateTop()
-                                        || point.x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
-                                        || point.y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
-                                    if (moveToDesktopWaiter == null) {
-                                        moveToDesktopWaiter = new CancellableQueueTimer(handler,
-                                                ViewConfiguration.getLongPressTimeout(), moveToDesktopDetacher);
-                                    }
-                                } else {
-                                    if (moveToDesktopWaiter != null) {
-                                        moveToDesktopWaiter.cancel();
-                                        moveToDesktopWaiter = null;
-                                    }
-                                }
-
-
-                                if (point.y - mFolderView.getTranslateTop() < folderScrollView.getHeight() / 3) {
-                                    folderScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    scrollPointY = folderScrollView.getScrollY();
-                                }
-                                if (point.y - mFolderView.getTranslateTop() > folderScrollView.getHeight() * 2 / 3) {
-                                    mFolderView.getScrollView().scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    scrollPointY = folderScrollView.getScrollY();
-                                }
-
-
-                                int position = currentPage.hitTest2(point.x - mFolderView.getTranslateLeft(), point.y
-                                        - mFolderView.getTranslateTop() + scrollPointY, hitTest2, false);
-                                if (position == 0) {
-                                    if (hitTest2.index >= 0 && point.x >= mFolderView.getTranslateLeft() && point.y >= mFolderView.getTranslateTop()
-                                            && point.x <= folderScrollView.getWidth() + mFolderView.getTranslateLeft()
-                                            && point.y <= folderScrollView.getHeight() + mFolderView.getTranslateTop() ) {
-                                        if (oldHitTest2.index != hitTest2.index || oldHitTest2.inIcon != hitTest2.inIcon) {
-                                            oldHitTest2.index = hitTest2.index;
-                                            oldHitTest2.inIcon = hitTest2.inIcon;
-                                            if (moveIconWaiter != null) {
-                                                moveIconWaiter.cancel();
-                                                moveIconWaiter = null;
-                                            }
-                                            moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
-                                        }
-                                    }
-                                } else {
-                                    if (moveIconWaiter != null) {
-                                        moveIconWaiter.cancel();
-                                        moveIconWaiter = null;
-                                    }
-                                    if (mover.isAboveFolder()) {
-                                        mover.bisideFolder();
-                                        mover.setIndex(mover.getsIndex());
-                                        currentPage.removeFolderBound();
-                                        if (moveIntoFolderWaiter != null) {
-                                            moveIntoFolderWaiter.cancel();
-                                            moveIntoFolderWaiter = null;
-                                        }
-                                    }
-                                }
-
-                            }
-                            return true;
-                        } else {
-                            folderScrollView.scrollTo(0, (int) (scrollPointY - (ev.getY() - y)));
-                        }
-                    break;
+                    return actionMoveFolder(ev);
                 case MotionEvent.ACTION_CANCEL:
                     currentPage.deselect();
                 case MotionEvent.ACTION_UP:
-                    isDesktopActionDown = false;
-                    isFolderActionDown = false;
-                    if (jiggleModeWaiter != null) {
-                        jiggleModeWaiter.cancel();
-                        jiggleModeWaiter = null;
+                    return actionUpFolder(ev);
+            }
+            return false;
+
+        }
+
+        private boolean actionDownFolder(final MotionEvent ev) {
+            try {
+                touchon = true;
+                if (mover.isMoving()) {
+                    return false;
+                }
+                x = ev.getX();
+                y = ev.getY();
+                isDrag = false;
+                oldHitTest2.index = -1;
+                oldHitTest2.inIcon = false;
+                folderScrollView = mFolderView.getScrollView();
+                mover.setAboveFolder(false);
+                scrollPointY = folderScrollView.getScrollY();
+                currentPage = getPage(true);
+                if (x < mFolderView.getTranslateLeft() || y < mFolderView.getTranslateTop()
+                        || x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
+                        || y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
+                    closeFolder();
+                }
+                isDesktopActionDown = false;
+                isFolderActionDown = true;
+                if (currentPage != null) {
+                    currentPage.hitTest3((int) x - mFolderView.getTranslateLeft(),
+                            (int) y - mFolderView.getTranslateTop() + scrollPointY, hitTest3);
+                    if (hitTest3.index >= 0) {
+                        currentPage.select(hitTest3.index);
+                        ApplicationInfo info = currentPage.getIcon(hitTest3.index);
+                        if (info != null) {
+                            if (startDragWaiter == null) {
+                                startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
+                            }
+                        }
                     }
 
-                    if (startDragWaiter != null) {
-                        startDragWaiter.cancel();
-                        startDragWaiter = null;
+                }
+            }catch (Exception e){
+
+            }
+
+            return true;
+        }
+
+        private boolean actionMoveFolder(final MotionEvent ev) {
+            if (!isFolderActionDown) {
+                folderScrollView = mFolderView.getScrollView();
+                x = ev.getX();
+                y = ev.getY();
+                mover.setAboveFolder(false);
+                scrollPointY = folderScrollView.getScrollY();
+                currentPage = getPage(true);
+                isFolderActionDown = true;
+                isDesktopActionDown = false;
+            }
+            if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
+                if (currentPage != null) {
+                    if (isDrag) {
+                        detachIcon(currentPage,currentPage.getSelectedIndex(), true);
                     }
-                    if (moveToDesktopWaiter != null) {
-                        moveToDesktopWaiter.cancel();
-                        moveToDesktopWaiter = null;
+                }
+            } else {
+                if (currentPage != null) {
+                    currentPage.deselect();
+                }
+                if (startDragWaiter != null) {
+                    startDragWaiter.cancel();
+                    startDragWaiter = null;
+                }
+                hitTest3.buttonRemove = false;
+            }
+            if (mover.isMoving()) {
+                Point point = new Point((int) ev.getX(), (int) ev.getY());
+                mover.moveTo(point.x, point.y);
+                mFolderView.invalidate(mover.getBounds());
+                if (currentPage != null) {
+                    if (point.x < mFolderView.getTranslateLeft() || point.y < mFolderView.getTranslateTop()
+                            || point.x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
+                            || point.y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
+                        if (moveToDesktopWaiter == null) {
+                            moveToDesktopWaiter = new CancellableQueueTimer(handler,
+                                    ViewConfiguration.getLongPressTimeout(), moveToDesktopDetacher);
+                        }
+                    } else {
+                        if (moveToDesktopWaiter != null) {
+                            moveToDesktopWaiter.cancel();
+                            moveToDesktopWaiter = null;
+                        }
                     }
-                    final IPageView currentPage = getPage(true);
-                    if (currentPage != null) {
-                        final int select = currentPage.getSelectedIndex();
-                        if (select >= 0) {
-                            ApplicationInfo info = currentPage.getSelectedApp();
-                            if (info != null) {
+
+
+                    if (point.y - mFolderView.getTranslateTop() < folderScrollView.getHeight() / 3) {
+                        folderScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        scrollPointY = folderScrollView.getScrollY();
+                    }
+                    if (point.y - mFolderView.getTranslateTop() > folderScrollView.getHeight() * 2 / 3) {
+                        mFolderView.getScrollView().scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        scrollPointY = folderScrollView.getScrollY();
+                    }
+
+
+                    int position = currentPage.hitTest2(point.x - mFolderView.getTranslateLeft(), point.y
+                            - mFolderView.getTranslateTop() + scrollPointY, hitTest2, false);
+                    if (position == 0) {
+                        if (hitTest2.index >= 0 && point.x >= mFolderView.getTranslateLeft() && point.y >= mFolderView.getTranslateTop()
+                                && point.x <= folderScrollView.getWidth() + mFolderView.getTranslateLeft()
+                                && point.y <= folderScrollView.getHeight() + mFolderView.getTranslateTop() ) {
+                            if (oldHitTest2.index != hitTest2.index || oldHitTest2.inIcon != hitTest2.inIcon) {
+                                oldHitTest2.index = hitTest2.index;
+                                oldHitTest2.inIcon = hitTest2.inIcon;
+                                if (moveIconWaiter != null) {
+                                    moveIconWaiter.cancel();
+                                    moveIconWaiter = null;
+                                }
+                                moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
+                            }
+                        }
+                    } else {
+                        if (moveIconWaiter != null) {
+                            moveIconWaiter.cancel();
+                            moveIconWaiter = null;
+                        }
+                        if (mover.isAboveFolder()) {
+                            mover.bisideFolder();
+                            mover.setIndex(mover.getsIndex());
+                            currentPage.removeFolderBound();
+                            if (moveIntoFolderWaiter != null) {
+                                moveIntoFolderWaiter.cancel();
+                                moveIntoFolderWaiter = null;
+                            }
+                        }
+                    }
+
+                }
+                return true;
+            } else {
+                folderScrollView.scrollTo(0, (int) (scrollPointY - (ev.getY() - y)));
+                return false;
+            }
+        }
+
+        private boolean actionUpFolder(final MotionEvent ev) {
+            isDesktopActionDown = false;
+            isFolderActionDown = false;
+            if (jiggleModeWaiter != null) {
+                jiggleModeWaiter.cancel();
+                jiggleModeWaiter = null;
+            }
+
+            if (startDragWaiter != null) {
+                startDragWaiter.cancel();
+                startDragWaiter = null;
+            }
+            if (moveToDesktopWaiter != null) {
+                moveToDesktopWaiter.cancel();
+                moveToDesktopWaiter = null;
+            }
+            final IPageView currentPage = getPage(true);
+            if (currentPage != null) {
+                final int select = currentPage.getSelectedIndex();
+                if (select >= 0) {
+                    ApplicationInfo info = currentPage.getSelectedApp();
+                    if (info != null) {
 //                                if (!mFolderView.isJiggling()) {
-                                    EquipmentBean bean = new EquipmentBean();
-                                    bean.setEqid(info.getEqid());
-                                    bean.setState(info.getState());
-                                    bean.setEquipmentName(info.getEquipmentName());
-                                    bean.setEquipmentDesc(info.getEquipmentDesc());
-                                    bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
-                                    controller.onAppClick(bean);
+                        EquipmentBean bean = new EquipmentBean();
+                        bean.setEqid(info.getEqid());
+                        bean.setState(info.getState());
+                        bean.setEquipmentName(info.getEquipmentName());
+                        bean.setEquipmentDesc(info.getEquipmentDesc());
+                        bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
+                        controller.onAppClick(bean);
 //                                } else {
 //                                    if (hitTest3.buttonRemove) {
 //                                        //currentPage.removeApp(hitTest3.index);
 //                                        controller.onAppRemove(info);
 //                                    }
 //                                }
-                            }
-                        }
-                        currentPage.deselect();
                     }
-                    if (mover.isMoving()) {
-                        final IPageView p = getPage(true);
-                        Point point = p.getIconLocation(mover.getIndex());
-                        final ApplicationInfo app = mover.hook();
-                        mover.stopMoving(point.x + mFolderView.getTranslateLeft(), point.y + mFolderView.getTranslateTop()
-                                - scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
-                            @Override
-                            public void movingStopped(ApplicationInfo appInfo) {
-                                p.clearUp(app);
-                                setPagerView.setdrag(true);
-                                ((FolderContentView)p).invalidate();
-                                touchon = false;
-                            }
-                        });
-                    }else {
+                }
+                currentPage.deselect();
+            }
+            if (mover.isMoving()) {
+                final IPageView p = getPage(true);
+                Point point = p.getIconLocation(mover.getIndex());
+                final ApplicationInfo app = mover.hook();
+                mover.stopMoving(point.x + mFolderView.getTranslateLeft(), point.y + mFolderView.getTranslateTop()
+                        - scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
+                    @Override
+                    public void movingStopped(ApplicationInfo appInfo) {
+                        p.clearUp(app);
+                        setPagerView.setdrag(true);
+                        ((FolderContentView)p).invalidate();
                         touchon = false;
                     }
-                    return true;
+                });
+            }else {
+                touchon = false;
             }
-            return false;
-
+            return true;
         }
 
         @Override
@@ -1672,167 +1601,165 @@ public class DeviceFragment extends Fragment {
             }
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    touchon = true;
-                    if (mover.isMoving()) {
-                        return false;
-                    }
-                    isDrag = false;
-                    oldHitTest2.index = -1;
-                    oldHitTest2.inIcon = false;
-                    mover.setAboveFolder(false);
-                    x = ev.getX();
-                    y = ev.getY();
-                    out_scrollPointY = myScrollView.getScrollY();
-                    currentPage = getPage(false);
-                    isDesktopActionDown = true;
-                    isFolderActionDown = false;
-                    if (currentPage != null) {
-                        currentPage.hitTest3((int) x, (int) y+out_scrollPointY, hitTest3);
-                        if (hitTest3.index >= 0) {
-                            currentPage.select(hitTest3.index);
-                            ApplicationInfo info = currentPage.getIcon(hitTest3.index);
-                            if (info != null) {
-                                        if (startDragWaiter == null) {
-                                            startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
-                                        }
-                                    hitTest3.buttonRemove = false;
-                            }
-                        }
-
-                    }
-                    return true;
+                    return actionDownDevice(ev);
                 case MotionEvent.ACTION_MOVE:
-                    currentPage = getPage(false);
-                    if (!isDesktopActionDown) {
-                        x = ev.getX();
-                        y = ev.getY();
-                        out_scrollPointY = myScrollView.getScrollY();
-                        isFolderActionDown = false;
-                        isDesktopActionDown = true;
-                    }
- //                   if (jma.isJiggling()) {
-                        if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
-                            if (currentPage != null) {
-                                if (isDrag) {
-                                    detachIcon(currentPage,currentPage.getSelectedIndex(), false);
-                                }
-                            }
-                        } else {
-                            if (currentPage != null) {
-                                currentPage.deselect();
-                            }
-                            if (startDragWaiter != null) {
-                                startDragWaiter.cancel();
-                                startDragWaiter = null;
-                            }
-                            hitTest3.buttonRemove = false;
-                        }
-                        if (mover.isMoving()) {
-                            Point point = new Point((int) ev.getX(), (int) ev.getY());
-                            mover.moveTo(point.x, point.y);
-                            mFrame.invalidate(mover.getBounds());
-                            if (currentPage != null) {
-
-                                if (point.y  < myScrollView.getHeight() / 3) {
-                                    myScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    out_scrollPointY = myScrollView.getScrollY();
-                                }
-                                if (point.y  > myScrollView.getHeight() * 2 / 3) {
-                                    myScrollView.scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    out_scrollPointY = myScrollView.getScrollY();
-                                }
-
-
-                                int position = currentPage.hitTest2(point.x, point.y+ out_scrollPointY, hitTest2,
-                                        mover.hook().getType() == ItemInfo.TYPE_FOLDER);
-                                if (position == -1) {
-                                    return true;
-                                } else if (position == 1) {
-                                    return true;
-                                } else if (position == 0) {
-                                    if (hitTest2.index >= 0) {
-                                        if (oldHitTest2.index != hitTest2.index
-                                                || oldHitTest2.inIcon != hitTest2.inIcon) {
-                                            oldHitTest2.index = hitTest2.index;
-                                            oldHitTest2.inIcon = hitTest2.inIcon;
-                                            if (moveIconWaiter != null) {
-                                                moveIconWaiter.cancel();
-                                                moveIconWaiter = null;
-                                            }
-                                            moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
-                                        }
-                                    }
-                                } else {
-                                    if (moveIconWaiter != null) {
-                                        moveIconWaiter.cancel();
-                                        moveIconWaiter = null;
-                                    }
-                                    if (mover.isAboveFolder()) {
-                                        mover.bisideFolder();
-                                        mover.setIndex(mover.getsIndex());
-                                        currentPage.removeFolderBound();
-                                        if (moveIntoFolderWaiter != null) {
-                                            moveIntoFolderWaiter.cancel();
-                                            moveIntoFolderWaiter = null;
-                                        }
-                                    }
-                                }
-                            }
-                            return true;
-                        } else {
-                            myScrollView.scrollTo(0, (int) (out_scrollPointY - (ev.getY() - y)));
-                        }
-//                    } else {
-//                        myScrollView.scrollTo(0, (int) (out_scrollPointY - (ev.getY() - y)));
-//                        if (getDistance(ev.getX(), ev.getY(), x, y) > touchSlop) {
-//                            if (jiggleModeWaiter != null) {
-//                                jiggleModeWaiter.cancel();
-//                                jiggleModeWaiter = null;
-//                            }
-//                            if (currentPage != null) {
-//                                if (currentPage.getSelectedIndex() >= 0) {
-//                                    currentPage.deselect();
-//                                }
-//                            }
-//                        }
-//
-//                    }
-
-                    break;
+                    return actionMoveDevice(ev);
                 case MotionEvent.ACTION_CANCEL:
                     if (currentPage != null) {
                         currentPage.deselect();
                     }
                 case MotionEvent.ACTION_UP:
-                    if (jiggleModeWaiter != null) {
-                        jiggleModeWaiter.cancel();
-                        jiggleModeWaiter = null;
+                    return actionUpDevice(ev);
+            }
+            return false;
+        }
+
+        private boolean actionDownDevice(final MotionEvent ev) {
+            touchon = true;
+            if (mover.isMoving()) {
+                return false;
+            }
+            isDrag = false;
+            oldHitTest2.index = -1;
+            oldHitTest2.inIcon = false;
+            mover.setAboveFolder(false);
+            x = ev.getX();
+            y = ev.getY();
+            out_scrollPointY = myScrollView.getScrollY();
+            currentPage = getPage(false);
+            isDesktopActionDown = true;
+            isFolderActionDown = false;
+            if (currentPage != null) {
+                currentPage.hitTest3((int) x, (int) y+out_scrollPointY, hitTest3);
+                if (hitTest3.index >= 0) {
+                    currentPage.select(hitTest3.index);
+                    ApplicationInfo info = currentPage.getIcon(hitTest3.index);
+                    if (info != null) {
+                        if (startDragWaiter == null) {
+                            startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
+                        }
+                        hitTest3.buttonRemove = false;
                     }
-                    if (startDragWaiter != null) {
-                        startDragWaiter.cancel();
-                        startDragWaiter = null;
+                }
+
+            }
+            return true;
+        }
+
+        private boolean actionMoveDevice(final MotionEvent ev) {
+            currentPage = getPage(false);
+            if (!isDesktopActionDown) {
+                x = ev.getX();
+                y = ev.getY();
+                out_scrollPointY = myScrollView.getScrollY();
+                isFolderActionDown = false;
+                isDesktopActionDown = true;
+            }
+            //                   if (jma.isJiggling()) {
+            if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
+                if (currentPage != null) {
+                    if (isDrag) {
+                        detachIcon(currentPage,currentPage.getSelectedIndex(), false);
                     }
-                    isDesktopActionDown = false;
-                    isFolderActionDown = false;
-                    final IPageView currentPage = getPage(false);
-                    if (currentPage != null) {
-                        final int select = currentPage.getSelectedIndex();
-                        if (select >= 0) {
-                            ApplicationInfo info = currentPage.getSelectedApp();
-                            if (info != null) {
+                }
+            } else {
+                if (currentPage != null) {
+                    currentPage.deselect();
+                }
+                if (startDragWaiter != null) {
+                    startDragWaiter.cancel();
+                    startDragWaiter = null;
+                }
+                hitTest3.buttonRemove = false;
+            }
+            if (mover.isMoving()) {
+                Point point = new Point((int) ev.getX(), (int) ev.getY());
+                mover.moveTo(point.x, point.y);
+                mFrame.invalidate(mover.getBounds());
+                if (currentPage != null) {
+
+                    if (point.y  < myScrollView.getHeight() / 3) {
+                        myScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        out_scrollPointY = myScrollView.getScrollY();
+                    }
+                    if (point.y  > myScrollView.getHeight() * 2 / 3) {
+                        myScrollView.scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        out_scrollPointY = myScrollView.getScrollY();
+                    }
+
+
+                    int position = currentPage.hitTest2(point.x, point.y+ out_scrollPointY, hitTest2,
+                            mover.hook().getType() == ItemInfo.TYPE_FOLDER);
+                    if (position == -1) {
+                        return true;
+                    } else if (position == 1) {
+                        return true;
+                    } else if (position == 0) {
+                        if (hitTest2.index >= 0) {
+                            if (oldHitTest2.index != hitTest2.index
+                                    || oldHitTest2.inIcon != hitTest2.inIcon) {
+                                oldHitTest2.index = hitTest2.index;
+                                oldHitTest2.inIcon = hitTest2.inIcon;
+                                if (moveIconWaiter != null) {
+                                    moveIconWaiter.cancel();
+                                    moveIconWaiter = null;
+                                }
+                                moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
+                            }
+                        }
+                    } else {
+                        if (moveIconWaiter != null) {
+                            moveIconWaiter.cancel();
+                            moveIconWaiter = null;
+                        }
+                        if (mover.isAboveFolder()) {
+                            mover.bisideFolder();
+                            mover.setIndex(mover.getsIndex());
+                            currentPage.removeFolderBound();
+                            if (moveIntoFolderWaiter != null) {
+                                moveIntoFolderWaiter.cancel();
+                                moveIntoFolderWaiter = null;
+                            }
+                        }
+                    }
+                }
+                return true;
+            } else {
+                myScrollView.scrollTo(0, (int) (out_scrollPointY - (ev.getY() - y)));
+                return false;
+            }
+        }
+
+        private boolean actionUpDevice(final MotionEvent ev) {
+            if (jiggleModeWaiter != null) {
+                jiggleModeWaiter.cancel();
+                jiggleModeWaiter = null;
+            }
+            if (startDragWaiter != null) {
+                startDragWaiter.cancel();
+                startDragWaiter = null;
+            }
+            isDesktopActionDown = false;
+            isFolderActionDown = false;
+            final IPageView currentPage = getPage(false);
+            if (currentPage != null) {
+                final int select = currentPage.getSelectedIndex();
+                if (select >= 0) {
+                    ApplicationInfo info = currentPage.getSelectedApp();
+                    if (info != null) {
 //                                if (!jma.isJiggling()) {
-                                    if (info.getType() == ItemInfo.TYPE_FOLDER) {
-                                        openFolderIndex = select;
-                                        openFolder((FolderInfo) info);
-                                    } else {
-                                        EquipmentBean bean = new EquipmentBean();
-                                        bean.setEqid(info.getEqid());
-                                        bean.setState(info.getState());
-                                        bean.setEquipmentName(info.getEquipmentName());
-                                        bean.setEquipmentDesc(info.getEquipmentDesc());
-                                        bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
-                                        controller.onAppClick(bean);
-                                    }
+                        if (info.getType() == ItemInfo.TYPE_FOLDER) {
+                            openFolderIndex = select;
+                            openFolder((FolderInfo) info);
+                        } else {
+                            EquipmentBean bean = new EquipmentBean();
+                            bean.setEqid(info.getEqid());
+                            bean.setState(info.getState());
+                            bean.setEquipmentName(info.getEquipmentName());
+                            bean.setEquipmentDesc(info.getEquipmentDesc());
+                            bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
+                            controller.onAppClick(bean);
+                        }
 //                                } else {
 //                                    if (hitTest3.buttonRemove&&info.getType()!=ItemInfo.TYPE_FOLDER) {
 //                                        //currentPage.removeApp(hitTest3.index);
@@ -1844,89 +1771,87 @@ public class DeviceFragment extends Fragment {
 //                                    }
 //                                }
 
-                            }
-                        }
-                        currentPage.deselect();
                     }
-                    if (mover.isMoving()) {
-                        final int lasty = (int)ev.getY();
-                        final IPageView p = getPage(false);
-                        if (p != null) {
-                            Point point = p.getIconLocation(mover.getIndex());
-                            final ApplicationInfo app = mover.hook();
-
-                            final int i = mover.getIndex();
-                            if (!mover.isAboveFolder()) {
-                                mover.stopMoving(point.x,
-                                        point.y-out_scrollPointY+(int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
-                                            @Override
-                                            public void movingStopped(ApplicationInfo appInfo) {
-                                                top_lay.setVisibility(View.GONE);
-                                                p.clearUp(app);
-                                                initContentLayout();
-                                                setPagerView.setdrag(true);
-                                                touchon = false;
-                                                if(lasty<0&&((int)ev.getX())>screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
-
-                                                    String ds = String.format(getResources().getString(R.string.want_to_delete_confirm_eq),app.getEquipmentName());
-
-                                                    ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                           deleteBean = app;
-                                                            SendCommand.Command = SendCommand.DELETE_EQUIPMENT;
-                                                            sed.deleteEquipment(app.getEqid());
-                                                        }
-                                                    });
-                                                    elc.show();
-
-
-                                                }else if(lasty<0&&((int)ev.getX())<screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
-
-                                                    String ds = String.format(getResources().getString(R.string.want_to_replace_confirm_eq),app.getEquipmentName());
-
-                                                    ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            SendCommand.Command  = SendCommand.REPLACE_EQUIPMENT;
-                                                            sed.replaceEquipment(app.getEqid());
-                                                            Intent intent =new Intent(DeviceFragment.this.getActivity(),AddDeviceActivity.class);
-                                                            Bundle bundle = new Bundle();
-                                                            bundle.putString("eqid",app.getEqid());
-                                                            intent.putExtras(bundle);
-                                                            startActivity(intent);
-                                                        }
-                                                    });
-                                                    elc.show();
-                                                }
-                                            }
-                                        });
-
-                            } else {
-                                mover.setAboveFolder(false);
-                                p.removeFolderBound();
-                                mover.moveIntoFolder(point.x,
-                                        point.y-out_scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
-                                            @Override
-                                            public void movingStopped(ApplicationInfo appInfo) {
-                                                LOG.I("ceshi","停止了");
-                                                top_lay.setVisibility(View.GONE);
-                                                p.addToFolder(i, app);
-                                                p.clearUp(null);
-                                                initContentLayout();
-                                                setPagerView.setdrag(true);
-                                                touchon = false;
-                                            }
-                                        });
-                            }
-                        }
-                    }else {
-                        touchon = false;
-                    }
-
-                    return true;
+                }
+                currentPage.deselect();
             }
-            return false;
+            if (mover.isMoving()) {
+                final int lasty = (int)ev.getY();
+                final IPageView p = getPage(false);
+                if (p != null) {
+                    Point point = p.getIconLocation(mover.getIndex());
+                    final ApplicationInfo app = mover.hook();
+
+                    final int i = mover.getIndex();
+                    if (!mover.isAboveFolder()) {
+                        mover.stopMoving(point.x,
+                                point.y-out_scrollPointY+(int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
+                                    @Override
+                                    public void movingStopped(ApplicationInfo appInfo) {
+                                        top_lay.setVisibility(View.GONE);
+                                        p.clearUp(app);
+                                        initContentLayout();
+                                        setPagerView.setdrag(true);
+                                        touchon = false;
+                                        if(lasty<0&&((int)ev.getX())>screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
+
+                                            String ds = String.format(getResources().getString(R.string.want_to_delete_confirm_eq),app.getEquipmentName());
+
+                                            ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    deleteBean = app;
+                                                    SendCommand.Command = SendCommand.DELETE_EQUIPMENT;
+                                                    sed.deleteEquipment(app.getEqid());
+                                                }
+                                            });
+                                            elc.show();
+
+
+                                        }else if(lasty<0&&((int)ev.getX())<screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
+
+                                            String ds = String.format(getResources().getString(R.string.want_to_replace_confirm_eq),app.getEquipmentName());
+
+                                            ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    SendCommand.Command  = SendCommand.REPLACE_EQUIPMENT;
+                                                    sed.replaceEquipment(app.getEqid());
+                                                    Intent intent =new Intent(DeviceFragment.this.getActivity(),AddDeviceActivity.class);
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putString("eqid",app.getEqid());
+                                                    intent.putExtras(bundle);
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                            elc.show();
+                                        }
+                                    }
+                                });
+
+                    } else {
+                        mover.setAboveFolder(false);
+                        p.removeFolderBound();
+                        mover.moveIntoFolder(point.x,
+                                point.y-out_scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
+                                    @Override
+                                    public void movingStopped(ApplicationInfo appInfo) {
+                                        LOG.I("ceshi","停止了");
+                                        top_lay.setVisibility(View.GONE);
+                                        p.addToFolder(i, app);
+                                        p.clearUp(null);
+                                        initContentLayout();
+                                        setPagerView.setdrag(true);
+                                        touchon = false;
+                                    }
+                                });
+                    }
+                }
+            }else {
+                touchon = false;
+            }
+
+            return true;
         }
 
         private void detachIcon(IPageView page, int index, boolean isFolder) {
