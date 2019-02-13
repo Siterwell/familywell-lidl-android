@@ -252,9 +252,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
     }
 
     public boolean isAlarmListOpened(){
-
-        return drawer.isOpened();
-
+        return (drawer != null && drawer.isOpened());
     }
 
     @Override
