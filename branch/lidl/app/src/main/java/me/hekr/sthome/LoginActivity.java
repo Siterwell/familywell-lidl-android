@@ -70,8 +70,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CodeEdit codeEdit;
     private String phone, pwd;
     private Toastor toastor;
-    private Button btn_login;
-    private TextView rem_text;
     private ImageView rem_img;
     private ImageView logo_img;
     private boolean isauto;
@@ -165,8 +163,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     showLogButton.setVisibility(View.GONE);
                 }
 
-
-
             } catch (JSONException e) {
                 LOG.I("ceshi","string is null");
             }
@@ -176,7 +172,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean isAutologin(){
-
         SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
         ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_REMEMBER_PASSWORD;
         boolean autoflag = sharedPreferences.getBoolean(flag.getId(), (boolean) flag.getDefaultValue());
@@ -184,23 +179,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-
-        root     = (RelativeLayout)findViewById(R.id.root);
-        logo_img = (ImageView)findViewById(R.id.imageView1);
-        et_phone = (EditText) findViewById(R.id.et_phone);
-        codeEdit = (CodeEdit) findViewById(R.id.codeedit);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        rem_text = (TextView)findViewById(R.id.rem_text);
-        rem_img =(ImageView)findViewById(R.id.save_password);
-        showLogButton = (ImageButton)findViewById(R.id.arrow);
-        userLayout  = (RelativeLayout)findViewById(R.id.liner_phone);
+        root = findViewById(R.id.root);
+        et_phone =  findViewById(R.id.et_phone);
+        codeEdit =  findViewById(R.id.codeedit);
+        rem_img = findViewById(R.id.save_password);
+        showLogButton = findViewById(R.id.arrow);
+        userLayout  = findViewById(R.id.liner_phone);
         showLogButton.setOnClickListener(this);
+
+        ImageView logo_img = findViewById(R.id.imageView1);
         logo_img.setImageResource(R.drawable.login_logo);
 //        btn_qq = (Button) findViewById(R.id.btn_qq);
 //        btn_wechat = (Button) findViewById(R.id.btn_wechat);
 //        btn_weibo = (Button) findViewById(R.id.btn_weibo);
 
-        rem_text.setOnClickListener(this);
+        findViewById(R.id.rem_text).setOnClickListener(this);
         rem_img.setOnClickListener(this);
         if(isauto){
             rem_img.setImageResource(R.drawable.save_pass_1);
@@ -211,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (isauto) {
             codeEdit.getCodeEdit().setText(pwd);
         }
-        btn_login.setOnClickListener(this);
+        findViewById(R.id.btn_login).setOnClickListener(this);
 //        btn_wechat.setOnClickListener(this);
 //        btn_weibo.setOnClickListener(this);
 //        btn_qq.setOnClickListener(this);
@@ -373,8 +366,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(!TextUtils.isEmpty(psw)){
                 codeEdit.getCodeEdit().setText(psw);
             }
-
-
         }
 
     }
@@ -407,8 +398,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(LoginActivity.this, InitActivity.class));
             finish();
         }
-
-
     }
 
     private void showPopUp(View v) {
@@ -479,26 +468,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     userlist.add(bean);
                 }
 
-                   if(array.length()>=0&&array.length()<5){
-                       if(!flag_repeat){
-                           LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
-                           bean.setUsername(username);
-                           bean.setPwd(pwd);
-                           userlist.add(0,bean);
-                       }
-
-                   }
-                else{
-                       if(!flag_repeat) {
-                           LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
-                           bean.setUsername(username);
-                           bean.setPwd(pwd);
-                           userlist.add(0, bean);
-                           userlist.remove(userlist.size() - 1);
-                       }
-                   }
-
-
+                if(array.length()>=0&&array.length()<5){
+                    if(!flag_repeat){
+                        LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
+                        bean.setUsername(username);
+                        bean.setPwd(pwd);
+                        userlist.add(0,bean);
+                    }
+                } else{
+                    if(!flag_repeat) {
+                        LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
+                        bean.setUsername(username);
+                        bean.setPwd(pwd);
+                        userlist.add(0, bean);
+                        userlist.remove(userlist.size() - 1);
+                    }
+                }
 
             } catch (JSONException e) {
                 LOG.I("ceshi","string is null");
@@ -558,7 +543,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         }).subscribeOn(Schedulers.io())
-                .subscribe(new Observer<String>() {
+        .subscribe(new Observer<String>() {
 
             private Disposable disposable;
 
