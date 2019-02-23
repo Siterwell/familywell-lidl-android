@@ -333,17 +333,17 @@ public class DeviceFragment extends Fragment {
                     if(equipment.getState()!=null&& equipment.getState().length() == 8){
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
                             }else{
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                             }
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
-                        }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
+                        }else if(EquipmentState.isDoorNotClosed(equipment)){
 //                    holder.s.setText("门已打开");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
                         }
@@ -379,7 +379,7 @@ public class DeviceFragment extends Fragment {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
                         String ddd = EquipmentState.getDevFirstState(equipment);
-                        if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("正常");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
@@ -387,13 +387,13 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                             }
 
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                        }else if("11".equals(EquipmentState.getDevFirstState(equipment))){
+                        }else if(EquipmentState.isBroken(equipment)){
 //                    holder.s.setText("故障");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                        }else if("A0".equals(EquipmentState.getDevFirstState(equipment))) {
+                        }else if(EquipmentState.isPirTeared(equipment)) {
 //                    holder.s.setText("拆除");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
                         }
@@ -404,7 +404,7 @@ public class DeviceFragment extends Fragment {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
                         String ddd = EquipmentState.getDevFirstState(equipment);
-                        if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
@@ -412,10 +412,10 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                             }
 
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
-                        }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
+                        }else if(EquipmentState.isDoorNotClosed(equipment)){
 //                    holder.s.setText("门已打开");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
                         }
@@ -425,12 +425,12 @@ public class DeviceFragment extends Fragment {
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isBroken(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        }else if("AA".equals(EquipmentState.getDevFirstState(equipment))){
+                        }else if(EquipmentState.isNormal(equipment)){
 //                    holder.s.setText("故障");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
@@ -438,11 +438,11 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }
 
-                        }else if("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                        }else if(EquipmentState.isTesting(equipment)) {
 //                    holder.s.setText("拆除");
 //                    holder.imageView.setImageResource(R.drawable.d1);
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        }else if("50".equals(EquipmentState.getDevFirstState(equipment))){
+                        }else if(EquipmentState.isMute(equipment)){
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                         }
                     }
@@ -450,23 +450,23 @@ public class DeviceFragment extends Fragment {
                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                        if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isBroken(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                             }else{
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                             }
-                        } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isMute(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
                         }
                     }
@@ -474,23 +474,23 @@ public class DeviceFragment extends Fragment {
                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                        if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isBroken(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                             }else{
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                             }
-                        } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isMute(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
                         }
                     }
@@ -509,7 +509,6 @@ public class DeviceFragment extends Fragment {
                             realT = "" + Integer.parseInt(temp2,2);
                         }
 
-
                         if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || realH > 100 || realH < 0){
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
                         }else{
@@ -521,7 +520,6 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
                             }
                         }
-
 
                     }
                 }else if(NameSolve.LAMP.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -538,10 +536,10 @@ public class DeviceFragment extends Fragment {
                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         String ddd = EquipmentState.getDevSecondState(equipment);
-                        if ("55".equals(ddd)) {
+                        if (EquipmentState.isTriggered(ddd)) {
 //                    holder.s.setText("闭合");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
-                        } else if ("AA".equals(ddd)) {
+                        } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         }
@@ -571,7 +569,7 @@ public class DeviceFragment extends Fragment {
                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                        if ("01".equals(EquipmentState.getDevFirstState(equipment)) || "AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if ("01".equals(EquipmentState.getDevFirstState(equipment)) || EquipmentState.isNormal(equipment)) {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                             }else{
@@ -593,7 +591,7 @@ public class DeviceFragment extends Fragment {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                         }else if ("1B".equals(ddd)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
-                        }else if("AA".equals(ddd)){
+                        }else if(EquipmentState.isNormal(ddd)){
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
                             if (EquipmentState.isLowBattery(quantity)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
@@ -609,19 +607,19 @@ public class DeviceFragment extends Fragment {
                 }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
-                        if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isBroken(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
-                        } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isMute(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                         }
                     }
@@ -629,23 +627,23 @@ public class DeviceFragment extends Fragment {
                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                        if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isBroken(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                             }else{
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                             }
-                        } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isMute(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
                         }
                     }
@@ -653,12 +651,12 @@ public class DeviceFragment extends Fragment {
                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                        if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                        if (EquipmentState.isBroken(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))
+                        } else if (EquipmentState.isNormal(equipment)
                                   || "01".equals(EquipmentState.getDevFirstState(equipment))
                                 || "02".equals(EquipmentState.getDevFirstState(equipment))
                                 || "04".equals(EquipmentState.getDevFirstState(equipment))
@@ -670,11 +668,11 @@ public class DeviceFragment extends Fragment {
                             }else{
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                             }
-                        } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                        } else if (EquipmentState.isMute(equipment)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
                         }
                     }
@@ -683,7 +681,7 @@ public class DeviceFragment extends Fragment {
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         String ds = EquipmentState.getDevFirstState(equipment);
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                        if ("AA".equals(ds) || "60".equals(ds) || "AB".equals(ds) || "55".equals(ds) || "56".equals(ds)) {
+                        if (EquipmentState.isNormal(ds) || "60".equals(ds) || "AB".equals(ds) || EquipmentState.isTriggered(ds) || "56".equals(ds)) {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                             }else{
@@ -718,8 +716,6 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
                             }
                         }
-
-
                     }
                 }
 
@@ -741,7 +737,7 @@ public class DeviceFragment extends Fragment {
                         if(EquipmentState.isEquipmentStateAvalible(equipment)){
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
@@ -749,7 +745,7 @@ public class DeviceFragment extends Fragment {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                                 }
 
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
                             }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
@@ -786,7 +782,7 @@ public class DeviceFragment extends Fragment {
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                            if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("正常");
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
@@ -794,13 +790,13 @@ public class DeviceFragment extends Fragment {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                                 }
 
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                            }else if("11".equals(EquipmentState.getDevFirstState(equipment))){
+                            }else if(EquipmentState.isBroken(equipment)){
 //                    holder.s.setText("故障");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                            }else if("A0".equals(EquipmentState.getDevFirstState(equipment))) {
+                            }else if(EquipmentState.isPirTeared(equipment)) {
 //                    holder.s.setText("拆除");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
                             }
@@ -810,7 +806,7 @@ public class DeviceFragment extends Fragment {
                         if(EquipmentState.isEquipmentStateAvalible(equipment)){
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
@@ -818,7 +814,7 @@ public class DeviceFragment extends Fragment {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                                 }
 
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
                             }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
@@ -831,12 +827,12 @@ public class DeviceFragment extends Fragment {
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isBroken(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            }else if("AA".equals(EquipmentState.getDevFirstState(equipment))){
+                            }else if(EquipmentState.isNormal(equipment)){
 //                    holder.s.setText("故障");
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
@@ -844,11 +840,11 @@ public class DeviceFragment extends Fragment {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                                 }
 
-                            }else if("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                            }else if(EquipmentState.isTesting(equipment)) {
 //                    holder.s.setText("拆除");
 //                    holder.imageView.setImageResource(R.drawable.d1);
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            }else if("50".equals(EquipmentState.getDevFirstState(equipment))){
+                            }else if(EquipmentState.isMute(equipment)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             }
                         }
@@ -856,23 +852,23 @@ public class DeviceFragment extends Fragment {
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                            if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isBroken(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                                 }else {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                                 }
-                            } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isMute(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
                             }
                         }
@@ -880,23 +876,23 @@ public class DeviceFragment extends Fragment {
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                            if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isBroken(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                                 }else {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                                 }
-                            } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isMute(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
                             }
                         }
@@ -942,10 +938,10 @@ public class DeviceFragment extends Fragment {
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             String ddd = EquipmentState.getDevSecondState(equipment);
-                            if ("55".equals(ddd)) {
+                            if (EquipmentState.isTriggered(ddd)) {
 //                    holder.s.setText("闭合");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
-                            } else if ("AA".equals(ddd)) {
+                            } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                             }
@@ -975,7 +971,7 @@ public class DeviceFragment extends Fragment {
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                            if ("01".equals(EquipmentState.getDevFirstState(equipment)) || "AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if ("01".equals(EquipmentState.getDevFirstState(equipment)) || EquipmentState.isNormal(equipment)) {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                                 }else {
@@ -1010,7 +1006,7 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }else if ("1B".equals(ddd)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
-                            }else if("AA".equals(ddd)){
+                            }else if(EquipmentState.isNormal(ddd)){
                                 int quantity = EquipmentState.getDevBatteryLevel(equipment);
                                 if (EquipmentState.isLowBattery(quantity)) {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
@@ -1027,19 +1023,19 @@ public class DeviceFragment extends Fragment {
                     }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
-                                if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isBroken(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
-                            } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isMute(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                             }
                         }
@@ -1047,19 +1043,19 @@ public class DeviceFragment extends Fragment {
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                            if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isBroken(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                                 }else {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                                 }
-                            } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isMute(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
                             }
                         }
@@ -1067,11 +1063,11 @@ public class DeviceFragment extends Fragment {
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                            if ("11".equals(EquipmentState.getDevFirstState(equipment))) {
+                            if (EquipmentState.isBroken(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("55".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("AA".equals(EquipmentState.getDevFirstState(equipment))
+                            } else if (EquipmentState.isNormal(equipment)
                                     || "01".equals(EquipmentState.getDevFirstState(equipment))
                                     || "02".equals(EquipmentState.getDevFirstState(equipment))
                                     || "04".equals(EquipmentState.getDevFirstState(equipment))
@@ -1082,9 +1078,9 @@ public class DeviceFragment extends Fragment {
                                 }else {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                                 }
-                            } else if ("BB".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("50".equals(EquipmentState.getDevFirstState(equipment))) {
+                            } else if (EquipmentState.isMute(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
                             }
                         }
@@ -1093,7 +1089,7 @@ public class DeviceFragment extends Fragment {
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             String ds = EquipmentState.getDevFirstState(equipment);
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                            if ("AA".equals(ds) || "60".equals(ds) || "AB".equals(ds) || "55".equals(ds) || "56".equals(ds)) {
+                            if (EquipmentState.isNormal(ds) || "60".equals(ds) || "AB".equals(ds) || EquipmentState.isTriggered(ds) || "56".equals(ds)) {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                                 }else{
