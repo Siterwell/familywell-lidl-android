@@ -236,7 +236,8 @@ public class ThermalDetailActivity extends AbstractDetailActivity {
             }
         });
         doStatusShow(device.getState());
-        showBattery();
+//        showBattery();
+        hideStatus();
     }
     private void updateName(String edit) {
         if( !device.getEquipmentName().equals(edit)){

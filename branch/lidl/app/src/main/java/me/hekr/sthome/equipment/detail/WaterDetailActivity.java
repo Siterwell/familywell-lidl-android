@@ -227,7 +227,8 @@ public class WaterDetailActivity extends AbstractDetailActivity {
             }
         });
         doStatusShow(device.getState());
-        showBattery();
+//        showBattery();
+        hideStatus();
     }
 
     private void updateName(String edit) {
