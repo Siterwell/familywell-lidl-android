@@ -262,7 +262,7 @@ public class DimmingModuleDetailActivity extends AppCompatActivity implements Vi
                     root.setBackgroundColor(getResources().getColor(R.color.device_warn));
                     showStatus.setText(getResources().getString(R.string.low_battery));
                 }else{
-                    root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                    root.setBackgroundColor(getResources().getColor(R.color.device_offine));
                     showStatus.setText(getResources().getString(R.string.normal));
                 }
 

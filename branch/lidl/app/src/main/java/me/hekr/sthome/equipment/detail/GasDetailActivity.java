@@ -291,8 +291,8 @@ public class GasDetailActivity extends AppCompatActivity {
                     showStatus.setTextColor(getResources().getColor(R.color.device_warn));
                     showStatus.setText( getResources().getString(R.string.low_battery));
                 }else{
-                    root.setBackgroundColor(getResources().getColor(R.color.device_normal));
-                    showStatus.setTextColor(getResources().getColor(R.color.device_normal));
+                    root.setBackgroundColor(getResources().getColor(R.color.device_offine));
+                    showStatus.setTextColor(getResources().getColor(R.color.device_offine));
                     showStatus.setText(getResources().getString(R.string.normal));
                 }
                 silence.setVisibility(View.GONE);
@@ -302,8 +302,8 @@ public class GasDetailActivity extends AppCompatActivity {
                 showStatus.setText(getResources().getString(R.string.test));
                 silence.setVisibility(View.GONE);
             }else if("50".equals(draw)){
-                root.setBackgroundColor(getResources().getColor(R.color.device_normal));
-                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
+                root.setBackgroundColor(getResources().getColor(R.color.device_offine));
+                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
                 showStatus.setText(getResources().getString(R.string.silence));
                 silence.setVisibility(View.GONE);
             }else {

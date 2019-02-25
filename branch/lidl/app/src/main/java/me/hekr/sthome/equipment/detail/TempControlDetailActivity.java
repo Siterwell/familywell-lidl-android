@@ -289,7 +289,7 @@ public class TempControlDetailActivity extends AppCompatActivity implements OnCl
 
     private void doStatusShow(String aaaa) {
         try {
-            root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+            root.setBackgroundColor(getResources().getColor(R.color.device_offine));
             String signal1 = aaaa.substring(0,2);
             String quantity1 = aaaa.substring(2,4);
             String status1 = aaaa.substring(4,6);

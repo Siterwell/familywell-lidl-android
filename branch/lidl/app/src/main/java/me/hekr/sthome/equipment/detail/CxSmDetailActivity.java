@@ -295,8 +295,8 @@ public class CxSmDetailActivity extends AppCompatActivity {
                     operation.setText(getResources().getString(R.string.cxalert6));
                     showStatus.setText(getResources().getString(R.string.low_battery));
                 }else{
-                    root.setBackgroundColor(getResources().getColor(R.color.device_normal));
-                    showStatus.setTextColor(getResources().getColor(R.color.device_normal));
+                    root.setBackgroundColor(getResources().getColor(R.color.devices_offline));
+                    showStatus.setTextColor(getResources().getColor(R.color.devices_offline));
                     operation.setText(getResources().getString(R.string.cxalert7));
                     showStatus.setText(getResources().getString(R.string.normal));
                 }
