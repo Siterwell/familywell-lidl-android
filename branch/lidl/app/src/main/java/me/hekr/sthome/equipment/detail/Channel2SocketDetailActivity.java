@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -40,7 +39,7 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/13.
  */
-public class Channel2SocketDetailActivity extends AppCompatActivity {
+public class Channel2SocketDetailActivity extends AbstractDetailActivity {
     private static final  int GETBACK_SUCCESS = 1;
     private static final int GETBACK_FAILED = 2;
     private MyInforHandler myInforHandler;

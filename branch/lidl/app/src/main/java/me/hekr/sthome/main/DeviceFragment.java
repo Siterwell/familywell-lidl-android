@@ -51,6 +51,7 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.CCPTabView;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.TopBarView;
+import me.hekr.sthome.equipment.EquipmentState;
 import me.hekr.sthome.equipment.detail.ButtonDetailActivity;
 import me.hekr.sthome.equipment.detail.Channel2SocketDetailActivity;
 import me.hekr.sthome.equipment.detail.CoDetailActivity;
@@ -323,182 +324,183 @@ public class DeviceFragment extends Fragment {
 
            List<ApplicationInfo> list = ED.findAllEqByNoPack(ConnectionPojo.getInstance().deviceTid);
 
-           LOG.D(TAG, "[RYAN] initData > list size = " + list.size());
+           int size = list.size();
+            for (int i = 0; i < size; i++) {
+                ApplicationInfo equipment = list.get(i);
 
-            for (int i = 0; i < list.size(); i++) {
-                if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {      //menci
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
-                    if(list.get(i).getState()!=null&& list.get(i).getState().length() == 8){
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+                if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {      //menci
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
+                    if(equipment.getState()!=null&& equipment.getState().length() == 8){
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                             }
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
-                        }else if("66".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                        }else if(EquipmentState.isDoorNotClosed(equipment)){
 //                    holder.s.setText("门已打开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
                         }
 
                     }
-                }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                         } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                         }
                     }
-                }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(4, 8);
+                }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = equipment.getState().substring(4, 8);
                         if ("0301".equals(ddd) || "0302".equals(ddd) || "0303".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
                         } else if ("0300".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
                         }
                     }
-                }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //pir
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+                }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //pir
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        String ddd = list.get(i).getState().substring(4, 6);
-                        if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                        String ddd = EquipmentState.getDevFirstState(equipment);
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("正常");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                             }
 
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                        }else if("11".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                        }else if(EquipmentState.isBroken(equipment)){
 //                    holder.s.setText("故障");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                        }else if("A0".equals(list.get(i).getState().substring(4,6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                        }else if(EquipmentState.isPirTeared(equipment)) {
 //                    holder.s.setText("拆除");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
                         }
                     }
-                }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //sod
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
-                    if(list.get(i).getState() != null && list.get(i).getState().length() == 8){
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+                }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sod
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
+                    if(EquipmentState.isEquipmentStateAvalible(equipment)){
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        String ddd = list.get(i).getState().substring(4, 6);
-                        if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                        String ddd = EquipmentState.getDevFirstState(equipment);
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
                             }else {
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                             }
 
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
-                        }else if("66".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                        }else if(EquipmentState.isDoorNotClosed(equipment)){
 //                    holder.s.setText("门已打开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
                         }
                     }
-                }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //sm
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+                }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        }else if("AA".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                        }else if(EquipmentState.isNormal(equipment)){
 //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }
 
-                        }else if("BB".equals(list.get(i).getState().substring(4,6))) {
+                        }else if(EquipmentState.isTesting(equipment)) {
 //                    holder.s.setText("拆除");
 //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        }else if("50".equals(list.get(i).getState().substring(4,6))){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                        }else if(EquipmentState.isMute(equipment)){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                         }
                     }
-                }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
                         }
                     }
-                }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
                         }
                     }
-                }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(2, 4);
-                        String temp = list.get(i).getState().substring(4,6);
+                }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = equipment.getState().substring(2, 4);
+                        String temp = EquipmentState.getDevFirstState(equipment);
                         String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
-                        String humidity = list.get(i).getState().substring(6,8);
+                        String humidity = EquipmentState.getDevSecondState(equipment);
                         int realH = Integer.parseInt(humidity,16);
                         String realT;
                         if (temp2.length()==8){
@@ -507,221 +509,217 @@ public class DeviceFragment extends Fragment {
                             realT = "" + Integer.parseInt(temp2,2);
                         }
 
-
                         if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || realH > 100 || realH < 0){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
                         }else{
 
                             int qqqq = Integer.parseInt(ddd,16);
                             if( qqqq <= 15 ){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
                             }
                         }
 
-
                     }
-                }else if(NameSolve.LAMP.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.LAMP.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if("38".equals(ddd)){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
                         }else{
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
                         }
                     }
-                }else if(NameSolve.GUARD.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
-                        if ("55".equals(ddd)) {
+                }else if(NameSolve.GUARD.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
+                        if (EquipmentState.isTriggered(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
-                        } else if ("AA".equals(ddd)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
+                        } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         }
                     }
-                }else if(NameSolve.VALVE.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.VALVE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
                         } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
                         }
                     }
-                }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if ( ddd!=null && !"".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
                         }
                     }
-                }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
+                }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
 //            holder.imageView.setImageResource(mImage[16]);
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("01".equals(list.get(i).getState().substring(4, 6)) || "AA".equals(list.get(i).getState().substring(4, 6))) {
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if ("01".equals(EquipmentState.getDevFirstState(equipment)) || EquipmentState.isNormal(equipment)) {
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
                             }
                         }
                     }
-                }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //sm
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
+                }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
 
-                        String ddd = list.get(i).getState().substring(4, 6);
+                        String ddd = EquipmentState.getDevFirstState(equipment);
                         if ("12".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                         } else if ("17".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                         } else if ("19".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                         }else if ("15".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                         }else if ("1B".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
-                        }else if("AA".equals(ddd)){
-                            int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4), 16);
-                            if (quantity <= 15) {
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                        }else if(EquipmentState.isNormal(ddd)){
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isLowBattery(quantity)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }
                         }else{
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                         }
                     }else {
-                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                     }
-                }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                         }
                     }
-                }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
                         }
                     }
-                }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))
-                                  || "01".equals(list.get(i).getState().substring(4, 6))
-                                || "02".equals(list.get(i).getState().substring(4, 6))
-                                || "04".equals(list.get(i).getState().substring(4, 6))
-                                || "08".equals(list.get(i).getState().substring(4, 6))
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                        } else if (EquipmentState.isNormal(equipment)
+                                  || "01".equals(EquipmentState.getDevFirstState(equipment))
+                                || "02".equals(EquipmentState.getDevFirstState(equipment))
+                                || "04".equals(EquipmentState.getDevFirstState(equipment))
+                                || "08".equals(EquipmentState.getDevFirstState(equipment))
                                  ) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
                         }
                     }
-                }else if(NameSolve.LOCK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ds = list.get(i).getState().substring(4, 6);
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("AA".equals(ds) || "60".equals(ds) || "AB".equals(ds) || "55".equals(ds) || "56".equals(ds)) {
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                }else if(NameSolve.LOCK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ds = EquipmentState.getDevFirstState(equipment);
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isNormal(ds) || "60".equals(ds) || "AB".equals(ds) || EquipmentState.isTriggered(ds) || "56".equals(ds)) {
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
                             }
                         } else if ("51".equals(ds) || "52".equals(ds) || "53".equals(ds)  || "10".equals(ds) || "20".equals(ds) || "30".equals(ds)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
                         } else if ("40".equals(ds)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                         }
                     }
-                }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if(quantity <= 15){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if(EquipmentState.isLowBattery(quantity)){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
                         }else {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         }
                     }
-                }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        String draw = list.get(i).getState().substring(4,6);
-                        int liangdu = Integer.parseInt(list.get(i).getState().substring(6,8),16);
+                }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        String draw = EquipmentState.getDevFirstState(equipment);
+                        int liangdu = Integer.parseInt(EquipmentState.getDevSecondState(equipment),16);
                         if(("00".equals(draw) || "01".equals(draw)) && (liangdu>=0&&liangdu<=100)){
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
                             }else {
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
                             }
                         }
-
-
                     }
                 }
 
-                ApplicationInfo info = list.get(i);
+                ApplicationInfo info = equipment;
                 list2.add(info);
             }
 
@@ -730,178 +728,180 @@ public class DeviceFragment extends Fragment {
             for(int j=0;j<listfold.size();j++){
                int packid = listfold.get(j).getPackId();
                List<ApplicationInfo> list2ds = PDO.findAppInfoList(packid, ConnectionPojo.getInstance().deviceTid);
-                for(int i=0;i<list2ds.size();i++){
+                size = list2ds.size();
+               for(int i=0 ; i<size ; i++){
+                   ApplicationInfo equipment = list2ds.get(i);
 
-                    if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {      //menci
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
-                        if(list2ds.get(i).getState()!=null&& list2ds.get(i).getState().length() == 8){
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
+                    if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {      //menci
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
+                        if(EquipmentState.isEquipmentStateAvalible(equipment)){
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                                 }
 
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
-                            }else if("66".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                            }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
 //                    holder.s.setText("门已打开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
                             }
 
                         }
-                    }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                             } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                             }
                         }
-                    }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(4, 8);
+                    }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = equipment.getState().substring(4, 8);
                             if ("0301".equals(ddd) || "0302".equals(ddd) || "0303".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
                             } else if ("0300".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
                             }
                         }
-                    }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //pir
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //pir
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("正常");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                                 }
 
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                            }else if("11".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                            }else if(EquipmentState.isBroken(equipment)){
 //                    holder.s.setText("故障");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                            }else if("A0".equals(list2ds.get(i).getState().substring(4,6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                            }else if(EquipmentState.isPirTeared(equipment)) {
 //                    holder.s.setText("拆除");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
                             }
                         }
-                    }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //sod
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
-                        if(list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8){
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
+                    }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sod
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
+                        if(EquipmentState.isEquipmentStateAvalible(equipment)){
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                                 }
 
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
-                            }else if("66".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                            }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
 //                    holder.s.setText("门已打开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
                             }
                         }
-                    }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //sm
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
+                    }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            }else if("AA".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            }else if(EquipmentState.isNormal(equipment)){
 //                    holder.s.setText("故障");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                                 }
 
-                            }else if("BB".equals(list2ds.get(i).getState().substring(4,6))) {
+                            }else if(EquipmentState.isTesting(equipment)) {
 //                    holder.s.setText("拆除");
 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            }else if("50".equals(list2ds.get(i).getState().substring(4,6))){
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            }else if(EquipmentState.isMute(equipment)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             }
                         }
-                    }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
                             }
                         }
-                    }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
                             }
                         }
-                    }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(2, 4);
-                            String temp = list2ds.get(i).getState().substring(4,6);
-                            String humidity = list2ds.get(i).getState().substring(6,8);
+                    }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = equipment.getState().substring(2, 4);
+                            String temp = EquipmentState.getDevFirstState(equipment);
+                            String humidity = EquipmentState.getDevSecondState(equipment);
                             int realH = Integer.parseInt(humidity,16);
                             String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
                             String realT;
@@ -913,215 +913,215 @@ public class DeviceFragment extends Fragment {
 
 
                             if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || realH > 100 || realH < 0){
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
                             }else{
 
                                 int qqqq = Integer.parseInt(ddd,16);
                                 if( qqqq <= 15 ){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
                                 }else{
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
                                 }
                             }
                         }
-                    }else if(NameSolve.LAMP.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.LAMP.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if("38".equals(ddd)){
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
                             }else{
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
                             }
                         }
-                    }else if(NameSolve.GUARD.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
-                            if ("55".equals(ddd)) {
+                    }else if(NameSolve.GUARD.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
+                            if (EquipmentState.isTriggered(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
-                            } else if ("AA".equals(ddd)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
+                            } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                             }
                         }
-                    }else if(NameSolve.VALVE.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.VALVE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
                             } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
                             }
                         }
-                    }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if ( ddd!=null && !"".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
                             }
                         }
-                    }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
+                    }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
 //            holder.imageView.setImageResource(mImage[16]);
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("01".equals(list2ds.get(i).getState().substring(4, 6)) || "AA".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if ("01".equals(EquipmentState.getDevFirstState(equipment)) || EquipmentState.isNormal(equipment)) {
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
                                 }
                             }
                         }
-                    }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //sm
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
+                    }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
 
-                            String ddd = list2ds.get(i).getState().substring(4, 6);
+                            String ddd = EquipmentState.getDevFirstState(equipment);
                             if ("11".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             } else if ("12".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             } else if ("13".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             } else if ("17".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             } else if ("18".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             }else if ("19".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             }else if ("14".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else if ("15".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else if ("16".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else if ("1A".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }else if ("1B".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
-                            }else if("AA".equals(ddd)){
-                                int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4), 16);
-                                if (quantity <= 15) {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                            }else if(EquipmentState.isNormal(ddd)){
+                                int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                                if (EquipmentState.isLowBattery(quantity)) {
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                                 }else{
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
 
                                 }
                             }else{
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                             }
                         }else {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                         }
-                    }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                             }
                         }
-                    }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
+                    }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isTriggered(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isNormal(equipment)) {
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isTesting(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
                             }
                         }
-                    }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("AA".equals(list.get(i).getState().substring(4, 6))
-                                    || "01".equals(list.get(i).getState().substring(4, 6))
-                                    || "02".equals(list.get(i).getState().substring(4, 6))
-                                    || "04".equals(list.get(i).getState().substring(4, 6))
-                                    || "08".equals(list.get(i).getState().substring(4, 6))
+                    }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isTriggered(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isNormal(equipment)
+                                    || "01".equals(EquipmentState.getDevFirstState(equipment))
+                                    || "02".equals(EquipmentState.getDevFirstState(equipment))
+                                    || "04".equals(EquipmentState.getDevFirstState(equipment))
+                                    || "08".equals(EquipmentState.getDevFirstState(equipment))
                                     ) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isTesting(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
                             }
                         }
-                    }else if(NameSolve.LOCK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ds = list2ds.get(i).getState().substring(4, 6);
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("AA".equals(ds) || "60".equals(ds) || "AB".equals(ds) || "55".equals(ds) || "56".equals(ds)) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                    }else if(NameSolve.LOCK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ds = EquipmentState.getDevFirstState(equipment);
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isNormal(ds) || "60".equals(ds) || "AB".equals(ds) || EquipmentState.isTriggered(ds) || "56".equals(ds)) {
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                                 }else{
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
                                 }
                             } else if ("51".equals(ds) || "52".equals(ds) || "53".equals(ds) || "10".equals(ds) || "20".equals(ds) || "30".equals(ds)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
                             } else if ("40".equals(ds)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                             }
                         }
-                    }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                    }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                                 }
                         }
-                    }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            String draw = list2ds.get(i).getState().substring(4,6);
-                            int liangdu = Integer.parseInt(list2ds.get(i).getState().substring(6,8),16);
+                    }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            String draw = EquipmentState.getDevFirstState(equipment);
+                            int liangdu = Integer.parseInt(EquipmentState.getDevSecondState(equipment),16);
                             if(("00".equals(draw) || "01".equals(draw)) && (liangdu>=0&&liangdu<=100)){
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
                                 }
                             }
 
@@ -1150,9 +1150,7 @@ public class DeviceFragment extends Fragment {
 
             }
 
-
         }
-
 
         @Override
         public void onAppClick(EquipmentBean device) {

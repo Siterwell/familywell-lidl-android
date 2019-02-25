@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -41,17 +40,8 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/26.
  */
-public class GasDetailActivity extends AppCompatActivity {
+public class GasDetailActivity extends AbstractDetailActivity {
     private static final String TAG = "GasDetailActivity";
-    private ImageView signal,quatity,deviceLogo;
-    private TextView operation,emergencyCall,showStatus,eq_name,silence;
-    private EquipmentBean device;
-    private EquipDAO ED;
-    private SendEquipmentData sd;
-    private ImageView back_img;
-    private TextView  edt_txt,battay_text;
-    private LinearLayout root;
-    private ECAlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

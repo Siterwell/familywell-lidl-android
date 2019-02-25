@@ -85,6 +85,7 @@ public class SiterConstantsUtil {
         public static final String CHECK_FW_UPDATE = "external/device/fw/ota/check";
         public static final String PUSH_TAG_BIND = "user/pushTagBind";
         public static final String UNPUSH_ALIAS_BIND = "user/unbindPushAlias";
+        public static final String UNBIND_ALL_PSUH_ALIAS = "user/unbindAllPushAlias";
 
 
 
