@@ -254,36 +254,11 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }
 
         String fcmclientid = FirebaseInstanceId.getInstance().getToken();
-        if(!TextUtils.isEmpty(fcmclientid)){
-            LOG.I(TAG,"FCM平台CLIENTID："+fcmclientid);
+        if(!TextUtils.isEmpty(fcmclientid)) {
+            LOG.I(TAG, "FCM平台CLIENTID：" + fcmclientid);
             SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
             ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
             String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-//                    if("hekr.me".equals(autoflag)){
-//                        String cid = PushManager.getInstance().getClientid(this);
-//                        if(!TextUtils.isEmpty(cid)) {
-//                            LOG.I(TAG, "个推client id =" + cid);
-//                            STEvent stEvent = new STEvent();
-//                            stEvent.setRefreshevent(11);
-//                            stEvent.setFcm_token(cid);
-//                            EventBus.getDefault().post(stEvent);
-//
-//                            HekrUserAction.getInstance(this).unPushTagBind(fcmclientid, 3, new HekrUser.UnPushTagBindListener() {
-//                                @Override
-//                                public void unPushTagBindSuccess() {
-//                                    LOG.I(TAG,"个推绑定的同时解绑FCM成功");
-//                                }
-//
-//                                @Override
-//                                public void unPushTagBindFail(int errorCode) {
-//                                    LOG.I(TAG,"个推绑定的同时解绑FCM失败");
-//                                }
-//                            });
-//
-//                        }else{
-//                            LOG.I(TAG, "个推client id为空");
-//                        }
-//                    }else{
 
             STEvent stEvent = new STEvent();
             stEvent.setRefreshevent(9);
@@ -294,30 +269,28 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                 @Override
                 public void unPushTagBindSuccess() {
-                    LOG.I(TAG,"FCM绑定的同时解绑个推成功");
+                    LOG.I(TAG, "FCM绑定的同时解绑个推成功");
                 }
 
                 @Override
                 public void unPushTagBindFail(int errorCode) {
-                    LOG.I(TAG,"FCM绑定的同时解绑个推失败");
+                    LOG.I(TAG, "FCM绑定的同时解绑个推失败");
                 }
             });
 
-//                    }
-
-
-        }else{
-            String cid = PushManager.getInstance().getClientid(this);
-            if(!TextUtils.isEmpty(cid)) {
-                LOG.I(TAG, "个推client id =" + cid);
-                STEvent stEvent = new STEvent();
-                stEvent.setRefreshevent(11);
-                stEvent.setFcm_token(cid);
-                EventBus.getDefault().post(stEvent);
-            }else{
-                LOG.I(TAG, "个推client id为空");
-            }
         }
+//        else{
+//            String cid = PushManager.getInstance().getClientid(this);
+//            if(!TextUtils.isEmpty(cid)) {
+//                LOG.I(TAG, "个推client id =" + cid);
+//                STEvent stEvent = new STEvent();
+//                stEvent.setRefreshevent(11);
+//                stEvent.setFcm_token(cid);
+//                EventBus.getDefault().post(stEvent);
+//            }else{
+//                LOG.I(TAG, "个推client id为空");
+//            }
+//        }
 
     }
 
@@ -797,72 +770,72 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                     }
 
-        }else if(event.getRefreshevent() == 11){
-            if(!"xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-
-                        String token = event.getFcm_token();
-                        if(!TextUtils.isEmpty(token)){
-
-                            HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 0, new HekrUser.PushTagBindListener() {
-                                @Override
-                                public void pushTagBindSuccess() {
-                                    LOG.I(TAG,"个推绑定成功getSuccess:");
-                                }
-
-                                @Override
-                                public void pushTagBindFail(int errorCode) {
-                                    LOG.I(TAG,"个推绑定失败getFail:"+errorCode);
-                                    if(errorCode==1){
-                                        LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                                        EventBus.getDefault().post(tokenTimeoutEvent);
-                                    }
-                                }
-                            });
-                        }
-            }
-
-        }else if(event.getRefreshevent() == 12){
-                    String token = event.getFcm_token();
-                    if(!TextUtils.isEmpty(token)){
-
-                        HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 2, new HekrUser.PushTagBindListener() {
-                            @Override
-                            public void pushTagBindSuccess() {
-                                LOG.I(TAG,"HUAWEI绑定成功getSuccess:");
-                            }
-
-                            @Override
-                            public void pushTagBindFail(int errorCode) {
-                                LOG.I(TAG,"HUAWEI绑定失败getFail:"+errorCode);
-                                if(errorCode==1){
-                                    LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                                    EventBus.getDefault().post(tokenTimeoutEvent);
-                                }
-                            }
-                        });
-
-                    }
-        }else if(event.getRefreshevent()==13) {
-            String token = event.getFcm_token();
-            if (!TextUtils.isEmpty(token)) {
-
-
-                HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 1, new HekrUser.PushTagBindListener() {
-                    @Override
-                    public void pushTagBindSuccess() {
-                        LOG.I(TAG, "小米绑定成功getSuccess:");
-                    }
-
-                    @Override
-                    public void pushTagBindFail(int errorCode) {
-                        LOG.I(TAG, "小米绑定失败getFail:" + errorCode);
-                        if (errorCode == 1) {
-                            LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                            EventBus.getDefault().post(tokenTimeoutEvent);
-                        }
-                    }
-                });
-            }
+//        }else if(event.getRefreshevent() == 11){
+//            if(!"xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())){
+//
+//                        String token = event.getFcm_token();
+//                        if(!TextUtils.isEmpty(token)){
+//
+//                            HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 0, new HekrUser.PushTagBindListener() {
+//                                @Override
+//                                public void pushTagBindSuccess() {
+//                                    LOG.I(TAG,"个推绑定成功getSuccess:");
+//                                }
+//
+//                                @Override
+//                                public void pushTagBindFail(int errorCode) {
+//                                    LOG.I(TAG,"个推绑定失败getFail:"+errorCode);
+//                                    if(errorCode==1){
+//                                        LogoutEvent tokenTimeoutEvent = new LogoutEvent();
+//                                        EventBus.getDefault().post(tokenTimeoutEvent);
+//                                    }
+//                                }
+//                            });
+//                        }
+//            }
+//
+//        }else if(event.getRefreshevent() == 12){
+//                    String token = event.getFcm_token();
+//                    if(!TextUtils.isEmpty(token)){
+//
+//                        HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 2, new HekrUser.PushTagBindListener() {
+//                            @Override
+//                            public void pushTagBindSuccess() {
+//                                LOG.I(TAG,"HUAWEI绑定成功getSuccess:");
+//                            }
+//
+//                            @Override
+//                            public void pushTagBindFail(int errorCode) {
+//                                LOG.I(TAG,"HUAWEI绑定失败getFail:"+errorCode);
+//                                if(errorCode==1){
+//                                    LogoutEvent tokenTimeoutEvent = new LogoutEvent();
+//                                    EventBus.getDefault().post(tokenTimeoutEvent);
+//                                }
+//                            }
+//                        });
+//
+//                    }
+//        }else if(event.getRefreshevent()==13) {
+//            String token = event.getFcm_token();
+//            if (!TextUtils.isEmpty(token)) {
+//
+//
+//                HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 1, new HekrUser.PushTagBindListener() {
+//                    @Override
+//                    public void pushTagBindSuccess() {
+//                        LOG.I(TAG, "小米绑定成功getSuccess:");
+//                    }
+//
+//                    @Override
+//                    public void pushTagBindFail(int errorCode) {
+//                        LOG.I(TAG, "小米绑定失败getFail:" + errorCode);
+//                        if (errorCode == 1) {
+//                            LogoutEvent tokenTimeoutEvent = new LogoutEvent();
+//                            EventBus.getDefault().post(tokenTimeoutEvent);
+//                        }
+//                    }
+//                });
+//            }
         }
         try {
             if(event.getEvent()== SendCommand.CHOOSE_SCENE_GROUP){
