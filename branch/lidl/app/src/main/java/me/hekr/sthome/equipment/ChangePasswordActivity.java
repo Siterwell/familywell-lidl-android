@@ -5,12 +5,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.litesuits.common.assist.Toastor;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.InvalidClassException;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
+import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.tools.ECPreferenceSettings;
@@ -104,6 +108,8 @@ public class ChangePasswordActivity extends TopbarSuperActivity {
                     hideSoftKeyboard();
                     finish();
                 }
+
+                unbindAllPush();
             }
 
             @Override
@@ -114,6 +120,25 @@ public class ChangePasswordActivity extends TopbarSuperActivity {
                 }else{
                     Toast.makeText(ChangePasswordActivity.this, UnitTools.errorCode2Msg(ChangePasswordActivity.this,errorCode),Toast.LENGTH_SHORT).show();
                 }
+
+            }
+        });
+    }
+
+    private void unbindAllPush() {
+        HekrUserAction.getInstance(this).unbindAllPush(new HekrUser.PushTagBindListener() {
+            @Override
+            public void pushTagBindSuccess() {
+                String fcmclientid = FirebaseInstanceId.getInstance().getToken();
+
+                STEvent stEvent = new STEvent();
+                stEvent.setRefreshevent(9);
+                stEvent.setFcm_token(fcmclientid);
+                EventBus.getDefault().post(stEvent);
+            }
+
+            @Override
+            public void pushTagBindFail(int errorCode) {
 
             }
         });
