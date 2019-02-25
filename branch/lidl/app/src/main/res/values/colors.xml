@@ -42,7 +42,7 @@
     <color name="device_error">#e75a3c</color>
     <color name="device_normal">#3fc380</color>
     <color name="device_warn">#f9bf3b</color>
-    <color name="device_offine">#e1e1e1</color>
+    <color name="device_offine">@color/devices_offline</color>
     <color name="item_not">#a3a3a3</color>
     <color name="item_is_sel">#f56735</color>
     <color name="title_brown">#fff2f2f5</color>
