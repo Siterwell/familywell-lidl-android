@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -50,17 +49,8 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/26.
  */
-public class LockDetailActivity extends AppCompatActivity {
+public class LockDetailActivity extends AbstractDetailActivity {
     private static final String TAG = "LockDetailActivity";
-    private ImageView signal,quatity,deviceLogo;
-    private TextView operation,emergencyCall,showStatus,eq_name;
-    private EquipmentBean device;
-    private EquipDAO ED;
-    private SendEquipmentData sd;
-    private ImageView back_img;
-    private TextView  edt_txt,battay_text;
-    private LinearLayout root;
-    private ECAlertDialog alertDialog;
     private AtomicBoolean flag_active = new AtomicBoolean(false);
     private ECAlertDialog alertDialog2;
 
