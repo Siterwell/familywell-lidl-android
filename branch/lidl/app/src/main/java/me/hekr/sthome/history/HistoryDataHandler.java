@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import me.hekr.sthome.R;
+import me.hekr.sthome.equipment.EquipmentState;
 import me.hekr.sthome.tools.NameSolve;
 
 /**
@@ -48,8 +49,8 @@ public class HistoryDataHandler {
             if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(equipmenttype))){
                   if("55".equals(alertstatus)){
                      return context.getResources().getStringArray(R.array.door_actions)[0];
-                  }else if("AA".equals(alertstatus)){
-                      if(Integer.parseInt(battery,16)<15){
+                  }else if(EquipmentState.isNormal(alertstatus)){
+                      if(EquipmentState.isLowBattery(battery)){
                           return context.getResources().getString(R.string.low_battery);
                       }else {
                           return context.getResources().getStringArray(R.array.door_actions)[1];
@@ -59,7 +60,7 @@ public class HistoryDataHandler {
                   }else if("FF".equals(alertstatus)){
                       return context.getResources().getString(R.string.offline);
                   }else {
-                      if(Integer.parseInt(battery,16)<15){
+                      if(EquipmentState.isLowBattery(battery)){
                           return context.getResources().getString(R.string.low_battery);
                       }else {
                           return context.getResources().getString(R.string.alarm);
@@ -70,8 +71,8 @@ public class HistoryDataHandler {
                     return context.getResources().getStringArray(R.array.sos_signs)[0];
                 }else if("66".equals(alertstatus)){
                     return context.getResources().getStringArray(R.array.sos_signs)[1];
-                }else if("AA".equals(alertstatus)){
-                    if(Integer.parseInt(battery,16)<15){
+                }else if(EquipmentState.isNormal(alertstatus)){
+                    if(EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else {
                         return context.getResources().getStringArray(R.array.door_actions)[1];
@@ -79,7 +80,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if(Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else {
                         return context.getResources().getString(R.string.alarm);
@@ -88,8 +89,8 @@ public class HistoryDataHandler {
             }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(equipmenttype))){
                 if("55".equals(alertstatus)){
                     return context.getResources().getStringArray(R.array.pir_signs)[0];
-                }else if("AA".equals(alertstatus)){
-                    if(Integer.parseInt(battery,16)<15){
+                }else if(EquipmentState.isNormal(alertstatus)){
+                    if(EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else {
                         return context.getResources().getStringArray(R.array.door_actions)[1];
@@ -97,7 +98,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if(Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else {
                         return context.getResources().getString(R.string.alarm);
@@ -111,7 +112,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
@@ -126,7 +127,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
@@ -140,19 +141,19 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
                 }
                 }
             }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(equipmenttype))){
-                if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                     return context.getResources().getString(R.string.low_battery);
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else{
-                    if(Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else {
                         return context.getResources().getString(R.string.alarm);
@@ -173,7 +174,7 @@ public class HistoryDataHandler {
                     return context.getResources().getString(R.string.offline);
                 }else {
 
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
@@ -187,7 +188,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
@@ -201,7 +202,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
@@ -215,7 +216,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
@@ -239,7 +240,7 @@ public class HistoryDataHandler {
                 }else if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                     return context.getResources().getString(R.string.alarm);
@@ -249,7 +250,7 @@ public class HistoryDataHandler {
                 if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                         return context.getResources().getString(R.string.alarm);
@@ -271,7 +272,7 @@ public class HistoryDataHandler {
                 if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                         return context.getResources().getString(R.string.alarm);
@@ -281,7 +282,7 @@ public class HistoryDataHandler {
                 if("FF".equals(alertstatus)){
                     return context.getResources().getString(R.string.offline);
                 }else {
-                    if("AA".equals(alertstatus) && Integer.parseInt(battery,16)<15){
+                    if(EquipmentState.isNormal(alertstatus) && EquipmentState.isLowBattery(battery)){
                         return context.getResources().getString(R.string.low_battery);
                     }else{
                         return context.getResources().getString(R.string.alarm);
