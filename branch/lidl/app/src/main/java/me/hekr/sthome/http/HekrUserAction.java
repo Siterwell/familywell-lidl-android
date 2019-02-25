@@ -1941,10 +1941,6 @@ public class HekrUserAction {
         pushTagBind(clientId, 0, pushTagBindListener);
     }
 
-
-
-
-
     /**
      * 4.5.19 绑定推送标签接口(此接口请在主线程调用)
      *
@@ -1998,6 +1994,28 @@ public class HekrUserAction {
             }
         });
     }
+
+    public void unbindAllPush(final HekrUser.PushTagBindListener pushTagBindListener) {
+        CharSequence url = TextUtils.concat(Constants.UrlUtil.BASE_USER_URL, SiterConstantsUtil.UrlUtil.UNBIND_ALL_PSUH_ALIAS);
+        LOG.I(TAG, "unbindAllPush > url : " + url);
+
+        deleteHekrData(url, new GetHekrDataListener() {
+
+            @Override
+            public void getSuccess(Object object) {
+                LOG.I(TAG, "unbindAllPush > success");
+                pushTagBindListener.pushTagBindSuccess();
+            }
+
+            @Override
+            public void getFail(int errorCode) {
+                LOG.I(TAG, "unbindAllPush > failed");
+                pushTagBindListener.pushTagBindFail(errorCode);
+            }
+        });
+    }
+
+
 
     /**
      * 4.5.20 解绑华为推送别名
