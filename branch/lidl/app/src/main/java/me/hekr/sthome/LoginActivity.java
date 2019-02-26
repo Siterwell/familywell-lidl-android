@@ -35,6 +35,14 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrCallback;
@@ -62,10 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CodeEdit codeEdit;
     private String phone, pwd;
     private Toastor toastor;
-    private Button btn_login;
-    private TextView rem_text;
     private ImageView rem_img;
-    private ImageView logo_img;
     private boolean isauto;
     private RelativeLayout root;
 
@@ -77,6 +82,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ArrayList<LoginLogPopupwindow.UserBean> userlist;
     private final int REQUEST_REGISTER = 1;
     private final static String TAG = LoginActivity.class.getName();
+
+    private Disposable disposable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +120,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable != null) {
+            disposable.dispose();
+        }
+    }
 
     private void initData() {
         toastor = new Toastor(this);
@@ -167,22 +182,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
 
-        root     = (RelativeLayout)findViewById(R.id.root);
-        logo_img = (ImageView)findViewById(R.id.imageView1);
-        et_phone = (EditText) findViewById(R.id.et_phone);
-        codeEdit = (CodeEdit) findViewById(R.id.codeedit);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        rem_text = (TextView)findViewById(R.id.rem_text);
-        rem_img =(ImageView)findViewById(R.id.save_password);
-        showLogButton = (ImageButton)findViewById(R.id.arrow);
-        userLayout  = (RelativeLayout)findViewById(R.id.liner_phone);
+        root = findViewById(R.id.root);
+        et_phone = findViewById(R.id.et_phone);
+        codeEdit = findViewById(R.id.codeedit);
+        rem_img = findViewById(R.id.save_password);
+        showLogButton = findViewById(R.id.arrow);
+        userLayout = findViewById(R.id.liner_phone);
         showLogButton.setOnClickListener(this);
+
+        ImageView logo_img = findViewById(R.id.imageView1);
         logo_img.setImageResource(R.drawable.login_logo);
 //        btn_qq = (Button) findViewById(R.id.btn_qq);
 //        btn_wechat = (Button) findViewById(R.id.btn_wechat);
 //        btn_weibo = (Button) findViewById(R.id.btn_weibo);
 
-        rem_text.setOnClickListener(this);
+        findViewById(R.id.rem_text).setOnClickListener(this);
         rem_img.setOnClickListener(this);
         if(isauto){
             rem_img.setImageResource(R.drawable.save_pass_1);
@@ -193,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (isauto) {
             codeEdit.getCodeEdit().setText(pwd);
         }
-        btn_login.setOnClickListener(this);
+        findViewById(R.id.btn_login).setOnClickListener(this);
 //        btn_wechat.setOnClickListener(this);
 //        btn_weibo.setOnClickListener(this);
 //        btn_qq.setOnClickListener(this);
@@ -461,27 +475,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     userlist.add(bean);
                 }
 
-                   if(array.length()>=0&&array.length()<5){
-                       if(!flag_repeat){
-                           LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
-                           bean.setUsername(username);
-                           bean.setPwd(pwd);
-                           userlist.add(0,bean);
-                       }
-
-                   }
-                else{
-                       if(!flag_repeat) {
-                           LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
-                           bean.setUsername(username);
-                           bean.setPwd(pwd);
-                           userlist.add(0, bean);
-                           userlist.remove(userlist.size() - 1);
-                       }
-                   }
-
-
-
+                if(array.length()>=0&&array.length()<5){
+                    if(!flag_repeat){
+                        LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
+                        bean.setUsername(username);
+                        bean.setPwd(pwd);
+                        userlist.add(0,bean);
+                    }
+                } else{
+                    if(!flag_repeat) {
+                        LoginLogPopupwindow.UserBean bean = new LoginLogPopupwindow.UserBean();
+                        bean.setUsername(username);
+                        bean.setPwd(pwd);
+                        userlist.add(0, bean);
+                        userlist.remove(userlist.size() - 1);
+                    }
+                }
             } catch (JSONException e) {
                 LOG.I("ceshi","string is null");
             }
@@ -496,57 +505,81 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LOG.I(TAG,"设置本地domain:"+domain);
         Constants.setOnlineSite(domain);
 
-        new Thread(){
+        Observable.create(new ObservableOnSubscribe<String>() {
+
             @Override
-            public void run() {
-
+            public void subscribe(ObservableEmitter<String> emitter) {
                 try {
-                final String HOST="info.hekr.me";
-                //final String HOST="127.0.0.1";
-                Socket socket = null;//创建一个客户端连接
-
-                    socket = new Socket();
+                    final String HOST="info.hekr.me";
+                    //final String HOST="127.0.0.1";
+                    Socket socket = new Socket();
                     socket.connect(new InetSocketAddress(HOST,91),5000);
-                OutputStream out = socket.getOutputStream();//获取服务端的输出流，为了向服务端输出数据
-                InputStream in=socket.getInputStream();//获取服务端的输入流，为了获取服务端输入的数据
+                    OutputStream out = socket.getOutputStream();//获取服务端的输出流，为了向服务端输出数据
+                    InputStream in = socket.getInputStream();//获取服务端的输入流，为了获取服务端输入的数据
 
-                PrintWriter bufw=new PrintWriter(out,true);
-                BufferedReader bufr=new BufferedReader(new InputStreamReader(in));
+                    PrintWriter bufw = new PrintWriter(out, true);
+                    BufferedReader bufr = new BufferedReader(new InputStreamReader(in));
                     LOG.I(TAG,"发送啦");//打印服务端传来的数据
                     bufw.println("{\"action\":\"getAppDomain\"}");//发送数据给服务端
                     bufw.flush();
-                while (true)
-                {
-                    String line=null;
-                    line=bufr.readLine();//读取服务端传来的数据
-                    if(line==null)
-                        break;
-                    LOG.I(TAG,"服务端说:"+line);//打印服务端传来的数据
+
+                    while (true) {
+                        String line=null;
+                        line=bufr.readLine();//读取服务端传来的数据
+                        if(line==null)
+                            break;
+                        LOG.I(TAG,"服务端说:"+line);//打印服务端传来的数据
                         JSONObject jsonObject = JSONObject.parseObject(line);
                         JSONObject jsonObject1 = jsonObject.getJSONObject("dcInfo");
                         String domain = jsonObject1.getString("domain");
-                        try {
-                            if(!TextUtils.isEmpty(domain)){
-                                LOG.I(TAG,"获取到的domain:"+domain);
-                                ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_DOMAIN, domain, true);
-                                Constants.setOnlineSite(domain);
-                                break;
-                            }
-                       } catch (InvalidClassException e) {
-                            e.printStackTrace();
+                        if(!TextUtils.isEmpty(domain)){
+                            emitter.onNext(domain);
+                            break;
                         }
+                    }
 
-
-
-                }
-
+                    out.close();
+                    in.close();
+                    bufw.close();
+                    bufr.close();
 
                 } catch (IOException e) {
+                    emitter.onError(e.fillInStackTrace());
+                }
+
+            }
+        }).subscribeOn(Schedulers.io())
+        .subscribe(new Observer<String>() {
+
+            private Disposable disposable;
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onNext(String domain) {
+                try {
+                    LOG.I(TAG,"获取到的domain:"+domain);
+                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_DOMAIN, domain, true);
+                    Constants.setOnlineSite(domain);
+                } catch (InvalidClassException e) {
                     e.printStackTrace();
                 }
             }
-        }.start();
 
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                disposable.dispose();
+            }
+
+            @Override
+            public void onComplete() {
+                disposable.dispose();
+            }
+        });
 
     }
 

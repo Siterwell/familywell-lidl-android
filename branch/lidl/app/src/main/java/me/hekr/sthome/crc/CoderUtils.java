@@ -49,7 +49,7 @@ public class CoderUtils {
                 return "";
             }
             byte[]a = ByteUtil.hexStr2Bytes(input);
-            String name  = new String(a,"GBK");
+            String name  = new String(a,"UTF-8");
             if(name.indexOf("$")==-1){
                 return "";
             }
@@ -80,7 +80,7 @@ public class CoderUtils {
         try {
 
             byte[]a = ByteUtil.hexStr2Bytes(input);
-            String name  = new String(a,"GBK");
+            String name  = new String(a,"UTF-8");
             return  name;
 
         }catch (Exception e){
@@ -102,7 +102,7 @@ public class CoderUtils {
         int countf = 0;
 
         try {
-            countf = 15 - input.getBytes("GBK").length;
+            countf = 15 - input.getBytes("UTF-8").length;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -115,7 +115,7 @@ public class CoderUtils {
 
         byte[] nameBt = new byte[16];
         try {
-            nameBt = newname.getBytes("GBK");
+            nameBt = newname.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -140,7 +140,7 @@ public class CoderUtils {
 
         byte[] nameBt = new byte[input.length()];
         try {
-            nameBt = input.getBytes("GBK");
+            nameBt = input.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -158,9 +158,9 @@ public class CoderUtils {
         String ds = "";
         try {
 
-        byte[] nameBt = new byte[input.getBytes("GBK").length];
+        byte[] nameBt = new byte[input.getBytes("UTF-8").length];
         try {
-            nameBt = input.getBytes("GBK");
+            nameBt = input.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -189,7 +189,7 @@ public class CoderUtils {
                 a[i] = (byte)(0x24 ^a[i]);
             }
 
-            String name  = new String(a,"GBK");
+            String name  = new String(a,"UTF-8");
 
             return  name;
 

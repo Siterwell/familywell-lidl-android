@@ -30,7 +30,9 @@ public class EncryptUtil {
                     KeyAES.getBytes("UTF-8"),
                     text.getBytes("UTF-8"));
 
-            return Base64.encodeToString(TextByte, Base64.DEFAULT);
+            if (TextByte != null) {
+                return Base64.encodeToString(TextByte, Base64.DEFAULT);
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -48,7 +50,9 @@ public class EncryptUtil {
                     KeyAES.getBytes("UTF-8"),
                     Base64.decode(text.getBytes("UTF-8"), Base64.DEFAULT));
 
-            return new String(TextByte,"UTF-8");
+            if (TextByte != null) {
+                return new String(TextByte,"UTF-8");
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

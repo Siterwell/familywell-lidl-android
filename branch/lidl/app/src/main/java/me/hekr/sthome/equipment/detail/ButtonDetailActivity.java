@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -41,17 +40,8 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/29.
  */
-public class ButtonDetailActivity extends AppCompatActivity {
+public class ButtonDetailActivity extends AbstractDetailActivity {
     private static final String TAG = "ButtonDetailActivity";
-    private ImageView signal,quatity,deviceLogo;
-    private TextView historyInfo,operation,emergencyCall,showStatus;
-    private EquipmentBean device;
-    private EquipDAO ED;
-    private ImageView back_img;
-    private TextView  edt_txt,eq_name,battay_text;
-    private LinearLayout root;
-    private ECAlertDialog alertDialog;
-    private SendEquipmentData sd;
 
 
     @Override
@@ -145,7 +135,7 @@ public class ButtonDetailActivity extends AppCompatActivity {
                                         if(!TextUtils.isEmpty(newname)){
 
                                             try {
-                                                if(newname.getBytes("GBK").length<=15){
+                                                if(newname.getBytes("UTF-8").length<=15){
                                                     if(!EmojiFilter.containsEmoji(newname)) {
                                                         alertDialog.setDismissFalse(true);
                                                         eq_name.setText(newname);
