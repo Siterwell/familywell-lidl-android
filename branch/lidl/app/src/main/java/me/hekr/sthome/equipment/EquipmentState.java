@@ -62,8 +62,18 @@ public class EquipmentState {
         return DOOR_NOT_CLOSED.equals(getDevFirstState(equipment));
     }
 
+    public static boolean isLowBattery(int battery) {
+        return (battery <= 15);
+    }
+    public static boolean isLowBattery(String state) {
+        return isLowBattery(getDevBatteryLevel(state));
+    }
+
     public static int getDevBatteryLevel(ApplicationInfo equipment) {
         return Integer.parseInt(equipment.getState().substring(2, 4), 16);
+    }
+    public static int getDevBatteryLevel(String state) {
+        return Integer.parseInt(state, 16);
     }
 
     public static String getDevFirstState(ApplicationInfo equipment) {
@@ -73,9 +83,4 @@ public class EquipmentState {
     public static String getDevSecondState(ApplicationInfo equipment) {
         return equipment.getState().substring(6, 8);
     }
-
-    public static boolean isLowBattery(int battery) {
-        return (battery <= 15);
-    }
-
 }
