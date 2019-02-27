@@ -517,4 +517,7 @@
    <string name="view_yinsi">Dohoda na soukromí</string>
    <string name="fireware_is_lastest">Firmware je aktuální</string>
    <string name="gateway_version">Verze konektoru</string>
+   <string name="is_upgrading">probíhá modernizace..</string>
+   <string name="success_upgrade">firmware update úspěch</string>
+   <string name="fail_upgrade">aktualizace selhání</string>
 </resources>

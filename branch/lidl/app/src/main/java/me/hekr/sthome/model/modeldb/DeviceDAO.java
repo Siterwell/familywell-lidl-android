@@ -141,6 +141,16 @@ public class DeviceDAO {
         db.close();
     }
 
+    public void updateDeivceBinversion(String devTid,String binVer){
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        String where = "deviceid = ?";
+//        String[] whereValue = {Integer.toString(eq.getEquipmentId())};
+        String[] whereValue = {devTid};
+        ContentValues cv = new ContentValues();
+        cv.put("longtitude",binVer);
+        db.update("devicetable", cv, where, whereValue);
+        db.close();
+    }
     /**
      * 查找选中的网关设备
      * @return

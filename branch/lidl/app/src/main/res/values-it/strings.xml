@@ -517,4 +517,7 @@
    <string name="view_yinsi">Vista la Privacy del protocollo</string>
    <string name="fireware_is_lastest">Il firmware è aggiornato</string>
    <string name="gateway_version">Versione del server</string>
+   <string name="is_upgrading">è il potenziamento..</string>
+   <string name="success_upgrade">IL successo di aggiornamento del Firmware</string>
+   <string name="fail_upgrade">Aggiornare il fallimento</string>
 </resources>

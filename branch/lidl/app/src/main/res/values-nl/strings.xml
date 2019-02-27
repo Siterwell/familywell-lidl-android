@@ -517,4 +517,7 @@
    <string name="view_yinsi">Om privé overeenkomsten</string>
    <string name="fireware_is_lastest">Firmware is bijgewerkt</string>
    <string name="gateway_version">Connector-versie</string>
+   <string name="is_upgrading">Verbetering van..</string>
+   <string name="success_upgrade">Het succes van de software update</string>
+   <string name="fail_upgrade">Een nieuwe mislukking</string>
 </resources>

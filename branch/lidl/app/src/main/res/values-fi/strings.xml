@@ -517,4 +517,7 @@
     <string name="view_yinsi">Tietosuojakäytäntö</string>
     <string name="fireware_is_lastest">Tämä on viimeisin versio</string>
     <string name="gateway_version">Tukiaseman versio</string>
+    <string name="is_upgrading">parannus..</string>
+    <string name="success_upgrade">vakaa päivitys onnistuu</string>
+    <string name="fail_upgrade">päivitys ei</string>
 </resources>

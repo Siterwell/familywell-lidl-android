@@ -520,4 +520,7 @@ The connector has entered the networking mode."</string>
     <string name="view_yinsi">Privacy protocol</string>
     <string name="fireware_is_lastest">This is the latest software version</string>
     <string name="gateway_version">Connector version</string>
+    <string name="is_upgrading">Updating..</string>
+    <string name="success_upgrade">Firmware Update Successful</string>
+    <string name="fail_upgrade">Update Failed</string>
 </resources>
