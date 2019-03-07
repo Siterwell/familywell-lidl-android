@@ -517,4 +517,6 @@
    <string name="view_yinsi">Privacyvoorwaarden</string>
    <string name="fireware_is_lastest">Firmware is bijgewerkt</string>
    <string name="gateway_version">Connector-versie</string>
+    <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
+    <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
 </resources>
