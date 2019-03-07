@@ -394,7 +394,7 @@
     <string name="success_add">L’équipement a bien été ajouté</string>
     <string name="temp_or_hum">Déclencheur de température / d’humidité</string>
     <string name="trigger_style">Mode de déclenchement</string>
-    <string name="about_app">"Le système intelligent FamilyWell vous permet de surveiller votre maison. Que ce soit en présence ou à distance, sa passerelle vous permet de connecter et suivre jusqu'à 32 équipements. Votre maison est en sécurité grace à ses capteurs intelligents (détecteur de fumée, de porte et fenêtre, de chaleur...) et sa caméra. Vous personnalisez le niveau de contrôle en créant des scenarii et moyens d'alerte. Vous pouvez être rassuré, vous serez immédiatement informé, sur votre smartphone, de toute activité anormale."</string>
+    <string name="about_app">"Le système intelligent BASE vous permet de surveiller votre maison. Que ce soit en présence ou à distance, sa passerelle vous permet de connecter et suivre jusqu'à 32 équipements. Votre maison est en sécurité grace à ses capteurs intelligents (détecteur de fumée, de porte et fenêtre, de chaleur...) et sa caméra. Vous personnalisez le niveau de contrôle en créant des scenarii et moyens d'alerte. Vous pouvez être rassuré, vous serez immédiatement informé, sur votre smartphone, de toute activité anormale."</string>
     <string name="modebutton_ins">Raccourci vers le scénario</string>
     <string name="input_exist">Le périphérique est déjà utilisé. Merci d’en choisir un autre.</string>
     <string name="output_exist">Le périphérique est déjà utilisé. Merci d’en choisir un autre.</string>
