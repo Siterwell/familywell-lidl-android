@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -211,6 +212,7 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
      */
     public final void setMessage(CharSequence text) {
         ((TextView)findViewById(R.id.dialog_tv_message)).setText(text);
+        ((TextView)findViewById(R.id.dialog_tv_message)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public final void setTitleNormalColor() {

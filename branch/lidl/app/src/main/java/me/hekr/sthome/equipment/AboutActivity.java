@@ -128,16 +128,20 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                     @Override
                     public void onClick(View v) {
                         if(file != null){
-                            String ds = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
-                        ecAlertDialog = ECAlertDialog.buildAlert(AboutActivity.this, ds,new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                doActionSend();
-                                version_txt.setEnabled(false);
-                                version_txt.setNewUpdateVisibility(false);
-                            }
-                        });
-                        ecAlertDialog.show();
+                            StringBuilder sb = new StringBuilder();
+                            sb.append(String.format(getResources().getString(R.string.firewarm_to_update), file.getLatestBinVer()))
+                                .append("\n\n")
+                                .append(getString(R.string.firmware_upgrade_info));
+
+                            ecAlertDialog = ECAlertDialog.buildAlert(AboutActivity.this, sb.toString(), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    doActionSend();
+                                    version_txt.setEnabled(false);
+                                    version_txt.setNewUpdateVisibility(false);
+                                }
+                            });
+                            ecAlertDialog.show();
 
                         }else{
                             ecAlertDialog = ECAlertDialog.buildPositiveAlert(AboutActivity.this, getResources().getString(R.string.fireware_is_lastest),null);

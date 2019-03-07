@@ -1019,8 +1019,13 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 public void checkNeedUpdate(FirmwareBean firmwareBean) {
                     file = firmwareBean;
                     if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(String.format(getResources().getString(R.string.firewarm_to_update), file.getLatestBinVer()))
+                                .append("\n\n")
+                                .append(getString(R.string.firmware_upgrade_info));
+
                         ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
-                                String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer()),
+                                sb.toString(),
                                 getResources().getString(R.string.now_not_to_update),
                                 getResources().getString(R.string.ok),
                                 new DialogInterface.OnClickListener() {
