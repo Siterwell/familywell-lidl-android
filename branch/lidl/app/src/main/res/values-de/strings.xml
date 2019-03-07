@@ -517,4 +517,6 @@
     <string name="view_yinsi">Datenschutzbestimmungen</string>
     <string name="fireware_is_lastest">Gateway version hin ist die neueste Version</string>
     <string name="gateway_version">Connector-Version</string>
+    <string name="delete_condition">Möchten Sie diese Bedingung wirklich löschen?</string>
+    <string name="delete_action">Möchten Sie diese Aktion wirklich löschen?</string>
 </resources>

@@ -517,4 +517,6 @@
     <string name="view_yinsi">查看隐私协议</string>
     <string name="fireware_is_lastest">固件版本已是最新</string>
     <string name="gateway_version">固件版本</string>
+    <string name="delete_condition">您确定要删除此条件吗？</string>
+    <string name="delete_action">您确定要删除此操作吗？</string>
 </resources>

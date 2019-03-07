@@ -284,7 +284,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         EquipmentBean theLastTag = new EquipmentBean();
         theLastTag.setEqid(String.valueOf(-1));
         theLastTag.setEquipmentDesc("END");
-        theLastTag.setEquipmentName(getResources().getString(R.string.add_equipment));
+        theLastTag.setEquipmentName(getResources().getString(R.string.increase_input));
         inputData.add(theLastTag);
 
         inAdapter = new GridAdapter(this,inputData);
@@ -403,7 +403,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                 if(!"END".equals(eq.getEquipmentDesc())){
 
 
-                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_condition),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             inputShow.remove(position);
@@ -438,7 +438,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         EquipmentBean theLastTag = new EquipmentBean();
         theLastTag.setEqid(String.valueOf(-1));
         theLastTag.setEquipmentDesc("END");
-        theLastTag.setEquipmentName(getResources().getString(R.string.add_equipment));
+        theLastTag.setEquipmentName(getResources().getString(R.string.increase_output));
         outputData.add(theLastTag);
         outAdapter = new GridAdapter(this,outputData);
         output.setAdapter(outAdapter);
@@ -635,7 +635,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                     buildAlert.setTitle(getResources().getString(R.string.dialog_title_alert));
                                     buildAlert.show();
                                 }else{
-                                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_action),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             outputShow.remove(position);
@@ -648,7 +648,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                 }
 
                             }else{
-                                ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                                ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_action),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         outputShow.remove(position);
@@ -662,7 +662,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
                         }else{
-                            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_action),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     outputShow.remove(position);
