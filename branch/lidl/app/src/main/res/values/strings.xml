@@ -88,8 +88,8 @@ The connector has entered the networking mode."</string>
     <string name="operation_success">Successful</string>
     <string name="operation_failed">Failed</string>
     <string name="please_input_name">Enter name</string>
-    <string name="one_condition">Action starts when 1 condition occurs</string>
-    <string name="all_condition">Action starts when all conditions occur</string>
+    <string name="one_condition">One condition to occur before the action will start.</string>
+    <string name="all_condition">All condition to occur before the action will start.</string>
     <string name="choose_condition">Condition settings</string>
     <string name="one_condition_hint">If you chose more than 1 condition, the action(s) start when one of the conditions occur.</string>
     <string name="all_condition_hint_one">If you chose more than 1 condition, the action(s) start when all of the conditions occur.</string>
@@ -520,4 +520,6 @@ The connector has entered the networking mode."</string>
     <string name="view_yinsi">Privacy conditions</string>
     <string name="fireware_is_lastest">This is the latest software version</string>
     <string name="gateway_version">Connector version</string>
+    <string name="delete_condition">Are you sure you want to delete this condition?</string>
+    <string name="delete_action">Are you sure you want to delete this action?</string>
 </resources>
