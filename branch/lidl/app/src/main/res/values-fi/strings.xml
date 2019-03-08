@@ -519,4 +519,5 @@
     <string name="gateway_version">Tukiaseman versio</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
+    <string name="firmware_upgrade_info">Important: This upgrade strongly changes the functionality of your system. Click this link (https://www.elro.eu/elro-connects-app-upgrade) to acknowledge and understand the changes. Upgrade now.</string>
 </resources>
