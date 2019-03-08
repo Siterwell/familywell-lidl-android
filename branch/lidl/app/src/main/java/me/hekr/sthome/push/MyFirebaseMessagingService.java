@@ -16,11 +16,13 @@ import com.firebase.jobdispatcher.Job;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.hekr.sdk.Hekr;
 import me.hekr.sthome.R;
+import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.history.HistoryDataHandler;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
@@ -135,6 +137,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                             }
                         }
+
+                        showAlert(devid, answer_content);
+
                     }else {
                         LOG.I(TAG,"code error");
                         action = getResources().getString(R.string.receive_one_notice);
@@ -183,6 +188,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // message, here is where that should be initiated. See sendNotification method below.
     }
     // [END receive_message]
+
+    private void showAlert(String devid, String answerContent) {
+        AlertEvent alertEvent =new AlertEvent();
+        alertEvent.setDeviceid(devid);
+        alertEvent.setContent(answerContent);
+        EventBus.getDefault().post(alertEvent);
+    }
 
     /**
      * Schedule a job using FirebaseJobDispatcher.

@@ -22,7 +22,7 @@ public class EncryptUtil {
 
     public static String encrypt(final String text) {
         if (text == null) {
-            return null;
+            return "";
         }
 
         try {
@@ -37,12 +37,12 @@ public class EncryptUtil {
             e.printStackTrace();
         }
 
-        return null;
+        return "";
     }
 
     public static String decrypt(final String text) {
         if (text == null) {
-            return null;
+            return "";
         }
 
         try {
@@ -57,7 +57,7 @@ public class EncryptUtil {
             e.printStackTrace();
         }
 
-        return null;
+        return "";
     }
 
     private static byte[] EncryptAES(byte[] iv, byte[] key,byte[] text)
