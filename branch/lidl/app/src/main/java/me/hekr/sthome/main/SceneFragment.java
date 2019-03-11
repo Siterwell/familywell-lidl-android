@@ -264,6 +264,7 @@ private void initGuider() {
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
+                LOG.D(TAG, "[RYAN] onRefresh !!!");
                 STEvent stEvent = new STEvent();
                 stEvent.setServiceevent(4);
                 EventBus.getDefault().post(stEvent);
@@ -271,9 +272,9 @@ private void initGuider() {
             }
         },1);
 
-        sListView = (SlideListView) view.findViewById(R.id.sysModleList);
+        sListView = view.findViewById(R.id.sysModleList);
         sListView.initSlideMode(SlideListView.MOD_FORBID);
-        msAdapter = new ModleSysAdapter(this.getActivity(), slist,sListView,this);
+        msAdapter = new ModleSysAdapter(getActivity(), slist,sListView,this);
         sListView.setAdapter(msAdapter);
         refresh();
     }
@@ -336,6 +337,8 @@ private void initGuider() {
     }
 
     public void refresh(){
+        LOG.D(TAG, "[RYAN] refresh");
+
        if(!TextUtils.isEmpty( HekrUserAction.getInstance(this.getActivity()).getJWT_TOKEN()))
         try {
             addSyslist();
@@ -365,6 +368,8 @@ private void initGuider() {
 
     @Override
     public void switchmode(int position) {
+        LOG.D(TAG, "[RYAN] switchmode > position : " + position);
+
         //情景同步时禁止控制
       //  if(!ControllerSyncScene.getInstance().sync_server){
             SendCommand.Command = SendCommand.CHOOSE_SCENE_GROUP;
@@ -483,6 +488,7 @@ private void initGuider() {
               SD.delete(String.valueOf(getHandleSceneGroupSid()), ConnectionPojo.getInstance().deviceTid);
               SED.deleteBySid(getHandleSceneGroupSid(), ConnectionPojo.getInstance().deviceTid);
               shortcutDAO.deleteAllShortcurt(String.valueOf(getHandleSceneGroupSid()), ConnectionPojo.getInstance().deviceTid);
+
               refresh();
               SendCommand.clearCommnad();
           }else if(event.getEvent()== SendCommand.DELETE_SCENE){
@@ -490,6 +496,7 @@ private void initGuider() {
               SED.delete(ac);
               DataFromSceneGroup dfsg = new DataFromSceneGroup(SceneFragment.this.getActivity());
               dfsg.doSendSynCode();
+
               refresh();
               SendCommand.clearCommnad();
           }else if(event.getEvent()== SendCommand.SCENE_HANDLE){
@@ -498,10 +505,12 @@ private void initGuider() {
           }
 
 
-          if(event.getRefreshevent()==3){
-             if(refreshableView!=null) refreshableView.finishRefreshing();
-          }else if(event.getRefreshevent()==6){
-              if(refreshableView!=null) refreshableView.finishRefreshing();
+          if(event.getRefreshevent() == SendCommand.REPLACE_EQUIPMENT){
+             if(refreshableView != null)
+                 refreshableView.finishRefreshing();
+          }else if(event.getRefreshevent() == SendCommand.CHOOSE_SCENE_GROUP){
+              if(refreshableView != null)
+                  refreshableView.finishRefreshing();
           }
 
     }
