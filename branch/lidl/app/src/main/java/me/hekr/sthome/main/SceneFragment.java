@@ -37,8 +37,10 @@ import me.hekr.sthome.model.SysDetaiActivity;
 import me.hekr.sthome.model.TimerListActivity;
 import me.hekr.sthome.model.addsmodel.AddSystemActivity;
 import me.hekr.sthome.model.modeladapter.ModleSysAdapter;
+import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modelbean.SceneBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
+import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
@@ -368,14 +370,20 @@ private void initGuider() {
 
     @Override
     public void switchmode(int position) {
-        LOG.D(TAG, "[RYAN] switchmode > position : " + position);
-
-        //情景同步时禁止控制
-      //  if(!ControllerSyncScene.getInstance().sync_server){
+        DeviceDAO DDO = new DeviceDAO(getContext());
+        MyDeviceBean gateway = DDO.findByDeviceid(ConnectionPojo.getInstance().deviceTid);
+        if (gateway != null && gateway.isOnline()) {
+            //情景同步时禁止控制
+            //  if(!ControllerSyncScene.getInstance().sync_server){
             SendCommand.Command = SendCommand.CHOOSE_SCENE_GROUP;
             setHandleSceneGroupSid(Integer.valueOf(slist.get(position).getSid()));
             ssgd.sceneGroupChose(getHandleSceneGroupSid());
-      //  }
+            //  }
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append(getString(R.string.current_gateway)).append(" ").append(getString(R.string.off_line));
+            Toast.makeText(getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
