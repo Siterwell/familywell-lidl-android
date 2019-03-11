@@ -109,16 +109,16 @@ public class ModleSysAdapter extends BaseAdapter {
         SysModelBean ac =mlists.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.cell_scence,null);
-            holder.image = (TextView) convertView.findViewById(R.id.cellScenceImage);
-            holder.text1 = (TextView) convertView.findViewById(R.id.cellScenceName);
-            holder.forward = (ImageView) convertView.findViewById(R.id.cellScenceForward);
+            holder.image = convertView.findViewById(R.id.cellScenceImage);
+            holder.text1 = convertView.findViewById(R.id.cellScenceName);
+            holder.forward = convertView.findViewById(R.id.cellScenceForward);
 
-            holder.del = (ImageView)convertView.findViewById(R.id.dele);
-            holder.tv_ico = (LinearLayout)convertView.findViewById(R.id.ddd);
-            holder.btn_del = (Button)convertView.findViewById(R.id.shanchu);
-            holder.arrow = (ImageView)convertView.findViewById(R.id.arrow);
-            holder.touchForward = (LinearLayout)convertView.findViewById(R.id.touchForward);
-            holder.gatewaycolor = (ImageView)convertView.findViewById(R.id.gatewaycolor);
+            holder.del = convertView.findViewById(R.id.dele);
+            holder.tv_ico = convertView.findViewById(R.id.ddd);
+            holder.btn_del = convertView.findViewById(R.id.shanchu);
+            holder.arrow = convertView.findViewById(R.id.arrow);
+            holder.touchForward = convertView.findViewById(R.id.touchForward);
+            holder.gatewaycolor = convertView.findViewById(R.id.gatewaycolor);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
@@ -141,7 +141,6 @@ public class ModleSysAdapter extends BaseAdapter {
         }else{
             holder.text1.setText(ac.getModleName());
         }
-
 
         if(check[position]){
             holder.forward.setImageResource(image[0]);
