@@ -156,6 +156,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         nowmode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ConnectionPojo.getInstance().deviceTid == null) {
+                    return;
+                }
+
                 DeviceDAO DDO = new DeviceDAO(getContext());
                 MyDeviceBean gateway = DDO.findByDeviceid(ConnectionPojo.getInstance().deviceTid);
                 if (gateway != null && gateway.isOnline()) {
