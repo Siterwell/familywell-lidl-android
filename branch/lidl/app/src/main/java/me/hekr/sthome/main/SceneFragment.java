@@ -366,10 +366,19 @@ private void initGuider() {
 
     }
 
-
+    private void showOfflineMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getString(R.string.current_gateway)).append(" ").append(getString(R.string.off_line));
+        Toast.makeText(getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void switchmode(int position) {
+        if (ConnectionPojo.getInstance().deviceTid == null) {
+            showOfflineMessage();
+            return;
+        }
+
         DeviceDAO DDO = new DeviceDAO(getContext());
         MyDeviceBean gateway = DDO.findByDeviceid(ConnectionPojo.getInstance().deviceTid);
         if (gateway != null && gateway.isOnline()) {
@@ -380,18 +389,26 @@ private void initGuider() {
             ssgd.sceneGroupChose(getHandleSceneGroupSid());
             //  }
         } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append(getString(R.string.current_gateway)).append(" ").append(getString(R.string.off_line));
-            Toast.makeText(getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+            showOfflineMessage();
         }
     }
 
     @Override
     public void edit(int position) {
+        if (ConnectionPojo.getInstance().deviceTid == null) {
+            showOfflineMessage();
+            return;
+        }
 
-        Intent intent = new Intent(SceneFragment.this.getActivity(),SysDetaiActivity.class);
-        intent.putExtra("sid",String.valueOf(slist.get(position).getSid()));
-        SceneFragment.this.getActivity().startActivity(intent);
+        DeviceDAO DDO = new DeviceDAO(getContext());
+        MyDeviceBean gateway = DDO.findByDeviceid(ConnectionPojo.getInstance().deviceTid);
+        if (gateway != null && gateway.isOnline()) {
+            Intent intent = new Intent(SceneFragment.this.getActivity(),SysDetaiActivity.class);
+            intent.putExtra("sid",String.valueOf(slist.get(position).getSid()));
+            SceneFragment.this.getActivity().startActivity(intent);
+        } else {
+            showOfflineMessage();
+        }
     }
 
     @Override
