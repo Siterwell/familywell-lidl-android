@@ -58,7 +58,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
     private TextView siter;
     private LinearLayout downing_txt;
     private TextView intro_txt;
-    private DeviceBean deviceBean;
+    private DeviceBean currentDevice;
     private FirmwareBean file;
     private UpdateAppAuto updateAppAuto;
     private ProgressBar bar;
@@ -117,7 +117,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                         for(DeviceBean d : devicesLists){
                             set.add(d.getDcInfo().getConnectHost());
                             if(ConnectionPojo.getInstance().deviceTid.equals(d.getDevTid())){
-                                deviceBean = d;
+                                currentDevice = d;
                                 doActions();
                             }
                         }
@@ -154,14 +154,14 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
     private void doActionSend() {
         String abc = "{\"msgId\":16810,\"action\":\"devUpgrade\"," +
-                "\"params\":{\"appTid\":\""+ ConnectionPojo.getInstance().IMEI+"\"," +
-                "\"devTid\":\""+deviceBean.getDevTid()+"\"," +
-                "\"ctrlKey\":\""+deviceBean.getCtrlKey()+"\"," +
-                "\"binUrl\":\""+file.getBinUrl()+"\"," +
-                "\"md5\":\""+file.getMd5()+"\"," +
-                "\"binType\":\""+file.getLatestBinType()+"\"," +
-                "\"binVer\":\""+file.getLatestBinVer()+"\"," +
-                "\"size\":"+file.getSize()+"}}";
+                "\"params\":{\"appTid\":\""+ ConnectionPojo.getInstance().IMEI +"\"," +
+                "\"devTid\":\""+ currentDevice.getDevTid() +"\"," +
+                "\"ctrlKey\":\""+ currentDevice.getCtrlKey() +"\"," +
+                "\"binUrl\":\""+ file.getBinUrl() +"\"," +
+                "\"md5\":\""+ file.getMd5() +"\"," +
+                "\"binType\":\""+ file.getLatestBinType() +"\"," +
+                "\"binVer\":\""+ file.getLatestBinVer() +"\"," +
+                "\"size\":"+ file.getSize() +"}}";
         try {
             Hekr.getHekrClient().sendMessage(new JSONObject(abc), new HekrMsgCallback() {
                 @Override
@@ -203,17 +203,21 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
     }
 
     private void doActions() {
-        HekrUserAction.getInstance(this).checkFirmwareUpdate(deviceBean.getDevTid(), deviceBean.getProductPublicKey(), deviceBean.getBinType(), deviceBean.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
+        HekrUserAction.getInstance(this).checkFirmwareUpdate(
+                currentDevice.getDevTid(),
+                currentDevice.getProductPublicKey(),
+                currentDevice.getBinType(),
+                currentDevice.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
             @Override
             public void checkNotNeedUpdate() {
-                version_txt.setDetailText(deviceBean.getBinVersion());
+                version_txt.setDetailText(currentDevice.getBinVersion());
                 version_txt.setNewUpdateVisibility(false);
             }
 
             @Override
             public void checkNeedUpdate(FirmwareBean firmwareBean) {
                 file = firmwareBean;
-                version_txt.setDetailText("v "+deviceBean.getBinVersion());
+                version_txt.setDetailText("v " + currentDevice.getBinVersion());
                 version_txt.setNewUpdateVisibility(true);
             }
 
@@ -325,10 +329,17 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
     }
 
     private void checkUpdatefirm(final boolean first){
-        final DeviceDAO deviceDAO = new DeviceDAO(this);
-        final DeviceBean d = deviceDAO.findByChoice(1);
-        if(d!=null && ((first && d.isOnline()) || !first)){
-            HekrUserAction.getInstance(this).checkFirmwareUpdate(d.getDevTid(),d.getProductPublicKey(), d.getBinType(), d.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
+        if (currentDevice == null) {
+            return;
+        }
+
+        if(currentDevice.isOnline() || !first){
+            HekrUserAction.getInstance(this).checkFirmwareUpdate(currentDevice.getDevTid(),
+                    currentDevice.getProductPublicKey(),
+                    currentDevice.getBinType(),
+                    currentDevice.getBinVersion(),
+                    new HekrUser.CheckFwUpdateListener() {
+
                 @Override
                 public void checkNotNeedUpdate() {
                 }
@@ -337,22 +348,22 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                 public void checkNeedUpdate(FirmwareBean firmwareBean) {
                     file = firmwareBean;
                     if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
-                        StringBuilder sb = new StringBuilder();
-                        String s2 = null;
+                        StringBuilder message = new StringBuilder();
+                        String confirm = null;
                         if(first){
-                            sb.append(String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer()))
+                            message.append(String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer()))
                                     .append("\n\n")
                                     .append(getString(R.string.firmware_upgrade_info));
-                            s2 =  getResources().getString(R.string.ok);
+                            confirm =  getResources().getString(R.string.ok);
                         }else {
-                            sb.append(getResources().getString(R.string.fail_upgrade));
-                            s2 = getResources().getString(R.string.retry);
+                            message.append(getResources().getString(R.string.fail_upgrade));
+                            confirm = getResources().getString(R.string.retry);
                         }
 
                         ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
-                                sb.toString(),
+                                message.toString(),
                                 getResources().getString(R.string.now_not_to_update),
-                                s2,
+                                confirm,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -375,24 +386,28 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
                                             @Override
                                             public void proceed() {
-                                                HekrUserAction.getInstance(AboutActivity.this).getDevices(d.getDevTid(), new HekrUser.GetDevicesListener() {
+                                                HekrUserAction.getInstance(AboutActivity.this).getDevices(currentDevice.getDevTid(), new HekrUser.GetDevicesListener() {
                                                     @Override
                                                     public void getDevicesSuccess(List<DeviceBean> devicesLists) {
-                                                        if(devicesLists!=null &&devicesLists.size()>0){
-                                                            DeviceBean deviceBean = devicesLists.get(0);
-                                                            if(!d.getBinVersion().equals(deviceBean.getBinVersion())){
+                                                        if(devicesLists!=null && devicesLists.size()>0){
+                                                            DeviceBean otaDevice = devicesLists.get(0);
+                                                            LOG.D(TAG, "[RYAN] FW upgrading > current: " + currentDevice.getBinVersion() +
+                                                                    ", ota: " + otaDevice.getBinVersion());
+                                                            if(!currentDevice.getBinVersion().equals(otaDevice.getBinVersion())){
                                                                 if(loadingProceedDialog!=null) loadingProceedDialog.setFlag_success(true);
                                                                 version_txt.setEnabled(false);
                                                                 version_txt.setNewUpdateVisibility(false);
-                                                                version_txt.setDetailText(deviceBean.getBinVersion());
-                                                                deviceDAO.updateDeivceBinversion(deviceBean.getDevTid(),deviceBean.getBinVersion());
+                                                                version_txt.setDetailText(otaDevice.getBinVersion());
+
+                                                                final DeviceDAO deviceDAO = new DeviceDAO(getApplicationContext());
+                                                                deviceDAO.updateDeivceBinversion(otaDevice.getDevTid(), otaDevice.getBinVersion());
                                                             }
                                                         }
                                                     }
 
                                                     @Override
                                                     public void getDevicesFail(int errorCode) {
-                                                        com.litesuits.android.log.Log.i(TAG,"更新获取网关信息错误："+errorCode);
+                                                        LOG.I(TAG,"更新获取网关信息错误："+errorCode);
                                                     }
                                                 });
                                             }
