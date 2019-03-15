@@ -520,4 +520,6 @@
     <string name="is_upgrading">正在升级..</string>
     <string name="success_upgrade">升级成功</string>
     <string name="fail_upgrade">更新失败</string>
+    <string name="delete_condition">您确定要删除此条件吗？</string>
+    <string name="delete_action">您确定要删除此操作吗？</string>
 </resources>

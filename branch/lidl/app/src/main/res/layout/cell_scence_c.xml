@@ -64,7 +64,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="@dimen/modle_item_zhixing_height"
-            android:text="@string/done"
+            android:text="@string/clicktoaction"
             android:id="@+id/done"
             android:textColor="@color/white"
             android:background="@drawable/modle_done"

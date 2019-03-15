@@ -156,13 +156,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
         nowmode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SysmodelDAO dao = new SysmodelDAO(HomeFragment.this.getActivity());
-                final List<SysModelBean> listnow = dao.findAllSys(ConnectionPojo.getInstance().deviceTid);
-                MenuDialog.Builder builder = new  MenuDialog.Builder(HomeFragment.this.getActivity());
-                builder.setSysModellist(listnow);
-                builder.setDissmins(HomeFragment.this);
-                menuDialog =  builder.create();
-                menuDialog.show();
+                if (ConnectionPojo.getInstance().deviceTid == null) {
+                    return;
+                }
+
+                DeviceDAO DDO = new DeviceDAO(getContext());
+                MyDeviceBean gateway = DDO.findByDeviceid(ConnectionPojo.getInstance().deviceTid);
+                if (gateway != null && gateway.isOnline()) {
+                    SysmodelDAO dao = new SysmodelDAO(HomeFragment.this.getActivity());
+                    final List<SysModelBean> listnow = dao.findAllSys(ConnectionPojo.getInstance().deviceTid);
+                    MenuDialog.Builder builder = new  MenuDialog.Builder(HomeFragment.this.getActivity());
+                    builder.setSysModellist(listnow);
+                    builder.setDissmins(HomeFragment.this);
+                    menuDialog =  builder.create();
+                    menuDialog.show();
+                } else {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(getString(R.string.current_gateway)).append(" ").append(getString(R.string.off_line));
+                    Toast.makeText(getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
         tintManager = new SystemTintManager(this.getActivity());// 创建状态栏的管理实例
