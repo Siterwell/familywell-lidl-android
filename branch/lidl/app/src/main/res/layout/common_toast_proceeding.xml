@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/process_layout_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:padding="15.0dip" >
+
+    <me.hekr.sthome.commonBaseView.CompletedView
+        android:id="@+id/tasks_view"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        app:circleColor="@color/transparent"
+        app:radius="20dip"
+        app:ringBgColor="@color/white"
+        app:ringColor="@color/text_color_selected"
+        android:layout_gravity="center_horizontal"
+        app:strokeWidth="2dip" />
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="正在加载..."
+        android:textColor="@color/toast_text_content"
+        android:textSize="@dimen/toast_view_content" />
+
+</LinearLayout>
