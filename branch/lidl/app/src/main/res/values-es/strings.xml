@@ -517,6 +517,9 @@
     <string name="view_yinsi">Protocolo de privacidad</string>
     <string name="fireware_is_lastest">esta es la ultima version</string>
     <string name="gateway_version">version acceso</string>
+    <string name="is_upgrading">Se está perfeccionando..</string>
+    <string name="success_upgrade">Renovación de componentes</string>
+    <string name="fail_upgrade">Fracaso de actualización</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
 </resources>

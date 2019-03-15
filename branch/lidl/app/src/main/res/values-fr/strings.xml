@@ -517,6 +517,9 @@
     <string name="view_yinsi">Voir l’Accord de confidentialité</string>
     <string name="fireware_is_lastest">Cette version est la plus récente</string>
     <string name="gateway_version">Passerelle version</string>
+    <string name="is_upgrading">On est en train de monter..</string>
+    <string name="success_upgrade">Mise à jour</string>
+    <string name="fail_upgrade">échec</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
 </resources>

@@ -29,6 +29,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.igexin.sdk.PushManager;
 import com.igexin.sdk.Tag;
+import com.litesuits.android.log.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -52,6 +53,7 @@ import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.CustomViewPager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
+import me.hekr.sthome.commonBaseView.LoadingProceedDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
 import me.hekr.sthome.event.LogoutEvent;
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     private FirmwareBean file;
     private ECAlertDialog ecAlertDialog;
     public static boolean flag_checkfireware;
+    private LoadingProceedDialog loadingProceedDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             startActivity(tent);
         }else{
             updateAppAuto.initCheckUpate();
-            checkUpdatefirm();
+            checkUpdatefirm(true);
         }
 
     }
@@ -648,7 +651,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         try {
             if(MainActivity.flag_checkfireware == true){
                 MainActivity.flag_checkfireware = false;
-                checkUpdatefirm();
+                checkUpdatefirm(true);
             }
         }catch (Exception e){
             LOG.I(TAG,"已退出了");
@@ -939,10 +942,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     }
 
-    private void checkUpdatefirm(){
-        DeviceDAO deviceDAO = new DeviceDAO(this);
-        DeviceBean d = deviceDAO.findByChoice(1);
-        if(d!=null ){
+    private void checkUpdatefirm(final boolean first){
+        final DeviceDAO deviceDAO = new DeviceDAO(this);
+        final DeviceBean d = deviceDAO.findByChoice(1);
+        if(d!=null && ((first && d.isOnline()) || !first)){
             HekrUserAction.getInstance(this).checkFirmwareUpdate(d.getDevTid(),d.getProductPublicKey(), d.getBinType(), d.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
                 @Override
                 public void checkNotNeedUpdate() {
@@ -952,10 +955,20 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 public void checkNeedUpdate(FirmwareBean firmwareBean) {
                     file = firmwareBean;
                     if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
+                        String s = null;
+                        String s2 = null;
+                        if(first){
+                            s = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
+                            s2 =  getResources().getString(R.string.ok);
+                        }else {
+                            s = getResources().getString(R.string.fail_upgrade);
+                            s2 = getResources().getString(R.string.retry);
+                        }
+
                         ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
-                                String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer()),
+                                s,
                                 getResources().getString(R.string.now_not_to_update),
-                                getResources().getString(R.string.ok),
+                                s2,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -965,7 +978,42 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         doActionSend();
-                                        Toast.makeText(MainActivity.this,getResources().getString(R.string.fireware_is_updating),Toast.LENGTH_LONG).show();
+                                        loadingProceedDialog = new LoadingProceedDialog(MainActivity.this);
+                                        loadingProceedDialog.setResultListener(new LoadingProceedDialog.ResultListener() {
+                                            @Override
+                                            public void result(boolean success) {
+                                                if(success){
+                                                    Toast.makeText(MainActivity.this,getResources().getString(R.string.success_upgrade),Toast.LENGTH_LONG).show();
+                                                }else {
+                                                    checkUpdatefirm(false);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void proceed() {
+                                                HekrUserAction.getInstance(MainActivity.this).getDevices(d.getDevTid(), new HekrUser.GetDevicesListener() {
+                                                    @Override
+                                                    public void getDevicesSuccess(List<DeviceBean> devicesLists) {
+                                                        if(devicesLists!=null &&devicesLists.size()>0){
+                                                            DeviceBean deviceBean = devicesLists.get(0);
+                                                            if(!d.getBinVersion().equals(deviceBean.getBinVersion())){
+                                                                if(loadingProceedDialog!=null) loadingProceedDialog.setFlag_success(true);
+                                                                deviceDAO.updateDeivceBinversion(deviceBean.getDevTid(),deviceBean.getBinVersion());
+
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void getDevicesFail(int errorCode) {
+                                                        Log.i(TAG,"更新获取网关信息错误："+errorCode);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        loadingProceedDialog.setPressText(getResources().getText(R.string.is_upgrading));
+                                        loadingProceedDialog.setCancelable(false);
+                                        loadingProceedDialog.show();
                                     }
 
                                 });
