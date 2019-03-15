@@ -517,6 +517,9 @@
    <string name="view_yinsi">Privacyvoorwaarden</string>
    <string name="fireware_is_lastest">Firmware is bijgewerkt</string>
    <string name="gateway_version">Connector-versie</string>
+   <string name="is_upgrading">Verbetering van..</string>
+   <string name="success_upgrade">Het succes van de software update</string>
+   <string name="fail_upgrade">Een nieuwe mislukking</string>
     <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
     <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
    <string name="firmware_upgrade_info">Belangrijk: deze upgrade verandert de functionaliteit van uw systeem sterk. Klik op deze link (https://www.elro.eu/elro-connects-app-upgrade) om de wijzigingen te bevestigen en te begrijpen. Waardeer nu op.</string>

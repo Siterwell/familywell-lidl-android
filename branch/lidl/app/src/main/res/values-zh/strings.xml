@@ -517,6 +517,9 @@
     <string name="view_yinsi">查看隐私协议</string>
     <string name="fireware_is_lastest">固件版本已是最新</string>
     <string name="gateway_version">固件版本</string>
+    <string name="is_upgrading">正在升级..</string>
+    <string name="success_upgrade">升级成功</string>
+    <string name="fail_upgrade">更新失败</string>
     <string name="delete_condition">您确定要删除此条件吗？</string>
     <string name="delete_action">您确定要删除此操作吗？</string>
     <string name="firmware_upgrade_info">重要提示：此升级会强烈更改系统的功能。 单击此链接（https://www.elro.eu/elro-connects-app-upgrade）以确认并了解更改。 现在升级。</string>
