@@ -936,17 +936,17 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     private void doActionSend() {
         DeviceDAO deviceDAO = new DeviceDAO(this);
-        DeviceBean d = deviceDAO.findByChoice(1);
-        if(d!=null){
+        DeviceBean currentDevice = deviceDAO.findByChoice(1);
+        if(currentDevice != null){
             String abc = "{\"msgId\":16810,\"action\":\"devUpgrade\"," +
                     "\"params\":{\"appTid\":\""+ ConnectionPojo.getInstance().IMEI+"\"," +
-                    "\"devTid\":\""+d.getDevTid()+"\"," +
-                    "\"ctrlKey\":\""+d.getCtrlKey()+"\"," +
-                    "\"binUrl\":\""+file.getBinUrl()+"\"," +
-                    "\"md5\":\""+file.getMd5()+"\"," +
-                    "\"binType\":\""+file.getLatestBinType()+"\"," +
-                    "\"binVer\":\""+file.getLatestBinVer()+"\"," +
-                    "\"size\":"+file.getSize()+"}}";
+                    "\"devTid\":\"" + currentDevice.getDevTid() +"\"," +
+                    "\"ctrlKey\":\"" + currentDevice.getCtrlKey() +"\"," +
+                    "\"binUrl\":\"" + file.getBinUrl() +"\"," +
+                    "\"md5\":\"" + file.getMd5() +"\"," +
+                    "\"binType\":\"" + file.getLatestBinType() +"\"," +
+                    "\"binVer\":\"" + file.getLatestBinVer() +"\"," +
+                    "\"size\":" + file.getSize()+"}}";
             try {
                 Hekr.getHekrClient().sendMessage(new org.json.JSONObject(abc), new HekrMsgCallback() {
                     @Override
@@ -976,9 +976,16 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     private void checkUpdatefirm(final boolean first){
         final DeviceDAO deviceDAO = new DeviceDAO(this);
-        final DeviceBean d = deviceDAO.findByChoice(1);
-        if(d!=null && ((first && d.isOnline()) || !first)){
-            HekrUserAction.getInstance(this).checkFirmwareUpdate(d.getDevTid(),d.getProductPublicKey(), d.getBinType(), d.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
+        final DeviceBean currentDevice = deviceDAO.findByChoice(1);
+        if (currentDevice == null) {
+            return;
+        }
+
+        if(currentDevice.isOnline() || !first){
+            HekrUserAction.getInstance(this).checkFirmwareUpdate(currentDevice.getDevTid(),
+                    currentDevice.getProductPublicKey(),
+                    currentDevice.getBinType(),
+                    currentDevice.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
                 @Override
                 public void checkNotNeedUpdate() {
                 }
@@ -987,20 +994,20 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 public void checkNeedUpdate(FirmwareBean firmwareBean) {
                     file = firmwareBean;
                     if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
-                        String s = null;
-                        String s2 = null;
+                        String message = null;
+                        String confirm = null;
                         if(first){
-                            s = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
-                            s2 =  getResources().getString(R.string.ok);
+                            message = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
+                            confirm =  getResources().getString(R.string.ok);
                         }else {
-                            s = getResources().getString(R.string.fail_upgrade);
-                            s2 = getResources().getString(R.string.retry);
+                            message = getResources().getString(R.string.fail_upgrade);
+                            confirm = getResources().getString(R.string.retry);
                         }
 
                         ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
-                                s,
+                                message,
                                 getResources().getString(R.string.now_not_to_update),
-                                s2,
+                                confirm,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -1023,15 +1030,18 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                                             @Override
                                             public void proceed() {
-                                                HekrUserAction.getInstance(MainActivity.this).getDevices(d.getDevTid(), new HekrUser.GetDevicesListener() {
+                                                HekrUserAction.getInstance(MainActivity.this).getDevices(currentDevice.getDevTid(), new HekrUser.GetDevicesListener() {
                                                     @Override
                                                     public void getDevicesSuccess(List<DeviceBean> devicesLists) {
-                                                        if(devicesLists!=null &&devicesLists.size()>0){
-                                                            DeviceBean deviceBean = devicesLists.get(0);
-                                                            if(!d.getBinVersion().equals(deviceBean.getBinVersion())){
-                                                                if(loadingProceedDialog!=null) loadingProceedDialog.setFlag_success(true);
-                                                                deviceDAO.updateDeivceBinversion(deviceBean.getDevTid(),deviceBean.getBinVersion());
-
+                                                        if(devicesLists!=null && devicesLists.size()>0){
+                                                            DeviceBean otaDevice = devicesLists.get(0);
+                                                            LOG.D(TAG, "[RYAN] FW upgrading > current: " + currentDevice.getBinVersion() +
+                                                                    ", ota: " + otaDevice.getBinVersion());
+                                                            if(!currentDevice.getBinVersion().equals(otaDevice.getBinVersion())){
+                                                                if(loadingProceedDialog != null) {
+                                                                    loadingProceedDialog.setFlag_success(true);
+                                                                }
+                                                                deviceDAO.updateDeivceBinversion(otaDevice.getDevTid(), otaDevice.getBinVersion());
                                                             }
                                                         }
                                                     }
