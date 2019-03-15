@@ -517,6 +517,9 @@
    <string name="view_yinsi">Preveri zasebnosti</string>
    <string name="fireware_is_lastest">Vdelana programska oprema je posodobljena</string>
    <string name="gateway_version">Različica konektorja</string>
+   <string name="is_upgrading">nadgradnja..</string>
+   <string name="success_upgrade">usb posodobitev uspeh</string>
+   <string name="fail_upgrade">posodobitev neuspeh</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
 </resources>

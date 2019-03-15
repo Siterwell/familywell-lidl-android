@@ -27,16 +27,20 @@ import java.util.Set;
 
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrMsgCallback;
+import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.ServeIntroActivity;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ECListDialog;
+import me.hekr.sthome.commonBaseView.LoadingProceedDialog;
 import me.hekr.sthome.commonBaseView.SettingItem;
+import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.FirmwareBean;
+import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.LOG;
@@ -60,6 +64,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
     private ProgressBar bar;
     private ECListDialog ecListDialog;
     private ECAlertDialog ecAlertDialog;
+    public LoadingProceedDialog loadingProceedDialog;
 
     @Override
     protected void onCreateInit() {
@@ -128,16 +133,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                     @Override
                     public void onClick(View v) {
                         if(file != null){
-                            String ds = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
-                        ecAlertDialog = ECAlertDialog.buildAlert(AboutActivity.this, ds,new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                doActionSend();
-                                version_txt.setEnabled(false);
-                                version_txt.setNewUpdateVisibility(false);
-                            }
-                        });
-                        ecAlertDialog.show();
+                            checkUpdatefirm(true);
 
                         }else{
                             ecAlertDialog = ECAlertDialog.buildPositiveAlert(AboutActivity.this, getResources().getString(R.string.fireware_is_lastest),null);
@@ -326,5 +322,98 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
 
 
+    }
+
+    private void checkUpdatefirm(final boolean first){
+        final DeviceDAO deviceDAO = new DeviceDAO(this);
+        final DeviceBean d = deviceDAO.findByChoice(1);
+        if(d!=null && ((first && d.isOnline()) || !first)){
+            HekrUserAction.getInstance(this).checkFirmwareUpdate(d.getDevTid(),d.getProductPublicKey(), d.getBinType(), d.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
+                @Override
+                public void checkNotNeedUpdate() {
+                }
+
+                @Override
+                public void checkNeedUpdate(FirmwareBean firmwareBean) {
+                    file = firmwareBean;
+                    if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
+                        String s = null;
+                        String s2 = null;
+                        if(first){
+                            s = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
+                            s2 =  getResources().getString(R.string.ok);
+                        }else {
+                            s = getResources().getString(R.string.fail_upgrade);
+                            s2 = getResources().getString(R.string.retry);
+                        }
+
+                        ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
+                                s,
+                                getResources().getString(R.string.now_not_to_update),
+                                s2,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        doActionSend();
+                                        loadingProceedDialog = new LoadingProceedDialog(AboutActivity.this);
+                                        loadingProceedDialog.setResultListener(new LoadingProceedDialog.ResultListener() {
+                                            @Override
+                                            public void result(boolean success) {
+                                                if(success){
+                                                    Toast.makeText(AboutActivity.this,getResources().getString(R.string.success_upgrade),Toast.LENGTH_LONG).show();
+                                                }else {
+                                                    checkUpdatefirm(false);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void proceed() {
+                                                HekrUserAction.getInstance(AboutActivity.this).getDevices(d.getDevTid(), new HekrUser.GetDevicesListener() {
+                                                    @Override
+                                                    public void getDevicesSuccess(List<DeviceBean> devicesLists) {
+                                                        if(devicesLists!=null &&devicesLists.size()>0){
+                                                            DeviceBean deviceBean = devicesLists.get(0);
+                                                            if(!d.getBinVersion().equals(deviceBean.getBinVersion())){
+                                                                if(loadingProceedDialog!=null) loadingProceedDialog.setFlag_success(true);
+                                                                version_txt.setEnabled(false);
+                                                                version_txt.setNewUpdateVisibility(false);
+                                                                version_txt.setDetailText(deviceBean.getBinVersion());
+                                                                deviceDAO.updateDeivceBinversion(deviceBean.getDevTid(),deviceBean.getBinVersion());
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void getDevicesFail(int errorCode) {
+                                                        com.litesuits.android.log.Log.i(TAG,"更新获取网关信息错误："+errorCode);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        loadingProceedDialog.setPressText(getResources().getText(R.string.is_upgrading));
+                                        loadingProceedDialog.setCancelable(false);
+                                        loadingProceedDialog.show();
+                                    }
+
+                                });
+
+                        ecAlertDialog.show();
+                    }
+                }
+
+                @Override
+                public void checkFail(int errorCode) {
+                    if(errorCode==1){
+                        LogoutEvent logoutEvent = new LogoutEvent();
+                        EventBus.getDefault().post(logoutEvent);
+                    }
+                }
+            });
+        }
     }
 }
