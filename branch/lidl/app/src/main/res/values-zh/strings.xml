@@ -267,7 +267,7 @@
     <string name="device_setup_image">图像配置</string>
     <string name="device_setup_expert">高级设置</string>
     <string name="device_setup_other">其他配置</string>
-    <string name="common">通用</string>
+    <string name="common">信息</string>
     <string name="device_setup_storage">存储管理</string>
     <string name="device_setup_change_password">密码管理</string>
     <string name="device_time_in_AP_or_local_mode">请在AP模式或者本地模式下同步时间</string>
@@ -522,5 +522,5 @@
     <string name="fail_upgrade">更新失败</string>
     <string name="delete_condition">您确定要删除此条件吗？</string>
     <string name="delete_action">您确定要删除此操作吗？</string>
-    <string name="firmware_upgrade_info">Important: this update strongly changes the functionality of your system. Click on “Information” below to see what changes will be made. After the update you need to reconnect the devices.</string>
+    <string name="firmware_upgrade_info">重要提示：本次更新强烈改变你的系统的功能。点击“信息”下面，看看会做出什么样的变化。更新后，您需要重新连接的设备。</string>
 </resources>

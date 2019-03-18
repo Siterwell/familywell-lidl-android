@@ -267,7 +267,7 @@
     <string name="device_setup_image">Configuration de l’image</string>
     <string name="device_setup_expert">Configuration avancée</string>
     <string name="device_setup_other">Autres configurations</string>
-    <string name="common">Information</string>
+    <string name="common">Informationen</string>
     <string name="device_setup_storage">Stockage</string>
     <string name="device_setup_change_password">Définir le mot de passe</string>
     <string name="device_time_in_AP_or_local_mode">Merci de synchroniser l’heure en AM/ AP (Ante Meridiem ou Post Meridiem)</string>
