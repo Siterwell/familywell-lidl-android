@@ -40,6 +40,7 @@ import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.FirmwareBean;
+import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
@@ -362,14 +363,24 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
                         ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
                                 message.toString(),
-                                getResources().getString(R.string.now_not_to_update),
+                                getString(R.string.cancel),
+                                getString(R.string.common),
                                 confirm,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
                                     }
-                                }, new DialogInterface.OnClickListener() {
+                                },
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Uri webpage = Uri.parse("https://www.elro.eu/elro-connects-app-upgrade");
+                                        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                                        AboutActivity.this.startActivity(webIntent);
+                                    }
+                                },
+                                new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         doActionSend();

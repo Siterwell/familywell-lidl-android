@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -77,9 +78,7 @@ import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
-import me.hekr.sthome.tools.StringUtil;
 import me.hekr.sthome.tools.SystemTintManager;
-import me.hekr.sthome.tools.SystemUtil;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.updateApp.UpdateAppAuto;
 
@@ -976,14 +975,24 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                         ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
                                 message.toString(),
-                                getResources().getString(R.string.now_not_to_update),
+                                getString(R.string.cancel),
+                                getString(R.string.common),
                                 confirm,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
                                     }
-                                }, new DialogInterface.OnClickListener() {
+                                },
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Uri webpage = Uri.parse("https://www.elro.eu/elro-connects-app-upgrade");
+                                        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                                        MainActivity.this.startActivity(webIntent);
+                                    }
+                                },
+                                new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         doActionSend();

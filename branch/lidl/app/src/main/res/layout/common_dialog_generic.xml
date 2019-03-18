@@ -103,7 +103,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:autoLink="web"
                             android:textColor="@color/text_color_selected"
                             android:textSize="@dimen/toast_view_content"/>
                     </LinearLayout>
