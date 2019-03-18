@@ -470,7 +470,7 @@
    <string name="gps_phone">Gps voor mobiel</string>
    <string name="re_login">Weer inloggen</string>
    <string name="temp_controler">Thermostaat</string>
-   <string name="firewarm_to_update">Nieuwe firmwareversie beschikbaar voor apparaat:%1$s ,Wil je updaten?</string>
+   <string name="firewarm_to_update">Nieuwe firmwareversie beschikbaar voor apparaat:%1$s, wil je updaten?</string>
    <string name="now_not_to_update">Niet nu</string>
    <string name="fireware_is_updating">Firmware aan het upgraden, graag wachten…</string>
    <string name="dimming_module">Dimmodule</string>
@@ -522,5 +522,5 @@
    <string name="fail_upgrade">Een nieuwe mislukking</string>
     <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
     <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
-   <string name="firmware_upgrade_info">Belangrijk: deze upgrade verandert de functionaliteit van uw systeem sterk. Klik op deze link (https://www.elro.eu/elro-connects-app-upgrade) om de wijzigingen te bevestigen en te begrijpen. Waardeer nu op.</string>
+   <string name="firmware_upgrade_info">Belangrijk: deze update verandert de werking van je systeem sterk. Klik op “Informatie” hieronder om te zien welke wijzigingen er worden doorgevoerd. Na de update dien je je melders opnieuw te koppelen.</string>
 </resources>

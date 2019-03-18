@@ -267,7 +267,7 @@
     <string name="device_setup_image">图像配置</string>
     <string name="device_setup_expert">高级设置</string>
     <string name="device_setup_other">其他配置</string>
-    <string name="common">通用</string>
+    <string name="common">信息</string>
     <string name="device_setup_storage">存储管理</string>
     <string name="device_setup_change_password">密码管理</string>
     <string name="device_time_in_AP_or_local_mode">请在AP模式或者本地模式下同步时间</string>
@@ -522,5 +522,6 @@
     <string name="fail_upgrade">更新失败</string>
     <string name="delete_condition">您确定要删除此条件吗？</string>
     <string name="delete_action">您确定要删除此操作吗？</string>
-    <string name="firmware_upgrade_info">重要提示：此升级会强烈更改系统的功能。 单击此链接（https://www.elro.eu/elro-connects-app-upgrade）以确认并了解更改。 现在升级。</string>
+    <string name="firmware_upgrade_info">重要提示：此更新会显着更改系统的功能。 单击下面的“信息”以查看将进行的更改。 更新后，您必须重新连接设备。
+</string>
 </resources>

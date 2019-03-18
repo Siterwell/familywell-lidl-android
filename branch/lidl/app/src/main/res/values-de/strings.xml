@@ -267,7 +267,7 @@
     <string name="device_setup_image">Bildeinstellungen</string>
     <string name="device_setup_expert">Expert Einstellungen</string>
     <string name="device_setup_other">andere Einstellungen</string>
-    <string name="common">Information</string>
+    <string name="common">Informationen</string>
     <string name="device_setup_storage">Speicher Konfiguration</string>
     <string name="device_setup_change_password">Passworteinstellung</string>
     <string name="device_time_in_AP_or_local_mode">Bitte synchronisieren Sie die Zeit im AP Modus oder lokal Modus</string>
@@ -470,7 +470,7 @@
     <string name="gps_phone">GPS - Handy</string>
     <string name="re_login">Re-Login</string>
     <string name="temp_controler">Thermostat</string>
-    <string name="firewarm_to_update">Das aktuelle Connector hat eine neue Firmware:%1$s, aktualisieren?</string>
+    <string name="firewarm_to_update">Das aktuelle Connector hat eine neue Firmware:%1$s, möchten Sie aktualisieren?</string>
     <string name="now_not_to_update">Nicht jetzt</string>
     <string name="fireware_is_updating">Firmware-Aktualisierung läuft, bitte versuchen sie es später.</string>
     <string name="dimming_module">Dimmer Modul</string>
@@ -522,5 +522,5 @@
     <string name="fail_upgrade">Update fehlgeschlagen</string>
     <string name="delete_condition">Möchten Sie diese Bedingung wirklich löschen?</string>
     <string name="delete_action">Möchten Sie diese Aktion wirklich löschen?</string>
-    <string name="firmware_upgrade_info">Wichtig: Dieses Upgrade ändert die Funktionalität Ihres Systems erheblich. Klicken Sie auf diesen Link (https://www.elro.eu/elro-connects-app-upgrade), um die Änderungen zu bestätigen und zu verstehen. Jetzt upgraden.</string>
+    <string name="firmware_upgrade_info">Wichtig: Dieses Update ändert die Funktionalität Ihres Systems erheblich. Klicken Sie unten auf "Informationen", um zu sehen, welche Änderungen vorgenommen werden. Nach dem Update müssen Sie die Geräte erneut anschließen.</string>
 </resources>
