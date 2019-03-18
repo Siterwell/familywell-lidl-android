@@ -267,7 +267,7 @@
     <string name="device_setup_image">Configuration de l’image</string>
     <string name="device_setup_expert">Configuration avancée</string>
     <string name="device_setup_other">Autres configurations</string>
-    <string name="common">Général</string>
+    <string name="common">Information</string>
     <string name="device_setup_storage">Stockage</string>
     <string name="device_setup_change_password">Définir le mot de passe</string>
     <string name="device_time_in_AP_or_local_mode">Merci de synchroniser l’heure en AM/ AP (Ante Meridiem ou Post Meridiem)</string>
@@ -470,7 +470,7 @@
     <string name="gps_phone">Merci d’activer le GPS pour obtenir la position</string>
     <string name="re_login">Merci de vous reconnecter</string>
     <string name="temp_controler">Contrôle de la température</string>
-    <string name="firewarm_to_update">N° de la passerelle :%1$s Une nouvelle version est disponible, souhaitez vous la mettre à jour ? </string>
+    <string name="firewarm_to_update">Un nouveau logiciel pour votre connecteur est disponible:%1$s, voulez-vous mettre à jour?</string>
     <string name="now_not_to_update">Aucune mise à jour n’a été effectuée</string>
     <string name="fireware_is_updating">Le Micrologiciel est mis à jour, s’il vous plaît, jaune clignotant, mise à jour des notes de succès.</string>
     <string name="dimming_module">Réglage de la lumière</string>
@@ -522,4 +522,5 @@
     <string name="fail_upgrade">échec</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
+    <string name="firmware_upgrade_info">Important: cette mise à jour modifie fortement les fonctionnalités de votre système. Cliquez sur “Information” ci-dessous pour voir quelles modifications seront apportées. Après la mise à jour, vous devez reconnecter les périphériques.</string>
 </resources>
