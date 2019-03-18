@@ -113,6 +113,22 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
         return buildAlert(ctx, ctx.getString(message), ctx.getString(leftBtnText), ctx.getString(rightText), negativeClickListener, positive);
     }
 
+    public static ECAlertDialog buildAlert(Context ctx, CharSequence message,
+
+                                           CharSequence leftBtnText,
+                                           CharSequence middleBtnText,
+                                           CharSequence rightBtnText,
+                                           OnClickListener negativeClickListener,
+                                           OnClickListener neutralClickListener,
+                                           OnClickListener positive) {
+        ECAlertDialog dialog = new ECAlertDialog(ctx);
+        dialog.setMessage(message);
+        dialog.setButton(BUTTON_NEGATIVE, leftBtnText, negativeClickListener);
+        dialog.setButton(BUTTON_NEUTRAL, middleBtnText, neutralClickListener);
+        dialog.setButton(BUTTON_POSITIVE, rightBtnText, positive);
+        return dialog;
+    }
+
     /**
      * 创建对话框
      * @param ctx 上下文
