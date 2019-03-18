@@ -470,7 +470,7 @@
    <string name="gps_phone">Gps voor mobiel</string>
    <string name="re_login">Weer inloggen</string>
    <string name="temp_controler">Thermostaat</string>
-   <string name="firewarm_to_update">Nieuwe firmwareversie beschikbaar voor apparaat:%1$s, wil je updaten?</string>
+   <string name="firewarm_to_update">Updates beschikbaar, wil je updaten?</string>
    <string name="now_not_to_update">Niet nu</string>
    <string name="fireware_is_updating">Firmware aan het upgraden, graag wachten…</string>
    <string name="dimming_module">Dimmodule</string>

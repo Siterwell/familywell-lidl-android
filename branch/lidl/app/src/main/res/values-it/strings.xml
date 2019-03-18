@@ -470,7 +470,7 @@
    <string name="gps_phone">GPS per dispositivo mobile</string>
    <string name="re_login">Effettua nuovamente l’accesso</string>
    <string name="temp_controler">Termostato</string>
-   <string name="firewarm_to_update">Connettore ha una nuova versione firmware disponibile: %1$s, vuoi aggiornare?</string>
+   <string name="firewarm_to_update">Aggiornamenti disponibili, fanno si desidera aggiornare?</string>
    <string name="now_not_to_update">Non ora</string>
    <string name="fireware_is_updating">Il firmware si sta aggiornando, si prega di attendere…</string>
    <string name="dimming_module">Modulo regolabile</string>
@@ -522,5 +522,5 @@
    <string name="fail_upgrade">Aggiornare il fallimento</string>
    <string name="delete_condition">Are you sure you want to delete this condition?</string>
    <string name="delete_action">Are you sure you want to delete this action?</string>
-   <string name="firmware_upgrade_info">Importante: questo aggiornamento modifica fortemente la funzionalità del vostro sistema. Clicca su “Informazioni” qui sotto per vedere quali cambiamenti saranno resi. Dopo l'aggiornamento è necessario ricollegare i dispositivi.</string>
+   <string name="firmware_upgrade_info">"Importante: questo aggiornamento modifica fortemente la funzionalità del vostro sistema. Clicca su “Informazioni” qui sotto per vedere quali cambiamenti saranno resi. Dopo l'aggiornamento è necessario ricollegare i dispositivi."</string>
 </resources>

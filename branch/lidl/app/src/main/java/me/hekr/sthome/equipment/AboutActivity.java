@@ -352,7 +352,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                         StringBuilder message = new StringBuilder();
                         String confirm = null;
                         if(first){
-                            message.append(String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer()))
+                            message.append(getString(R.string.firewarm_to_update))
                                     .append("\n\n")
                                     .append(getString(R.string.firmware_upgrade_info));
                             confirm =  getResources().getString(R.string.ok);
