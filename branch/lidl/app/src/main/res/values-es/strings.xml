@@ -470,7 +470,7 @@
     <string name="gps_phone">GPS para movil</string>
     <string name="re_login">Re - Login</string>
     <string name="temp_controler">controlador de temperatura</string>
-    <string name="firewarm_to_update">¿La puerta tiene el nuevo firmware: %1$s, necesitan una actualización?</string>
+    <string name="firewarm_to_update">Actualizaciones disponibles, hacen que desea actualizar?</string>
     <string name="now_not_to_update">No mejora</string>
     <string name="fireware_is_updating">Actualización de firmware, por favor, destellos de luz amarilla sobre actualización de éxito.</string>
     <string name="dimming_module">Apaga el módulo</string>

@@ -965,7 +965,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                         String message = null;
                         String confirm = null;
                         if(first){
-                            message = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
+                            message = getString(R.string.firewarm_to_update);
                             confirm =  getResources().getString(R.string.ok);
                         }else {
                             message = getResources().getString(R.string.fail_upgrade);

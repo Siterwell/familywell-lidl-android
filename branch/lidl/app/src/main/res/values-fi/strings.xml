@@ -470,7 +470,7 @@
     <string name="gps_phone">Salli sijainti</string>
     <string name="re_login">Rekisteröidy uudelleen</string>
     <string name="temp_controler">Termostaatti</string>
-    <string name="firewarm_to_update">Nykyiseen tukiasemaan on saatavilla uusi laiteohjelmisto:%1$s,Haluatko päivittää?</string>
+    <string name="firewarm_to_update">Päivityksiä saatavilla, haluat päivittää?</string>
     <string name="now_not_to_update">Älä päivitä nyt</string>
     <string name="fireware_is_updating">Laiteohjelmistoa päivitetään, ole hyvä ja odota keltaista valoa.</string>
     <string name="dimming_module">Himmennys</string>

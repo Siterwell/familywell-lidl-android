@@ -470,7 +470,7 @@
    <string name="gps_phone">GPS za mobilni telefon</string>
    <string name="re_login">Ponovna prijava</string>
    <string name="temp_controler">Termostat</string>
-   <string name="firewarm_to_update">Konektor ima na voljo novo verzijo sistemsko programske opreme:%1$s, ali jo želite posodobiti?</string>
+   <string name="firewarm_to_update">Posodobitve so na voljo, ali želite posodobiti?</string>
    <string name="now_not_to_update">Ne zdaj</string>
    <string name="fireware_is_updating">Sistemsko programska oprema se posodablja, prosimo, počakajte …</string>
    <string name="dimming_module">Modul za regulacijo svetlobe</string>

@@ -470,7 +470,7 @@
     <string name="gps_phone">GPS - Handy</string>
     <string name="re_login">Re-Login</string>
     <string name="temp_controler">Thermostat</string>
-    <string name="firewarm_to_update">Das aktuelle Connector hat eine neue Firmware:%1$s, möchten Sie aktualisieren?</string>
+    <string name="firewarm_to_update">Updates verfügbar, möchten Sie aktualisieren?</string>
     <string name="now_not_to_update">Nicht jetzt</string>
     <string name="fireware_is_updating">Firmware-Aktualisierung läuft, bitte versuchen sie es später.</string>
     <string name="dimming_module">Dimmer Modul</string>

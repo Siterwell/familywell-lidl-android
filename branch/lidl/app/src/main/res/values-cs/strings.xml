@@ -470,7 +470,7 @@
    <string name="gps_phone">GPS pro mobil</string>
    <string name="re_login">Přihlásit se zpět</string>
    <string name="temp_controler">Termostat</string>
-   <string name="firewarm_to_update">Konektor má k dispozici novou verzi firmware:%1$s,Chcete provést aktualizaci?</string>
+   <string name="firewarm_to_update">K dispozici aktualizace, které chcete aktualizovat?</string>
    <string name="now_not_to_update">Nyní ne</string>
    <string name="fireware_is_updating">Firmware se nyní aktualizuje, čekejte, prosím...</string>
    <string name="dimming_module">Modul ztlumení</string>

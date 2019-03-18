@@ -470,7 +470,7 @@
     <string name="gps_phone">定位手机</string>
     <string name="re_login">重新登录</string>
     <string name="temp_controler">温控器</string>
-    <string name="firewarm_to_update">当前网关有新固件:%1$s，是否需要更新?</string>
+    <string name="firewarm_to_update">可用的更新，你要更新吗？</string>
     <string name="now_not_to_update">暂不升级</string>
     <string name="fireware_is_updating">固件正在升级，请稍后，闪黄灯说明更新成功</string>
     <string name="dimming_module">调光模块</string>
