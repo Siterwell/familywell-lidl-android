@@ -465,9 +465,9 @@
     <string name="success_set">Erfolgreich!</string>
     <string name="alarm_remove">Alarm aufgehoben</string>
     <string name="already_in_gateway">Das hinzugefügte Gerät befindet sich bereits im Connector. Bitte geben Sie den Namen%1$s ein</string>
-    <string name="gps_setting">Geo-Einstellungen</string>
-    <string name="no_gps">Keine Position</string>
-    <string name="gps_phone">GPS - Handy</string>
+    <string name="gps_setting">Ortseinstellungen</string>
+    <string name="no_gps">Deaktiviert</string>
+    <string name="gps_phone">Eingeschaltet</string>
     <string name="re_login">Re-Login</string>
     <string name="temp_controler">Thermostat</string>
     <string name="firewarm_to_update">Updates verfügbar, möchten Sie aktualisieren?</string>
