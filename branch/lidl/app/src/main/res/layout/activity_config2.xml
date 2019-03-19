@@ -77,13 +77,13 @@
             app:item_detailText=""
             app:item_titleText="@string/wifi_config" />
         <me.hekr.sthome.commonBaseView.SettingItem
-            android:id="@+id/instruction"
+            android:id="@+id/fap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:item_accessoryType = "arrow"
             app:item_showDivider="true"
             app:item_detailText=""
-            app:item_titleText="@string/instrution" />
+            app:item_titleText="@string/faq" />
         <me.hekr.sthome.commonBaseView.SettingItem
             android:id="@+id/about"
             android:layout_width="match_parent"

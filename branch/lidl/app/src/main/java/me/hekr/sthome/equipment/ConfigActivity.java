@@ -39,7 +39,7 @@ import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
  */
 public class ConfigActivity extends TopbarSuperActivity implements View.OnClickListener{
     private static final String TAG = "ConfigActivity";
-    private SettingItem wifitag,modifypwd,aboutitem,emergencyitem,switch_lan,wificonfig,instrunction,gps_set;
+    private SettingItem wifitag,modifypwd,aboutitem,emergencyitem,switch_lan,wificonfig,gps_set;
     private DeviceDAO DDO;
     private String lan_now;
     private UpdateAppAuto updateAppAuto;
@@ -77,7 +77,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
         wifitag = (SettingItem)findViewById(R.id.wifitag);
         modifypwd = (SettingItem)findViewById(R.id.modifypwd);
         aboutitem = (SettingItem)findViewById(R.id.about);
-        instrunction = (SettingItem)findViewById(R.id.instruction);
         updateAppAuto = new UpdateAppAuto(this,aboutitem,false);
         emergencyitem =(SettingItem)findViewById(R.id.emergency);
         switch_lan = (SettingItem)findViewById(R.id.switch_lan);
@@ -88,9 +87,8 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
         emergencyitem.setOnClickListener(this);
         modifypwd.setOnClickListener(this);
         wificonfig.setOnClickListener(this);
-        instrunction.setOnClickListener(this);
-        instrunction.setVisibility(View.GONE);
         gps_set.setOnClickListener(this);
+        findViewById(R.id.fap).setOnClickListener(this);
         getTopBarView().setTopBarStatus(1, 1, getResources().getString(R.string.setting), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,10 +218,10 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
             case R.id.gps_setting:
                 startActivity(new Intent(ConfigActivity.this,SettingGpsEnableActivity.class));
                 break;
-            case R.id.instruction:
+            case R.id.fap:
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("http://www.elro.eu");
+                Uri content_url = Uri.parse("https://www.elro.eu/faq");
                 intent.setData(content_url);
                 startActivity(intent);
                 break;
