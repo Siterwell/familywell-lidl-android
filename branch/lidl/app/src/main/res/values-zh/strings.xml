@@ -511,7 +511,7 @@
     <string name="door_default_scene_hint">默认情景：门磁触发会触发网关报警</string>
     <string name="old_man_default_scene_hint">默认情景：PIR5个小时未触发则网关报警</string>
    <string name="alert_elder_care">老人看护</string>
-    <string name="three_zifu">密码必须至少包含三个大写字母，小写字母，数字/特殊字符。</string>
+    <string name="three_zifu">密码必须至少包含10个字符，其中包含1个大写字母，1个小写字母，1个数字和特殊字符。</string>
     <string name="config_fail_reason">配网失败原因</string>
     <string name="click_check_firemare">点击查看固件更新</string>
     <string name="view_yinsi">查看隐私协议</string>
