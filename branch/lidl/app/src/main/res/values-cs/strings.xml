@@ -511,7 +511,7 @@
    <string name="door_default_scene_hint">Výchozí scéna: budík a upozornění push při otevírání magnetického kontaktu</string>
    <string name="old_man_default_scene_hint">Standardní scéna: Push Notification a konektor pípnutí na Žádný pohyb po dobu 5 hodin</string>
    <string name="alert_elder_care">starší dohlížejí</string>
-   <string name="three_zifu">Heslo musí obsahovat nejméně tři velká písmena, malá písmena, číslice / speciální znaky.</string>
+   <string name="three_zifu">Hesla musí obsahovat nejméně 10 znaků, z nichž 1 velké písmeno, 1 malé písmeno, 1 číslo a speciální znak.</string>
    <string name="config_fail_reason">důvod, proč selhání</string>
    <string name="click_check_firemare">Klikněte na firmware update</string>
    <string name="view_yinsi">Dohoda na soukromí</string>

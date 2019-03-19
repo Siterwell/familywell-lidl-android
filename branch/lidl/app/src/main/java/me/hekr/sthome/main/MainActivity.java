@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LOG.D(TAG, "[RYAN] onCreate");
-
+        
 //        String encode = StringUtil.encodeUTF8("ÄÖÅ");
 //        LOG.D(TAG, "[RYAN] onCreate > UTF8 encode: " + encode + ", decode: " + StringUtil.decodeUTF8(encode));
 //
