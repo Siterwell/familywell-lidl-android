@@ -470,7 +470,7 @@
     <string name="gps_phone">定位手机</string>
     <string name="re_login">重新登录</string>
     <string name="temp_controler">温控器</string>
-    <string name="firewarm_to_update">当前网关有新固件:%1$s，是否需要更新?</string>
+    <string name="firewarm_to_update">可用的更新，你要更新吗？</string>
     <string name="now_not_to_update">暂不升级</string>
     <string name="fireware_is_updating">固件正在升级，请稍后，闪黄灯说明更新成功</string>
     <string name="dimming_module">调光模块</string>
@@ -523,4 +523,5 @@
     <string name="delete_condition">您确定要删除此条件吗？</string>
     <string name="delete_action">您确定要删除此操作吗？</string>
     <string name="firmware_upgrade_info">重要提示：本次更新强烈改变你的系统的功能。点击“信息”下面，看看会做出什么样的变化。更新后，您需要重新连接的设备。</string>
+    <string name="faq">系统说明书</string>
 </resources>

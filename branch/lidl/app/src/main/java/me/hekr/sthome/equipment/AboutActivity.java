@@ -351,7 +351,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                         String message = null;
                         String comfirm = null;
                         if(first){
-                            message = String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer());
+                            message = getString(R.string.firewarm_to_update);
                             comfirm =  getResources().getString(R.string.ok);
                         }else {
                             message = getResources().getString(R.string.fail_upgrade);
