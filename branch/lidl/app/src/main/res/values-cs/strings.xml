@@ -465,9 +465,9 @@
    <string name="success_set">Úspěšně nastaveno</string>
    <string name="alarm_remove">Vymazat alarm</string>
    <string name="already_in_gateway">Toto zařízení je již připojeno ke konektoru, nastavte název %1$s</string>
-   <string name="gps_setting">Nastavení GPS</string>
-   <string name="no_gps">Žádná GPS</string>
-   <string name="gps_phone">GPS pro mobil</string>
+   <string name="gps_setting">Nastavení umístění</string>
+   <string name="no_gps">Zakázáno</string>
+   <string name="gps_phone">Zapnuto</string>
    <string name="re_login">Přihlásit se zpět</string>
    <string name="temp_controler">Termostat</string>
    <string name="firewarm_to_update">K dispozici aktualizace, které chcete aktualizovat?</string>

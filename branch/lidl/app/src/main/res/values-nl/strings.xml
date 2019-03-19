@@ -465,9 +465,9 @@
    <string name="success_set">Succesvol ingesteld</string>
    <string name="alarm_remove">Alarm uitschakelen</string>
    <string name="already_in_gateway">Het apparaat is al verbonden met de connector, stel de %1$s naam in.</string>
-   <string name="gps_setting">Gps-instellingen</string>
-   <string name="no_gps">Geen gps</string>
-   <string name="gps_phone">Gps voor mobiel</string>
+   <string name="gps_setting">Locatieinstellingen</string>
+   <string name="no_gps">Uitgeschakeld</string>
+   <string name="gps_phone">Ingeschakeld</string>
    <string name="re_login">Weer inloggen</string>
    <string name="temp_controler">Thermostaat</string>
    <string name="firewarm_to_update">Updates beschikbaar, wil je updaten?</string>
