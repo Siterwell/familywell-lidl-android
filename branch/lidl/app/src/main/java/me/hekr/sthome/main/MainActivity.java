@@ -76,6 +76,7 @@ import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.LOG;
+import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.StringUtil;
 import me.hekr.sthome.tools.SystemTintManager;
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LOG.D(TAG, "[RYAN] onCreate");
-
+        
 //        String encode = StringUtil.encodeUTF8("ÄÖÅ");
 //        LOG.D(TAG, "[RYAN] onCreate > UTF8 encode: " + encode + ", decode: " + StringUtil.decodeUTF8(encode));
 //

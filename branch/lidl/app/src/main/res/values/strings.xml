@@ -514,7 +514,7 @@ The connector has entered the networking mode."</string>
     <string name="door_default_scene_hint">Default action: Door triggers gateway alarm and push-notification</string>
     <string name="old_man_default_scene_hint">Default action: PIR 5 hours without triggering, gateway sound and Push-Notification</string>
     <string name="alert_elder_care">Elderly care</string>
-    <string name="three_zifu">Passwords must contain at least 10 characters, of which 1 uppercase letter, 1 lowercase letter, 1 number and/or special character</string>
+    <string name="three_zifu">Passwords must contain at least 10 characters, of which 1 uppercase letter, 1 lowercase letter, 1 number and special character</string>
     <string name="config_fail_reason">Connection failed (attention: always use 2.4 GHz Wi-Fi)</string>
     <string name="click_check_firemare">Click the software update</string>
     <string name="view_yinsi">Privacy conditions</string>
