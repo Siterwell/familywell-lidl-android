@@ -473,7 +473,7 @@ The connector has entered the networking mode."</string>
     <string name="gps_phone">Use location</string>
     <string name="re_login">Re Login</string>
     <string name="temp_controler">Temp_CONTROLLER</string>
-    <string name="firewarm_to_update">New software for your connector is available::%1$s. Do you want to update?</string>
+    <string name="firewarm_to_update">Updates available, do you want to update?</string>
     <string name="now_not_to_update">Not now, remind me later.</string>
     <string name="fireware_is_updating">Software is updating, please wait...</string>
     <string name="dimming_module">Dimming_Module</string>
@@ -526,4 +526,5 @@ The connector has entered the networking mode."</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
     <string name="firmware_upgrade_info">Important: this update strongly changes the functionality of your system. Click on “Information” below to see what changes will be made. After the update you need to reconnect the devices.</string>
+    <string name="faq">Frequently asked questions (FAQ)</string>
 </resources>

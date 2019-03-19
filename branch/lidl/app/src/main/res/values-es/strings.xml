@@ -470,7 +470,7 @@
     <string name="gps_phone">GPS para movil</string>
     <string name="re_login">Re - Login</string>
     <string name="temp_controler">controlador de temperatura</string>
-    <string name="firewarm_to_update">¿La puerta tiene el nuevo firmware: %1$s, necesitan una actualización?</string>
+    <string name="firewarm_to_update">Actualizaciones disponibles, hacen que desea actualizar?</string>
     <string name="now_not_to_update">No mejora</string>
     <string name="fireware_is_updating">Actualización de firmware, por favor, destellos de luz amarilla sobre actualización de éxito.</string>
     <string name="dimming_module">Apaga el módulo</string>
@@ -523,4 +523,5 @@
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
     <string name="firmware_upgrade_info">Importante: esta actualización cambia fuertemente la funcionalidad de su sistema. Haga clic en “Información” a continuación para ver qué cambios se harán. Después de la actualización que necesita para volver a conectar los dispositivos.</string>
+    <string name="faq">Guía de funcionamiento del sistema</string>
 </resources>
