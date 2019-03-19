@@ -138,7 +138,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             }
                         }
 
-                        showAlert(devid, answer_content);
+//                        showAlert(devid, answer_content);
 
                     }else {
                         LOG.I(TAG,"code error");

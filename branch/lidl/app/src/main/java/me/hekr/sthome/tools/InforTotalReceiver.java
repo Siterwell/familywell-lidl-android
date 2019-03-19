@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.hekr.sthome.autoudp.ControllerWifi;
+import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.event.TokenTimeoutEvent;
 import me.hekr.sthome.http.SiterConstantsUtil;
@@ -197,12 +198,12 @@ public abstract class InforTotalReceiver extends BroadcastReceiver {
                             resolveData.putScene(scene_mid,ds);
                         }
 
-//                    }else if(data.getInt("cmdId")==25){
-//                        String content = data.getString("answer_content");
-//                        AlertEvent alertEvent =new AlertEvent();
-//                        alertEvent.setDeviceid(devTids);
-//                        alertEvent.setContent(content);
-//                        EventBus.getDefault().post(alertEvent);
+                    }else if(data.getInt("cmdId")==25){
+                        String content = data.getString("answer_content");
+                        AlertEvent alertEvent =new AlertEvent();
+                        alertEvent.setDeviceid(devTids);
+                        alertEvent.setContent(content);
+                        EventBus.getDefault().post(alertEvent);
                     }else if(data.getInt("cmdId")==36){
                         String info = data.getString("time");
                         resolveData.resolveTimer(info,devTids);
