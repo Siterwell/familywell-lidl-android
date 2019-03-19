@@ -465,9 +465,9 @@
     <string name="success_set">La mise a jour a été effectuée!</string>
     <string name="alarm_remove">L’alerte a été stoppée</string>
     <string name="already_in_gateway">Cet équipement a déjà été lié à la passerelle</string>
-    <string name="gps_setting">Localisation</string>
-    <string name="no_gps">Pas de positionnement</string>
-    <string name="gps_phone">Merci d’activer le GPS pour obtenir la position</string>
+    <string name="gps_setting">Les paramètres de localization</string>
+    <string name="no_gps">Désactivé</string>
+    <string name="gps_phone">Allumé</string>
     <string name="re_login">Merci de vous reconnecter</string>
     <string name="temp_controler">Contrôle de la température</string>
     <string name="firewarm_to_update">Mises à jour disponibles, voulez-vous mettre à jour?</string>

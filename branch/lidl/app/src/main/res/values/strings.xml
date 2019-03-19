@@ -469,8 +469,8 @@ The connector has entered the networking mode."</string>
     <string name="alarm_remove">Alarm off</string>
     <string name="already_in_gateway">This device is already connected to the conncector, please enter %1$s name</string>
     <string name="gps_setting">Location settings</string>
-    <string name="no_gps">Don’t use location</string>
-    <string name="gps_phone">Use location</string>
+    <string name="no_gps">Switched off</string>
+    <string name="gps_phone">Switched on</string>
     <string name="re_login">Re Login</string>
     <string name="temp_controler">Temp_CONTROLLER</string>
     <string name="firewarm_to_update">Updates available, do you want to update?</string>

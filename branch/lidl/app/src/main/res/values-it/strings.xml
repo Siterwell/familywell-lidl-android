@@ -465,9 +465,9 @@
    <string name="success_set">Impostato correttamente</string>
    <string name="alarm_remove">Annulla allarme</string>
    <string name="already_in_gateway">Questo dispositivo è già collegato al connettore, imposta il nome di %1$s</string>
-   <string name="gps_setting">Impostazioni GPS</string>
-   <string name="no_gps">Nessun GPS</string>
-   <string name="gps_phone">GPS per dispositivo mobile</string>
+   <string name="gps_setting">Impostazioni di posizione</string>
+   <string name="no_gps">Disabile</string>
+   <string name="gps_phone">Acceso</string>
    <string name="re_login">Effettua nuovamente l’accesso</string>
    <string name="temp_controler">Termostato</string>
    <string name="firewarm_to_update">Aggiornamenti disponibili, fanno si desidera aggiornare?</string>
