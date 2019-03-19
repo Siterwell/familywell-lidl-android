@@ -465,9 +465,9 @@
     <string name="success_set">Set de éxito!</string>
     <string name="alarm_remove">Alarma clara</string>
     <string name="already_in_gateway">Este dispositivo ya está apegada a la puerta de entrada, por favor, set%1$s nombre</string>
-    <string name="gps_setting">Configuracion del GPS</string>
-    <string name="no_gps">Sin GPS</string>
-    <string name="gps_phone">GPS para movil</string>
+    <string name="gps_setting">Configuración de ubicación</string>
+    <string name="no_gps">Discapacitado</string>
+    <string name="gps_phone">Encendido</string>
     <string name="re_login">Re - Login</string>
     <string name="temp_controler">controlador de temperatura</string>
     <string name="firewarm_to_update">Actualizaciones disponibles, hacen que desea actualizar?</string>

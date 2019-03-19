@@ -465,9 +465,9 @@
    <string name="success_set">Uspešna nastavitev</string>
    <string name="alarm_remove">Počistite alarm</string>
    <string name="already_in_gateway">Ta naprave je že povezana s konektorjem, prosimo, nastavite ime %1$s</string>
-   <string name="gps_setting">Nastavitve GPS</string>
-   <string name="no_gps">Brez GPS</string>
-   <string name="gps_phone">GPS za mobilni telefon</string>
+   <string name="gps_setting">Nastavitve lokacije</string>
+   <string name="no_gps">Onemogočen</string>
+   <string name="gps_phone">Vključeno</string>
    <string name="re_login">Ponovna prijava</string>
    <string name="temp_controler">Termostat</string>
    <string name="firewarm_to_update">Posodobitve so na voljo, ali želite posodobiti?</string>
