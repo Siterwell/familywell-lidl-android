@@ -511,7 +511,7 @@
     <string name="door_default_scene_hint">Oletussääntö: Ovi-/ikkunasensori aktivoi tukiaseman hälytyksen</string>
     <string name="old_man_default_scene_hint">Oletussääntö: Liiketunnistin aktivoi tukiaseman viiden toimettoman tunnin jälkeen</string>
     <string name="alert_elder_care"></string>
-    <string name="three_zifu">Salasanan pitää sisältää isoja kirjaimia, pieniä kirjaimia, numeroita tai vähintään kolme erikoismerkkiä.</string>
+    <string name="three_zifu">Salasanojen on sisällettävä vähintään 10 merkkiä, joista 1 iso kirjain, 1 pienet kirjaimet, 1 numero ja erikoismerkki.</string>
     <string name="config_fail_reason">Yhteyden muodostaminen epäonnistui</string>
     <string name="click_check_firemare">Paina tästä tarkastaaksesi päivitykset</string>
     <string name="view_yinsi">Tietosuojakäytäntö</string>
