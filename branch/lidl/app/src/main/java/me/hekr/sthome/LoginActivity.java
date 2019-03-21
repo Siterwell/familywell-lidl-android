@@ -505,81 +505,81 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LOG.I(TAG,"设置本地domain:"+domain);
         Constants.setOnlineSite(domain);
 
-        Observable.create(new ObservableOnSubscribe<String>() {
-
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) {
-                try {
-                    final String HOST="info.hekr.me";
-                    //final String HOST="127.0.0.1";
-                    Socket socket = new Socket();
-                    socket.connect(new InetSocketAddress(HOST,91),5000);
-                    OutputStream out = socket.getOutputStream();//获取服务端的输出流，为了向服务端输出数据
-                    InputStream in = socket.getInputStream();//获取服务端的输入流，为了获取服务端输入的数据
-
-                    PrintWriter bufw = new PrintWriter(out, true);
-                    BufferedReader bufr = new BufferedReader(new InputStreamReader(in));
-                    LOG.I(TAG,"发送啦");//打印服务端传来的数据
-                    bufw.println("{\"action\":\"getAppDomain\"}");//发送数据给服务端
-                    bufw.flush();
-
-                    while (true) {
-                        String line=null;
-                        line=bufr.readLine();//读取服务端传来的数据
-                        if(line==null)
-                            break;
-                        LOG.I(TAG,"服务端说:"+line);//打印服务端传来的数据
-                        JSONObject jsonObject = JSONObject.parseObject(line);
-                        JSONObject jsonObject1 = jsonObject.getJSONObject("dcInfo");
-                        String domain = jsonObject1.getString("domain");
-                        if(!TextUtils.isEmpty(domain)){
-                            emitter.onNext(domain);
-                            break;
-                        }
-                    }
-
-                    out.close();
-                    in.close();
-                    bufw.close();
-                    bufr.close();
-
-                } catch (IOException e) {
-                    emitter.onError(e.fillInStackTrace());
-                }
-
-            }
-        }).subscribeOn(Schedulers.io())
-        .subscribe(new Observer<String>() {
-
-            private Disposable disposable;
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                disposable = d;
-            }
-
-            @Override
-            public void onNext(String domain) {
-                try {
-                    LOG.I(TAG,"获取到的domain:"+domain);
-                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_DOMAIN, domain, true);
-                    Constants.setOnlineSite(domain);
-                } catch (InvalidClassException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-                disposable.dispose();
-            }
-
-            @Override
-            public void onComplete() {
-                disposable.dispose();
-            }
-        });
+//        Observable.create(new ObservableOnSubscribe<String>() {
+//
+//            @Override
+//            public void subscribe(ObservableEmitter<String> emitter) {
+//                try {
+//                    final String HOST="info.hekr.me";
+//                    //final String HOST="127.0.0.1";
+//                    Socket socket = new Socket();
+//                    socket.connect(new InetSocketAddress(HOST,91),5000);
+//                    OutputStream out = socket.getOutputStream();//获取服务端的输出流，为了向服务端输出数据
+//                    InputStream in = socket.getInputStream();//获取服务端的输入流，为了获取服务端输入的数据
+//
+//                    PrintWriter bufw = new PrintWriter(out, true);
+//                    BufferedReader bufr = new BufferedReader(new InputStreamReader(in));
+//                    LOG.I(TAG,"发送啦");//打印服务端传来的数据
+//                    bufw.println("{\"action\":\"getAppDomain\"}");//发送数据给服务端
+//                    bufw.flush();
+//
+//                    while (true) {
+//                        String line=null;
+//                        line=bufr.readLine();//读取服务端传来的数据
+//                        if(line==null)
+//                            break;
+//                        LOG.I(TAG,"服务端说:"+line);//打印服务端传来的数据
+//                        JSONObject jsonObject = JSONObject.parseObject(line);
+//                        JSONObject jsonObject1 = jsonObject.getJSONObject("dcInfo");
+//                        String domain = jsonObject1.getString("domain");
+//                        if(!TextUtils.isEmpty(domain)){
+//                            emitter.onNext(domain);
+//                            break;
+//                        }
+//                    }
+//
+//                    out.close();
+//                    in.close();
+//                    bufw.close();
+//                    bufr.close();
+//
+//                } catch (IOException e) {
+//                    emitter.onError(e.fillInStackTrace());
+//                }
+//
+//            }
+//        }).subscribeOn(Schedulers.io())
+//        .subscribe(new Observer<String>() {
+//
+//            private Disposable disposable;
+//
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                disposable = d;
+//            }
+//
+//            @Override
+//            public void onNext(String domain) {
+//                try {
+//                    LOG.I(TAG,"获取到的domain:"+domain);
+//                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_DOMAIN, domain, true);
+//                    Constants.setOnlineSite(domain);
+//                } catch (InvalidClassException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                e.printStackTrace();
+//                disposable.dispose();
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                disposable.dispose();
+//            }
+//        });
 
     }
 
