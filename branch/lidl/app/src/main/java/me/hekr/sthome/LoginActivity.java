@@ -24,8 +24,6 @@ import org.json.JSONException;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import io.reactivex.disposables.Disposable;
 import me.hekr.sdk.Constants;
@@ -38,8 +36,6 @@ import me.hekr.sthome.commonBaseView.LoginLogPopupwindow;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
-import me.hekr.sthome.http.bean.DcInfo;
-import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.ClientUser;
@@ -48,6 +44,7 @@ import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.EncryptUtil;
+import me.hekr.sthome.tools.HekrSocketUtil;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.UnitTools;
@@ -77,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         tcpGetDomain();
-//        updateCloudDefaultChannels();
+        HekrSocketUtil.setDefaultChannel();
         LOG.I(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
 
         if (AccountUtil.forceLogout()) {
@@ -299,6 +296,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     });
 
+                    // Most call this after Hekr login to avoiding default channel reset to "hub.hekr.me"
+                    HekrSocketUtil.setDefaultChannel();
+
                 } else {
                     toastor.showSingleLongToast(getResources().getString(R.string.please_input_complete));
                 }
@@ -485,13 +485,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         tools.writeUserLog(userlist.toString());
 
-    }
-
-    private void updateCloudDefaultChannels() {
-        // 使用集合Set，因为设备的host可能会有重复
-        Set<String> hosts = new HashSet<>();
-        hosts.add("fra-hub.hekreu.me");
-        Hekr.getHekrClient().setHosts(hosts);
     }
 
     private void tcpGetDomain(){
