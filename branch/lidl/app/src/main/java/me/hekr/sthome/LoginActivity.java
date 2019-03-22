@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         tcpGetDomain();
-        updateCloudDefaultChannels();
+//        updateCloudDefaultChannels();
         LOG.I(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
 
         if (AccountUtil.forceLogout()) {
