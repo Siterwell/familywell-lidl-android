@@ -10,12 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -24,25 +22,12 @@ import com.litesuits.common.assist.Toastor;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.InvalidClassException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrCallback;
@@ -53,6 +38,8 @@ import me.hekr.sthome.commonBaseView.LoginLogPopupwindow;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.http.bean.DcInfo;
+import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.ClientUser;
@@ -90,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         tcpGetDomain();
+        updateCloudDefaultChannels();
         LOG.I(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
 
         if (AccountUtil.forceLogout()) {
@@ -497,6 +485,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         tools.writeUserLog(userlist.toString());
 
+    }
+
+    private void updateCloudDefaultChannels() {
+        // 使用集合Set，因为设备的host可能会有重复
+        Set<String> hosts = new HashSet<>();
+        hosts.add("fra-hub.hekreu.me");
+        Hekr.getHekrClient().setHosts(hosts);
     }
 
     private void tcpGetDomain(){
