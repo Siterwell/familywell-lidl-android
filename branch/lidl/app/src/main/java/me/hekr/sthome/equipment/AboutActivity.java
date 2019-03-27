@@ -163,20 +163,21 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                 "\"binVer\":\""+ file.getLatestBinVer() +"\"," +
                 "\"size\":"+ file.getSize() +"}}";
         try {
+            LOG.D(TAG, "[RYAN] ++  start FW upgrade > domain = " + ConnectionPojo.getInstance().domain);
             Hekr.getHekrClient().sendMessage(new JSONObject(abc), new HekrMsgCallback() {
                 @Override
                 public void onReceived(String msg) {
-
+                    LOG.D(TAG, "[RYAN] ++ FW upgrade > onReceived : " + msg);
                 }
 
                 @Override
                 public void onTimeout() {
-
+                    LOG.D(TAG, "[RYAN] ++ FW upgrade > onTimeout");
                 }
 
                 @Override
                 public void onError(int errorCode, String message) {
-                    LOG.E(TAG,"doActionSend > onError > " + message);
+                    LOG.E(TAG,"[RYAN] doActionSend > onError > " + message);
                 }
             }, ConnectionPojo.getInstance().domain);
 

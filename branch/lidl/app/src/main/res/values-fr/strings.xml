@@ -126,8 +126,8 @@
     <string name="emergency_call">Appel d’urgence</string>
     <string name="call">APPELER</string>
     <string name="update_name">Renommer</string>
-    <string name="door_open">Ouvrir</string>
-    <string name="door_still_open">Absence</string>
+    <string name="door_open">Ouvert</string>
+    <string name="door_still_open">Reste ouvert</string>
     <string name="Illegal_demolition">Démolition interdite</string>
     <string name="has_been_moved">A été déplacé</string>
     <string name="has_people">Déclenché</string>
@@ -517,8 +517,8 @@
     <string name="view_yinsi">Voir l’Accord de confidentialité</string>
     <string name="fireware_is_lastest">Cette version est la plus récente</string>
     <string name="gateway_version">Passerelle version</string>
-    <string name="is_upgrading">On est en train de monter..</string>
-    <string name="success_upgrade">Mise à jour du micrologiciel réussie</string>
+    <string name="is_upgrading">Mise à niveau...</string>
+    <string name="success_upgrade">Mise à jour du micrologiciel réussie!</string>
     <string name="fail_upgrade">échec</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>

@@ -517,8 +517,8 @@
    <string name="view_yinsi">Dohoda na soukromí</string>
    <string name="fireware_is_lastest">Firmware je aktuální</string>
    <string name="gateway_version">Verze konektoru</string>
-   <string name="is_upgrading">probíhá modernizace..</string>
-   <string name="success_upgrade">firmware update úspěch</string>
+   <string name="is_upgrading">Aktualizace...</string>
+   <string name="success_upgrade">Úspěšná aktualizace firmwaru!</string>
    <string name="fail_upgrade">aktualizace selhání</string>
    <string name="delete_condition">Are you sure you want to delete this condition?</string>
    <string name="delete_action">Are you sure you want to delete this action?</string>
