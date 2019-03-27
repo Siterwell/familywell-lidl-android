@@ -10,7 +10,6 @@
     <string name="Sat">Sa</string>
     <string name="Sun">So</string>
     <string name="Socket_Open">Einschalten</string>
-    <string name="Socket_Open">Einschalten</string>
     <string name="Socket_Close">Ausschalten</string>
     <string name="Socket_Switch">Umschalter</string>
     <string name="Socket_ON">Schalter eingeschaltet</string>
