@@ -126,8 +126,8 @@
    <string name="emergency_call">Noodoproep</string>
    <string name="call">Bellen</string>
    <string name="update_name">Naam bijwerken</string>
-   <string name="door_open">Deur geopend</string>
-   <string name="door_still_open">Deur staat open</string>
+   <string name="door_open">Geopend</string>
+   <string name="door_still_open">Blijft open</string>
    <string name="Illegal_demolition">Illegaal verwijderd</string>
    <string name="has_been_moved">Was verplaatst</string>
    <string name="has_people">Trigger</string>
@@ -409,7 +409,7 @@
    <string name="hum">Luchtvochtigheid:</string>
    <string name="gateway_login">Login</string>
    <string name="gateway_login_out">Logout</string>
-   <string name="logouting">Uitloggen</string>
+   <string name="logouting">Uitloggen...</string>
    <string name="instrution">Systeeminstructies</string>
    <string name="switch_fail">Schakelen mislukt</string>
    <string name="opening">Openen</string>
@@ -517,8 +517,8 @@
    <string name="view_yinsi">Privacyvoorwaarden</string>
    <string name="fireware_is_lastest">Firmware is bijgewerkt</string>
    <string name="gateway_version">Connector-versie</string>
-   <string name="is_upgrading">Verbetering van..</string>
-   <string name="success_upgrade">Het succes van de software update</string>
+   <string name="is_upgrading">Upgraden...</string>
+   <string name="success_upgrade">Firmware update succesvol!</string>
    <string name="fail_upgrade">Een nieuwe mislukking</string>
     <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
     <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>

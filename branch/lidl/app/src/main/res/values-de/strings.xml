@@ -126,8 +126,8 @@
     <string name="emergency_call">Notruf</string>
     <string name="call">Anrufen</string>
     <string name="update_name">Name aktualisieren</string>
-    <string name="door_open">Öffnen</string>
-    <string name="door_still_open">Warten</string>
+    <string name="door_open">Geöffnet</string>
+    <string name="door_still_open">Bleibt offen</string>
     <string name="Illegal_demolition">illegaler Eingriff</string>
     <string name="has_been_moved">wurde bewegt</string>
     <string name="has_people">Auslöser</string>
@@ -517,8 +517,8 @@
     <string name="view_yinsi">Datenschutzbestimmungen</string>
     <string name="fireware_is_lastest">Gateway version hin ist die neueste Version</string>
     <string name="gateway_version">Connector-Version</string>
-    <string name="is_upgrading">Eskaliert..</string>
-    <string name="success_upgrade">Firmware Update erfolgreich</string>
+    <string name="is_upgrading">Aktualisieren...</string>
+    <string name="success_upgrade">Firmware update erfolgreich!</string>
     <string name="fail_upgrade">Update fehlgeschlagen</string>
     <string name="delete_condition">Möchten Sie diese Bedingung wirklich löschen?</string>
     <string name="delete_action">Möchten Sie diese Aktion wirklich löschen?</string>
