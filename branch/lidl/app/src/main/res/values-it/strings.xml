@@ -126,8 +126,8 @@
    <string name="emergency_call">Chiamata d’emergenza</string>
    <string name="call">CHIAMATA</string>
    <string name="update_name">Aggiornamento nome</string>
-   <string name="door_open">Porta aperta</string>
-   <string name="door_still_open">La porta è aperta</string>
+   <string name="door_open">Ha aperto</string>
+   <string name="door_still_open">Rimane aperto</string>
    <string name="Illegal_demolition">Rimozione non permessa</string>
    <string name="has_been_moved">è stato spostato</string>
    <string name="has_people">Azionatore</string>
@@ -517,8 +517,8 @@
    <string name="view_yinsi">Vista la Privacy del protocollo</string>
    <string name="fireware_is_lastest">Il firmware è aggiornato</string>
    <string name="gateway_version">Versione del server</string>
-   <string name="is_upgrading">è il potenziamento..</string>
-   <string name="success_upgrade">IL successo di aggiornamento del Firmware</string>
+   <string name="is_upgrading">Aggiornamento...</string>
+   <string name="success_upgrade">Aggiornamento del firmware riuscito!</string>
    <string name="fail_upgrade">Aggiornare il fallimento</string>
    <string name="delete_condition">Are you sure you want to delete this condition?</string>
    <string name="delete_action">Are you sure you want to delete this action?</string>

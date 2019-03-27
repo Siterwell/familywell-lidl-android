@@ -126,8 +126,8 @@
     <string name="emergency_call">Llamada de emergencia</string>
     <string name="call">Llamada</string>
     <string name="update_name">Actualice nombre</string>
-    <string name="door_open">Abierto</string>
-    <string name="door_still_open">Espere</string>
+    <string name="door_open">Abrió</string>
+    <string name="door_still_open">Permanece abierto</string>
     <string name="Illegal_demolition">Acción ilegal</string>
     <string name="has_been_moved">Se ha movido</string>
     <string name="has_people">disparo</string>
@@ -517,8 +517,8 @@
     <string name="view_yinsi">Protocolo de privacidad</string>
     <string name="fireware_is_lastest">esta es la ultima version</string>
     <string name="gateway_version">version acceso</string>
-    <string name="is_upgrading">Se está perfeccionando..</string>
-    <string name="success_upgrade">Renovación de componentes</string>
+    <string name="is_upgrading">Actualizando...</string>
+    <string name="success_upgrade">Actualización de firmware exitosa!</string>
     <string name="fail_upgrade">Fracaso de actualización</string>
     <string name="delete_condition">Are you sure you want to delete this condition?</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
