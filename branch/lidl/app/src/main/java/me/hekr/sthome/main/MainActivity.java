@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     public static final int REQUEST_PERMISSION = 0xA0;
 
+    private static boolean isLoginInterrupt = false;
+
     private CustomViewPager viewPager;// 页卡内容
     private List<Fragment> fragments;// Tab页面列表
     private RadioGroup bottomRg;
@@ -137,6 +139,23 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             checkUpdatefirm(true);
         }
 
+        isLoginInterrupt = false;
+        Thread loginThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                while (!isLoginInterrupt) {
+                    checkLoginState();
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        });
+        loginThread.start();
     }
 
     @Override
@@ -144,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         super.onStart();
         LOG.D(TAG, "[RYAN] onStart");
 
-        checkLoginState();
+//        checkLoginState();
     }
 
     private void checkPermissions() {
@@ -666,6 +685,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         super.onDestroy();
         EventBus.getDefault().unregister(this);
 
+        isLoginInterrupt = true;
     }
 
 
