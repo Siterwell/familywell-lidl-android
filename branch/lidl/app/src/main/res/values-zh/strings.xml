@@ -524,4 +524,6 @@
     <string name="delete_action">您确定要删除此操作吗？</string>
     <string name="firmware_upgrade_info">重要提示：本次更新强烈改变你的系统的功能。点击“信息”下面，看看会做出什么样的变化。更新后，您需要重新连接的设备。</string>
     <string name="faq">系统说明书</string>
+    <string name="delete_timer">您确定要删除此计时器吗？</string>
+    <string name="successfully_deleted">成功删除</string>
 </resources>

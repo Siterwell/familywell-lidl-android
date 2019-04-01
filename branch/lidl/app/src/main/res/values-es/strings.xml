@@ -524,4 +524,6 @@
     <string name="delete_action">Are you sure you want to delete this action?</string>
     <string name="firmware_upgrade_info">Importante: esta actualización cambia fuertemente la funcionalidad de su sistema. Haga clic en “Información” a continuación para ver qué cambios se harán. Después de la actualización que necesita para volver a conectar los dispositivos.</string>
     <string name="faq">Guía de funcionamiento del sistema</string>
+    <string name="delete_timer">Estás seguro de que quieres eliminar este temporizador?</string>
+    <string name="successfully_deleted">Eliminado exitosamente</string>
 </resources>

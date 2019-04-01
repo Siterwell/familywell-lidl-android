@@ -524,4 +524,6 @@
    <string name="delete_action">Are you sure you want to delete this action?</string>
    <string name="firmware_upgrade_info">Důležité: Tato aktualizace výrazně změní funkce systému. Kliknutím na "informace" níže a uvidíte, jaké změny budou provedeny. Po aktualizaci budete muset připojit zařízení.</string>
    <string name="faq">System specification</string>
+   <string name="delete_timer">Opravdu chcete tento časovač smazat?</string>
+   <string name="successfully_deleted">Úspěšně smazáno</string>
 </resources>
