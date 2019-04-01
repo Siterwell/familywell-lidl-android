@@ -95,8 +95,8 @@ The connector has entered the networking mode."</string>
     <string name="all_condition_hint_one">If you chose more than 1 condition, the action(s) start when all of the conditions occur.</string>
     <string name="all_condition_hint_two"></string>
     <string name="all_condition_hint_three"></string>
-    <string name="my_scene">My_Action_</string>
-    <string name="name_is_null">Enter name</string>
+    <string name="my_action">My action</string>
+    <string name="name_is_null">The name can not be left empty</string>
     <string name="name_is_repeat">Repeat name</string>
     <string name="name_is_too_long">Name is too long</string>
     <string name="name_contain_emoji">Name can not contain emojis</string>
@@ -146,9 +146,9 @@ The connector has entered the networking mode."</string>
     <string name="failed_Esptouch_check_net">Configuration failed, please check your WiFi connection.</string>
     <string name="success_Esptouch">Configuration succeeded</string>
     <string name="wait">Waiting...</string>
-    <string name="device_already_bind">The connector has been connected successfully!</string>
+    <string name="device_already_bind">The connector is connected successfully!</string>
     <string name="device_already_bind_to">The connector %1$s has been connected to %2$s</string>
-    <string name="device_has_been_find">The Connector has been found, connecting...</string>
+    <string name="device_has_been_find">The connector is found, connecting...</string>
     <string name="sale_number">Customer service</string>
     <string name="emergency_number">Emergency number</string>
     <string name="please_choose_device">Choose connector</string>
@@ -346,7 +346,7 @@ The connector has entered the networking mode."</string>
     <string name="monitor_manage">Monitor Manage</string>
     <string name="confirm_delete_monitor">Are U sure to delete the Monitor?</string>
     <string name="please_choose_mode">Select scene</string>
-    <string name="timer_list">Timer</string>
+    <string name="timer_list">Timer Overview</string>
     <string name="please_choose_switch_time">Choose time</string>
     <string name="edit_timer">Timer settings</string>
     <string name="switch_to">in</string>
@@ -399,13 +399,13 @@ The connector has entered the networking mode."</string>
     <string name="trigger_style">Trigger Style</string>
     <string name="about_app">ELRO Connects smart security system contains two main parts: Gateway and smart devices. The Gateway, a key component of the system, communicates with smart devices using RF communication technology and connects to home Wi-Fi network so as to communicate with the Cloud Server. Use your device and an app and control all devices in a smart and safe way. The system allows you use your smart phone as a command center to complement various operations, including creating rules, adding and deleting components, arming and disarming, receiving push notifications when alarms are triggered and other customized operations. Smart devices are selectable based on your needs: smoke alarm, CO detector, water detector, door sensor, passive infrared sensor, emergency button, smart socket, temperature and humidity device and so on. The list of devices in ELRO Connects is continuously being updated and improved. Coming soon: a network camera, door lock, switch panel, socket panel, smart air purification, electromagnetic water valve.</string>
     <string name="modebutton_ins">Scene hotkey</string>
-    <string name="input_exist">Input device can not be repeated</string>
-    <string name="output_exist">Adjacent output devices can not be repeated</string>
-    <string name="click_exist">Click action added</string>
-    <string name="delay_exist">Adjacent delays can not be set</string>
-    <string name="phone_exist">You have set up phone notifications</string>
+    <string name="input_exist">You already added this condition</string>
+    <string name="output_exist">You already added this action</string>
+    <string name="click_exist">You already added this action</string>
+    <string name="delay_exist">You already added this action</string>
+    <string name="phone_exist">You already added this action</string>
     <string name="eq_repeat">As the adjacent device repeats, the delete delay also deletes the next device</string>
-    <string name="delete_delay">Delete this action</string>
+    <string name="delete_delay">Are you sure you want to delete this action?</string>
     <string name="delete_last_delay">Delete this device will also delete the previous delay</string>
     <string name="unamed">Unnamed</string>
     <string name="save_or_not">Save changes?</string>
@@ -508,11 +508,11 @@ The connector has entered the networking mode."</string>
     <string name="copy_scene_alert">Do you want to copy the last action?</string>
     <string name="pir_default_scene">Motion detector default action</string>
     <string name="door_default_scene">Door/window contact default action</string>
-    <string name="old_man_default_scene">Elderly  care default action</string>
+    <string name="old_man_default_scene">Elderly care default action</string>
     <string name="default_scene_cannot_be_deleted">Default actions cannot be deleted</string>
     <string name="pir_default_scene_hint">Default action: PIR triggers gateway alarm and push-notification</string>
     <string name="door_default_scene_hint">Default action: Door triggers gateway alarm and push-notification</string>
-    <string name="old_man_default_scene_hint">Default action: PIR 5 hours without triggering, gateway sound and Push-Notification</string>
+    <string name="old_man_default_scene_hint">Default action: After PIR 5 hours without triggering, gateway alarm and push-notification</string>
     <string name="alert_elder_care">Elderly care</string>
     <string name="three_zifu">Passwords must contain at least 10 characters, of which 1 uppercase letter, 1 lowercase letter, 1 number and special character</string>
     <string name="config_fail_reason">Connection failed (attention: always use 2.4 GHz Wi-Fi)</string>
@@ -527,4 +527,6 @@ The connector has entered the networking mode."</string>
     <string name="delete_action">Are you sure you want to delete this action?</string>
     <string name="firmware_upgrade_info">Important: this update strongly changes the functionality of your system. Click on “Information” below to see what changes will be made. After the update you need to reconnect the devices.</string>
     <string name="faq">Frequently asked questions (FAQ)</string>
+    <string name="delete_timer">Are you sure you want to delete this timer?</string>
+    <string name="successfully_deleted">Successfully deleted</string>
 </resources>

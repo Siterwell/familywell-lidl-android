@@ -162,7 +162,7 @@ public class TimerListActivity extends TopbarSuperActivity implements TimerGatew
 
     @Override
     public void longclick(final int position2) {
-        ECAlertDialog elc = ECAlertDialog.buildAlert(TimerListActivity.this,getResources().getString(R.string.delete_or_not), getResources().getString(R.string.cancel), getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+        ECAlertDialog elc = ECAlertDialog.buildAlert(TimerListActivity.this,getResources().getString(R.string.delete_timer), getResources().getString(R.string.cancel), getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -218,13 +218,13 @@ public class TimerListActivity extends TopbarSuperActivity implements TimerGatew
         }
 
         if(event.getEvent()== SendCommand.MODEL_TIMER_DEL){
-           Toast.makeText(TimerListActivity.this,getResources().getString(R.string.delete_success),Toast.LENGTH_LONG).show();
+           Toast.makeText(TimerListActivity.this,getResources().getString(R.string.successfully_deleted),Toast.LENGTH_LONG).show();
            timerDAO.delete(timerlist.get(index_of_delete).getTimerid(), ConnectionPojo.getInstance().deviceTid);
            timerlist.remove(index_of_delete);
            timerGatewayAdapeter.refreshList(timerlist);
             SendCommand.clearCommnad();
         }else if(event.getEvent()== SendCommand.SWITCH_TIMER){
-           Toast.makeText(TimerListActivity.this,getResources().getString(R.string.operation_success),Toast.LENGTH_LONG).show();
+//           Toast.makeText(TimerListActivity.this,getResources().getString(R.string.operation_success),Toast.LENGTH_LONG).show();
            timerlist.get(index_of_operation).setEnable(switch_of_operation);
            timerlist.get(index_of_operation).setCode(code);
            timerDAO.updateEnable(timerlist.get(index_of_operation));
@@ -246,7 +246,7 @@ public class TimerListActivity extends TopbarSuperActivity implements TimerGatew
             }else{
                 count++;
 
-                if(end_timer == true){
+                if(end_timer){
                     count = 0;
                     end_timer = false;
                     timer.cancel();
