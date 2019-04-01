@@ -711,8 +711,9 @@ public class NewGroup2Activity extends TopbarSuperActivity {
             if(amodle != null){
                 getTopBarView().setEditTitle(amodle.getName());
             }else {
-                getTopBarView().setEditTitle(getResources().getString(R.string.my_scene)+getmid());
-
+                StringBuilder sb = new StringBuilder();
+                sb.append(getString(R.string.my_action)).append(" ").append(getmid());
+                getTopBarView().setEditTitle(sb.toString());
             }
         }
 

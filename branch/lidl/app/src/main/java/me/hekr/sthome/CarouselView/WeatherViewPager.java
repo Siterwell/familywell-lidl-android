@@ -84,7 +84,7 @@ public class WeatherViewPager extends RelativeLayout {
                 weatherInfoBean.setFlag_first(true);
                 weatherInfoBean.setWeather_ico_url(weatherInfo.gpsweather_ico);
                 weatherInfoBean.setWeather(weatherInfo.weather_txt);
-                weatherInfoBean.setHum(getResources().getString(R.string.hum)+weatherInfo.gpshum+"%");
+                weatherInfoBean.setHum(getResources().getString(R.string.hum) + " " + weatherInfo.gpshum+"%");
                 weatherInfoBean.setName(weatherInfo.gps_place);
                 weatherInfoBean.setTemp(weatherInfo.temp+"℃");
                 infos_weather.add(weatherInfoBean);

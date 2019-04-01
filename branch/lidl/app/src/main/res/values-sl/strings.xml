@@ -92,7 +92,7 @@
    <string name="all_condition_hint_one">Če dodate več pogojev, morajo biti za izvedbo dejanj izpolnjeni vsi;</string>
    <string name="all_condition_hint_two">Če dodate le en začetni pogoj, bodo dejanja izvedena, ko bo ta pogoj izpolnjen;</string>
    <string name="all_condition_hint_three">Če ne razumete te funkcije, izberite privzeto možnost ali nas konktakirajte.</string>
-   <string name="my_scene">Moj prizor</string>
+   <string name="my_action">Moj prizor</string>
    <string name="name_is_null">Ime ne sme biti prazno</string>
    <string name="name_is_repeat">Ime je že v uporabi</string>
    <string name="name_is_too_long">Ime je predolgo</string>
@@ -524,4 +524,6 @@
     <string name="delete_action">Are you sure you want to delete this action?</string>
    <string name="firmware_upgrade_info">Pomembno: ta sprememba močno spreminja funkcionalnost sistema. Kliknite na "Informacije" spodaj, da vidite, kaj bo sprememb. Po posodobitvi boste morali znova povezati naprave.</string>
    <string name="faq">System specification</string>
+   <string name="delete_timer">Are you sure you want to delete this timer?</string>
+   <string name="successfully_deleted">Successfully deleted</string>
 </resources>

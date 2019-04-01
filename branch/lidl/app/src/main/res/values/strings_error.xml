@@ -8,7 +8,7 @@
     <string name="invalid_old_password">Old password incorrect</string>
     <string name="has_been_registered">This email address is already registered</string>
     <string name="has_not_validated_yet">This account is not valided yet</string>
-    <string name="account_or_password_error">Incorrect email address of password</string>
+    <string name="account_or_password_error">Incorrect email address or password</string>
     <string name="user_does_not_exist">User can not be found</string>
     <string name="invalid_message_token">Invalid character</string>
     <string name="account_has_been_authenticated">Account is authenticated</string>

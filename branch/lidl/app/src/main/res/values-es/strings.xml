@@ -92,7 +92,7 @@
     <string name="all_condition_hint_one">si añade un numero de condiciones de inicio, todas deben darse todas para que se ejecute la tarea;</string>
     <string name="all_condition_hint_two">si solo añade una condición de inicio, la tarea se ejecuta en ese instante;</string>
     <string name="all_condition_hint_three">si no entiende esta función, seleccione la opcion por defecto o consultenos.</string>
-    <string name="my_scene">Mi escenario</string>
+    <string name="my_action">Mi acción</string>
     <string name="name_is_null">no se puede vaciar el nombre</string>
     <string name="name_is_repeat">repita nombre</string>
     <string name="name_is_too_long">nombre demasiado largo</string>
@@ -343,7 +343,7 @@
     <string name="monitor_manage">gestor de monitor</string>
     <string name="confirm_delete_monitor">quiere usted borrar el monitor?</string>
     <string name="please_choose_mode">seleccione modo de cambio</string>
-    <string name="timer_list">temporizador</string>
+    <string name="timer_list">Resumen del temporizador</string>
     <string name="please_choose_switch_time">seleccione cambio de hora</string>
     <string name="edit_timer">edite temporizador</string>
     <string name="switch_to">a</string>
@@ -524,4 +524,6 @@
     <string name="delete_action">Are you sure you want to delete this action?</string>
     <string name="firmware_upgrade_info">Importante: esta actualización cambia fuertemente la funcionalidad de su sistema. Haga clic en “Información” a continuación para ver qué cambios se harán. Después de la actualización que necesita para volver a conectar los dispositivos.</string>
     <string name="faq">Guía de funcionamiento del sistema</string>
+    <string name="delete_timer">Estás seguro de que quieres eliminar este temporizador?</string>
+    <string name="successfully_deleted">Eliminado exitosamente</string>
 </resources>

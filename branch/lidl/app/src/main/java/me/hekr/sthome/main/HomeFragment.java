@@ -412,10 +412,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             MyDeviceBean d = deviceDAO.findByChoice(1);
             String status = d.isOnline()?getResources().getString(R.string.on_line):getResources().getString(R.string.off_line);
             if("报警器".equals(d.getDeviceName())){
-                title_view.setText(getResources().getString(R.string.my_home)+status);
+                title_view.setText(getResources().getString(R.string.my_home) + " " + status);
 
             }else{
-                title_view.setText(d.getDeviceName()+status);
+                title_view.setText(d.getDeviceName() + " " + status);
             }
         }catch (Exception e){
             e.printStackTrace();
