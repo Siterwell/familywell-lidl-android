@@ -92,7 +92,7 @@
    <string name="all_condition_hint_one">Se aggiungi condizioni multiple, tutte devono essere soddisfatte per eseguire le azioni;</string>
    <string name="all_condition_hint_two">Se aggiungi solamente una condizioni di partenza, le azioni saranno eseguite quando la condizione è soddisfatta;</string>
    <string name="all_condition_hint_three">Se non capisci questa funzione selezione l’opzione di default o contattaci.</string>
-   <string name="my_scene">My_Scene_</string>
+   <string name="my_action">La mia azione</string>
    <string name="name_is_null">Il nome non può essere vuoto</string>
    <string name="name_is_repeat">Nome duplicato</string>
    <string name="name_is_too_long">Il nome è troppo lungo</string>
@@ -343,7 +343,7 @@
    <string name="monitor_manage">Gestione schermo</string>
    <string name="confirm_delete_monitor">Sei sicuro di voler cancellare lo schermo?</string>
    <string name="please_choose_mode">Seleziona modalità interruttore</string>
-   <string name="timer_list">Timer</string>
+   <string name="timer_list">Panoramica del timer</string>
    <string name="please_choose_switch_time">Seleziona tempo interruttore</string>
    <string name="edit_timer">Modifica timer</string>
    <string name="switch_to">A</string>
@@ -524,4 +524,6 @@
    <string name="delete_action">Are you sure you want to delete this action?</string>
    <string name="firmware_upgrade_info">"Importante: questo aggiornamento modifica fortemente la funzionalità del vostro sistema. Clicca su “Informazioni” qui sotto per vedere quali cambiamenti saranno resi. Dopo l'aggiornamento è necessario ricollegare i dispositivi."</string>
    <string name="faq">System specification</string>
+   <string name="delete_timer">Sei sicuro di voler cancellare questo timer?</string>
+   <string name="successfully_deleted">Eliminato con successo</string>
 </resources>

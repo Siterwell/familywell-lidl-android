@@ -92,7 +92,7 @@
     <string name="all_condition_hint_one">Alle Bedingungen müssen erfüllt sein, bevor das Gerät die Aktion(en) durchführt.</string>
     <string name="all_condition_hint_two">Wenn Sie nur eine Bedingung hinzufügen, wird/werden die Aktion(en) durchgeführt, wenn diese eine Bedingung erfüllt wird.</string>
     <string name="all_condition_hint_three">Wenn Sie die Funktionsweise dieser Option nicht verstehen, wählen Sie bitte die standardmäßig eingestellte Option:</string>
-    <string name="my_scene">Meine_Szene_</string>
+    <string name="my_action">Meine aktion</string>
     <string name="name_is_null">Der name Darf nicht Leer sein</string>
     <string name="name_is_repeat">Name bereits verwendet</string>
     <string name="name_is_too_long">Name ist zu lang</string>
@@ -343,7 +343,7 @@
     <string name="monitor_manage">Monitor kontrollieren</string>
     <string name="confirm_delete_monitor">Sind sie sicher, dass sie diesen Monitor löschen möschten?</string>
     <string name="please_choose_mode">Wählen Sie Schaltmodus</string>
-    <string name="timer_list">Timer</string>
+    <string name="timer_list">Timer-Übersicht</string>
     <string name="please_choose_switch_time">Wählen Sie die Schaltzeit</string>
     <string name="edit_timer">Timer bearbeiten</string>
     <string name="switch_to">zu</string>
@@ -524,4 +524,6 @@
     <string name="delete_action">Möchten Sie diese Aktion wirklich löschen?</string>
     <string name="firmware_upgrade_info">Wichtig: Dieses Update ändert die Funktionalität Ihres Systems erheblich. Klicken Sie unten auf "Informationen", um zu sehen, welche Änderungen vorgenommen werden. Nach dem Update müssen Sie die Geräte erneut anschließen.</string>
     <string name="faq">Häufig gestellte Fragen (FAQ)</string>
+    <string name="delete_timer">Möchten Sie diesen Timer wirklich löschen?</string>
+    <string name="successfully_deleted">Erfolgreich gelöscht</string>
 </resources>
