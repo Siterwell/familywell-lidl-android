@@ -126,7 +126,7 @@
         android:layout_marginRight="@dimen/NormalPadding"
         android:background="@drawable/modle_done"
         android:textAllCaps="false"
-        android:text="@string/reset_code"
+        android:text="@string/dialog_btn_confim"
         android:textColor="@color/white"/>
 
 
