@@ -343,7 +343,7 @@
     <string name="monitor_manage">Gestion des équipements</string>
     <string name="confirm_delete_monitor">Voulez vous supprimer l’équipement？</string>
     <string name="please_choose_mode">Mode d’ouverture</string>
-    <string name="timer_list">Planifier</string>
+    <string name="timer_list">Aperçu de la minuterie</string>
     <string name="please_choose_switch_time">Choix de l’heure d’allumage</string>
     <string name="edit_timer">Modifier la planification</string>
     <string name="switch_to">Vers</string>

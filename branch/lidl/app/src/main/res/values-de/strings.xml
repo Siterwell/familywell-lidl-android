@@ -343,7 +343,7 @@
     <string name="monitor_manage">Monitor kontrollieren</string>
     <string name="confirm_delete_monitor">Sind sie sicher, dass sie diesen Monitor löschen möschten?</string>
     <string name="please_choose_mode">Wählen Sie Schaltmodus</string>
-    <string name="timer_list">Timer</string>
+    <string name="timer_list">Timer-Übersicht</string>
     <string name="please_choose_switch_time">Wählen Sie die Schaltzeit</string>
     <string name="edit_timer">Timer bearbeiten</string>
     <string name="switch_to">zu</string>

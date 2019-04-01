@@ -343,7 +343,7 @@
    <string name="monitor_manage">Gestione schermo</string>
    <string name="confirm_delete_monitor">Sei sicuro di voler cancellare lo schermo?</string>
    <string name="please_choose_mode">Seleziona modalità interruttore</string>
-   <string name="timer_list">Timer</string>
+   <string name="timer_list">Panoramica del timer</string>
    <string name="please_choose_switch_time">Seleziona tempo interruttore</string>
    <string name="edit_timer">Modifica timer</string>
    <string name="switch_to">A</string>

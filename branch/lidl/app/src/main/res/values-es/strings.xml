@@ -343,7 +343,7 @@
     <string name="monitor_manage">gestor de monitor</string>
     <string name="confirm_delete_monitor">quiere usted borrar el monitor?</string>
     <string name="please_choose_mode">seleccione modo de cambio</string>
-    <string name="timer_list">temporizador</string>
+    <string name="timer_list">Resumen del temporizador</string>
     <string name="please_choose_switch_time">seleccione cambio de hora</string>
     <string name="edit_timer">edite temporizador</string>
     <string name="switch_to">a</string>

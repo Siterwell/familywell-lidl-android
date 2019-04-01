@@ -343,7 +343,7 @@
    <string name="monitor_manage">Monitorbeheer</string>
    <string name="confirm_delete_monitor">Weet je zeker dat je de monitor wilt verwijderen?</string>
    <string name="please_choose_mode">Selecteer schakelaarmodus</string>
-   <string name="timer_list">Timer</string>
+   <string name="timer_list">Timer overzicht</string>
    <string name="please_choose_switch_time">Selecteer schakeltijd</string>
    <string name="edit_timer">Timer bewerken</string>
    <string name="switch_to">Naar</string>

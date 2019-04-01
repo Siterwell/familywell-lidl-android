@@ -343,7 +343,7 @@
    <string name="monitor_manage">Správa monitorů</string>
    <string name="confirm_delete_monitor">Opravdu chcete monitor smazat?</string>
    <string name="please_choose_mode">Přepnout spínač</string>
-   <string name="timer_list">Časovač</string>
+   <string name="timer_list">Přehled časovače</string>
    <string name="please_choose_switch_time">Vybrat čas sepnutí</string>
    <string name="edit_timer">Upravit časovač</string>
    <string name="switch_to">Pro</string>
