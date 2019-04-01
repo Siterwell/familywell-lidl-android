@@ -508,11 +508,11 @@ The connector has entered the networking mode."</string>
     <string name="copy_scene_alert">Do you want to copy the last action?</string>
     <string name="pir_default_scene">Motion detector default action</string>
     <string name="door_default_scene">Door/window contact default action</string>
-    <string name="old_man_default_scene">Elderly  care default action</string>
+    <string name="old_man_default_scene">Elderly care default action</string>
     <string name="default_scene_cannot_be_deleted">Default actions cannot be deleted</string>
     <string name="pir_default_scene_hint">Default action: PIR triggers gateway alarm and push-notification</string>
     <string name="door_default_scene_hint">Default action: Door triggers gateway alarm and push-notification</string>
-    <string name="old_man_default_scene_hint">Default action: PIR 5 hours without triggering, gateway sound and Push-Notification</string>
+    <string name="old_man_default_scene_hint">Default action: After PIR 5 hours without triggering, gateway alarm and push-notification</string>
     <string name="alert_elder_care">Elderly care</string>
     <string name="three_zifu">Passwords must contain at least 10 characters, of which 1 uppercase letter, 1 lowercase letter, 1 number and special character</string>
     <string name="config_fail_reason">Connection failed (attention: always use 2.4 GHz Wi-Fi)</string>

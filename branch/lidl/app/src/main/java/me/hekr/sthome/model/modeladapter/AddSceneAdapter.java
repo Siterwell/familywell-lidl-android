@@ -59,9 +59,9 @@ public class AddSceneAdapter extends BaseAdapter {
                     R.layout.add_system_model_item, parent,
                     false);
             holder = new ViewHolder();
-            holder.checkBox = (ImageView)convertView.findViewById(R.id.checkboxo);
-            holder.inName = (TextView)convertView.findViewById(R.id.cellScenceName);
-            holder.numb = (TextView)convertView.findViewById(R.id.cellScenceImage);
+            holder.checkBox = convertView.findViewById(R.id.checkboxo);
+            holder.inName = convertView.findViewById(R.id.cellScenceName);
+            holder.numb = convertView.findViewById(R.id.cellScenceImage);
             convertView.setTag(holder);
         }else{
             tv = convertView;
