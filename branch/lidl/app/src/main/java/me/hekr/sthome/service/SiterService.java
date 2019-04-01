@@ -659,7 +659,7 @@ public class SiterService extends Service {
                     if(lock_gateway)  return;
 
                     String status = (String)msg.obj;
-                    Toast.makeText(SiterService.this,getResources().getString(R.string.connect_alert)+status,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SiterService.this,getResources().getString(R.string.connect_alert) + " " + status,Toast.LENGTH_SHORT).show();
                     STEvent stEvent = new STEvent();
                     stEvent.setRefreshevent(1);
                     EventBus.getDefault().post(stEvent);
