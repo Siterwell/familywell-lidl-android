@@ -92,7 +92,7 @@
     <string name="all_condition_hint_one">Si vous configurez plusieurs conditions,  elles devront toutes être conformes pour permettre le démarrage;</string>
     <string name="all_condition_hint_two">Si vous ne configurez qu’une condition de démarrage, celle-ci sera effective;</string>
     <string name="all_condition_hint_three">Vous pouvez choisir la configuration par défaut, ou bien joindre notre service clients pour plus d’explication.</string>
-    <string name="my_scene">Mon scenario</string>
+    <string name="my_action">Mon action</string>
     <string name="name_is_null">Merci de renseigner un nom</string>
     <string name="name_is_repeat">Le nom est déjà utilisé</string>
     <string name="name_is_too_long">Le nom est trop long</string>

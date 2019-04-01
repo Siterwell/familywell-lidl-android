@@ -92,7 +92,7 @@
    <string name="all_condition_hint_one">Pokud přidáte více podmínek, pro spuštění akcí je třeba splnit všechny;</string>
    <string name="all_condition_hint_two">Pokud přidáte pouze jednu výchozí podmínku, akce budou provedeny jakmile bude podmínka splněna;</string>
    <string name="all_condition_hint_three">Pokud této funkci nerozumíte, vyberte výchozí možnost nebo nás kontaktujte.</string>
-   <string name="my_scene">Moje_Scéna_</string>
+   <string name="my_action">Moje akce</string>
    <string name="name_is_null">Název nemůže být prázdný</string>
    <string name="name_is_repeat">Duplicitní název</string>
    <string name="name_is_too_long">Název je příliš dlouhý</string>

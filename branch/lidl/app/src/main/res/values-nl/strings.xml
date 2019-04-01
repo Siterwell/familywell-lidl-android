@@ -92,7 +92,7 @@
    <string name="all_condition_hint_one">Als je meerdere condities toevoegt, dan moet aan alle condities voldaan worden om de acties uit te voeren;</string>
    <string name="all_condition_hint_two">Als je maar één conditie toevoegt, dan zullen de acties uitgevoerd worden wanneer aan deze conditie voldaan is;</string>
    <string name="all_condition_hint_three">Als je deze functie niet begrijpt, selecteer dan de standaardoptie of neem met ons contact op.</string>
-   <string name="my_scene">Mijn_scène_</string>
+   <string name="my_action">Mijn actie</string>
    <string name="name_is_null">Het naamvak mag niet leeg zijn</string>
    <string name="name_is_repeat">Naam al in gebruik</string>
    <string name="name_is_too_long">Naam is te lang</string>

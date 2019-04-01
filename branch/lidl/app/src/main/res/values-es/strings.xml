@@ -92,7 +92,7 @@
     <string name="all_condition_hint_one">si añade un numero de condiciones de inicio, todas deben darse todas para que se ejecute la tarea;</string>
     <string name="all_condition_hint_two">si solo añade una condición de inicio, la tarea se ejecuta en ese instante;</string>
     <string name="all_condition_hint_three">si no entiende esta función, seleccione la opcion por defecto o consultenos.</string>
-    <string name="my_scene">Mi escenario</string>
+    <string name="my_action">Mi acción</string>
     <string name="name_is_null">no se puede vaciar el nombre</string>
     <string name="name_is_repeat">repita nombre</string>
     <string name="name_is_too_long">nombre demasiado largo</string>

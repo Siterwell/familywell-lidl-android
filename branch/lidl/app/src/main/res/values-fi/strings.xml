@@ -92,7 +92,7 @@
     <string name="all_condition_hint_one">Kaikkien ehtojen tulee täyttyä ennen kuin toiminto toteutetaan</string>
     <string name="all_condition_hint_two"></string>
     <string name="all_condition_hint_three"></string>
-    <string name="my_scene">Säännöt</string>
+    <string name="my_action">Säännöt</string>
     <string name="name_is_null">Nimi ei voi olla tyhjä</string>
     <string name="name_is_repeat">Nimi on jo käytössä</string>
     <string name="name_is_too_long">Nimi on liian pitkä</string>

@@ -92,7 +92,7 @@
    <string name="all_condition_hint_one">Če dodate več pogojev, morajo biti za izvedbo dejanj izpolnjeni vsi;</string>
    <string name="all_condition_hint_two">Če dodate le en začetni pogoj, bodo dejanja izvedena, ko bo ta pogoj izpolnjen;</string>
    <string name="all_condition_hint_three">Če ne razumete te funkcije, izberite privzeto možnost ali nas konktakirajte.</string>
-   <string name="my_scene">Moj prizor</string>
+   <string name="my_action">Moj prizor</string>
    <string name="name_is_null">Ime ne sme biti prazno</string>
    <string name="name_is_repeat">Ime je že v uporabi</string>
    <string name="name_is_too_long">Ime je predolgo</string>

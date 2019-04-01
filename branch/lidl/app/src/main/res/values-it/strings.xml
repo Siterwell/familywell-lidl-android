@@ -92,7 +92,7 @@
    <string name="all_condition_hint_one">Se aggiungi condizioni multiple, tutte devono essere soddisfatte per eseguire le azioni;</string>
    <string name="all_condition_hint_two">Se aggiungi solamente una condizioni di partenza, le azioni saranno eseguite quando la condizione è soddisfatta;</string>
    <string name="all_condition_hint_three">Se non capisci questa funzione selezione l’opzione di default o contattaci.</string>
-   <string name="my_scene">My_Scene_</string>
+   <string name="my_action">La mia azione</string>
    <string name="name_is_null">Il nome non può essere vuoto</string>
    <string name="name_is_repeat">Nome duplicato</string>
    <string name="name_is_too_long">Il nome è troppo lungo</string>

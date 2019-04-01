@@ -92,7 +92,7 @@
     <string name="all_condition_hint_one">如果添加了多个启动条件时，必须达到所有条件才会执行任务；</string>
     <string name="all_condition_hint_two">如果只添加了一个启动条件，此时满足该条件即执行任务；</string>
     <string name="all_condition_hint_three">如果您还未理解此选项的功能，请选择默认选项或者咨询我们。</string>
-    <string name="my_scene">我的情景</string>
+    <string name="my_action">我的情景</string>
     <string name="name_is_null">名称为空</string>
     <string name="name_is_repeat">名称重复</string>
     <string name="name_is_too_long">名称过长</string>

@@ -95,7 +95,7 @@ The connector has entered the networking mode."</string>
     <string name="all_condition_hint_one">If you chose more than 1 condition, the action(s) start when all of the conditions occur.</string>
     <string name="all_condition_hint_two"></string>
     <string name="all_condition_hint_three"></string>
-    <string name="my_scene">My_Action_</string>
+    <string name="my_action">My action</string>
     <string name="name_is_null">Enter name</string>
     <string name="name_is_repeat">Repeat name</string>
     <string name="name_is_too_long">Name is too long</string>
