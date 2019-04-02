@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     public static final int REQUEST_PERMISSION = 0xA0;
 
-    private static boolean isLoginInterrupt = false;
-
     private CustomViewPager viewPager;// 页卡内容
     private List<Fragment> fragments;// Tab页面列表
     private RadioGroup bottomRg;
@@ -139,23 +137,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             checkUpdatefirm(true);
         }
 
-        isLoginInterrupt = false;
-        Thread loginThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                while (!isLoginInterrupt) {
-                    checkLoginState();
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        });
-        loginThread.start();
+        MyApplication.enableLoginThread(true);
     }
 
     @Override
@@ -212,32 +194,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    private void checkLoginState(){
-        LOG.I(TAG,"[RYAN] checkLoginState");
-
-        final String username = AccountUtil.getUsername();
-        final String password = AccountUtil.getPassword();
-        Hekr.getHekrUser().login(username, password, new HekrCallback() {
-            @Override
-            public void onSuccess() {
-            }
-
-            @Override
-            public void onError(int errorCode, String message) {
-                JSONObject d = JSON.parseObject(message);
-                int code = d.getInteger("code");
-
-                //密码错误
-                if(code == 3400010){
-                    HekrUserAction.getInstance(MainActivity.this).userLogout();
-                    CCPAppManager.setClientUser(null);
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                    finish();
-                }
-            }
-        });
     }
 
     private void initView() {
@@ -685,7 +641,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         super.onDestroy();
         EventBus.getDefault().unregister(this);
 
-        isLoginInterrupt = true;
+        MyApplication.enableLoginThread(false);
     }
 
 

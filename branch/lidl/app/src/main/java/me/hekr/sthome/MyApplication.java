@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.multidex.MultiDexApplication;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.crashlytics.android.Crashlytics;
 import com.igexin.sdk.PushManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,10 +21,17 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
+import me.hekr.sdk.Hekr;
 import me.hekr.sdk.HekrSDK;
+import me.hekr.sdk.inter.HekrCallback;
+import me.hekr.sthome.common.CCPAppManager;
+import me.hekr.sthome.equipment.detail.AbstractDetailActivity;
+import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.push.GTPushService;
 import me.hekr.sthome.push.RGTIntentService;
 import me.hekr.sthome.service.SiterService;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -33,6 +42,9 @@ public class MyApplication extends MultiDexApplication {
 
     private static MyApplication mApp;
     public static Activity sActivity;
+
+    private static boolean enableLogin = false;
+
     // user your appid the key.
     private static final String APP_ID = "2882303761517832975";
     // user your appid the key.
@@ -71,13 +83,12 @@ public class MyApplication extends MultiDexApplication {
 
             @Override
             public void onActivityStarted(Activity activity) {
-                sActivity=activity;
 
             }
 
             @Override
             public void onActivityResumed(Activity activity) {
-
+                sActivity=activity;
             }
 
             @Override
@@ -111,9 +122,29 @@ public class MyApplication extends MultiDexApplication {
         } else {
             startService(intent);
         }
+
+
+        Thread loginThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                while (true) {
+
+                    if (enableLogin && shouldLoginCheck()) {
+                        checkLoginState();
+                    }
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        });
+        loginThread.start();
     }
-
-
 
     public static Context getAppContext() {
         return mApp;
@@ -127,6 +158,53 @@ public class MyApplication extends MultiDexApplication {
         return sActivity;
     }
 
+    private boolean shouldLoginCheck() {
+        if (sActivity instanceof MainActivity) {
+            return true;
+        }
+        if (sActivity instanceof AbstractDetailActivity) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    private void checkLoginState(){
+        LOG.I("MyApplication","[RYAN] checkLoginState");
+
+        final String username = AccountUtil.getUsername();
+        final String password = AccountUtil.getPassword();
+        Hekr.getHekrUser().login(username, password, new HekrCallback() {
+            @Override
+            public void onSuccess() {
+                LOG.I("MyApplication","[RYAN] checkLoginState > onSuccess");
+            }
+
+            @Override
+            public void onError(int errorCode, String message) {
+                LOG.I("MyApplication","[RYAN] checkLoginState > onError");
+
+                JSONObject d = JSON.parseObject(message);
+                int code = d.getInteger("code");
+
+                //密码错误
+                if(code == 3400010){
+                    if (sActivity instanceof MainActivity) {
+                        HekrUserAction.getInstance(sActivity).userLogout();
+                        CCPAppManager.setClientUser(null);
+                        startActivity(new Intent(sActivity, LoginActivity.class));
+                        sActivity.finish();
+                    }
+                    sActivity.finish();
+                }
+            }
+        });
+    }
+
+    public static void enableLoginThread(boolean enable) {
+        enableLogin = enable;
+    }
 
     private boolean shouldInit() {
         ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
