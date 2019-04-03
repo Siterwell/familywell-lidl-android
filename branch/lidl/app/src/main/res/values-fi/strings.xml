@@ -23,7 +23,7 @@
     <string name="connect_alert">Nykyinen tukiasema</string>
     <string name="connect_equipment_alert">Valitse tukiasema</string>
     <string name="please_input_complete">Täydennä tiedot</string>
-    <string name="password_length">Salasanan tulee olla vähintään kuusi merkkiä</string>
+    <string name="password_length">Salasanan tulee olla vähintään kymmenen merkkiä</string>
     <string name="password_two_different">Salasanat eivät vastaa toisiaan</string>
     <string name="name_hint">Sähköposti</string>
     <string name="password_hint">Anna salasana</string>
@@ -426,13 +426,13 @@
     <string name="add_localnet_ipc">Lisää kameroita samaan reitittimeen</string>
     <string name="ipc_in_localnet">Langaton kamera</string>
     <string name="guide_message_error_call">Virhe rajapinnan kutsun palautuksessa, ole hyvä ja tarkasta</string>
-    <string name="is_head_yuyin">Kuulitko laitteen äänikomennon \"Aloita pikamääritys"\ vai \"Odotetaan yhteyttä"\</string>
-    <string name="if_ok_click_next">Mikäli vahvistettu, klikkaa "Seuraava"</string>
-    <string name="some_device_kuaishan">Joissakin laitteissa on vain vilkkuvia merkkivaloja ilman ääniohjausta</string>
-    <string name="no_support_fiveg_wifi">(Ei tue langatonta verkkoa 5GHz Wi-Fi taajuusalueella)</string>
+    <string name="is_head_yuyin">Kuulitko laitteen äänikomennon \"Wait to be configured"\?</string>
+    <string name="if_ok_click_next">Jos kuulit, niin klikkaa "Seuraava"</string>
+    <string name="some_device_kuaishan">Jotkut laitteet saattavat vilkkua kevyesti ilman ääniä</string>
+    <string name="no_support_fiveg_wifi">(Ei tue 5 GHz langatonta Wi-Fi verkkoa)</string>
     <string name="see_some_scene_above_click">Kun kamera on määritetty, paina "seuraava"</string>
-    <string name="ipc_tip_1">1. Ole hyvä ja kytke virtajohto sekä datakaapeli varmistaaksesi, että laite on päällä ja toimii normaalisti.</string>
-    <string name="ipc_tip_2">2. Ensimmäisellä kerralla aseta laite, matkapuhelin ja reititin metrin päähän toisistaan onnistuneen signaalin siirron varmistamiseksi.</string>
+    <string name="ipc_tip_1">1. Liitä virtakaapeli varmistaaksesi, että laite on käynnissä.</string>
+    <string name="ipc_tip_2">2. Ensimmäisellä kerralla aseta IP-kamera, matkapuhelin ja reititin metrin päähän toisistaan onnistuneen signaalin siirron varmistamiseksi.</string>
     <string name="ipc_tip_3">3. Odota kunnes kuulet äänikomennon "Wait to be configured"" yhdistääksesi</string>
     <string name="ipc_tip_4">4. Mikäli yllä mainittua toimintoa ei tapahdu, ole hyvä ja pidä "SET/RESET" -painiketta painettuna palauttaaksesi tehdasasetukset, minkä jälkeen voit uudelleen yhdistää laitteen.</string>
     <string name="no_wifi">Langattoman verkon virhe</string>
@@ -459,7 +459,7 @@
     <string name="ssid_cannot_contain_space">Langattoman verkon nimessä ei voi olla välilyöntiä</string>
     <string name="password_is_empty">Salasana on tyhjä</string>
     <string name="gateway_wifi_connect_but_not_connect_service">Tukiasema on yhdistetty langattomaan verkkoon, mutta sitä ei ole yhdistetty palvelimeen.</string>
-    <string name="gateway_lan_mode_tip">Valitse tämä tukiasema päästäksesi intranet-tilaan</string>
+    <string name="gateway_lan_mode_tip">Valitse tämä tukiasema luodaksesi yhteyden</string>
     <string name="no_des_model">Ei mitään</string>
     <string name="please_choose">Ole hyvä ja valitse</string>
     <string name="success_set">Asetettu onnistuneesti</string>
@@ -511,7 +511,7 @@
     <string name="door_default_scene_hint">Oletussääntö: Ovi-/ikkunasensori aktivoi tukiaseman hälytyksen</string>
     <string name="old_man_default_scene_hint">Oletussääntö: Liiketunnistin aktivoi tukiaseman viiden toimettoman tunnin jälkeen</string>
     <string name="alert_elder_care"></string>
-    <string name="three_zifu">Salasanojen on sisällettävä vähintään 10 merkkiä, joista 1 iso kirjain, 1 pienet kirjaimet, 1 numero ja erikoismerkki.</string>
+    <string name="three_zifu">Salasanojen on sisällettävä vähintään 10 merkkiä, joista 1 iso kirjain, 1 pienet kirjaimet, 1 numero ja erikoismerkki</string>
     <string name="config_fail_reason">Yhteyden muodostaminen epäonnistui</string>
     <string name="click_check_firemare">Paina tästä tarkastaaksesi päivitykset</string>
     <string name="view_yinsi">Tietosuojakäytäntö</string>
