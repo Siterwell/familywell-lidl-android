@@ -30,7 +30,7 @@
     <string name="wifi_password_hint">Anna langattoman verkon salasana</string>
     <string name="auto_login">Muista salasanani</string>
     <string name="login">Kirjaudu sisään</string>
-    <string name="reset_code">Nollaa salasana</string>
+    <string name="reset_code">Unohtuiko salasana?</string>
     <string name="choose_language">Valitse kieli</string>
     <string name="switch_language">Kielet</string>
     <string name="about">Lisätietoja</string>
@@ -43,15 +43,15 @@
     <string name="email_sended">Onnistui, katso sähköpostisi</string>
     <string name="success_register">Rekisteröinti onnistui!</string>
     <string name="success_reset">Nollaus onnistui!</string>
-    <string name="get_code">Lähetä vahvistuskoodi</string>
+    <string name="get_code">Lähetä koodi sähköpostiin</string>
     <string name="phone_hint">Anna puhelinnumero</string>
-    <string name="code_hint">Anna SMS-vahvistuskoodi</string>
+    <string name="code_hint">Näppäile koodi</string>
     <string name="modify_password">Vaihda salasana</string>
     <string name="modifying_newpassword">Anna uusi salasana</string>
     <string name="code_fault">Virhe salasanassa</string>
     <string name="setting_old_password">Syötä vanha salasana</string>
     <string name="setting_password_hint">Syötä uusi salasana</string>
-    <string name="setting_confirm_password_hint">Vahvista salasana</string>
+    <string name="setting_confirm_password_hint">Vaihda salasana</string>
     <string name="setting_new_password_hint">Anna uusi salasana</string>
     <string name="setting_confirm_new_password_hint">Vahvista uusi salasana</string>
     <string name="delete_or_unbind_device">Haluatko varmasti purkaa tukiaseman %1$s(%2$s) yhteyden?</string>
@@ -154,7 +154,7 @@
     <string name="dialog_empetycode">Ole hyvä ja syötä varmistuskoodi</string>
     <string name="dialog_errorcode">Syöttövirhe, ole hyvä ja yritä uudelleen</string>
     <string name="success_send">Lähetys onnistui</string>
-    <string name="input_graph">Anna graafinen varmistuskoodi</string>
+    <string name="input_graph">Näppäile koodi</string>
     <string name="check_email">Tarkista sähköpostisi</string>
     <string name="update_name_success">Nimen päivitys onnistui</string>
     <string name="serve_instruction">Rekisteröinti tarkoittaa, että hyväksyt käyttöehdot</string>
