@@ -263,13 +263,13 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
                                         sceneBean2.setName("");
                                         sceneDAO.addinit(sceneBean2);
 
-                                        SceneBean sceneBean3 = new SceneBean();
-                                        sceneBean3.setDeviceid(choosetoDeviceid);
-                                        sceneBean3.setSid("-1");
-                                        sceneBean3.setMid("131");
-                                        sceneBean3.setCode("");
-                                        sceneBean3.setName("");
-                                        sceneDAO.addinit(sceneBean3);
+//                                        SceneBean sceneBean3 = new SceneBean();
+//                                        sceneBean3.setDeviceid(choosetoDeviceid);
+//                                        sceneBean3.setSid("-1");
+//                                        sceneBean3.setMid("131");
+//                                        sceneBean3.setCode("");
+//                                        sceneBean3.setName("");
+//                                        sceneDAO.addinit(sceneBean3);
 
                                         SceneBean sceneBean4 = new SceneBean();
                                         sceneBean4.setDeviceid(choosetoDeviceid);
@@ -488,13 +488,13 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
                                 sceneBean2.setName("");
                                 sceneDAO.addinit(sceneBean2);
 
-                                SceneBean sceneBean3 = new SceneBean();
-                                sceneBean3.setDeviceid(deviceBean.getDevTid());
-                                sceneBean3.setSid("-1");
-                                sceneBean3.setMid("131");
-                                sceneBean3.setCode("");
-                                sceneBean3.setName("");
-                                sceneDAO.addinit(sceneBean3);
+//                                SceneBean sceneBean3 = new SceneBean();
+//                                sceneBean3.setDeviceid(deviceBean.getDevTid());
+//                                sceneBean3.setSid("-1");
+//                                sceneBean3.setMid("131");
+//                                sceneBean3.setCode("");
+//                                sceneBean3.setName("");
+//                                sceneDAO.addinit(sceneBean3);
 
                                 SceneBean sceneBean4 = new SceneBean();
                                 sceneBean4.setDeviceid(deviceBean.getDevTid());
