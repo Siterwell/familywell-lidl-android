@@ -134,10 +134,10 @@ public class EquipmentAdapter extends BaseAdapter {
                     String ddd = eq.getState().substring(6, 8);
                     if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                        holder.imageView.setImageResource(R.drawable.e7);
+                        holder.imageView.setImageResource(R.drawable.g7);
                     } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                        holder.imageView.setImageResource(R.drawable.g7);
+                        holder.imageView.setImageResource(R.drawable.e7);
                     }
                 }
             } else if (NameSolve.PIR_CHECK.equals(NameSolve.getEqType(eq.getEquipmentDesc()))) {  //pir

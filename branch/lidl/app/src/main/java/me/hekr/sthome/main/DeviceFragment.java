@@ -355,10 +355,10 @@ public class DeviceFragment extends Fragment {
                         String ddd = EquipmentState.getDevSecondState(equipment);
                         if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                         } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                         }
                     }
                 }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -760,10 +760,10 @@ public class DeviceFragment extends Fragment {
                             String ddd = EquipmentState.getDevSecondState(equipment);
                             if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                             } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                             }
                         }
                     }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket

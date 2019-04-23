@@ -130,10 +130,10 @@ public class LayoutDeviceList extends FrameLayout implements EquipmentRecyclerAd
                     String ddd = list.get(i).getState().substring(6, 8);
                     if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
+                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                     } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
+                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                     }
                 }
             }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
