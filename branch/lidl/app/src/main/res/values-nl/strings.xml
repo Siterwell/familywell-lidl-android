@@ -522,7 +522,7 @@
    <string name="fail_upgrade">Een nieuwe mislukking</string>
     <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
     <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
-   <string name="firmware_upgrade_info">Belangrijk: deze update verandert de werking van je systeem sterk. Klik op “Informatie” hieronder om te zien welke wijzigingen er worden doorgevoerd. Na de update dien je je melders opnieuw te koppelen.</string>
+   <string name="firmware_upgrade_info">Belangrijk: deze update verandert de werking van je systeem. Klik op “Informatie” hieronder om te zien welke wijzigingen er worden doorgevoerd.</string>
    <string name="faq">Veelgestelde vragen (FAQ)</string>
    <string name="delete_timer">Weet je zeker dat je deze timer wilt verwijderen?</string>
    <string name="successfully_deleted">Succesvol verwijder</string>
