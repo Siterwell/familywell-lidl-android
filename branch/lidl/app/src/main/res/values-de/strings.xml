@@ -522,7 +522,7 @@
     <string name="fail_upgrade">Update fehlgeschlagen</string>
     <string name="delete_condition">Möchten Sie diese Bedingung wirklich löschen?</string>
     <string name="delete_action">Möchten Sie diese Aktion wirklich löschen?</string>
-    <string name="firmware_upgrade_info">Wichtig: Dieses Update ändert die Funktionalität Ihres Systems erheblich. Klicken Sie unten auf "Informationen", um zu sehen, welche Änderungen vorgenommen werden. Nach dem Update müssen Sie die Geräte erneut anschließen.</string>
+    <string name="firmware_upgrade_info">Wichtig: Dieses Update ändert die Funktionalität Ihres Systems. Klicken Sie unten auf "Informationen", um zu sehen, welche Änderungen vorgenommen werden.</string>
     <string name="faq">Häufig gestellte Fragen (FAQ)</string>
     <string name="delete_timer">Möchten Sie diesen Timer wirklich löschen?</string>
     <string name="successfully_deleted">Erfolgreich gelöscht</string>
