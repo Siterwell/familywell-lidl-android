@@ -526,4 +526,5 @@
    <string name="faq">System specification</string>
    <string name="delete_timer">Sei sicuro di voler cancellare questo timer?</string>
    <string name="successfully_deleted">Eliminato con successo</string>
+   <string name="wireless_config">IL Wi-Fi!</string>
 </resources>

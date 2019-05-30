@@ -526,4 +526,5 @@
    <string name="faq">Pogosto zastavljena vprašanja (FAQ)</string>
    <string name="delete_timer">Ali ste prepričani, da želite izbrisati ta časovnik?</string>
    <string name="successfully_deleted">uspešno izbrisan</string>
+   <string name="wireless_config">Brezžični Opremi</string>
 </resources>
