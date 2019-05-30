@@ -526,4 +526,5 @@
     <string name="faq">Usein kysyttyä (FAQ)</string>
     <string name="delete_timer">Oletko varma, että haluat poistaa tämän ajastimen?</string>
     <string name="successfully_deleted">poistaminen onnistui</string>
+    <string name="wireless_config">Radio jossa</string>
 </resources>

@@ -526,4 +526,5 @@
     <string name="faq">Instructions du système</string>
     <string name="delete_timer">Êtes-vous sûr de vouloir supprimer cette minuterie?</string>
     <string name="successfully_deleted">Supprimé avec succès</string>
+    <string name="wireless_config">Paramètres WiFi</string>
 </resources>
