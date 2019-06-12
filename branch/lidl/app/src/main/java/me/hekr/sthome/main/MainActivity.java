@@ -210,6 +210,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             @Override
             public void onError(int errorCode, String message) {
                 JSONObject d = JSON.parseObject(message);
+                if (d == null) {
+                    return;
+                }
+
                 int code = d.getInteger("code");
 
                 //密码错误
