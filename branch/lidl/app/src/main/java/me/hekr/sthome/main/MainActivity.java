@@ -180,18 +180,18 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSION) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                LOG.I(TAG, "[RYAN] permissions[0] = " +  permissions[0]);
-            }
-            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                LOG.I(TAG, "[RYAN] permissions[1] = " +  permissions[1]);
-            }
-            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
-                LOG.I(TAG, "[RYAN] permissions[2] = " +  permissions[2]);
-
-            }
-        }
+//        if (requestCode == REQUEST_PERMISSION) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[0] = " +  permissions[0]);
+//            }
+//            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[1] = " +  permissions[1]);
+//            }
+//            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[2] = " +  permissions[2]);
+//
+//            }
+//        }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -209,6 +209,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             @Override
             public void onError(int errorCode, String message) {
                 JSONObject d = JSON.parseObject(message);
+                if (d == null) {
+                    return;
+                }
+
                 int code = d.getInteger("code");
 
                 //密码错误
