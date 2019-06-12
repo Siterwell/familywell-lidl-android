@@ -529,4 +529,5 @@ The connector has entered the networking mode."</string>
     <string name="faq">Frequently asked questions (FAQ)</string>
     <string name="delete_timer">Are you sure you want to delete this timer?</string>
     <string name="successfully_deleted">Successfully deleted</string>
+    <string name="wireless_config">WIFI Settings</string>
 </resources>

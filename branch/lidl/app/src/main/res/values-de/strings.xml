@@ -526,4 +526,5 @@
     <string name="faq">Häufig gestellte Fragen (FAQ)</string>
     <string name="delete_timer">Möchten Sie diesen Timer wirklich löschen?</string>
     <string name="successfully_deleted">Erfolgreich gelöscht</string>
+    <string name="wireless_config">WLAN einstellungen</string>
 </resources>
