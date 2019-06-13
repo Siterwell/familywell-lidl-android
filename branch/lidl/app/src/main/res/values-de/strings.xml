@@ -115,7 +115,7 @@
     <string name="set_weekday">Bitte Wochentag einstellen</string>
     <string name="set_delay">Bitte Verzögerung einstellen</string>
     <string name="manage">Verwalten</string>
-    <string name="offline">Offline</string>
+    <string name="offline">Normální</string>
     <string name="alarm">Alarm</string>
     <string name="lowvolt_alarm">Niedriger Batteriestatus</string>
     <string name="help">Hilfe</string>
@@ -213,7 +213,7 @@
     <string name="release_to_refresh">Zum aktualisieren loslassen</string>
     <string name="refreshing">Laden...</string>
     <string name="not_updated_yet">Derzeit nicht aktualisiert</string>
-    <string name="updated_at">Aktualisierung von %1$s  vorher</string>
+    <string name="updated_at">Aktualisierung von %1$s vorher</string>
     <string name="updated_just_now">Jetzt aktualisiert</string>
     <string name="time_error">Zeit Fehler</string>
     <string name="minute">Minute</string>
@@ -230,7 +230,7 @@
     <string name="save">Speichern</string>
     <string name="no_save">Nicht speichern</string>
     <string name="on_line">(Online)</string>
-    <string name="off_line">(Offline)</string>
+    <string name="off_line">(Normální)</string>
     <string name="btn_silence">stumm</string>
     <string name="dev_type_monitor">Monitor</string>
     <string name="dev_type_intelligentsocket">Steckdose</string>

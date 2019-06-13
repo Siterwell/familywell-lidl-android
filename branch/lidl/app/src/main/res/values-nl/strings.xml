@@ -115,7 +115,7 @@
    <string name="set_weekday">Kies een dag</string>
    <string name="set_delay">Stel vertraging in</string>
    <string name="manage">Beheren</string>
-   <string name="offline">Offline</string>
+   <string name="offline">Normal</string>
    <string name="alarm">Alarm</string>
    <string name="lowvolt_alarm">Battery bijna leeg</string>
    <string name="help">Help</string>
@@ -170,7 +170,7 @@
    <string name="add_device_hint">Druk drie keer kort na elkaar op de knop van het apparaat dat je toevoegt</string>
    <string name="add_device_tip">Let op! Wanneer het groene licht van de connector knippert, dan zorgt het ingedrukt houden van de connector knop gedurende tenminste 3 seconden ervoor dat alle apparaten verwijderd worden.</string>
    <string name="done">Klaar</string>
-   <string name="now_gateway_scene_is_happen_has_scene">Let op, huidige connector  %1$s(%2$s) %3$s is getriggerd.</string>
+   <string name="now_gateway_scene_is_happen_has_scene">Let op, huidige connector %1$s(%2$s) %3$s is getriggerd.</string>
    <string name="other_gateway_scene_is_happen_has_scene">Let op, andere connector %1$s(%2$s) %3$s is getriggerd, \ngraag overschakelen en bekijken.</string>
    <string name="now_gateway_scene_is_happen_has_no_scene">Let op, huidige connector %1$s(%2$s) scene %3$s is getriggerd.</string>
    <string name="other_gateway_scene_is_happen_has_no_scene">Let op, andere connector %1$s(%2$s) scene %3$s getriggerd, \ngraag overschakelen en bekijken.</string>
@@ -230,7 +230,7 @@
    <string name="save">Opslaan</string>
    <string name="no_save">Niet opslaan</string>
    <string name="on_line">(Online)</string>
-   <string name="off_line">(Offline)</string>
+   <string name="off_line">(Normal)</string>
    <string name="btn_silence">Stil</string>
    <string name="dev_type_monitor">Monitor</string>
    <string name="dev_type_intelligentsocket">Schakelaar</string>
@@ -519,9 +519,9 @@
    <string name="gateway_version">Connector-versie</string>
    <string name="is_upgrading">Upgraden...</string>
    <string name="success_upgrade">Firmware update succesvol!</string>
-   <string name="fail_upgrade">Een nieuwe mislukking</string>
-    <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
-    <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
+   <string name="fail_upgrade">Update mislukt</string>
+   <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
+   <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
    <string name="firmware_upgrade_info">Belangrijk: deze update verandert de werking van je systeem. Klik op “Informatie” hieronder om te zien welke wijzigingen er worden doorgevoerd.</string>
    <string name="faq">Veelgestelde vragen (FAQ)</string>
    <string name="delete_timer">Weet je zeker dat je deze timer wilt verwijderen?</string>

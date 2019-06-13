@@ -18,9 +18,9 @@
     <string name="Door_Close">puerta cerrada</string>
     <string name="Door_Await">puerta en espera</string>
     <string name="Help">ayuda</string>
-    <string name="Offline">fuera de linea</string>
-    <string name="Somebody_There">Movimiento detectado</string>
-    <string name="Normal">No se detecta movimiento</string>
+    <string name="Offline">Normal</string>
+    <string name="Somebody_There">Movimiento</string>
+    <string name="Normal">Normal</string>
     <string name="Illegal_Encroachment">entrada ilegal</string>
     <string name="Warn_Alarm">aviso de alarma</string>
     <string name="Silence">silencio</string>

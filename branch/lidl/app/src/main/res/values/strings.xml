@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btnConfirmTitle">Configure</string>
-    <string name="config_instruction">"Plug in your connector.
-When the green led stops flashing and lights up continuously, press and hold the button.
-When the blue led starts flashing, release the button.
-The connector has entered the networking mode."</string>
-    <string name="how_to_config"></string>
+    <string name="config_instruction">Plug in your connector.
+When the green led stops flashing and lights up continuously, press and hold the button.</string>
+    <string name="how_to_config">When the blue led starts flashing, release the button.
+The connector has entered the networking mode.</string>
     <string name="next">Next</string>
     <string name="retry">Retry</string>
     <string name="sure_to_logout">Are you sure you want to log out?</string>
@@ -73,7 +72,7 @@ The connector has entered the networking mode."</string>
     <string name="exit_hint">Exit %1$s</string>
     <string name="my_home">Home</string>
     <string name="system_scene">Scenes</string>
-    <string name="scene_list">Actions</string>
+    <string name="scene_list">Automatic actions</string>
     <string name="choose_color">Scene led color</string>
     <string name="edit">Edit</string>
     <string name="get_max_scene_group">You can not add more scenes!</string>
@@ -93,8 +92,8 @@ The connector has entered the networking mode."</string>
     <string name="choose_condition">Condition settings</string>
     <string name="one_condition_hint">If you chose more than 1 condition, the action(s) start when one of the conditions occur.</string>
     <string name="all_condition_hint_one">If you chose more than 1 condition, the action(s) start when all of the conditions occur.</string>
-    <string name="all_condition_hint_two"></string>
-    <string name="all_condition_hint_three"></string>
+    <string name="all_condition_hint_two">If you add only one condition, the actions will be executed when this condition is met.</string>
+    <string name="all_condition_hint_three">If you do not understand this feature, select the default option or contact us.</string>
     <string name="my_action">My action</string>
     <string name="name_is_null">The name can not be left empty</string>
     <string name="name_is_repeat">Repeat name</string>
@@ -111,14 +110,14 @@ The connector has entered the networking mode."</string>
     <string name="action">Actions</string>
     <string name="scene_has_modify">Save changes?</string>
     <string name="exist_edit_timer_or_not">Exist Edit Timer,Do U Save?</string>
-    <string name="hour_and_min">Set time</string>
+    <string name="hour_and_min">hour/min</string>
     <string name="min_and_sec">min/sec </string>
     <string name="week">Choose activation day</string>
     <string name="set_first">Please set first </string>
     <string name="set_weekday">Choose on which days you want to set the timer</string>
     <string name="set_delay">Please set delay time</string>
     <string name="manage">manage</string>
-    <string name="offline">Offline</string>
+    <string name="offline">Normal</string>
     <string name="alarm">Alarm</string>
     <string name="lowvolt_alarm">Low battery warning</string>
     <string name="help">Help</string>
@@ -166,19 +165,19 @@ The connector has entered the networking mode."</string>
     <string name="not_setting">Not set</string>
     <string name="set_emergency_call">Emergency call</string>
     <string name="please_input_emergency_call">Enter emergency phone number</string>
-    <string name="emergency_desc_first">This number will be called in case of an emergency. It can be your own number or from a relative or friend. </string>
+    <string name="emergency_desc_first">This number will be called in case of an emergency. It can be your own number or from a relative or friend.</string>
     <string name="emergency_desc_second">Click on the "emergency" button on the single device details page</string>
     <string name="set_username">Set username</string>
     <string name="set_devname_success">Name successfully changed</string>
-    <string name="add_device_hint">To connect a device, quickly press the button 3 times. </string>
+    <string name="add_device_hint">To connect a device, quickly press the button 3 times.</string>
     <string name="add_device_tip">Attention! Pressing connector longer than 3 seconds will delete all the connected devices.</string>
     <string name="done">Done</string>
-    <string name="now_gateway_scene_is_happen_has_scene">Connector %1$s(%2$s) %3$s has  been triggered, please pay attention! </string>
+    <string name="now_gateway_scene_is_happen_has_scene">Connector %1$s(%2$s) %3$s has been triggered, please pay attention!</string>
     <string name="other_gateway_scene_is_happen_has_scene">Connector %1$s(%2$s) %3$s has been triggered, please pay attention! Please switch and see</string>
     <string name="now_gateway_scene_is_happen_has_no_scene">Connector %1$s(%2$s) action %3$s has been triggered, please pay attention!</string>
     <string name="other_gateway_scene_is_happen_has_no_scene">Other Connector %1$s(%2$s) Scene %3$s Triggered,Please Attention\nPlease Switch and See</string>
     <string name="now_gateway_eq_is_happen_has_eq">Current Connector %1$s(%2$s) %3$s %4$s,Please Attention</string>
-    <string name="other_gateway_eq_is_happen_has_eq">Connector %1$s(%2$s) action %3$s  has been, please pay attention! Please switch and see</string>
+    <string name="other_gateway_eq_is_happen_has_eq">Connector %1$s(%2$s) action %3$s has been, please pay attention! Please switch and see</string>
     <string name="delete_or_not_withdata">Are you sure you want to delete this?</string>
     <string name="unbind">Forget </string>
     <string name="cxalert2">Fault</string>
@@ -216,7 +215,7 @@ The connector has entered the networking mode."</string>
     <string name="release_to_refresh">Release to refresh</string>
     <string name="refreshing">Loading…</string>
     <string name="not_updated_yet">Not updated yet</string>
-    <string name="updated_at">Updated  %1$s before</string>
+    <string name="updated_at">Updated %1$s before</string>
     <string name="updated_just_now">Updated just now</string>
     <string name="time_error">Timer error</string>
     <string name="minute">Minute</string>
@@ -233,7 +232,7 @@ The connector has entered the networking mode."</string>
     <string name="save">Save</string>
     <string name="no_save">Do not save</string>
     <string name="on_line">(online)</string>
-    <string name="off_line">(offline)</string>
+    <string name="off_line">(Normal)</string>
     <string name="btn_silence">Silence</string>
     <string name="dev_type_monitor">Monitor</string>
     <string name="dev_type_intelligentsocket">Socket</string>
@@ -306,7 +305,7 @@ The connector has entered the networking mode."</string>
     <string name="device_setup_storage_format_tip">Do you want to format the device disk?</string>
     <string name="user_forget_pwd_reset_passw_success">Reset Password Success</string>
     <string name="device_socket_capture_preview">Preview</string>
-    <string name="device_socket_capture_save_success">save success  %1$s</string>
+    <string name="device_socket_capture_save_success">save success %1$s</string>
     <string name="device_socket_capture_delete_success">delete success</string>
     <string name="device_sport_camera_download_to_phone">download to phone</string>
     <string name="device_sport_camera_normal_pic">normal pic</string>
@@ -401,7 +400,7 @@ The connector has entered the networking mode."</string>
     <string name="modebutton_ins">Scene hotkey</string>
     <string name="input_exist">You already added this condition</string>
     <string name="output_exist">You already added this action</string>
-    <string name="click_exist">You already added this action</string>
+    <string name="click_exist">You already added this condition</string>
     <string name="delay_exist">You already added this action</string>
     <string name="phone_exist">You already added this action</string>
     <string name="eq_repeat">As the adjacent device repeats, the delete delay also deletes the next device</string>
@@ -508,7 +507,7 @@ The connector has entered the networking mode."</string>
     <string name="copy_scene_alert">Do you want to copy the last action?</string>
     <string name="pir_default_scene">Motion detector default action</string>
     <string name="door_default_scene">Door/window contact default action</string>
-    <string name="old_man_default_scene">Elderly care default action</string>
+    <string name="old_man_default_scene">Elderly  care default action</string>
     <string name="default_scene_cannot_be_deleted">Default actions cannot be deleted</string>
     <string name="pir_default_scene_hint">Default action: PIR triggers gateway alarm and push-notification</string>
     <string name="door_default_scene_hint">Default action: Door triggers gateway alarm and push-notification</string>

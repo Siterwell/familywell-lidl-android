@@ -18,9 +18,9 @@
     <string name="Door_Close">DOOR CLOSE</string>
     <string name="Door_Await">DOOR AWAIT</string>
     <string name="Help">HELP</string>
-    <string name="Offline">OFFLINE</string>
-    <string name="Somebody_There">Byl detekován pohyb</string>
-    <string name="Normal">Nebyl detekován žádný pohyb</string>
+    <string name="Offline">Normální</string>
+    <string name="Somebody_There">Pohyb</string>
+    <string name="Normal">Normální</string>
     <string name="Illegal_Encroachment">ILLEGAL ENCROACHMENT</string>
     <string name="Warn_Alarm">WARN ALARM</string>
     <string name="Silence">SILENCE</string>

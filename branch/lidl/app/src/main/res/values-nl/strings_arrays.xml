@@ -18,9 +18,9 @@
     <string name="Door_Close">Gesloten</string>
     <string name="Door_Await">Staat open</string>
     <string name="Help">Help</string>
-    <string name="Offline">Offline</string>
-    <string name="Somebody_There">Beweging gedetecteerd</string>
-    <string name="Normal">Geen beweging gedetecteerd</string>
+    <string name="Offline">Normaal</string>
+    <string name="Somebody_There">Beweging</string>
+    <string name="Normal">Normaal</string>
     <string name="Illegal_Encroachment">Inbraak alarm</string>
     <string name="Warn_Alarm">Waarschuwingsalarm</string>
     <string name="Silence">Stil</string>

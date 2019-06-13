@@ -18,13 +18,13 @@
     <string name="Door_Close">Closed</string>
     <string name="Door_Await">Remains open</string>
     <string name="Help">Help</string>
-    <string name="Offline">Offline</string>
-    <string name="Somebody_There">Motion detected</string>
-    <string name="Normal">No motion detected</string>
+    <string name="Offline">Normal</string>
+    <string name="Somebody_There">Motion</string>
+    <string name="Normal">Normal</string>
     <string name="Illegal_Encroachment">Alarm signal 1</string>
     <string name="Warn_Alarm">Alarm signal 2</string>
     <string name="Silence">Silent</string>
-    <string name="Doorbell_Alarm">Doorbell </string>
+    <string name="Doorbell_Alarm">Doorbell</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
     <string name="Smoke_Alarm">Smoke alarm</string>
