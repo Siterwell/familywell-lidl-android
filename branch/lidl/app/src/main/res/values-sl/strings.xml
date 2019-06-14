@@ -115,7 +115,7 @@
    <string name="set_weekday">Prosimo, nastavite dan v tednu</string>
    <string name="set_delay">Prosimo, nastavite zamik</string>
    <string name="manage">Upravljanje</string>
-   <string name="offline">Brez povezave</string>
+   <string name="offline">BREZ POVEZAVE</string>
    <string name="alarm">Alarm</string>
    <string name="lowvolt_alarm">Opozorilo – skoraj prazna baterija</string>
    <string name="help">Pomoč</string>
@@ -230,7 +230,7 @@
    <string name="save">Shrani</string>
    <string name="no_save">Ne shrani</string>
    <string name="on_line">(Povezan)</string>
-   <string name="off_line">(Brez povezave)</string>
+   <string name="off_line">(BREZ POVEZAVE)</string>
    <string name="btn_silence">tišina</string>
    <string name="dev_type_monitor">ZASLON</string>
    <string name="dev_type_intelligentsocket">VTIČNICA</string>
@@ -394,7 +394,7 @@
    <string name="success_add">Uspešno dodano</string>
    <string name="temp_or_hum">Sprožilec temperature ali sprožilec vlažnosti</string>
    <string name="trigger_style">Stil sprožilca</string>
-   <string name="about_app">Alarmni sistem SilverCrest Alarm sestavljata dva dela: konektor in pametne naprave. Konektor, osrednji del sistema, komunicira s pametnimi napravami preko komunikacijske tehnologije RF ter se poveže z vašim WiFi omrežjem, da vzpostavi stik s strežnikom v oblaku, in preko tega z aplikacijo na vašem pametnem telefonu. Sistem vam omogoča, da svoj pametni telefon uporabite kot nadzorni center za upravljanje, spremljanje in druga opravila po meri. Pametne naprave v sistemu so naslednje naprave, ki jih lahko izberete glede na svoje potrebe: detektorji dima, detektorji plina, detektorji ogljikovega monoksida, detektorji vode, stiki z vrati/oknom, detektorji gibanja PIR, gumbi za nujne primere, pametna stikala, senzorje za temperaturo in vlažnost ipd. Seznam naprav v sistemu SilverCrest se stalno posodablja; omrežne kamere, ključavnice za vrata, stikalne plošče, pametni zračni filtri, elektromagnetni vodni ventili in še več naprav, ki prihajajo kmalu!</string>
+   <string name="about_app">Alarmni sistem ELRO Connects sestavljata dva dela: konektor in pametne naprave. Konektor, osrednji del sistema, komunicira s pametnimi napravami preko komunikacijske tehnologije RF ter se poveže z vašim WiFi omrežjem, da vzpostavi stik s strežnikom v oblaku, in preko tega z aplikacijo na vašem pametnem telefonu. Sistem vam omogoča, da svoj pametni telefon uporabite kot nadzorni center za upravljanje, spremljanje in druga opravila po meri. Pametne naprave v sistemu so naslednje naprave, ki jih lahko izberete glede na svoje potrebe: detektorji dima, detektorji plina, detektorji ogljikovega monoksida, detektorji vode, stiki z vrati/oknom, detektorji gibanja PIR, gumbi za nujne primere, pametna stikala, senzorje za temperaturo in vlažnost ipd. Seznam naprav v sistemu SilverCrest se stalno posodablja; omrežne kamere, ključavnice za vrata, stikalne plošče, pametni zračni filtri, elektromagnetni vodni ventili in še več naprav, ki prihajajo kmalu!</string>
    <string name="modebutton_ins">Gumb za bližnjico do prizora</string>
    <string name="input_exist">Ni mogoče imeti dveh vhodnih naprav</string>
    <string name="output_exist">Sosednjih izhodnih naprav ni mogoče ponoviti</string>
@@ -465,12 +465,12 @@
    <string name="success_set">Uspešna nastavitev</string>
    <string name="alarm_remove">Počistite alarm</string>
    <string name="already_in_gateway">Ta naprave je že povezana s konektorjem, prosimo, nastavite ime %1$s</string>
-   <string name="gps_setting">Nastavitve lokacije</string>
-   <string name="no_gps">Onemogočen</string>
-   <string name="gps_phone">Vključeno</string>
+   <string name="gps_setting">Nastavitve GPS</string>
+   <string name="no_gps">Brez GPS</string>
+   <string name="gps_phone">GPS za mobilni telefon</string>
    <string name="re_login">Ponovna prijava</string>
    <string name="temp_controler">Termostat</string>
-   <string name="firewarm_to_update">Posodobitve so na voljo, ali želite posodobiti?</string>
+   <string name="firewarm_to_update">Konektor ima na voljo novo verzijo sistemsko programske opreme:%1$s, ali jo želite posodobiti?</string>
    <string name="now_not_to_update">Ne zdaj</string>
    <string name="fireware_is_updating">Sistemsko programska oprema se posodablja, prosimo, počakajte …</string>
    <string name="dimming_module">Modul za regulacijo svetlobe</string>
@@ -511,7 +511,7 @@
    <string name="door_default_scene_hint">Privzeta scena: alarm in potisni obvestilo pri odpiranju magnetnega kontakta</string>
    <string name="old_man_default_scene_hint">Standardna Scena: Push Notification in Konektor piska na Ni gibanja 5 ur</string>
    <string name="alert_elder_care">starejše sestre</string>
-   <string name="three_zifu">Gesla morajo vsebovati vsaj 10 znakov, od tega 1 veliko črko, 1 malo črko, 1 številko in poseben znak.</string>
+   <string name="three_zifu">Geslo mora vsebovati vsaj tri velike črke, male črke, številke / posebne znake.</string>
    <string name="config_fail_reason">razlog za neuspeh distribucijskega omrežja</string>
    <string name="click_check_firemare">Klik na usb posodobitev</string>
    <string name="view_yinsi">Preveri zasebnosti</string>
@@ -519,10 +519,10 @@
    <string name="gateway_version">Različica konektorja</string>
    <string name="is_upgrading">nadgradnja...</string>
    <string name="success_upgrade">usb posodobitev uspeh</string>
-   <string name="fail_upgrade">posodobitev neuspeh</string>
-    <string name="delete_condition">Ali ste prepričani, da želite izbrisati to stanje?</string>
-    <string name="delete_action">Ali ste prepričani, da želite izbrisati to dejanje?</string>
-   <string name="firmware_upgrade_info">Pomembno: ta sprememba močno spreminja funkcionalnost sistema. Kliknite na "informacije" spodaj, da vidite, kaj bo sprememb. Po posodobitvi boste morali znova povezati naprave.</string>
+   <string name="fail_upgrade">Posodobitev ni uspela</string>
+   <string name="delete_condition">Ali ste prepričani, da želite izbrisati to stanje?</string>
+   <string name="delete_action">Ali ste prepričani, da želite izbrisati to dejanje?</string>
+   <string name="firmware_upgrade_info">Pomembno: Ta posodobitev spreminja funkcionalnost sistema. Kliknite na "informacije" spodaj, da vidite, kaj bo sprememb.</string>
    <string name="faq">Pogosto zastavljena vprašanja (FAQ)</string>
    <string name="delete_timer">Ali ste prepričani, da želite izbrisati ta časovnik?</string>
    <string name="successfully_deleted">uspešno izbrisan</string>

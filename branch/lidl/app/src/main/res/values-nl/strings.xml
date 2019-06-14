@@ -170,7 +170,7 @@
    <string name="add_device_hint">Druk drie keer kort na elkaar op de knop van het apparaat dat je toevoegt</string>
    <string name="add_device_tip">Let op! Wanneer het groene licht van de connector knippert, dan zorgt het ingedrukt houden van de connector knop gedurende tenminste 3 seconden ervoor dat alle apparaten verwijderd worden.</string>
    <string name="done">Klaar</string>
-   <string name="now_gateway_scene_is_happen_has_scene">Let op, huidige connector  %1$s(%2$s) %3$s is getriggerd.</string>
+   <string name="now_gateway_scene_is_happen_has_scene">Let op, huidige connector %1$s(%2$s) %3$s is getriggerd.</string>
    <string name="other_gateway_scene_is_happen_has_scene">Let op, andere connector %1$s(%2$s) %3$s is getriggerd, \ngraag overschakelen en bekijken.</string>
    <string name="now_gateway_scene_is_happen_has_no_scene">Let op, huidige connector %1$s(%2$s) scene %3$s is getriggerd.</string>
    <string name="other_gateway_scene_is_happen_has_no_scene">Let op, andere connector %1$s(%2$s) scene %3$s getriggerd, \ngraag overschakelen en bekijken.</string>
@@ -394,7 +394,7 @@
    <string name="success_add">Succesvol toegevoegd</string>
    <string name="temp_or_hum">Temperatuurtrigger of luchtvochtigheidstrigger</string>
    <string name="trigger_style">Triggerstijl</string>
-   <string name="about_app">Het FamilyWell smart beveiligingssysteem bevat twee hoofdonderdelen: de connector en de slimme melders. De connector is een belangrijk onderdeel van het systeem en verzorgt de communicatie met de melders (met behulp van RF-signalen) en maakt verbinding met het wifi-netwerk om te communiceren met de Cloud Server (en op deze manier ook met uw smartphone en/of tablet). Gebruik uw apparaat en de app en bedien alle apparaten op een slimme en veilige manier. Met het systeem kunt u uw smartphone gebruiken om het systeem in te stellen en optimaal te gebruiken. Denk aan het toevoegen en verwijderen van componenten, inschakelen en uitschakelen van het systeem, pushmeldingen ontvangen wanneer het worden geactiveerd, het instellen van condities en acties (bijvoorbeeld: in de Thuisstand wordt bij bewegingsdetectie de deurbel geactiveerd) en andere aangepaste bewerkingen. Slimme melders zijn toe te voegen op basis van uw behoefte: rookmelder, CO-detector, waterdetector, deursensor, bewegingsmelder, noodknop, slimme schakelaar, slimme thermostaat, temperatuur- en vochtigheidsmeter enzovoort. De lijst met apparaten in FamilyWell wordt voortdurend bijgewerkt en verbeterd. Binnenkort verkrijgbaar: een netwerkcamera, deurslot, schakelpaneel, aansluitpaneel, slimme luchtzuivering, elektromagnetische waterklep.</string>
+   <string name="about_app">Het ELRO Connects smart beveiligingssysteem bevat twee hoofdonderdelen: de connector en de slimme melders. De connector is een belangrijk onderdeel van het systeem en verzorgt de communicatie met de melders (met behulp van RF-signalen) en maakt verbinding met het wifi-netwerk om te communiceren met de Cloud Server (en op deze manier ook met uw smartphone en/of tablet). Gebruik uw apparaat en de app en bedien alle apparaten op een slimme en veilige manier. Met het systeem kunt u uw smartphone gebruiken om het systeem in te stellen en optimaal te gebruiken. Denk aan het toevoegen en verwijderen van componenten, inschakelen en uitschakelen van het systeem, pushmeldingen ontvangen wanneer het worden geactiveerd, het instellen van condities en acties (bijvoorbeeld: in de Thuisstand wordt bij bewegingsdetectie de deurbel geactiveerd) en andere aangepaste bewerkingen. Slimme melders zijn toe te voegen op basis van uw behoefte: rookmelder, CO-detector, waterdetector, deursensor, bewegingsmelder, noodknop, slimme schakelaar, slimme thermostaat, temperatuur- en vochtigheidsmeter enzovoort. De lijst met apparaten in ELRO Connects wordt voortdurend bijgewerkt en verbeterd. Binnenkort verkrijgbaar: een netwerkcamera, deurslot, schakelpaneel, aansluitpaneel, slimme luchtzuivering, elektromagnetische waterklep.</string>
    <string name="modebutton_ins">Scène sneltoets</string>
    <string name="input_exist">Apparaat kan niet tweemaal toegevoegd worden</string>
    <string name="output_exist">Naburige apparaten mogen niet herhaald worden</string>
@@ -519,9 +519,9 @@
    <string name="gateway_version">Connector-versie</string>
    <string name="is_upgrading">Upgraden...</string>
    <string name="success_upgrade">Firmware update succesvol!</string>
-   <string name="fail_upgrade">Een nieuwe mislukking</string>
-    <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
-    <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
+   <string name="fail_upgrade">Update mislukt</string>
+   <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
+   <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
    <string name="firmware_upgrade_info">Belangrijk: deze update verandert de werking van je systeem. Klik op “Informatie” hieronder om te zien welke wijzigingen er worden doorgevoerd.</string>
    <string name="faq">Veelgestelde vragen (FAQ)</string>
    <string name="delete_timer">Weet je zeker dat je deze timer wilt verwijderen?</string>
