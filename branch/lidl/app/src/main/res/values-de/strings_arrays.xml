@@ -18,7 +18,7 @@
     <string name="Door_Close">Geschlossen</string>
     <string name="Door_Await">Steht offen</string>
     <string name="Help">Hilfe</string>
-    <string name="Offline">Normal</string>
+    <string name="Offline">Offline</string>
     <string name="Somebody_There">Bewegung</string>
     <string name="Normal">Normal</string>
     <string name="Illegal_Encroachment">Inbraak alarm</string>

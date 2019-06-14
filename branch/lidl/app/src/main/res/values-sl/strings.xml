@@ -115,7 +115,7 @@
     <string name="set_weekday">Prosimo, nastavite dan v tednu</string>
     <string name="set_delay">Prosimo, nastavite zamik</string>
     <string name="manage">Upravljanje</string>
-    <string name="offline">Normalno</string>
+    <string name="offline">BREZ POVEZAVE</string>
     <string name="alarm">Alarm</string>
     <string name="lowvolt_alarm">Opozorilo – skoraj prazna baterija</string>
     <string name="help">Pomoč</string>
@@ -230,7 +230,7 @@
     <string name="save">Shrani</string>
     <string name="no_save">Ne shrani</string>
     <string name="on_line">(Povezan)</string>
-    <string name="off_line">(Normalno)</string>
+    <string name="off_line">(BREZ POVEZAVE)</string>
     <string name="btn_silence">tišina</string>
     <string name="dev_type_monitor">ZASLON</string>
     <string name="dev_type_intelligentsocket">VTIČNICA</string>

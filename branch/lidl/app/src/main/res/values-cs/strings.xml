@@ -115,7 +115,7 @@
    <string name="set_weekday">Nastavte den v týdnu, prosím</string>
    <string name="set_delay">Nastavte prodlevu, prosím</string>
    <string name="manage">Spravovat</string>
-   <string name="offline">Normal</string>
+   <string name="offline">OFF-LINE</string>
    <string name="alarm">Alarm</string>
    <string name="lowvolt_alarm">Alarm - slabá baterie</string>
    <string name="help">Pomoc</string>
@@ -230,7 +230,7 @@
    <string name="save">Uložit</string>
    <string name="no_save">Neukládat</string>
    <string name="on_line">(On-line)</string>
-   <string name="off_line">(Normal)</string>
+   <string name="off_line">(Off-line)</string>
    <string name="btn_silence">tichý</string>
    <string name="dev_type_monitor">MONITOR</string>
    <string name="dev_type_intelligentsocket">ZÁSUVKA</string>

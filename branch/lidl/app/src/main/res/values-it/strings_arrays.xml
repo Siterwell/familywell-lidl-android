@@ -18,7 +18,7 @@
     <string name="Door_Close">DOOR CLOSE</string>
     <string name="Door_Await">DOOR AWAIT</string>
     <string name="Help">HELP</string>
-    <string name="Offline">Normale</string>
+    <string name="Offline">OFFLINE</string>
     <string name="Somebody_There">Movimento</string>
     <string name="Normal">Normale</string>
     <string name="Illegal_Encroachment">ILLEGAL ENCROACHMENT</string>

@@ -115,7 +115,7 @@
     <string name="set_weekday">por favor introduzca dia de la semana</string>
     <string name="set_delay">por favor introduzca retardo</string>
     <string name="manage">control</string>
-    <string name="offline">Normal</string>
+    <string name="offline">fuera de linea</string>
     <string name="alarm">Alarma</string>
     <string name="lowvolt_alarm">Alarma de bateria baja</string>
     <string name="help">ayuda</string>
@@ -230,7 +230,7 @@
     <string name="save">guardar</string>
     <string name="no_save">no guardar</string>
     <string name="on_line">(en linea)</string>
-    <string name="off_line">(Normal)</string>
+    <string name="off_line">(fuera de linea)</string>
     <string name="btn_silence">silencio</string>
     <string name="dev_type_monitor">monitor</string>
     <string name="dev_type_intelligentsocket">enchufe</string>

@@ -117,7 +117,7 @@ The connector has entered the networking mode.</string>
     <string name="set_weekday">Choose on which days you want to set the timer</string>
     <string name="set_delay">Please set delay time</string>
     <string name="manage">manage</string>
-    <string name="offline">Normal</string>
+    <string name="offline">Offline</string>
     <string name="alarm">Alarm</string>
     <string name="lowvolt_alarm">Low battery warning</string>
     <string name="help">Help</string>
@@ -232,7 +232,7 @@ The connector has entered the networking mode.</string>
     <string name="save">Save</string>
     <string name="no_save">Do not save</string>
     <string name="on_line">(online)</string>
-    <string name="off_line">(Normal)</string>
+    <string name="off_line">(Offline)</string>
     <string name="btn_silence">Silence</string>
     <string name="dev_type_monitor">Monitor</string>
     <string name="dev_type_intelligentsocket">Socket</string>

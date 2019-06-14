@@ -115,7 +115,7 @@
     <string name="set_weekday">Per favore imposta il giorno della settimana</string>
     <string name="set_delay">Imposta ripetizione</string>
     <string name="manage">Gestisci</string>
-    <string name="offline">Normaal</string>
+    <string name="offline">OFFLINE</string>
     <string name="alarm">Sveglia</string>
     <string name="lowvolt_alarm">Avviso del basso livello della batteria</string>
     <string name="help">Aiuto</string>
@@ -230,7 +230,7 @@
     <string name="save">Salva</string>
     <string name="no_save">Non salvare</string>
     <string name="on_line">(Online)</string>
-    <string name="off_line">(Normaal)</string>
+    <string name="off_line">(Offline)</string>
     <string name="btn_silence">silenzioso</string>
     <string name="dev_type_monitor">CONTROLLO</string>
     <string name="dev_type_intelligentsocket">PRESA</string>

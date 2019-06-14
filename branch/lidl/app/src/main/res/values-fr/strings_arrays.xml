@@ -18,7 +18,7 @@
     <string name="Door_Close">Porte fermée</string>
     <string name="Door_Await">Porte entrebaillée, merci de la refermer</string>
     <string name="Help">AIDE</string>
-    <string name="Offline">Normal</string>
+    <string name="Offline">Hors ligne</string>
     <string name="Somebody_There">Mouvement</string>
     <string name="Normal">Normal</string>
     <string name="Illegal_Encroachment">Instrusion interdite</string>
