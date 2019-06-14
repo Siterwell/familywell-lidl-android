@@ -18,9 +18,9 @@
     <string name="Door_Close">Porte fermée</string>
     <string name="Door_Await">Porte entrebaillée, merci de la refermer</string>
     <string name="Help">AIDE</string>
-    <string name="Offline">DÉCONNECTÉ</string>
-    <string name="Somebody_There">Mouvement détecté</string>
-    <string name="Normal">Aucun mouvement détecté</string>
+    <string name="Offline">Hors ligne</string>
+    <string name="Somebody_There">Mouvement</string>
+    <string name="Normal">Normal</string>
     <string name="Illegal_Encroachment">Instrusion interdite</string>
     <string name="Warn_Alarm">Alerte avertissement</string>
     <string name="Silence">DISCRET</string>

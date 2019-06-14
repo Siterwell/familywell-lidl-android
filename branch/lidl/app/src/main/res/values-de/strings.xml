@@ -213,7 +213,7 @@
     <string name="release_to_refresh">Zum aktualisieren loslassen</string>
     <string name="refreshing">Laden...</string>
     <string name="not_updated_yet">Derzeit nicht aktualisiert</string>
-    <string name="updated_at">Aktualisierung von %1$s  vorher</string>
+    <string name="updated_at">Aktualisierung von %1$s vorher</string>
     <string name="updated_just_now">Jetzt aktualisiert</string>
     <string name="time_error">Zeit Fehler</string>
     <string name="minute">Minute</string>
