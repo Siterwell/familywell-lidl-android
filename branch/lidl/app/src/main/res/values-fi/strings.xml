@@ -250,7 +250,7 @@
     <string name="device_opt_picture_list">Laitteen valokuvat</string>
     <string name="device_opt_record_list">Laitteen videot</string>
     <string name="device_opt_alarm_config">Hälytysasetukset</string>
-    <string name="device_opt_set_wifi">Langattoman verkon asetukset</string>
+    <string name="device_opt_set_wifi">Muodosta yhteys</string>
     <string name="device_opt_set_wifi_info_error">Langattoman verkon tietovirhe</string>
     <string name="device_opt_set_wifi_hint_ssid">Langattoman verkon SSID</string>
     <string name="device_opt_set_wifi_hint_passwd">Langattoman verkon salasana</string>
@@ -526,5 +526,5 @@
     <string name="faq">Usein kysyttyä (FAQ)</string>
     <string name="delete_timer">Oletko varma, että haluat poistaa tämän ajastimen?</string>
     <string name="successfully_deleted">poistaminen onnistui</string>
-    <string name="wireless_config">Radio jossa</string>
+    <string name="wireless_config">Wifi asetukset</string>
 </resources>
