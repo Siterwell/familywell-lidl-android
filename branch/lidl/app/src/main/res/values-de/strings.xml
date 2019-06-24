@@ -527,4 +527,5 @@
     <string name="delete_timer">Möchten Sie diesen Timer wirklich löschen?</string>
     <string name="successfully_deleted">Erfolgreich gelöscht</string>
     <string name="wireless_config">WLAN einstellungen</string>
+    <string name="gs361_install_construction">Bitte DAS thermostat zu installieren, dann wieder drücken sie den Knopf installieren.</string>
 </resources>

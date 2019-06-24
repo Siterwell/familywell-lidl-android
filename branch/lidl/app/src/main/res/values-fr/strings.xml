@@ -527,4 +527,5 @@
     <string name="delete_timer">Êtes-vous sûr de vouloir supprimer cette minuterie?</string>
     <string name="successfully_deleted">Supprimé avec succès</string>
     <string name="wireless_config">Paramètres WiFi</string>
+    <string name="gs361_install_construction">S’il vous plaît, thermostat monté à la soupape, puis, une fois encore, appuyez sur le bouton Terminer l’installation.</string>
 </resources>

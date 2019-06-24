@@ -79,4 +79,7 @@
     <color name="test_history">#d57e89</color>
     <color name="common_history">#678fbb</color>
     <color name="empty_history">#c1bec1</color>
+    <color name="dark_blue">#2264c2</color>
+    <color name="huise">#eaeaea</color>
+    <color name="huise2">#e1ecf0</color>
 </resources>
