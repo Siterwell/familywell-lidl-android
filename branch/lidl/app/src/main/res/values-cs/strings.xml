@@ -527,4 +527,5 @@
    <string name="delete_timer">Opravdu chcete tento časovač smazat?</string>
    <string name="successfully_deleted">Úspěšně smazáno</string>
    <string name="wireless_config">Nastavení Bezdrátové</string>
+   <string name="gs361_install_construction">prosím, termostat zařízení do ventily, a pak znovu zmáčknout knoflík dokončeno.</string>
 </resources>

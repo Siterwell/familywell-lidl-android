@@ -69,7 +69,7 @@ import me.hekr.sthome.equipment.detail.SmDetailActivity;
 import me.hekr.sthome.equipment.detail.SocketDetailActivity;
 import me.hekr.sthome.equipment.detail.SosDetailActivity;
 import me.hekr.sthome.equipment.detail.THCheckDetailActivity;
-import me.hekr.sthome.equipment.detail.TempControlDetailActivity;
+import me.hekr.sthome.equipment.detail.TempControlDetail2Activity;
 import me.hekr.sthome.equipment.detail.ThermalDetailActivity;
 import me.hekr.sthome.equipment.detail.ValveDetailActivity;
 import me.hekr.sthome.equipment.detail.WaterDetailActivity;
@@ -1198,7 +1198,7 @@ public class DeviceFragment extends Fragment {
             }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
                 startDetailActivity(device, DeviceFragment.this.getActivity(), Channel2SocketDetailActivity.class);
             }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                startDetailActivity(device, DeviceFragment.this.getActivity(), TempControlDetailActivity.class);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), TempControlDetail2Activity.class);
             }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
                 startDetailActivity(device, DeviceFragment.this.getActivity(), DimmingModuleDetailActivity.class);
             }

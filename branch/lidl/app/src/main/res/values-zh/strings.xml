@@ -527,4 +527,5 @@
     <string name="delete_timer">您确定要删除此计时器吗？</string>
     <string name="successfully_deleted">成功删除</string>
     <string name="wireless_config">无线设置</string>
+    <string name="gs361_install_construction">请将温控器安装到阀门，然后再一次按下旋钮完成安装。</string>
 </resources>
