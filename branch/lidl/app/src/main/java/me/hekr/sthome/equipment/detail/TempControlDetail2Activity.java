@@ -43,7 +43,6 @@ import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ByteUtil;
 import me.hekr.sthome.tools.EmojiFilter;
-import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
 import me.hekr.sthome.tools.UnitTools;
