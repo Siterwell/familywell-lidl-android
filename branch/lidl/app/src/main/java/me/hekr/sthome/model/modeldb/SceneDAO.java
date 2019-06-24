@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.litesuits.android.log.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,27 @@ public class SceneDAO {
         db.update("scenetable", cv, where, whereValue);
         }catch (NullPointerException e){
             LOG.I(TAG,"no choosed gateway");
+        }finally {
+            db.close();
+        }
+    }
+
+    /**
+     * 修改code Bymid
+     * @param code
+     * @param mid
+     * @param devTid
+     */
+    public void updateCodeByMid(String code ,String mid,String devTid){
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        try {
+            String where = "mid = ? and deviceid = ?";
+            String[] whereValue = {mid,devTid};
+            ContentValues cv = new ContentValues();
+            cv.put("code",code);
+            db.update("scenetable", cv, where, whereValue);
+        }catch (NullPointerException e){
+            Log.i(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
