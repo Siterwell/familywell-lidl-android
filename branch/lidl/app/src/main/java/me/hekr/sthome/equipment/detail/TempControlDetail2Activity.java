@@ -15,9 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,8 +42,8 @@ import me.hekr.sthome.event.ThcheckEvent;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ByteUtil;
-import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.EmojiFilter;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
 import me.hekr.sthome.tools.UnitTools;
@@ -284,7 +282,6 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
 
     private void doStatusShow(String aaaa) {
         try {
-
             String signal1 = aaaa.substring(0,2);
             String quantity1 = aaaa.substring(2,4);
             String status1 = aaaa.substring(4,6);

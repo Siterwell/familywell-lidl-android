@@ -13,7 +13,7 @@ import me.hekr.sthome.common.CCPAppManager;
 public class SysDB extends SQLiteOpenHelper {
     //    创建表格
     private String sysMTable = "create table if not exists sysmodle(id integer primary key autoincrement,name varchar(200) NOT NULL,modledesc varchar(200),choice varchar(20),sid varchar(20),deviceid varchar(30),color varchar(10))";
-    private String equTalbe = "create table if not exists equipment(id integer primary key AUTOINCREMENT,name varchar(200) NOT NULL, eqid varchar(20),equipmenttype varchar(20),activitytime varchar(100) ,state varchar(20),equipmentdesc varchar(200),packageid integer default (0),namecum varchar(10),statuscum varchar(10),sort integer,deviceid varchar(30))";
+    private String equTalbe = "create table if not exists equipment(id integer primary key AUTOINCREMENT,name varchar(200) NOT NULL, eqid varchar(20),equipmenttype varchar(20),activitytime varchar(100) ,state varchar(20),equipmentdesc varchar(200),packageid integer default (0),namecum varchar(10),statuscum varchar(10),sort integer,deviceid varchar(30),autotemp varchar(10),handtemp varchar(10),fangtemp varchar(10))";
     private String pacTable = "create table if not exists pactable(id integer primary key autoincrement,name varchar(200) not null,packageid integer,desc varchar(200),sort integer,deviceid varchar(30))";
     private String scTable = "create table if not exists scenetable(id integer primary key autoincrement,name varchar(200) not null,code varchar(100),desc varchar(100),sid varchar(40),mid varchar(40),checksum varchar(40),deviceid varchar(30))";
     private String noticeTable = "create table if not exists noticetable(id integer primary key autoincrement,type varchar(5),mid varchar(40),eqid varchar(20),equipmenttype varchar(10),eqstatus varchar(10),activitytime var(40),desc varchar(100),deviceid varchar(30),name varchar(150))";
@@ -41,13 +41,17 @@ public class SysDB extends SQLiteOpenHelper {
     private String deviceTableaddcolumn2 = "alter table devicetable add  column longtitude varchar(50)";
     private String deviceTableaddcolumn3 = "alter table devicetable add  column latitude varchar(50)";
     private String deviceTableaddcolumn4 = "alter table devicetable add  column reserve varchar(100)";
+    private String eqTableaddcolumn2 = "alter table equipment add  column autotemp varchar(10)";
+    private String eqTableaddcolumn3 = "alter table equipment add  column handtemp varchar(10)";
+    private String eqTableaddcolumn4 = "alter table equipment add  column fangtemp varchar(10)";
+
 
     public SysDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     public SysDB (Context context){
-        super(context, CCPAppManager.getUserId()+"_sysdb.db",null,12);
+        super(context, CCPAppManager.getUserId()+"_sysdb.db",null,13);
 //        this(context,"sysdb.db",null,1);
     }
 
@@ -84,6 +88,13 @@ public class SysDB extends SQLiteOpenHelper {
             db.execSQL(deviceTableaddcolumn3);
             db.execSQL(deviceTableaddcolumn4);
         }
+
+        if(oldVersion<13){
+            db.execSQL(eqTableaddcolumn2);
+            db.execSQL(eqTableaddcolumn3);
+            db.execSQL(eqTableaddcolumn4);
+        }
+
 //        if (newVersion > oldVersion) {
 //            if(oldVersion<=2){
 //                db.execSQL(equTableaddcolumn);
