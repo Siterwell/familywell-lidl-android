@@ -10,8 +10,11 @@ import com.litesuits.android.log.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.hekr.sthome.model.ResolveScene;
+import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.SceneBean;
 import me.hekr.sthome.tools.LOG;
+import me.hekr.sthome.tools.NameSolve;
 
 
 /**
@@ -489,6 +492,102 @@ public class SceneDAO {
 
         }catch (NullPointerException e){
             LOG.I(TAG, "no choosed device");
+        }finally {
+            db.close();
+            return list;
+        }
+    }
+
+    /**
+     * find all scene from scenetable;
+     * 除去361相关情景
+     * @return
+     */
+    public List<SceneBean> findAllAmWithoutGs361(String deviceid){
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        List<SceneBean> list = new ArrayList<SceneBean>();
+        try {
+            Cursor cursor = db.rawQuery("select * from scenetable where sid = '-1' and deviceid = '"+deviceid+"' and code is not null",null);
+            while (cursor.moveToNext()){
+
+                String code =cursor.getString(cursor.getColumnIndex("code"));
+                String mid = cursor.getString(cursor.getColumnIndex("mid"));
+                boolean flag = false;
+                if(Integer.parseInt(mid)<=128) {
+                    ResolveScene resolveScene = new ResolveScene(context,code);
+                    if(resolveScene.isTarget()){
+                        EquipDAO equipDAO = new EquipDAO(context);
+                        EquipmentBean equipmentBean= equipDAO.findByeqid(resolveScene.getOutput().get(0).getEqid(),deviceid);
+                        if(equipmentBean!=null && NameSolve.getEqType(equipmentBean.getEquipmentDesc()).equals(NameSolve.TEMP_CONTROL)){
+                            flag = true;
+                        }
+                    }
+                }
+
+                if(!flag){
+                    SceneBean am = new SceneBean();
+                    am.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                    am.setName(cursor.getString(cursor.getColumnIndex("name")));
+                    am.setChecksum(cursor.getString(cursor.getColumnIndex("checksum")));
+                    am.setCode(cursor.getString(cursor.getColumnIndex("code")));
+                    am.setMid(cursor.getString(cursor.getColumnIndex("mid")));
+                    am.setSid(cursor.getString(cursor.getColumnIndex("sid")));
+                    am.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
+                    list.add(am);
+                }
+
+            }
+
+        }catch (NullPointerException e){
+            Log.i(TAG, "no choosed device");
+        }finally {
+            db.close();
+            return list;
+        }
+    }
+
+    /**
+     * find all scene from scenetable;
+     * 361相关情景
+     * @return
+     */
+    public List<SceneBean> findAllAmGs361(String deviceid){
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        List<SceneBean> list = new ArrayList<SceneBean>();
+        try {
+            Cursor cursor = db.rawQuery("select * from scenetable where sid = '-1' and deviceid = '"+deviceid+"' and code is not null",null);
+            while (cursor.moveToNext()){
+
+                String code =cursor.getString(cursor.getColumnIndex("code"));
+                String mid = cursor.getString(cursor.getColumnIndex("mid"));
+                boolean flag = false;
+                if(Integer.parseInt(mid)<=128) {
+                    ResolveScene resolveScene = new ResolveScene(context,code);
+                    if(resolveScene.isTarget()){
+                        EquipDAO equipDAO = new EquipDAO(context);
+                        EquipmentBean equipmentBean= equipDAO.findByeqid(resolveScene.getOutput().get(0).getEqid(),deviceid);
+                        if(equipmentBean!=null && NameSolve.getEqType(equipmentBean.getEquipmentDesc()).equals(NameSolve.TEMP_CONTROL)){
+                            flag = true;
+                        }
+                    }
+                }
+
+                if(flag){
+                    SceneBean am = new SceneBean();
+                    am.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                    am.setName(cursor.getString(cursor.getColumnIndex("name")));
+                    am.setChecksum(cursor.getString(cursor.getColumnIndex("checksum")));
+                    am.setCode(cursor.getString(cursor.getColumnIndex("code")));
+                    am.setMid(cursor.getString(cursor.getColumnIndex("mid")));
+                    am.setSid(cursor.getString(cursor.getColumnIndex("sid")));
+                    am.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
+                    list.add(am);
+                }
+
+            }
+
+        }catch (NullPointerException e){
+            Log.i(TAG, "no choosed device");
         }finally {
             db.close();
             return list;
