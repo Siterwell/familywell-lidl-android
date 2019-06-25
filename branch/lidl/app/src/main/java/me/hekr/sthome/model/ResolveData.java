@@ -61,7 +61,7 @@ public abstract class ResolveData {
     public abstract void EndSyncEqName();//同步设备名称结束
     public abstract void EndSyncTimerInfo();//同步定时信息结束
     public abstract void Getinfolinstenr();  //同步时收取数据监听，为了计时判断同步超时;
-
+    public abstract void reFreshCurrentMode();  //实时刷新当前模式;
     //开始同步情景
     public void StartSyncScene(){
         setSync_scene(true);
@@ -83,9 +83,16 @@ public abstract class ResolveData {
         return now_mode;
     }
 
-    public void setNow_mode(int now_mode) {
+    public void setNow_mode(int now_mode,String deviceid) {
         this.now_mode = now_mode;
-        Getinfolinstenr();
+        if(isSync_scene()){
+            Getinfolinstenr();
+        }else{
+            SysmodelDAO sysmodelDAO = new SysmodelDAO(context);
+            sysmodelDAO.updateChoice(String.valueOf(now_mode),deviceid);
+            reFreshCurrentMode();
+        }
+
     }
 
     //同步获取情景模式组信息到hashmap
