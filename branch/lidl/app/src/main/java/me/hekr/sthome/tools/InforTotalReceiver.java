@@ -171,6 +171,7 @@ public abstract class InforTotalReceiver extends BroadcastReceiver {
                         }else{
                             now_group =ByteUtil.getDescryption(data.getInt("sence_group"),msgid);
                         }
+                        LOG.D(TAG, "[SCENE debug] onReceive > now_group = " + now_group + ", devTids = " + devTids);
                         resolveData.setNow_mode(now_group, devTids);
                     }else if(data.getInt("cmdId")==26 ||  data.getInt("cmdId")==126){//情景组数据
                         int group;

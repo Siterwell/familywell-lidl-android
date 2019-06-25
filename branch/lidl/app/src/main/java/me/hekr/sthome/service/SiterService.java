@@ -191,6 +191,7 @@ public class SiterService extends Service {
 
             @Override
             public void reFreshCurrentMode() {
+                LOG.D(TAG, "[SCENE debug] reFreshCurrentMode ");
                 STEvent stEvent2 = new STEvent();
                 stEvent2.setRefreshevent(3);
                 EventBus.getDefault().post(stEvent2);
