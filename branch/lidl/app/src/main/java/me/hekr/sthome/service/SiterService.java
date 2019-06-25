@@ -188,6 +188,14 @@ public class SiterService extends Service {
             public void Getinfolinstenr() {
                 setCount(0);  //还原计时，如果到5则同步超时
             }
+
+            @Override
+            public void reFreshCurrentMode() {
+                LOG.D(TAG, "[SCENE debug] reFreshCurrentMode ");
+                STEvent stEvent2 = new STEvent();
+                stEvent2.setRefreshevent(3);
+                EventBus.getDefault().post(stEvent2);
+            }
         };
         sendOtherData = new SendOtherData(this);
         sendSceneData = new SendSceneData(this) {
