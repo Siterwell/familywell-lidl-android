@@ -84,6 +84,7 @@ public abstract class ResolveData {
     }
 
     public void setNow_mode(int now_mode,String deviceid) {
+        LOG.D(TAG, "[SCENE debug] setNow_mode > now_mode = " + now_mode + ", isSync_scene = " + isSync_scene());
         this.now_mode = now_mode;
         if(isSync_scene()){
             Getinfolinstenr();
