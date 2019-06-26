@@ -16,8 +16,7 @@ public class ConnectionPojo {
     public int open_app = 0;
     public int msgid = 0;
     public boolean encryption = false;
-
-
+    public boolean siterservicedestroy = false;
     private static ConnectionPojo instance = null;
     private ConnectionPojo (){
 
@@ -26,7 +25,7 @@ public class ConnectionPojo {
         if (instance == null) {
 //            synchronized (ConnectionPojo.class) {
 //                if (instance == null) {
-                    return instance = new ConnectionPojo();
+            return instance = new ConnectionPojo();
 //                }
 //            }
         }
