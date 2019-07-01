@@ -16,6 +16,14 @@ public class DcInfo implements Serializable{
     private String fromArea;
     private String connectHost;
 
+    public DcInfo() {
+        this.fromDC = "gz";
+        this.dc = "";
+        this.area = "";
+        this.fromArea = "eu";
+        this.connectHost = "fra-hub.hekreu.me";
+    }
+
     public long getOpTimestamp() {
         return opTimestamp;
     }
