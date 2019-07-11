@@ -527,4 +527,5 @@
     <string name="delete_timer">Estás seguro de que quieres eliminar este temporizador?</string>
     <string name="successfully_deleted">Eliminado exitosamente</string>
     <string name="wireless_config">Preferencias wifi</string>
+    <string name="gs361_install_construction">Haga el favor de instalar el controlador a la válvula y luego pulse el botón para completar la instalación.</string>
 </resources>

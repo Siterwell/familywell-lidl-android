@@ -82,4 +82,7 @@
 
     <!-- Customized Base UI -->
     <color name="base_dark_background">#2d2d2d</color>
+    <color name="dark_blue">#2264c2</color>
+    <color name="huise">#eaeaea</color>
+    <color name="huise2">#e1ecf0</color>
 </resources>

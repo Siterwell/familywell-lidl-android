@@ -527,4 +527,5 @@
    <string name="delete_timer">Ali ste prepričani, da želite izbrisati ta časovnik?</string>
    <string name="successfully_deleted">uspešno izbrisan</string>
    <string name="wireless_config">Brezžični Opremi</string>
+   <string name="gs361_install_construction">prosim, termostat, nameščene na ventil, in potem še enkrat pritisnite na gumb za dokončanje namestitve.</string>
 </resources>
