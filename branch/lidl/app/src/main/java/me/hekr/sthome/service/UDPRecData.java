@@ -46,6 +46,8 @@ public class UDPRecData implements Runnable {
     @Override
     public void run() {
         while (enudp){
+            LOG.I(TAG,"[SCENE debug] run > enudp = " + enudp);
+
             bytes = new byte[512];
             datagramPacket = new DatagramPacket(bytes,bytes.length,hostAdd,PORT);
             try {
@@ -203,6 +205,7 @@ public class UDPRecData implements Runnable {
     }
 
     public void  close(){
+        LOG.E(TAG,"[SCENE debug] close");
         try {
             enudp = false;
             datagramSocket.close();
