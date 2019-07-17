@@ -222,10 +222,6 @@ public class SiterService extends Service {
             }
         };
         super.onCreate();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForeground(1,new Notification());
-        }
     }
 
     @Override
