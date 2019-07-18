@@ -23,6 +23,8 @@
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入用户数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <!--<uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />-->
     <!-- 这些权限用于进行二维码扫描 -->
