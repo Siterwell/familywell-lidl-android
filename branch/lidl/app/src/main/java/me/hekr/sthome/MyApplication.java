@@ -107,7 +107,11 @@ public class MyApplication extends MultiDexApplication {
 //        CrashHandler.getInstance().init(getApplicationContext());
 
         Intent intent = new Intent(this, SiterService.class);
-        startService(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
     }
 
 
