@@ -71,7 +71,8 @@ public class NameSolve {
         } else if ("0209".equals(Eqipmentdesc) || "1209".equals(Eqipmentdesc) || "2209".equals(Eqipmentdesc)) {
             return CURTAIN;
         } else if ("0005".equals(Eqipmentdesc) || "1109".equals(Eqipmentdesc) || "2109".equals(Eqipmentdesc)
-                || "000D".equals(Eqipmentdesc) || "100D".equals(Eqipmentdesc) || "200D".equals(Eqipmentdesc)) {
+                || "000D".equals(Eqipmentdesc) || "100D".equals(Eqipmentdesc) || "200D".equals(Eqipmentdesc)
+                || "0013".equals(Eqipmentdesc)) {
             return CXSM_ALARM;
         } else if ("0003".equals(Eqipmentdesc) || "1003".equals(Eqipmentdesc) || "2003".equals(Eqipmentdesc)
                 || "000B".equals(Eqipmentdesc) || "100B".equals(Eqipmentdesc) || "200B".equals(Eqipmentdesc)) {
@@ -124,7 +125,8 @@ public class NameSolve {
             } else if ("0301".equals(devType) || "1301".equals(devType) || "2301".equals(devType)) {   //socket
                 return context.getResources().getString(R.string.button) + eqid;
             } else if ("0005".equals(devType) || "1005".equals(devType) || "2005".equals(devType)
-                    || "000D".equals(devType) || "100D".equals(devType) || "200D".equals(devType)) {  //sm
+                    || "000D".equals(devType) || "100D".equals(devType) || "200D".equals(devType)
+                    || "0013".equals(devType)) {  //sm
                 return context.getResources().getString(R.string.cxsmalarm) + eqid;
             } else if ("0002".equals(devType) || "1002".equals(devType) || "2002".equals(devType)||
                     "1006".equals(devType)
