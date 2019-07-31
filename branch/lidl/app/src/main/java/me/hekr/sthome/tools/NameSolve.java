@@ -44,7 +44,8 @@ public class NameSolve {
         } else if ("0100".equals(Eqipmentdesc) || "1100".equals(Eqipmentdesc) || "2100".equals(Eqipmentdesc)) {
             return PIR_CHECK;
         } else if ("0000".equals(Eqipmentdesc) || "1000".equals(Eqipmentdesc) || "2000".equals(Eqipmentdesc)
-                || "0008".equals(Eqipmentdesc) || "1008".equals(Eqipmentdesc) || "2008".equals(Eqipmentdesc)) {
+                || "0008".equals(Eqipmentdesc) || "1008".equals(Eqipmentdesc) || "2008".equals(Eqipmentdesc)
+                || "000E".equals(Eqipmentdesc)) {
             return CO_ALARM;
         }else if ("0002".equals(Eqipmentdesc) ||
                 "1002".equals(Eqipmentdesc) ||
@@ -56,7 +57,8 @@ public class NameSolve {
                 || "0009".equals(Eqipmentdesc) || "1009".equals(Eqipmentdesc) || "2009".equals(Eqipmentdesc)) {
             return SM_ALARM;
         } else if ("0004".equals(Eqipmentdesc) || "1004".equals(Eqipmentdesc) || "2004".equals(Eqipmentdesc)
-                || "000C".equals(Eqipmentdesc) || "100C".equals(Eqipmentdesc) || "200C".equals(Eqipmentdesc)) {
+                || "000C".equals(Eqipmentdesc) || "100C".equals(Eqipmentdesc) || "200C".equals(Eqipmentdesc)
+                || "0012".equals(Eqipmentdesc)) {
             return WT_ALARM;
         } else if ("0102".equals(Eqipmentdesc) || "1102".equals(Eqipmentdesc) || "2102".equals(Eqipmentdesc)) {
             return TH_CHECK;
@@ -75,7 +77,8 @@ public class NameSolve {
                 || "0013".equals(Eqipmentdesc)) {
             return CXSM_ALARM;
         } else if ("0003".equals(Eqipmentdesc) || "1003".equals(Eqipmentdesc) || "2003".equals(Eqipmentdesc)
-                || "000B".equals(Eqipmentdesc) || "100B".equals(Eqipmentdesc) || "200B".equals(Eqipmentdesc)) {
+                || "000B".equals(Eqipmentdesc) || "100B".equals(Eqipmentdesc) || "200B".equals(Eqipmentdesc)
+                || "0011".equals(Eqipmentdesc)) {
             return THERMAL_ALARM;
         }else if ("0305".equals(Eqipmentdesc)) {
             return MODE_BUTTON;
@@ -107,10 +110,12 @@ public class NameSolve {
                     || "0009".equals(devType) || "1009".equals(devType) || "2009".equals(devType)) {  //sm
                 return context.getResources().getString(R.string.smalarm) + eqid;
             } else if ("0000".equals(devType) || "1000".equals(devType) || "2000".equals(devType)
-                    || "0008".equals(devType) || "1008".equals(devType) || "2008".equals(devType)) {  //end
+                    || "0008".equals(devType) || "1008".equals(devType) || "2008".equals(devType)
+                    || "000E".equals(devType)) {  //end
                 return context.getResources().getString(R.string.coalarm) + eqid;
             } else if ("0004".equals(devType) || "1004".equals(devType) || "2004".equals(devType)
-                    || "000C".equals(devType) || "100C".equals(devType) || "200C".equals(devType)) {  //end
+                    || "000C".equals(devType) || "100C".equals(devType) || "200C".equals(devType)
+                    || "0012".equals(devType)) {  //end
                 return context.getResources().getString(R.string.wt) + eqid;
             } else if ("0102".equals(devType) || "1102".equals(devType) || "2102".equals(devType)) {  //end
                 return context.getResources().getString(R.string.thcheck) + eqid;
@@ -133,7 +138,8 @@ public class NameSolve {
                     || "000A".equals(devType) || "100A".equals(devType) || "200A".equals(devType)) {  //end
                 return context.getResources().getString(R.string.gasalarm) + eqid;
             }else if ("0003".equals(devType) || "1003".equals(devType) || "2003".equals(devType)
-                    || "000B".equals(devType) || "100B".equals(devType) || "200B".equals(devType)) {  //end
+                    || "000B".equals(devType) || "100B".equals(devType) || "200B".equals(devType)
+                    || "0011".equals(devType)) {  //end
                 return context.getResources().getString(R.string.thermalalarm) + eqid;
             }else if("0305".equals(devType)){
                 return context.getResources().getString(R.string.mode_button) + eqid;
