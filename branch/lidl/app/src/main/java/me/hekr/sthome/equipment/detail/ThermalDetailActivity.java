@@ -207,8 +207,8 @@ public class ThermalDetailActivity extends AbstractDetailActivity {
         operation = (TextView) findViewById(R.id.operation);
         try {
             int ds = Integer.parseInt(device.getEquipmentDesc().substring(device.getEquipmentDesc().length()-1),16);
-            if(ds<7){
-        operation.setVisibility(View.VISIBLE);
+            if(ds<=7||ds>=14){
+                operation.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             e.printStackTrace();
