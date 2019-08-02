@@ -181,6 +181,7 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
     }
 
     private void saveNewDevice(DeviceBean deviceBean) {
+        LOG.I(TAG,"[Dev Sync] saveNewDevice - dev id = " + deviceBean.getDevTid());
 
        DDO.updateDeivceChoice(deviceBean.getDevTid());
 
@@ -266,11 +267,9 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
         lists = DDO.findAllDevice();
         mo.refreshList(lists);
 
-        String name = null;
+        String name = deviceBean.getDeviceName();;
         if("报警器".equals(deviceBean.getDeviceName())){
             name = getResources().getString(R.string.my_home);
-        }else{
-            name = deviceBean.getDeviceName();
         }
         Toast.makeText(DeviceListActivity.this,getResources().getString(R.string.connect_alert)+name+(deviceBean.isOnline()?getResources().getString(R.string.on_line):getResources().getString(R.string.off_line)),Toast.LENGTH_LONG).show();
 
