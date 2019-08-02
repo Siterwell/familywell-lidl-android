@@ -10,7 +10,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.hekr.sthome.push.NoticeBean;
+import me.hekr.sthome.model.modelbean.NoticeBean;
+
 
 /**
  * Created by jishu0001 on 2017/3/1.

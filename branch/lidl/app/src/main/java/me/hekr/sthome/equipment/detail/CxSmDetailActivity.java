@@ -8,10 +8,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,17 +21,25 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import me.hekr.sthome.AddDeviceActivity;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ECListDialog;
+import me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer;
+import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.crc.CoderUtils;
+import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
+import me.hekr.sthome.http.HekrUser;
+import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.model.modelbean.NoticeBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ByteUtil;
+import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.EmojiFilter;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
@@ -40,7 +48,7 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/26.
  */
-public class CxSmDetailActivity extends AbstractDetailActivity {
+public class CxSmDetailActivity extends AbstractDetailActivity implements MultiDirectionSlidingDrawer.OnDrawerOpenListener,MultiDirectionSlidingDrawer.OnDrawerCloseListener {
     private static final String TAG = "CxSmDetailActivity";
 
     @Override
@@ -179,7 +187,7 @@ public class CxSmDetailActivity extends AbstractDetailActivity {
                 ecListDialog.show();
             }
         });
-        root = (LinearLayout)findViewById(R.id.root);
+        root = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
@@ -226,6 +234,29 @@ public class CxSmDetailActivity extends AbstractDetailActivity {
         }else{
             eq_name.setText(device.getEquipmentName());
         }
+//        textView_log = (TextView)findViewById(R.id.title);
+//        textView_log.setVisibility(View.GONE);
+//        drawer =(MultiDirectionSlidingDrawer)findViewById(R.id.drawer1);
+//        drawer.setOnDrawerOpenListener(this);
+//        drawer.setOnDrawerCloseListener(this);
+//        listView = (PullListView) drawer.findViewById(R.id.logs);
+//        listView.setPullLoadEnable(false);
+//        imageView_cancel = (ImageView)findViewById(R.id.cancel);
+//        imageView_cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                drawer.close();
+//            }
+//        });
+//        btn_clear = findViewById(R.id.clear);
+//        btn_clear.setVisibility(View.GONE);
+//        noticeBeanList = new ArrayList<NoticeBean>();
+//        noticeBeanFilterList = new ArrayList<NoticeBean>();
+//        historyAdapter = new HistoryAdapter(this,noticeBeanFilterList);
+//        listView.setAdapter(historyAdapter);
+//        empty = findViewById(R.id.empty);
+//        listView.setEmptyView(empty);
+//        tintManager = new SystemTintManager(this);// 创建状态栏的管理实例
 
         doStatusShow(device.getState());
         showBattery();
@@ -408,4 +439,100 @@ public class CxSmDetailActivity extends AbstractDetailActivity {
             Log.i(TAG,"data err");
         }
     }
+
+    @Override
+    public void onDrawerOpened() {
+        getHistory();
+        tintManager.setStatusBarDarkMode2(true,this);
+        root.setBackgroundColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    public void onDrawerClosed() {
+        page = 0;
+        tintManager.setStatusBarDarkMode2(false,this);
+        doStatusShow(device.getState());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if(drawer.isOpened()){
+                drawer.animateClose();
+                return true;
+            }else {
+                return super.onKeyDown(keyCode, event);
+            }
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    private void getHistory(){
+        if(page == 0){
+            progressDialog =  new ProgressDialog(this);
+            progressDialog.setPressText(getResources().getText(R.string.wait));
+            progressDialog.show();
+        }
+
+        HekrUserAction.getInstance(this).getAlarmHistoryList(this, ConnectionPojo.getInstance().deviceTid, ConnectionPojo.getInstance().ctrlKey, ConnectionPojo.getInstance().propubkey, page, new HekrUser.GetDeviceHistoryListener() {
+            @Override
+            public void getSuccess(List<NoticeBean> list, int pagenumber, boolean last) {
+                if(pagenumber == 0){
+                    noticeBeanList.clear();
+                }
+                noticeBeanList.addAll(list);
+                if(pagenumber<10){
+                    if(!last&&list.size()==20){
+                        //防止以前的告警数据造成解析失效
+                        page = pagenumber + 1;
+                        getHistory();
+                    }else {
+                        if(progressDialog!=null && progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                            progressDialog = null;
+                        }
+                        page = 0;
+                        filterNotice();
+
+                    }
+                }else {
+                    if(progressDialog!=null && progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                        progressDialog = null;
+                    }
+                    page = 0;
+                    filterNotice();
+                }
+            }
+
+            @Override
+            public void getFail(int errorCode) {
+                if(progressDialog!=null && progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                    progressDialog = null;
+                }
+                filterNotice();
+                if(errorCode==1){
+                    LogoutEvent tokenTimeoutEvent = new LogoutEvent();
+                    EventBus.getDefault().post(tokenTimeoutEvent);
+                }else{
+
+                    Toast.makeText(CxSmDetailActivity.this, UnitTools.errorCode2Msg(CxSmDetailActivity.this,errorCode),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void filterNotice(){
+        noticeBeanFilterList.clear();
+        for(NoticeBean noticeBean:noticeBeanList){
+            if(!TextUtils.isEmpty( noticeBean.getEqid())&&noticeBean.getEqid().equals(device.getEqid())&&!TextUtils.isEmpty(noticeBean.getEquipmenttype())&&noticeBean.getEquipmenttype().equals(device.getEquipmentDesc())){
+                noticeBeanFilterList.add(noticeBean);
+            }
+        }
+        historyAdapter.refreshList(noticeBeanFilterList);
+    }
+
 }

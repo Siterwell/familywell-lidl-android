@@ -28,7 +28,7 @@
 
     <declare-styleable name="MultiDirectionSlidingDrawer">
         <attr name="handle" format="dimension"></attr>
-        <attr name="contentDimen" format="dimension"></attr>
+        <attr name="drawcontent" format="dimension"/>
         <attr name="allowSingleTap" format="boolean"></attr>
         <attr name="animateOnClick" format="boolean"></attr>
         <attr name="direction" >
