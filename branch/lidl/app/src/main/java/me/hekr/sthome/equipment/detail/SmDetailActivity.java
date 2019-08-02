@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -180,7 +179,7 @@ public class SmDetailActivity extends AbstractDetailActivity {
                 ecListDialog.show();
             }
         });
-        root = (LinearLayout)findViewById(R.id.root);
+        root = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
@@ -236,6 +235,8 @@ public class SmDetailActivity extends AbstractDetailActivity {
             eq_name.setText(device.getEquipmentName());
         }
 
+        initLogHistoryDrawer();
+
         doStatusShow(device.getState());
         showBattery();
     }
@@ -253,7 +254,8 @@ public class SmDetailActivity extends AbstractDetailActivity {
         }
     }
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
      try {
         String signal1 = aaaa.substring(0,2);
         String quantity1 = aaaa.substring(2,4);

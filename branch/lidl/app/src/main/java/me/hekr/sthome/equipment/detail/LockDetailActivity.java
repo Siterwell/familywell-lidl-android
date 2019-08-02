@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -192,7 +191,7 @@ public class LockDetailActivity extends AbstractDetailActivity {
                 ecListDialog.show();
             }
         });
-        root       = (LinearLayout)findViewById(R.id.root);
+        root       = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
@@ -312,6 +311,8 @@ public class LockDetailActivity extends AbstractDetailActivity {
             }
         });
 
+        initLogHistoryDrawer();
+
          doStatusShow(device.getState());
     }
     private void updateName(String edit) {
@@ -327,7 +328,8 @@ public class LockDetailActivity extends AbstractDetailActivity {
         }
     }
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
 
 
         try {
