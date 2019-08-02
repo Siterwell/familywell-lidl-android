@@ -56,6 +56,8 @@ public class InitActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LOG.D(TAG, "[RYAN] onCreate");
+
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
