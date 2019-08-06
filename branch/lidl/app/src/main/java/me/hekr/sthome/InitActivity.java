@@ -39,7 +39,6 @@ import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.HekrSocketUtil;
 import me.hekr.sthome.tools.LOG;
 
 /**
