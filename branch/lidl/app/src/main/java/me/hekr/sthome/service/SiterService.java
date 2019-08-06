@@ -244,14 +244,14 @@ public class SiterService extends Service {
             channelId = createNotificationChannel();
         }
 
-//        Intent intent = new Intent(this, MainActivity.class);
-//        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
         Notification notification = builder.setOngoing(true)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-//                .setContentIntent(pi)
+                .setContentIntent(pi)
                 .setContentTitle(getString(R.string.app_name))
                 .build();
 
