@@ -39,7 +39,6 @@ import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.HekrSocketUtil;
 import me.hekr.sthome.tools.LOG;
 
 /**
@@ -56,6 +55,8 @@ public class InitActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LOG.D(TAG, "[RYAN] onCreate");
+
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);

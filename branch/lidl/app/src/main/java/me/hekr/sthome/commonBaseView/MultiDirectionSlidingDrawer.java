@@ -160,7 +160,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup {
         if ( handleId == 0 ) { throw new IllegalArgumentException( "The handle attribute is required and must refer "  
                 + "to a valid child." ); }  
           
-        int contentId = a.getResourceId( R.styleable.MultiDirectionSlidingDrawer_contentDimen, 0 );
+        int contentId = a.getResourceId( R.styleable.MultiDirectionSlidingDrawer_drawcontent, 0 );
         if ( contentId == 0 ) { throw new IllegalArgumentException( "The content attribute is required and must refer "  
                 + "to a valid child." ); }  
           

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.hekr.sthome.R;
-import me.hekr.sthome.push.NoticeBean;
+import me.hekr.sthome.model.modelbean.NoticeBean;
 
 /**
  * Created by ST-020111 on 2017/4/1.

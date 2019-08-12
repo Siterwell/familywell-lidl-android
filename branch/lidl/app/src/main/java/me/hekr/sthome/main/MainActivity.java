@@ -905,6 +905,21 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 LOG.I(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
                 LOG.I(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
                 LOG.I(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
+
+                //刷新主页头部
+                STEvent stEvent = new STEvent();
+                stEvent.setRefreshevent(1);
+                EventBus.getDefault().post(stEvent);
+
+                //刷新主页数据
+                STEvent stEvent2 = new STEvent();
+                stEvent2.setRefreshevent(3);
+                EventBus.getDefault().post(stEvent2);
+
+                //开启搜索局域网服务
+                STEvent stEvent3= new STEvent();
+                stEvent3.setServiceevent(6);
+                EventBus.getDefault().post(stEvent3);
             }
         }
         catch (Exception e){

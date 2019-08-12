@@ -20,11 +20,13 @@ import org.json.JSONException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.HekrSDK;
 import me.hekr.sdk.utils.SpCache;
@@ -53,6 +55,8 @@ import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.http.bean.UserFileBean;
 import me.hekr.sthome.http.bean.WeatherAirBean;
 import me.hekr.sthome.http.bean.WeatherBeanResultsNow;
+import me.hekr.sthome.model.ResolveHistory;
+import me.hekr.sthome.model.modelbean.NoticeBean;
 import me.hekr.sthome.tools.LOG;
 
 /**
@@ -2333,6 +2337,79 @@ public class HekrUserAction {
         });
     }
 
+    public void getAlarmHistoryList(final  Context context,final  @NotNull String devTid, @NotNull String ctrlKey,@NotNull String productPublicKey,int page,final HekrUser.GetDeviceHistoryListener getDeviceHistoryListener){
+
+        CharSequence url = TextUtils.concat(Constants.UrlUtil.BASE_USER_URL,SiterConstantsUtil.UrlUtil.HISTORY_ALARM,"ctrlKey=",ctrlKey,"&startTime=", ResolveHistory.dateGetOneDay(),"&page=",String.valueOf(page),"&size=20");
+
+        BasicHeader header = new BasicHeader("X-Hekr-ProdPubKey",productPublicKey);
+
+        getHekrData(url.toString(), new Header[]{header}, new GetHekrDataListener() {
+            @Override
+            public void getSuccess(Object object) {
+
+                JSONObject jsonObject = JSONObject.parseObject(object.toString());
+                int pageload  = jsonObject.getIntValue("number");
+                boolean last = jsonObject.getBoolean("last");
+                int i = jsonObject.getIntValue("totalElements");
+                List<NoticeBean> list = new ArrayList<>();
+                if(i > 0) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("content");
+
+                    for (int n=0 ; n< jsonArray.size(); n ++ ) {
+                        JSONObject child = (JSONObject) jsonArray.get(n);
+                        String nid = child.getString("id");
+                        String code = child.getJSONObject("data").getString("answer_content");
+                        Long reportTime = child.getLong("reportTime");
+                        ResolveHistory resolveHistory =new ResolveHistory(context,devTid,code,nid,reportTime);
+                        resolveHistory.isTarget();
+                        list.add(resolveHistory.noticeBean);
+                    }
+                    getDeviceHistoryListener.getSuccess(list,pageload,last);
+                }else{
+                    getDeviceHistoryListener.getSuccess(list,pageload,last);
+                }
+
+            }
+
+            @Override
+            public void getFail(int errorCode) {
+                getDeviceHistoryListener.getFail(errorCode);
+            }
+        });
+    }
+
+    public void getLogoutHistory(@NotNull String devTid,@NotNull String ctrlKey, int page,final HekrUser.getLogoutHistoryListener getLogoutHistoryListener){
+        CharSequence url = TextUtils.concat(Constants.UrlUtil.BASE_USER_URL,SiterConstantsUtil.UrlUtil.HISTORY_LOGOUT,devTid,"&ctrlKey=",ctrlKey,"&type=devLogout&start=",String.valueOf(ResolveHistory.getOneMonthMills()),"&page=",String.valueOf(page),"&size=20");
+        getHekrData(url, new GetHekrDataListener() {
+            @Override
+            public void getSuccess(Object object) {
+
+                JSONObject jsonObject = JSONObject.parseObject(object.toString());
+                int pageload  = jsonObject.getIntValue("number");
+                boolean last = jsonObject.getBoolean("last");
+                int i = jsonObject.getIntValue("totalElements");
+                List<Long> list = new ArrayList<>();
+                if(i > 0) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("content");
+
+                    for (int n=0 ; n< jsonArray.size(); n ++ ) {
+                        JSONObject child = (JSONObject) jsonArray.get(n);
+                        Long time = child.getLong("time");
+                        list.add(time);
+                    }
+                    getLogoutHistoryListener.getSuccess(list,pageload,last);
+                }else{
+                    getLogoutHistoryListener.getSuccess(list,pageload,last);
+                }
+
+            }
+
+            @Override
+            public void getFail(int errorCode) {
+                getLogoutHistoryListener.getFail(errorCode);
+            }
+        });
+    }
 
     /**
      * 5.2 根据pid获取企业资讯

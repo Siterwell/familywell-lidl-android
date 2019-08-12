@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -180,7 +179,7 @@ public class WaterDetailActivity extends AbstractDetailActivity {
                 ecListDialog.show();
             }
         });
-        root = (LinearLayout)findViewById(R.id.root);
+        root = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
@@ -212,8 +211,8 @@ public class WaterDetailActivity extends AbstractDetailActivity {
         operation = (TextView) findViewById(R.id.operation);
         try {
             int ds = Integer.parseInt(device.getEquipmentDesc().substring(device.getEquipmentDesc().length()-1),16);
-            if(ds<7){
-        operation.setVisibility(View.VISIBLE);
+            if(ds<=7||ds>=14){
+                operation.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -226,6 +225,9 @@ public class WaterDetailActivity extends AbstractDetailActivity {
                 sd.sendEquipmentCommand(device.getEqid(),"BB000000");
             }
         });
+
+        initLogHistoryDrawer();
+
         doStatusShow(device.getState());
         showBattery();
     }
@@ -243,7 +245,8 @@ public class WaterDetailActivity extends AbstractDetailActivity {
         }
     }
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
      try {
          String signal1 = aaaa.substring(0,2);
          String quantity1 = aaaa.substring(2,4);

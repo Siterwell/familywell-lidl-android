@@ -244,6 +244,9 @@ public class Channel2SocketDetailActivity extends AbstractDetailActivity {
         }else{
             eq_name.setText(device.getEquipmentName());
         }
+
+        initLogHistoryDrawer();
+
         doStatusShow(device.getState());
     }
     private void updateName(String edit) {
@@ -318,7 +321,8 @@ public class Channel2SocketDetailActivity extends AbstractDetailActivity {
     }
 
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
         try {
         String signal1 = aaaa.substring(0,2);
         String socketStatus = aaaa.substring(6,8);
