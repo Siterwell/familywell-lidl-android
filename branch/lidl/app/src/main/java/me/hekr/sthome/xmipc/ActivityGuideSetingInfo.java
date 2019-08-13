@@ -133,6 +133,7 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
                  break;
              case R.id.reset:
                  DeviceDefaltConfig();
+                 errorHandler.removeCallbacks(errorRunnable);
                  errorHandler.postDelayed(errorRunnable, TIMEOUT_MS);
                  break;
              case R.id.delete:

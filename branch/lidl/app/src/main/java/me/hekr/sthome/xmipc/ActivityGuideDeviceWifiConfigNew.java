@@ -168,6 +168,7 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 			showProgressDialog(getResources().getString(R.string.wait));
 			if (wireless) {
 				LOG.D(TAG, "[ERROR] startQuickSetting >> ");
+				errorHandler.removeCallbacks(errorRunnable);
 				errorHandler.postDelayed(errorRunnable, TIMEOUT_MS);
 			}
 			
