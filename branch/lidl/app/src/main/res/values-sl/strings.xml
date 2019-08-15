@@ -528,4 +528,5 @@
    <string name="successfully_deleted">uspešno izbrisan</string>
    <string name="wireless_config">Brezžični Opremi</string>
    <string name="gs361_install_construction">prosim, termostat, nameščene na ventil, in potem še enkrat pritisnite na gumb za dokončanje namestitve.</string>
+   <string name="reset_progress">ponastavite napravo, ne izklapljajte</string>
 </resources>

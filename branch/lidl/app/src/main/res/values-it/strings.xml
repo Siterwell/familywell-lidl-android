@@ -528,4 +528,5 @@
    <string name="successfully_deleted">Eliminato con successo</string>
    <string name="wireless_config">IL Wi-Fi!</string>
    <string name="gs361_install_construction">Per favore, il termostato montato a valvole, E POI ancora una Volta premuto il pulsante per completare l’installazione.</string>
+   <string name="reset_progress">ripristino dispositivo, non spegnere</string>
 </resources>

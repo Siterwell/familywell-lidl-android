@@ -528,4 +528,5 @@
     <string name="successfully_deleted">Erfolgreich gelöscht</string>
     <string name="wireless_config">WLAN einstellungen</string>
     <string name="gs361_install_construction">Bitte DAS thermostat zu installieren, dann wieder drücken sie den Knopf installieren.</string>
+    <string name="reset_progress">Gerät zurücksetzen, bitte nicht ausschalten</string>
 </resources>
