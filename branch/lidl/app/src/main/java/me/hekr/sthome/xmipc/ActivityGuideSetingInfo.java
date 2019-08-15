@@ -367,6 +367,7 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
                         showToast(R.string.device_system_info_defaultconfigsucc);
 
                         errorHandler.removeCallbacks(errorRunnable);
+                        hideProgressDialog();
                     }
                 }
             }
