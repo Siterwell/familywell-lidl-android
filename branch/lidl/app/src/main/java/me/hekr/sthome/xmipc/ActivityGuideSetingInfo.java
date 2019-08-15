@@ -386,7 +386,8 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
             ecAlertDialog_ipc = ECAlertDialog.buildAlert(this, R.string.reset_to_default_set, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    showProgressDialog(getResources().getString(R.string.wait));
+                    LOG.E(TAG, "[ERROR] factory reset start!!!!!");
+                    showProgressDialog(R.string.reset_progress);
                     mdefault.setAllConfig(1);
                     FunSDK.DevSetConfigByJson(mHandler, mFunDevice.devSn, JsonConfig.OPERATION_DEFAULT_CONFIG, HandleConfigData.getSendData(JsonConfig.OPERATION_DEFAULT_CONFIG, "0x1", mdefault), -1, 20000, mFunDevice.getId());
                 }

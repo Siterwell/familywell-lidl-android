@@ -528,4 +528,5 @@
    <string name="successfully_deleted">Succesvol verwijder</string>
    <string name="wireless_config">De draadloze</string>
    <string name="gs361_install_construction">Alsjeblieft, zal de thermostaat gemonteerd op de klep, druk op de knop en dan weer af van de installatie.</string>
+   <string name="reset_progress">apparaat resetten, niet uitschakelen</string>
 </resources>
