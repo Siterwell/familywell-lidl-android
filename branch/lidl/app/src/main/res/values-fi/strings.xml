@@ -528,4 +528,5 @@
     <string name="successfully_deleted">poistaminen onnistui</string>
     <string name="wireless_config">Wifi asetukset</string>
     <string name="gs361_install_construction">Asenna termostaatti venttiiliin ja paina sitten nuppi uudelleen asennuksen loppuunsaattamiseksi.</string>
+    <string name="reset_progress">laitteen nollaus, älä katkaise virtaa</string>
 </resources>
