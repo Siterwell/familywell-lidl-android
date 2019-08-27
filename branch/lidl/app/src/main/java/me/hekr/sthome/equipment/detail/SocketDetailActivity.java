@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/13.
  */
-public class SocketDetailActivity extends LogDetailActivity {
+public class SocketDetailActivity extends AppCompatActivity {
     private static final  int GETBACK_SUCCESS = 1;
     private static final int GETBACK_FAILED = 2;
     private MyInforHandler myInforHandler;
@@ -53,6 +54,8 @@ public class SocketDetailActivity extends LogDetailActivity {
     private TextView  edt_txt,eq_name;
     private ImageView operation_img;
     private ECAlertDialog alertDialog;
+    protected EquipmentBean device;
+    protected View root;
 
 
     @Override
@@ -238,8 +241,6 @@ public class SocketDetailActivity extends LogDetailActivity {
             eq_name.setText(device.getEquipmentName());
         }
 
-        initLogHistoryDrawer();
-
         doStatusShow(device.getState());
     }
     private void updateName(String edit) {
@@ -281,8 +282,7 @@ public class SocketDetailActivity extends LogDetailActivity {
         }
     }
 
-    @Override
-    protected void doStatusShow(String aaaa) {
+    private void doStatusShow(String aaaa) {
         try {
         String signal1 = aaaa.substring(0,2);
         String socketStatus = aaaa.substring(6,8);

@@ -1,204 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:background="@color/device_normal"
+    android:gravity="center_horizontal">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/device_normal"
-        android:gravity="center_horizontal">
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <RelativeLayout
-                android:id="@+id/toolbar"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/toolbar_height">
-                <ImageView
-                    android:src="@drawable/back_white"
-                    android:id="@+id/goBack"
-                    android:clickable="true"
-                    android:layout_gravity="left"
-                    android:padding="@dimen/back_image_padding"
-                    android:layout_width="@dimen/back_image_width"
-                    android:layout_height="@dimen/back_image_height"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/back_image_marginLeft"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center_vertical"
-                    android:minWidth="@dimen/stdetail_top_minwidth"
-                    android:id="@+id/devicetop"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="@dimen/stdetail_top_iocn"
-                        android:layout_height="@dimen/stdetail_top_iocn"
-                        android:layout_centerInParent="true"
-                        android:id="@+id/devicePosition"
-                        android:src="@drawable/detail1"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PirCheck"
-                        android:maxWidth="@dimen/stdetail_toptext_maxwidth"
-                        android:layout_marginLeft="4dp"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/setting_font_size"
-                        android:id="@+id/eq_name"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_marginRight="@dimen/setting_marginRight"
-                    android:gravity="center"
-                    android:id="@+id/detailEdit"
-                    android:text="@string/manage"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/setting_font_size"
-                    android:layout_gravity="right"
-                    android:clickable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
-            </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_weight="1"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp">
-            <LinearLayout
-                android:layout_marginTop="@dimen/stdetail_icon_top"
-                android:padding="@dimen/stdetail_padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <me.hekr.sthome.commonBaseView.SquareLinearLayout
-                    android:id="@+id/drawBack"
-                    android:gravity="center"
-                    android:padding="@dimen/stdetail_padding"
-                    android:background="@drawable/de_vbg"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/stdetail_height">
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/stdetail_content_height">
-                            <TextView
-                                android:id="@+id/showStatus"
-                                android:textAllCaps="false"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:textSize="@dimen/stdetail_text_size"
-                                android:textColor="@color/device_normal"
-                                android:text="@string/offline"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="@dimen/stdetail_icon_lanb"
-                            android:layout_height="@dimen/stdetail_content_height">
-                            <ImageView
-                                android:id="@+id/signalPosition"
-                                android:padding="@dimen/stdetail_wifi_padding"
-                                android:src="@drawable/s0"
-                                android:layout_width="@dimen/stdetail_wifi_width"
-                                android:layout_height="@dimen/stdetail_wifi_width" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </me.hekr.sthome.commonBaseView.SquareLinearLayout>
-            </LinearLayout>
-            <RelativeLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/BigPadding"
-                android:paddingRight="@dimen/BigPadding"
-                >
-                <ImageView
-                    android:id="@+id/operation"
-                    android:clickable="true"
-                    android:src="@drawable/detail_switch_off"
-                    android:layout_gravity="left"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"/>
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/drawer1"
-        app:direction="bottomToTop"
-        app:handle="@+id/warnlist"
-        app:drawcontent="@+id/content">
-        <include
-            android:id="@id/content"
-            layout="@layout/pen_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/lamp_huise_dbg"
-            android:id="@id/warnlist">
-
-
-
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/toolbar_height">
+            <ImageView
+                android:src="@drawable/back_white"
+                android:id="@+id/goBack"
+                android:clickable="true"
+                android:layout_gravity="left"
+                android:padding="@dimen/back_image_padding"
+                android:layout_width="@dimen/back_image_width"
+                android:layout_height="@dimen/back_image_height"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/back_image_marginLeft"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:background="@drawable/lamp_huise_bg"
-                >
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:minWidth="@dimen/stdetail_top_minwidth"
+                android:id="@+id/devicetop"
+                android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/lamp_huise"/>
+                    android:layout_width="@dimen/stdetail_top_iocn"
+                    android:layout_height="@dimen/stdetail_top_iocn"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/devicePosition"
+                    android:src="@drawable/detail1"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/equipment_warn" />
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/arrow_up_huise"/>
+                    android:text="PirCheck"
+                    android:maxWidth="@dimen/stdetail_toptext_maxwidth"
+                    android:layout_marginLeft="4dp"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/setting_font_size"
+                    android:id="@+id/eq_name"/>
             </LinearLayout>
 
+            <TextView
+                android:layout_marginRight="@dimen/setting_marginRight"
+                android:gravity="center"
+                android:id="@+id/detailEdit"
+                android:text="@string/manage"
+                android:textColor="@color/white"
+                android:textSize="@dimen/setting_font_size"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_marginTop="@dimen/stdetail_icon_top"
+            android:padding="@dimen/stdetail_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <me.hekr.sthome.commonBaseView.SquareLinearLayout
+                android:id="@+id/drawBack"
+                android:gravity="center"
+                android:padding="@dimen/stdetail_padding"
+                android:background="@drawable/de_vbg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/stdetail_height">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/stdetail_content_height">
+                        <TextView
+                            android:id="@+id/showStatus"
+                            android:textAllCaps="false"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="@dimen/stdetail_text_size"
+                            android:textColor="@color/device_normal"
+                            android:text="@string/offline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/stdetail_icon_lanb"
+                        android:layout_height="@dimen/stdetail_content_height">
+                        <ImageView
+                            android:id="@+id/signalPosition"
+                            android:padding="@dimen/stdetail_wifi_padding"
+                            android:src="@drawable/s0"
+                            android:layout_width="@dimen/stdetail_wifi_width"
+                            android:layout_height="@dimen/stdetail_wifi_width" />
+                    </LinearLayout>
+                </LinearLayout>
+            </me.hekr.sthome.commonBaseView.SquareLinearLayout>
         </LinearLayout>
-    </me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer>
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/BigPadding"
+            android:paddingRight="@dimen/BigPadding"
+            >
+            <ImageView
+                android:id="@+id/operation"
+                android:clickable="true"
+                android:src="@drawable/detail_switch_off"
+                android:layout_gravity="left"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
 
-</RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
