@@ -284,8 +284,8 @@ public class SmDetailActivity extends AbstractDetailActivity {
                 showStatus.setTextColor(getResources().getColor(R.color.device_warn));
                 showStatus.setText(getResources().getString(R.string.low_battery));
             }else {
-                root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 showStatus.setText(getResources().getString(R.string.normal));
             }
             silence.setVisibility(View.GONE);
@@ -296,8 +296,8 @@ public class SmDetailActivity extends AbstractDetailActivity {
             silence.setVisibility(View.GONE);
         }else if("50".equals(draw)){
             showStatus.setText(getResources().getString(R.string.silence));
-            root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-            showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+            root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+            showStatus.setTextColor(getResources().getColor(R.color.device_normal));
             silence.setVisibility(View.GONE);
         }
     }catch (Exception e){

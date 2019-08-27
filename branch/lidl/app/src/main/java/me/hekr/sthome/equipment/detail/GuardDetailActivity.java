@@ -292,8 +292,8 @@ public class GuardDetailActivity extends AppCompatActivity {
                 showStatus.setText(getResources().getString(R.string.normal));
             } else if ("AA".equals(socketStatus)) {
 //                    holder.s.setText("断开");
-                root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 operation_img.setImageResource(R.drawable.detail_switch_off);
                 showStatus.setText(getResources().getString(R.string.normal));
             }else{

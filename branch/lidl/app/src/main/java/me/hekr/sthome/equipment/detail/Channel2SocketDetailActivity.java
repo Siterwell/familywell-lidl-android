@@ -333,7 +333,7 @@ public class Channel2SocketDetailActivity extends AbstractDetailActivity {
                 showStatus2.setVisibility(View.VISIBLE);
                 root.setBackgroundColor(getResources().getColor(R.color.device_error));
                 showStatus.setTextColor(getResources().getColor(R.color.device_error));
-                showStatus2.setTextColor(getResources().getColor(R.color.device_offine));
+                showStatus2.setTextColor(getResources().getColor(R.color.device_normal));
                 operation_img.setImageResource(R.drawable.detail_switch_on);
                 operation_img2.setImageResource(R.drawable.detail_switch_off);
                 showStatus.setText(getResources().getStringArray(R.array.socket_channel)[0]+getResources().getStringArray(R.array.socket_actions)[0]);
@@ -341,9 +341,9 @@ public class Channel2SocketDetailActivity extends AbstractDetailActivity {
             } else if ("00".equals(socketStatus)) {
 //                    holder.s.setText("断开");
                 showStatus2.setVisibility(View.VISIBLE);
-                root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
-                showStatus2.setTextColor(getResources().getColor(R.color.device_offine));
+                root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
+                showStatus2.setTextColor(getResources().getColor(R.color.device_normal));
                 operation_img.setImageResource(R.drawable.detail_switch_off);
                 operation_img2.setImageResource(R.drawable.detail_switch_off);
                 showStatus.setText(getResources().getStringArray(R.array.socket_channel)[0]+getResources().getStringArray(R.array.socket_actions)[1]);
@@ -352,7 +352,7 @@ public class Channel2SocketDetailActivity extends AbstractDetailActivity {
 //                    holder.s.setText("断开");
                 showStatus2.setVisibility(View.VISIBLE);
                 root.setBackgroundColor(getResources().getColor(R.color.device_error));
-                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 showStatus2.setTextColor(getResources().getColor(R.color.device_error));
                 operation_img.setImageResource(R.drawable.detail_switch_off);
                 operation_img2.setImageResource(R.drawable.detail_switch_on);

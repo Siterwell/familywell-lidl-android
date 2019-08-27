@@ -267,7 +267,7 @@ public class DeviceFragment extends Fragment {
         lc.layoutReady(mFrame);
     }
 
-    
+
     /*
     @method refresh
     @autor Administrator
@@ -291,13 +291,13 @@ public class DeviceFragment extends Fragment {
 
     }
 
- /*
- @method init
- @autor Administrator
- @time 2017/8/3 13:33
- @email xuejunju_4595@qq.com
- 用于数据本地同步，在主页面的其他页面切换到此设备页的时候调用
- */
+    /*
+    @method init
+    @autor Administrator
+    @time 2017/8/3 13:33
+    @email xuejunju_4595@qq.com
+    用于数据本地同步，在主页面的其他页面切换到此设备页的时候调用
+    */
     public void init() {
 
         if(mFolderView==null) {
@@ -322,9 +322,9 @@ public class DeviceFragment extends Fragment {
         @Override
         public void initData(List<ApplicationInfo> list2) {
 
-           List<ApplicationInfo> list = ED.findAllEqByNoPack(ConnectionPojo.getInstance().deviceTid);
+            List<ApplicationInfo> list = ED.findAllEqByNoPack(ConnectionPojo.getInstance().deviceTid);
 
-           int size = list.size();
+            int size = list.size();
             for (int i = 0; i < size; i++) {
                 ApplicationInfo equipment = list.get(i);
 
@@ -338,7 +338,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                             }
                         } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
@@ -358,7 +358,7 @@ public class DeviceFragment extends Fragment {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                         } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                         }
                     }
                 }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -370,7 +370,7 @@ public class DeviceFragment extends Fragment {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
                         } else if ("0300".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
                         }
                     }
                 }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //pir
@@ -384,7 +384,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                             }
 
                         } else if (EquipmentState.isTriggered(equipment)) {
@@ -409,7 +409,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
                             }else {
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                             }
 
                         } else if (EquipmentState.isTriggered(equipment)) {
@@ -435,7 +435,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }
 
                         }else if(EquipmentState.isTesting(equipment)) {
@@ -460,7 +460,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                             }
                         } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
@@ -484,7 +484,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                             }
                         } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
@@ -517,7 +517,7 @@ public class DeviceFragment extends Fragment {
                             if( qqqq <= 15 ){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
                             }
                         }
 
@@ -529,7 +529,7 @@ public class DeviceFragment extends Fragment {
                         if("38".equals(ddd)){
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
                         }else{
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
                         }
                     }
                 }else if(NameSolve.GUARD.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -541,7 +541,7 @@ public class DeviceFragment extends Fragment {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
                         } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         }
                     }
                 }else if(NameSolve.VALVE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -553,7 +553,7 @@ public class DeviceFragment extends Fragment {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
                         } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
                         }
                     }
                 }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -561,7 +561,7 @@ public class DeviceFragment extends Fragment {
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         String ddd = EquipmentState.getDevSecondState(equipment);
                         if ( ddd!=null && !"".equals(ddd)) {
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
                         }
                     }
                 }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -573,7 +573,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
                             }
                         }
                     }
@@ -590,13 +590,13 @@ public class DeviceFragment extends Fragment {
                         }else if ("15".equals(ddd)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                         }else if ("1B".equals(ddd)) {
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                         }else if(EquipmentState.isNormal(ddd)){
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
                             if (EquipmentState.isLowBattery(quantity)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }
                         }else{
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
@@ -614,7 +614,7 @@ public class DeviceFragment extends Fragment {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                         } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
                         } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
@@ -637,7 +637,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                             }
                         } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
@@ -657,16 +657,16 @@ public class DeviceFragment extends Fragment {
                             //                    holder.s.setText("有人");
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
                         } else if (EquipmentState.isNormal(equipment)
-                                  || "01".equals(EquipmentState.getDevFirstState(equipment))
+                                || "01".equals(EquipmentState.getDevFirstState(equipment))
                                 || "02".equals(EquipmentState.getDevFirstState(equipment))
                                 || "04".equals(EquipmentState.getDevFirstState(equipment))
                                 || "08".equals(EquipmentState.getDevFirstState(equipment))
-                                 ) {
+                                ) {
                             //                    holder.s.setText("故障");
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                             }
                         } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
@@ -685,7 +685,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
                             }
                         } else if ("51".equals(ds) || "52".equals(ds) || "53".equals(ds)  || "10".equals(ds) || "20".equals(ds) || "30".equals(ds)) {
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
@@ -694,13 +694,13 @@ public class DeviceFragment extends Fragment {
                         }
                     }
                 }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
-                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
                         if(EquipmentState.isLowBattery(quantity)){
                             equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
                         }else {
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         }
                     }
                 }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
@@ -713,7 +713,7 @@ public class DeviceFragment extends Fragment {
                             if(EquipmentState.isLowBattery(quantity)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
                             }else {
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
                             }
                         }
                     }
@@ -726,11 +726,11 @@ public class DeviceFragment extends Fragment {
             PackDAO PDO = new PackDAO(DeviceFragment.this.getActivity());
             List<FolderInfo> listfold = PDO.findPackList(ConnectionPojo.getInstance().deviceTid);
             for(int j=0;j<listfold.size();j++){
-               int packid = listfold.get(j).getPackId();
-               List<ApplicationInfo> list2ds = PDO.findAppInfoList(packid, ConnectionPojo.getInstance().deviceTid);
+                int packid = listfold.get(j).getPackId();
+                List<ApplicationInfo> list2ds = PDO.findAppInfoList(packid, ConnectionPojo.getInstance().deviceTid);
                 size = list2ds.size();
-               for(int i=0 ; i<size ; i++){
-                   ApplicationInfo equipment = list2ds.get(i);
+                for(int i=0 ; i<size ; i++){
+                    ApplicationInfo equipment = list2ds.get(i);
 
                     if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {      //menci
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
@@ -742,7 +742,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                                 }
 
                             } else if (EquipmentState.isTriggered(equipment)) {
@@ -763,7 +763,7 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                             } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                             }
                         }
                     }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -775,7 +775,7 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
                             } else if ("0300".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
                             }
                         }
                     }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //pir
@@ -787,7 +787,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                                 }
 
                             } else if (EquipmentState.isTriggered(equipment)) {
@@ -811,7 +811,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                                 }
 
                             } else if (EquipmentState.isTriggered(equipment)) {
@@ -837,7 +837,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                                 }
 
                             }else if(EquipmentState.isTesting(equipment)) {
@@ -862,7 +862,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                                 }
                             } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
@@ -886,7 +886,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                                 }
                             } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
@@ -920,7 +920,7 @@ public class DeviceFragment extends Fragment {
                                 if( qqqq <= 15 ){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
                                 }else{
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
                                 }
                             }
                         }
@@ -931,11 +931,11 @@ public class DeviceFragment extends Fragment {
                             if("38".equals(ddd)){
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
                             }else{
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
                             }
                         }
                     }else if(NameSolve.GUARD.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
-                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             String ddd = EquipmentState.getDevSecondState(equipment);
                             if (EquipmentState.isTriggered(ddd)) {
@@ -943,7 +943,7 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
                             } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                             }
                         }
                     }else if(NameSolve.VALVE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -955,7 +955,7 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
                             } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
                             }
                         }
                     }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -963,7 +963,7 @@ public class DeviceFragment extends Fragment {
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             String ddd = EquipmentState.getDevSecondState(equipment);
                             if ( ddd!=null && !"".equals(ddd)) {
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
                             }
                         }
                     }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
@@ -975,7 +975,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
                                 }
                             }
                         }
@@ -1003,15 +1003,15 @@ public class DeviceFragment extends Fragment {
                             }else if ("16".equals(ddd)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else if ("1A".equals(ddd)) {
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }else if ("1B".equals(ddd)) {
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }else if(EquipmentState.isNormal(ddd)){
                                 int quantity = EquipmentState.getDevBatteryLevel(equipment);
                                 if (EquipmentState.isLowBattery(quantity)) {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                                 }else{
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
 
                                 }
                             }else{
@@ -1030,7 +1030,7 @@ public class DeviceFragment extends Fragment {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                             } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
-                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
                             } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
@@ -1051,7 +1051,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                                 }
                             } else if (EquipmentState.isTesting(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
@@ -1076,7 +1076,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                                 }
                             } else if (EquipmentState.isTesting(equipment)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
@@ -1093,7 +1093,7 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                                 }else{
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
                                 }
                             } else if ("51".equals(ds) || "52".equals(ds) || "53".equals(ds) || "10".equals(ds) || "20".equals(ds) || "30".equals(ds)) {
                                 equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
@@ -1102,14 +1102,14 @@ public class DeviceFragment extends Fragment {
                             }
                         }
                     }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
-                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                                if(EquipmentState.isLowBattery(quantity)){
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
-                                }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
-                                }
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                            }else {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                            }
                         }
                     }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
@@ -1121,14 +1121,14 @@ public class DeviceFragment extends Fragment {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
                                 }else {
-                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
                                 }
                             }
 
                         }
                     }
 
-                    }
+                }
                 listfold.get(j).setIcons(list2ds);
                 list2.add(listfold.get(j).getOrder(),listfold.get(j));
             }
@@ -1143,8 +1143,8 @@ public class DeviceFragment extends Fragment {
             }
 
             if(mFolderView!=null&&list2.size()>0){
-                 FolderInfo info  = (FolderInfo) list2.get(openFolderIndex);
-                 mFolderView.refresh(info);
+                FolderInfo info  = (FolderInfo) list2.get(openFolderIndex);
+                mFolderView.refresh(info);
             }else{
                 loaded();
 
@@ -1227,7 +1227,7 @@ public class DeviceFragment extends Fragment {
                 public void onClick(DialogInterface dialog, int which) {
                     deleteEq = app;
                     SendCommand.Command = SendCommand.DELETE_EQUIPMENT;
-                   sed.deleteEquipment(deleteEq.getEqid());
+                    sed.deleteEquipment(deleteEq.getEqid());
                 }
             });
             elc.show();
@@ -1275,7 +1275,7 @@ public class DeviceFragment extends Fragment {
             @Override
             public void run() {
                 isDrag = true;
-               if(mFolderView == null) top_lay.setVisibility(View.VISIBLE);
+                if(mFolderView == null) top_lay.setVisibility(View.VISIBLE);
                 if (currentPage != null) {
                     detachIcon(currentPage,currentPage.getSelectedIndex(), mFolderView != null);
                 }
@@ -1989,8 +1989,8 @@ public class DeviceFragment extends Fragment {
     }
 
     static interface SetPagerView{
-       void setdrag(boolean flag);
-   }
+        void setdrag(boolean flag);
+    }
 
     public void setInterfacePagerView(SetPagerView setPagerView){
         this.setPagerView = setPagerView;

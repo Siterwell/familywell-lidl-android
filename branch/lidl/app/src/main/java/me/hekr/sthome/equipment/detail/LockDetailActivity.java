@@ -353,13 +353,13 @@ public class LockDetailActivity extends AbstractDetailActivity {
                     showStatus.setText(getResources().getString(R.string.low_battery));
                 }else{
                     showStatus.setText(getResources().getString(R.string.normal));
-                    root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                    showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                    root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                    showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 }
                 flag_active.set(false);
             }else if("AB".equals(draw)){
-                root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 showStatus.setText(getResources().getString(R.string.actived));
                 flag_active.set(true);
             }else if("51".equals(draw)){
@@ -408,8 +408,8 @@ public class LockDetailActivity extends AbstractDetailActivity {
                 showStatus.setText(getResources().getString(R.string.code_fault));
                 flag_active.set(true);
             }else if("60".equals(draw)){
-                root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 showStatus.setText(getResources().getString(R.string.alarm_remove));
                 flag_active.set(false);
             }else{

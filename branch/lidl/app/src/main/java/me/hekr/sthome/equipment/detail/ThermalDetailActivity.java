@@ -287,8 +287,8 @@ public class ThermalDetailActivity extends AbstractDetailActivity {
                     showStatus.setTextColor(getResources().getColor(R.color.device_warn));
                     showStatus.setText(getResources().getString(R.string.low_battery));
                 }else{
-                    root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                    showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                    root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                    showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                     showStatus.setText(getResources().getString(R.string.normal));
                 }
                 silence.setVisibility(View.GONE);
@@ -298,8 +298,8 @@ public class ThermalDetailActivity extends AbstractDetailActivity {
                 showStatus.setText(getResources().getString(R.string.test));
                 silence.setVisibility(View.GONE);
             }else if("50".equals(draw)){
-                root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-                showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+                root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                 showStatus.setText(getResources().getString(R.string.silence));
                 silence.setVisibility(View.GONE);
             }else {

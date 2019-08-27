@@ -298,7 +298,7 @@ public class ModeButtonDetailActivity extends AppCompatActivity implements ModeB
                     root.setBackgroundColor(getResources().getColor(R.color.device_warn));
                     showStatus.setText(getResources().getString(R.string.low_battery));
                 }else{
-                    root.setBackgroundColor(getResources().getColor(R.color.device_offine));
+                    root.setBackgroundColor(getResources().getColor(R.color.device_normal));
                     showStatus.setText(getResources().getString(R.string.normal));
                 }
 

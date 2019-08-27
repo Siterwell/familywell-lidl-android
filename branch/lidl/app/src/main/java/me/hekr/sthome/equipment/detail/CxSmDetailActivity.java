@@ -288,8 +288,8 @@ public class CxSmDetailActivity extends AbstractDetailActivity {
                     operation.setText(getResources().getString(R.string.cxalert6));
                     showStatus.setText(getResources().getString(R.string.low_battery));
                 }else{
-                    root.setBackgroundColor(getResources().getColor(R.color.devices_offline));
-                    showStatus.setTextColor(getResources().getColor(R.color.devices_offline));
+                    root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+                    showStatus.setTextColor(getResources().getColor(R.color.device_normal));
                     operation.setText(getResources().getString(R.string.cxalert7));
                     showStatus.setText(getResources().getString(R.string.normal));
                 }
