@@ -41,17 +41,8 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/10/9.
  */
-public class THCheckDetailActivity extends AppCompatActivity {
+public class THCheckDetailActivity extends AbstractDetailActivity {
     private static final String TAG = "THcheckDetail";
-    private ImageView signal,quatity,deviceLogo;
-    private TextView operation,emergencyCall,showStatus;
-    private EquipmentBean device;
-    private EquipDAO ED;
-    private ImageView back_img;
-    private TextView  edt_txt,eq_name,battay_text;
-    private RelativeLayout root;
-    private ECAlertDialog alertDialog;
-    private SendEquipmentData sd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -219,6 +210,8 @@ public class THCheckDetailActivity extends AppCompatActivity {
             eq_name.setText(device.getEquipmentName());
         }
 
+        initLogHistoryDrawer();
+
         doStatusShow(device.getState());
         showBattery();
     }
@@ -236,7 +229,8 @@ public class THCheckDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
         try {
             root.setBackgroundColor(getResources().getColor(R.color.device_offine));
             showStatus.setTextColor(getResources().getColor(R.color.device_offine));
