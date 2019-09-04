@@ -71,7 +71,7 @@ public class SettingIpcItem extends RelativeLayout {
         setSubTitleText(localTypedArray.getString(R.styleable.ipc_setting_info_subTitleText));
         setDetailText(localTypedArray.getString(R.styleable.ipc_setting_info_detailText));
         setAccessoryType(localTypedArray.getInt(R.styleable.ipc_setting_info_accessoryType , 1));
-        setShowDivider(localTypedArray.getBoolean(R.styleable.ipc_setting_info_showDivider , true));
+        setShowDivider(localTypedArray.getBoolean(R.styleable.ipc_setting_info_Divider , true));
         localTypedArray.recycle();
     }
 

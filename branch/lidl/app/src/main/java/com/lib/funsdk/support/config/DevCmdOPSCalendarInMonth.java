@@ -1,15 +1,18 @@
 package com.lib.funsdk.support.config;
 
+import android.util.Log;
+
 import com.lib.EDEV_JSON_ID;
 import com.lib.funsdk.support.FunLog;
+import com.lib.sdk.struct.SDK_SYSTEM_TIME;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import me.hekr.sthome.tools.LOG;
+import java.util.Comparator;
 
 public class DevCmdOPSCalendarInMonth extends DevCmdGeneral {
 	public static final String CONFIG_NAME = "OPSCalendarInMonth";
@@ -125,7 +128,7 @@ public class DevCmdOPSCalendarInMonth extends DevCmdGeneral {
 				// 排序 
 				Collections.sort(mList);
 			setRet(obj.getInt("Ret"));
-			LOG.I("ceshi","有录像的天数:"+mList.toString());
+			Log.i("ceshi","有录像的天数:"+mList.toString());
 			return ret == 100;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

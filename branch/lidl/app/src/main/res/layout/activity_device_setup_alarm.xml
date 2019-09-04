@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType = "switchbutton"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_alarm_motion_detection"
                 app:subTitleText="@string/device_alarm_motion_detection_tip"
                 android:id="@+id/layoutVideoBlockAlarmRecord"/>
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:accessoryType = "switchbutton"
-                    app:showDivider="true"
+                    app:Divider="true"
                     app:titleText="@string/device_alarm_func_record"
                     app:subTitleText="@string/device_alarm_func_record_motion_tip"
                     android:id="@+id/layoutMotionDetectionAlarmRecord"/>
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:accessoryType = "switchbutton"
-                    app:showDivider="true"
+                    app:Divider="true"
                     app:titleText="@string/device_alarm_func_capture"
                     app:subTitleText="@string/device_alarm_func_capture_motion_tip"
                     android:id="@+id/layoutMotionDetectionAlarmCapture"/>
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:accessoryType = "switchbutton"
-                    app:showDivider="true"
+                    app:Divider="true"
                     app:titleText="@string/device_alarm_func_pushmsg"
                     app:subTitleText="@string/device_alarm_func_pushmsg_motion_tip"
                     android:id="@+id/layoutMotionDetectionAlarmPushMsg"/>
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:accessoryType = "switchbutton"
-                    app:showDivider="true"
+                    app:Divider="true"
                     app:titleText="@string/device_alarm_video_block"
                     app:subTitleText="@string/device_alarm_func_pushmsg_motion_tip"
                     android:id="@+id/layoutVideoBlock"/>
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:accessoryType = "spinner"
-                    app:showDivider="true"
+                    app:Divider="true"
                     app:titleText="@string/device_alarm_func_level"
                     android:id="@+id/layoutMotionDetectionAlarmLevel"/>
 
