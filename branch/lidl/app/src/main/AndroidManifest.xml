@@ -522,6 +522,18 @@
             android:label="siterwell服务"
             android:exported="true"/>
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.cosa.elro.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
         <!-- Fetch Geolocation to address -->
         <service
             android:name=".service.FetchAddressIntentService"

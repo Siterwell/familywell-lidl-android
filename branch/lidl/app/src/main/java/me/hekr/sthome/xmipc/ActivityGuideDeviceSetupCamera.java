@@ -100,11 +100,9 @@ public class ActivityGuideDeviceSetupCamera extends TopbarIpcSuperActivity
 		textView_setting.setOnClickListener(this);
 		textView_title.setText(getResources().getString(R.string.device_setup_image));
 		textView_setting.setVisibility(View.GONE);
-		textView_back.setVisibility(View.GONE);
-		imageButton_back.setVisibility(View.VISIBLE);
-		imageButton_back.setOnClickListener(this);
+		textView_back.setOnClickListener(this);
 		imageButton_setting.setVisibility(View.VISIBLE);
-		imageButton_setting.setBackgroundResource(R.drawable.ic_common_check);
+		imageButton_setting.setBackgroundResource(R.mipmap.seleect);
 		imageButton_setting.setOnClickListener(this);
 		settingIpcItem_Definition = (SettingIpcItem)findViewById(R.id.qingxidu);
 		settingIpcItem_SwitchOSD  = (SettingIpcItem)findViewById(R.id.titleCameraOSD);

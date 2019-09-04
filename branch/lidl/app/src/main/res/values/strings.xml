@@ -531,4 +531,8 @@ The connector has entered the networking mode.</string>
     <string name="wireless_config">WIFI Settings</string>
     <string name="gs361_install_construction">Please install the thermostat to the valve, then press the knob again to complete the installation.</string>
     <string name="reset_progress">resetting device, please do not power off</string>
+    <string name="file_is_exist">File already exist</string>
+    <string name="look">See</string>
+    <string name="success_download">Download Successful</string>
+
 </resources>

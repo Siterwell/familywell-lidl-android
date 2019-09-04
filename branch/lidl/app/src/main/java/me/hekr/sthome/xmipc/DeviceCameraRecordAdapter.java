@@ -76,7 +76,7 @@ public class DeviceCameraRecordAdapter extends BaseAdapter {
         
         // 当前正在播放的高亮显示
         if ( mPlayingIndex == position ) {
-        	viewHolder.tvRecordTime.setTextColor(mContext.getResources().getColor(R.color.ipc_base_color));
+        	viewHolder.tvRecordTime.setTextColor(mContext.getResources().getColor(R.color.text_color_selected));
         } else {
         	viewHolder.tvRecordTime.setTextColor(mContext.getResources().getColor(R.color.delist_bk));
         }
