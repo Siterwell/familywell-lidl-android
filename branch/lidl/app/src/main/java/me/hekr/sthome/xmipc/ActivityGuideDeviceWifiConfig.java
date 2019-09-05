@@ -1,7 +1,11 @@
 package me.hekr.sthome.xmipc;
 
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,22 +17,24 @@ import android.widget.Toast;
 import com.lib.funsdk.support.FunSupport;
 import com.lib.funsdk.support.OnFunDeviceWiFiConfigListener;
 import com.lib.funsdk.support.models.FunDevice;
-import com.zbar.lib.CaptureActivity;
+import com.zbar.lib.ScanCaptureAct;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import me.hekr.sthome.commonBaseView.ECAlertDialog;
+import me.hekr.sthome.http.HekrUser;
+import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.http.HekrCodeUtil;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.TopbarSuperActivity;
-import me.hekr.sthome.http.HekrCodeUtil;
-import me.hekr.sthome.http.HekrUser;
-import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.MonitorBean;
+import me.hekr.sthome.tools.PermissionUtils;
 
 
 public class ActivityGuideDeviceWifiConfig extends TopbarSuperActivity implements OnClickListener, OnFunDeviceWiFiConfigListener {
@@ -43,6 +49,8 @@ public class ActivityGuideDeviceWifiConfig extends TopbarSuperActivity implement
 	private com.alibaba.fastjson.JSONObject object;
 
 	private Toast mToast = null;
+	private static final int REQUEST_CAMERA=1001;
+	private String[] permission = new String[]{Manifest.permission.CAMERA};
 
 	@Override
 	protected void onCreateInit() {
@@ -89,7 +97,10 @@ public class ActivityGuideDeviceWifiConfig extends TopbarSuperActivity implement
 			break;
 			case R.id.btnScanCode:
 			{
-				 startActivityForResult(new Intent(this, CaptureActivity.class),1);
+				if(PermissionUtils.requestPermission(this,permission,REQUEST_CAMERA)){
+					startActivityForResult(new Intent(this, ScanCaptureAct.class),1);
+				}
+
 			}
 			break;
 		}
@@ -240,7 +251,7 @@ public class ActivityGuideDeviceWifiConfig extends TopbarSuperActivity implement
 		if(requestCode==1){
 			Pattern pattern = Pattern.compile("^[A-Za-z0-9]{16}$");
 
-			String sn = data.getExtras().getString("SN");
+			String sn = data.getExtras().getString("SCAN_RESULT");
 			Matcher m = pattern.matcher(sn);
 			if( !m.matches() ){ //匹配不到,說明輸入的不符合條件
               showToast(R.string.sn_is_illegal);
@@ -250,6 +261,33 @@ public class ActivityGuideDeviceWifiConfig extends TopbarSuperActivity implement
 			}
 
 
+		}
+	}
+
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		if (requestCode == REQUEST_CAMERA) {
+			if (permissions != null && grantResults != null &&
+					permissions.length == grantResults.length) {
+				for (int i = 0; i < permissions.length; i++) {
+					if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+						startActivityForResult(new Intent(this, ScanCaptureAct.class),1);
+					} else {
+						DialogInterface.OnClickListener listener=new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i) {
+								PermissionUtils.startToSetting(ActivityGuideDeviceWifiConfig.this);
+							}
+						};
+						ECAlertDialog ecAlertDialog = ECAlertDialog.buildAlert(ActivityGuideDeviceWifiConfig.this,getResources().getString(R.string.permission_reject_camera_tip),listener);
+						ecAlertDialog.setTitle(getResources().getString(R.string.permission_register));
+						ecAlertDialog.setButton(ECAlertDialog.BUTTON_POSITIVE,getResources().getString(R.string.goto_set),listener);
+						ecAlertDialog.show();
+					}
+				}
+			}
 		}
 	}
 }
