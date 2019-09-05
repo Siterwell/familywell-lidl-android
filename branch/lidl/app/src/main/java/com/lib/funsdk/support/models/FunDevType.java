@@ -4,7 +4,7 @@ import me.hekr.sthome.R;
 
 public enum FunDevType {
 	// 0, 监控设备
-	EE_DEV_NORMAL_MONITOR(0,
+	EE_DEV_NORMAL_MONITOR(0, 
 			R.string.dev_type_monitor,
 			R.mipmap.qiangji),
 	// 1, 智能插座
@@ -31,11 +31,11 @@ public enum FunDevType {
 	EE_DEV_SMALLEYE(6,
 			R.string.dev_type_smalleye,
 			R.mipmap.ship_sel),
-	//	// 7, 雄迈摇头机
+//	// 7, 雄迈摇头机
 	EE_DEV_BOUTIQUEROTOT(7,
 			R.string.dev_type_boutiquerotot,
 			R.mipmap.yaotouji),
-	//	// 8, 运动摄像机
+//	// 8, 运动摄像机
 //	EE_DEV_SPORTCAMERA(8,
 //			R.string.dev_type_sportcamera,
 //			R.drawable.xmjp_mov),
@@ -61,9 +61,9 @@ public enum FunDevType {
 //			R.drawable.icon_funsdk),
 //
 // 21, 智能门铃
-	EE_DEV_IDR(21,
-			R.string.dev_type_idr,
-			R.mipmap.doorbell),
+EE_DEV_IDR(21,
+		   R.string.dev_type_idr,
+		   R.mipmap.doorbell),
 	EE_DEV_GUN_MONITOR(22,
 			R.string.dev_type_monitor,
 			R.mipmap.qiangji);
@@ -84,7 +84,7 @@ public enum FunDevType {
 
 	/**
 	 * 获取设备类型的字符串ID
-	 *
+	 * 
 	 * @return 设备类型字符串ID
 	 */
 	public int getTypeStrId() {
@@ -99,16 +99,16 @@ public enum FunDevType {
 		return this.drawResId;
 	}
 
-
+	
 	/**
 	 * 获取设备类型的索引号
-	 *
+	 * 
 	 * @return
 	 */
 	public int getDevIndex() {
 		return this.devIndex;
 	}
-
+	
 	public static FunDevType getType(int index) {
 		for (FunDevType devType : FunDevType.values()) {
 			if (devType.getDevIndex() == index) {

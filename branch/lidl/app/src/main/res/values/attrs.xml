@@ -22,16 +22,16 @@
             <enum name="switchbutton" value="2" />
             <enum name="spinner" value="3" />
         </attr>
-        <attr name="showDivider" format="boolean" />
+        <attr name="Divider" format="boolean" />
     </declare-styleable>
 
 
     <declare-styleable name="MultiDirectionSlidingDrawer">
-        <attr name="handle" format="dimension"></attr>
+        <attr name="handle" format="dimension"/>
         <attr name="drawcontent" format="dimension"/>
-        <attr name="allowSingleTap" format="boolean"></attr>
-        <attr name="animateOnClick" format="boolean"></attr>
-        <attr name="direction" >
+        <attr name="allowSingleTap" format="boolean"/>
+        <attr name="animateOnClick" format="boolean"/>
+        <attr name="muldirection" >
             <enum name="rightToLeft" value="0" />
             <enum name="bottomToTop" value="1" />
             <enum name="leftToRight" value="2" />
@@ -138,4 +138,5 @@
         <attr name="ringColor" format="color"/>
         <attr name="ringBgColor" format="color"/>
     </declare-styleable>
+
 </resources>

@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType="spinner"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_definition" />
 
             <me.hekr.sthome.commonBaseView.SettingIpcItem
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType="switchbutton"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_osd_switch" />
 
             <me.hekr.sthome.commonBaseView.SettingIpcItem
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType="switchbutton"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_osd_timeswitch" />
 
 
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 app:accessoryType="switchbutton"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_blcmode" />
 
             <me.hekr.sthome.commonBaseView.SettingIpcItem
@@ -119,7 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType="switchbutton"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_wide_dynamic" />
 
             <me.hekr.sthome.commonBaseView.SettingIpcItem
@@ -127,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType="spinner"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_noise_reduction" />
 
             <me.hekr.sthome.commonBaseView.SettingIpcItem
@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType="switchbutton"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_anti_shake" />
 
             <me.hekr.sthome.commonBaseView.SettingIpcItem
@@ -143,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:accessoryType="spinner"
-                app:showDivider="true"
+                app:Divider="true"
                 app:titleText="@string/device_setup_camera_metering" />
         </LinearLayout>
     </ScrollView>

@@ -150,7 +150,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup {
         super( context, attrs, defStyle );  
         TypedArray a = context.obtainStyledAttributes( attrs, R.styleable.MultiDirectionSlidingDrawer, defStyle, 0 );
           
-        int orientation = a.getInt( R.styleable.MultiDirectionSlidingDrawer_direction, ORIENTATION_BTT );
+        int orientation = a.getInt( R.styleable.MultiDirectionSlidingDrawer_muldirection, ORIENTATION_BTT );
         mVertical = ( orientation == ORIENTATION_BTT || orientation == ORIENTATION_TTB );   
         mAllowSingleTap = a.getBoolean( R.styleable.MultiDirectionSlidingDrawer_allowSingleTap, true );
         mAnimateOnClick = a.getBoolean( R.styleable.MultiDirectionSlidingDrawer_animateOnClick, true );

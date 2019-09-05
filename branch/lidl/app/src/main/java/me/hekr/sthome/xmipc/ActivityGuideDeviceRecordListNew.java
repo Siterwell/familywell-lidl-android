@@ -1,5 +1,7 @@
 package me.hekr.sthome.xmipc;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,9 +14,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +33,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basic.G;
 import com.lib.SDKCONST;
 import com.lib.funsdk.support.FunError;
 import com.lib.funsdk.support.FunPath;
 import com.lib.funsdk.support.FunSupport;
+import com.lib.funsdk.support.OnFunDeviceFileListener;
 import com.lib.funsdk.support.OnFunDeviceOptListener;
 import com.lib.funsdk.support.OnFunDeviceRecordListener;
 import com.lib.funsdk.support.config.OPCompressPic;
@@ -63,9 +70,10 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ECAlertDialog_ipc;
 import me.hekr.sthome.commonBaseView.FiterImageView;
 import me.hekr.sthome.commonBaseView.HistoryWidget.TimerHistoryHorizonScrollView;
+import me.hekr.sthome.commonBaseView.LoadingProceedDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
+import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.model.modelbean.MonitorBean;
-import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SystemTintManager;
 import me.hekr.sthome.tools.UnitTools;
 
@@ -75,7 +83,7 @@ import me.hekr.sthome.tools.UnitTools;
 
 public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implements View.OnClickListener,OnFunDeviceRecordListener
         ,OnFunDeviceOptListener,MediaPlayer.OnPreparedListener,MediaPlayer.OnCompletionListener
-        ,MediaPlayer.OnErrorListener,TimerHistoryHorizonScrollView.ScrollViewListener {
+        ,MediaPlayer.OnErrorListener,TimerHistoryHorizonScrollView.ScrollViewListener,OnFunDeviceFileListener {
 
 
     private static String TAG = ActivityGuideDeviceRecordListNew.class.getName();
@@ -107,6 +115,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
     private LinearLayout mLayoutControls = null;
     private LinearLayout mLayoutControls2 = null;
     private RelativeLayout mLayoutBottom = null;
+    private RelativeLayout mLayoutBottom2 = null;
     private CCPButton ccpButton_play,ccpButton_mute,ccpButton_snap,ccpButton_fullsreen;
     private CCPButton ccpButton_play2,ccpButton_mute2,ccpButton_snap2,ccpButton_fullsreen2;
     private Toast mToast = null;
@@ -118,6 +127,9 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
     private final SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
     private int PER_ITEM_SCROLL_WIDTH = 0;
     private ECAlertDialog ecAlertDialog;
+    private ECAlertDialog_ipc ecDownAlertDialog;
+    private LoadingProceedDialog loadingProceedDialog;
+    private boolean flag_downcomplete;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,6 +180,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
         mLayoutControls = (LinearLayout) findViewById(R.id.layoutVideoControl);
         mLayoutControls2 = (LinearLayout) findViewById(R.id.layoutVideoControl2);
         mLayoutBottom = (RelativeLayout)findViewById(R.id.bottomthing);
+        mLayoutBottom2 = (RelativeLayout)findViewById(R.id.bottomthing2);
         horizontalScrollView_video = (HorizontalScrollView)findViewById(R.id.lsit);
         linearLayout_video  = (LinearLayout)findViewById(R.id.lv);
         ccpButton_play = (CCPButton) findViewById(R.id.btnPlay);
@@ -282,7 +295,6 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
             layoutParams3.leftMargin = 10;
             layoutParams3.rightMargin = 10;
             view2.setLayoutParams(layoutParams3);
-
             linearLayout_video.addView(view2);
 
             FiterImageView imageView2 = new FiterImageView(this);
@@ -321,12 +333,40 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
                     handler.sendMessageDelayed(message, 10);
                 }
             });
-
+            imageView2.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int index = (int)view.getTag();
+                    alertToDownLoad(index);
+                    return true;
+                }
+            });
         }
 
 
     }
 
+private void alertToDownLoad(final int index){
+    ecDownAlertDialog = ECAlertDialog_ipc.buildAlert(this, getResources().getString(R.string.device_sport_camera_download_to_phone), new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            FunFileData funFileData = files.get(index);
+            byte[] data = null;
+            if (funFileData != null) {
+                data = G.ObjToBytes(funFileData.getFileData());
+            }
+            String path = FunPath.PATH_VIDEO + File.separator + mFunDevice.getDevSn() + File.separator + funFileData.getBeginDateStr() +" "+funFileData.getBeginTimeStr() + ".mp4";
+            File file = new File(path);
+            if (file.exists())
+            {
+                Toast.makeText(ActivityGuideDeviceRecordListNew.this, getResources().getString(R.string.file_is_exist), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            FunSupport.getInstance().requestDeviceDownloadByFile(mFunDevice, data, path, index);
+        }
+    });
+    ecDownAlertDialog.show();
+}
 
     /**
      * 显示截图成功对话框
@@ -471,7 +511,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
             float endt   = (float) DateUtil.getSecondInDay(funFileData.getEndTimeStr()) * TimerHistoryHorizonScrollView.TOTAL_PROCESS /86400f;
 
             int seekposbyfile = (int)((curr-startt)*100f/(endt-startt));
-            LOG.I(TAG,"seekRecordVideo+++++++++seekposbyfile:"+seekposbyfile);
+            Log.i(TAG,"seekRecordVideo+++++++++seekposbyfile:"+seekposbyfile);
             mVideoView.seekbyfile(seekposbyfile);
         }
     }
@@ -525,6 +565,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
                  Intent intent = new Intent(this, DateSelectActivity.class);
                  intent.putExtra("FUN_DEVICE_ID", mFunDevice.getId());
                  intent.putExtra("Date",calendar);
+                 intent.putExtra("video",true);
                  startActivityForResult(intent,REQUEST_SELECT_DATE);
                  break;
              case R.id.btnCapture:
@@ -653,6 +694,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
         mLayoutControls.setVisibility(View.VISIBLE);
         mLayoutControls2.setVisibility(View.GONE);
         mLayoutBottom.setVisibility(View.GONE);
+        mLayoutBottom2.setVisibility(View.GONE);
         showVideoControlBar();
     }
 
@@ -678,6 +720,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
         mLayoutControls.setVisibility(View.GONE);
         mLayoutControls2.setVisibility(View.VISIBLE);
         mLayoutBottom.setVisibility(View.VISIBLE);
+        mLayoutBottom2.setVisibility(View.VISIBLE);
     }
 
 
@@ -685,8 +728,8 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
 
         int startTm = mVideoView.getStartTime();
         int endTm = mVideoView.getEndTime();
-        LOG.I("startTm","TTTT----" + startTm);
-        LOG.I("endTm","TTTT----" + endTm);
+        Log.i("startTm","TTTT----" + startTm);
+        Log.i("endTm","TTTT----" + endTm);
         if (startTm > 0 && endTm > startTm) {
             resetProgressInterval();
         } else {
@@ -712,7 +755,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
         int posTm = mVideoView.getPosition();
         if ( posTm > 0 ) {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
-            LOG.I(TAG,"当前时间----" + sdf.format(new Date((long)posTm*1000)));
+            Log.i(TAG,"当前时间----" + sdf.format(new Date((long)posTm*1000)));
             if(null != textView_time){
                 textView_time.setText(sdf.format(new Date((long)posTm*1000)));
             }
@@ -865,7 +908,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
 
                 for (H264_DVR_FILE_DATA data : datas) {
                     FunFileData funFileData = new FunFileData(data, new OPCompressPic());
-                    LOG.I(TAG,"funFileData++++++"+funFileData.toString());
+                    Log.i(TAG,"funFileData++++++"+funFileData.toString());
 
 
                         float startt = (float)(DateUtil.getSecondInDay(funFileData.getBeginTimeStr())* TimerHistoryHorizonScrollView.TOTAL_PROCESS) /86400f;
@@ -875,7 +918,7 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
                         if("00:00:00".equals(funFileData.getEndTimeStr())){
                             endt = (float) TimerHistoryHorizonScrollView.TOTAL_PROCESS;
                         }
-                    if((endt-startt)<=1 || funFileData.getFileType()>1 )  {
+                    if((endt-startt)<=1 || funFileData.getFileType()>1 || (endt-startt)>15 )  {
                         continue;
                     }
 
@@ -1032,7 +1075,62 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
         handler.sendEmptyMessageDelayed(MESSAGE_AUTO_HIDE_CONTROL_BAR, 10000);
     }
 
+    @Override
+    public void onDeviceFileDownCompleted(FunDevice funDevice, String path, int nSeq) {
+      Log.i(TAG,"下载的地址为："+path + "  "+funDevice.getDevSn());
+        flag_downcomplete = true;
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);   //, MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        Uri uri = Uri.fromFile(new File(path));
+        intent.setData(uri);
+        sendBroadcast(intent);
+    }
 
+    @Override
+    public void onDeviceFileDownProgress(int totalSize, int progress, int nSeq) {
+
+    }
+
+    @Override
+    public void onDeviceFileDownStart(boolean isStartSuccess, int nSeq) {
+        loadingProceedDialog = new LoadingProceedDialog(this);
+        loadingProceedDialog.setResultListener(new LoadingProceedDialog.ResultListener() {
+            @Override
+            public void result(boolean success) {
+                if(success){
+                    if(ecAlertDialog == null || (ecAlertDialog!=null && !ecAlertDialog.isShowing())){
+                        ecAlertDialog = ECAlertDialog.buildAlert(ActivityGuideDeviceRecordListNew.this, getResources().getString(R.string.success_download), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        ecAlertDialog.setButton(ECAlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.look), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent2=new Intent(ActivityGuideDeviceRecordListNew.this, ActivityLocalpicvideo.class);
+                                intent2.putExtra("path",mFunDevice.getDevSn());
+                                intent2.putExtra("pic_or_video",1);
+                                startActivity(intent2);
+                            }
+                        });
+                        ecAlertDialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void proceed() {
+                if(flag_downcomplete){
+                    flag_downcomplete = false;
+                    loadingProceedDialog.setFlag_success(true);
+                }
+
+            }
+        });
+        loadingProceedDialog.setPressText(getResources().getString(R.string.downing));
+        loadingProceedDialog.setCancelable(false);
+        loadingProceedDialog.show();
+    }
 
 
     private class VideoToucher implements View.OnTouchListener {
@@ -1078,5 +1176,4 @@ public class ActivityGuideDeviceRecordListNew extends AppCompatActivity implemen
             mToast.show();
         }
     }
-
 }

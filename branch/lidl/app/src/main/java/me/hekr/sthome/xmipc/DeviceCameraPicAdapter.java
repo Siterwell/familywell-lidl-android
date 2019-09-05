@@ -171,8 +171,8 @@ public class DeviceCameraPicAdapter extends BaseAdapter implements OnFunDeviceFi
                 if (info.getFileName().endsWith(".h264")) {
                     // 当前正在播放的高亮显示
                     if ( mPlayingIndex == position ) {
-                        holder.event.setTextColor(mContext.getResources().getColor(R.color.ipc_base_color));
-                        holder.time.setTextColor(mContext.getResources().getColor(R.color.ipc_base_color));
+                        holder.event.setTextColor(mContext.getResources().getColor(R.color.text_color_selected));
+                        holder.time.setTextColor(mContext.getResources().getColor(R.color.text_color_selected));
                     } else {
                         holder.event.setTextColor(mContext.getResources().getColor(R.color.delist_bk));
                         holder.time.setTextColor(mContext.getResources().getColor(R.color.delist_bk));

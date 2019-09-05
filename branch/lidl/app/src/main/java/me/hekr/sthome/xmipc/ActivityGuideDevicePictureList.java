@@ -3,6 +3,7 @@ package me.hekr.sthome.xmipc;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -33,7 +34,6 @@ import java.util.List;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;
 import me.hekr.sthome.commonBaseView.DateSelectActivity;
-import me.hekr.sthome.tools.LOG;
 
 /*
 @class ActivityGuideDevicePictureList
@@ -57,7 +57,6 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
     private ListView mImageList = null;
     private final int REQUEST_SELECT_DATE = 1;
     private int mHandler = -1;
-
 
     @Override
     protected void onCreateInit() {
@@ -267,7 +266,7 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
 
     @Override
     public void onDeviceFileListChanged(FunDevice funDevice) {
-        LOG.I(TAG,"onDeviceFileListChanged1");
+        Log.i(TAG,"onDeviceFileListChanged1");
     }
 
     private void notifyDataSetChanged() {
@@ -286,7 +285,7 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
 
     @Override
     public void onDeviceFileListChanged(FunDevice funDevice, H264_DVR_FILE_DATA[] datas) {
-        LOG.I(TAG,"onDeviceFileListChanged2");
+        Log.i(TAG,"onDeviceFileListChanged2");
         hideProgressDialog();
 
         if (null != funDevice
@@ -330,7 +329,7 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
 	@Override
 	public void onDeviceFileListGetFailed(FunDevice funDevice) {
 		// TODO Auto-generated method stub
-        LOG.I(TAG,"onDeviceFileListGetFailed22");
+        Log.i(TAG,"onDeviceFileListGetFailed22");
 
         Toast.makeText(this,"No Files!!",Toast.LENGTH_LONG).show();
         hideProgressDialog();
@@ -344,18 +343,10 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
              finish();
              break;
          case R.id.SettingBtnInTopLayout:
-//             new DatePickerDialog(ActivityGuideDevicePictureList.this, new DatePickerDialog.OnDateSetListener() {
-//
-//                 @Override
-//                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//
-//                     calendar.set(year, monthOfYear, dayOfMonth);
-//                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                     onSearchPicture(calendar.getTime(), 0);
-//                 }
-//             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-             startActivityForResult(new Intent(this, DateSelectActivity.class),REQUEST_SELECT_DATE);
-
+             Intent intent = new Intent(this, DateSelectActivity.class);
+             intent.putExtra("FUN_DEVICE_ID", mFunDevice.getId());
+             intent.putExtra("Date",calendar);
+             startActivityForResult(intent,REQUEST_SELECT_DATE);
              break;
      }
     }
@@ -369,7 +360,9 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
             int result_year = data.getExtras().getInt("year");
             int result_month = data.getExtras().getInt("month");
             int result_day   = data.getExtras().getInt("day");
-
+            mDatas.clear();
+            mFunDevice.mDatas = mDatas;
+            notifyDataSetChanged();
             calendar.set(result_year, result_month, result_day);
             onSearchPicture(calendar.getTime(), 0);
 

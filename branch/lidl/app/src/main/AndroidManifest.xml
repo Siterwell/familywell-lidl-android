@@ -63,7 +63,7 @@
         <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <activity
-            android:name="com.zbar.lib.CaptureActivity"
+            android:name="com.zbar.lib.ScanCaptureAct"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
@@ -521,6 +521,18 @@
             android:enabled="true"
             android:label="siterwell服务"
             android:exported="true"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.cosa.elro.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
 
         <!-- Fetch Geolocation to address -->
         <service
