@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,13 +49,13 @@ public class SocketDetailActivity extends AppCompatActivity {
     private TextView showStatus;
     private ImageView signal;
     private String eqid="";
-    private EquipmentBean device;
     private SendEquipmentData sd;
     private ImageView back_img;
     private TextView  edt_txt,eq_name;
-    private LinearLayout root;
     private ImageView operation_img;
     private ECAlertDialog alertDialog;
+    protected EquipmentBean device;
+    protected View root;
 
 
     @Override
@@ -218,19 +217,19 @@ public class SocketDetailActivity extends AppCompatActivity {
 
             }
         });
-        root       = (LinearLayout)findViewById(R.id.root);
+        root       = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
             root.setPadding(0,top,0,0);
         }
-        operation_img = (ImageView)findViewById(R.id.operation);
-        showStatus = (TextView) findViewById(R.id.showStatus);
-        signal = (ImageView) findViewById(R.id.signalPosition);
-        deviceLogo = (ImageView) findViewById(R.id.devicePosition);
+        operation_img = findViewById(R.id.operation);
+        showStatus =  findViewById(R.id.showStatus);
+        signal =  findViewById(R.id.signalPosition);
+        deviceLogo =  findViewById(R.id.devicePosition);
         deviceLogo.setImageResource(R.drawable.detail7);
         newAction();
-        eq_name = (TextView)findViewById(R.id.eq_name);
+        eq_name = findViewById(R.id.eq_name);
         eq_name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         eq_name.setSelected(true);
         eq_name.setFocusable(true);
@@ -241,6 +240,7 @@ public class SocketDetailActivity extends AppCompatActivity {
         }else{
             eq_name.setText(device.getEquipmentName());
         }
+
         doStatusShow(device.getState());
     }
     private void updateName(String edit) {

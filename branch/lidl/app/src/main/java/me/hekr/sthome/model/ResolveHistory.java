@@ -16,6 +16,7 @@ import me.hekr.sthome.model.modelbean.SceneBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 
 /**
@@ -122,7 +123,9 @@ public class ResolveHistory {
     }
 
     public void resolveEquipment(NoticeBean noticeBean, String code) {
-        if(code.length()>6){
+        LOG.D(TAG, "[DEBUG] resolveEquipment > code length = " + code.length());
+//        if(code.length()>6){
+        if(code.length()>22){
             noticeBean.setDesc(code);
             noticeBean.setType(code.substring(4, 6));
             noticeBean.setEqid(String.valueOf(Integer.parseInt(code.substring(6,10),16)));

@@ -529,4 +529,14 @@
    <string name="wireless_config">Nastavení Bezdrátové</string>
    <string name="gs361_install_construction">prosím, termostat zařízení do ventily, a pak znovu zmáčknout knoflík dokončeno.</string>
    <string name="reset_progress">resetovací zařízení, nevypínejte jej</string>
+   <string name="permission_reject_camera_tip">Současné aplikace postrádají fotografické výhody.Pro otevření požadovaných oprávnění klikněte na "Nastavení".</string>
+   <string name="permission_reject_location_tip">Současná aplikace postrádá povolení k umístění a nemůže nastavit WIFI. Prosím zadejte povolení potřebné k jeho otevření.</string>
+   <string name="permission_reject_imei_tip">Pokud si nepřečtete status kódu mobilního telefonu, ovlivní to běžné použití aplikace. Prosím, otevřete telefonní povolení.</string>
+   <string name="permission_reject_write_local_tip">Bez oprávnění k přečtení a zápisu karty SD to ovlivní použit í funkcí souvisejících s APP kamerou, prosím otevřete úložné povolení</string>
+   <string name="permission_reject_location_service_tip">Otevřete prosím službu lokace, jinak nemůžete nastavit WIFI</string>
+   <string name="permission_register">Žádost o povolení</string>
+   <string name="goto_set">K nastavení</string>
+   <string name="file_is_exist">Soubor již existuje</string>
+   <string name="look">Vidíš?</string>
+   <string name="success_download">Stahování úspěšně</string>
 </resources>

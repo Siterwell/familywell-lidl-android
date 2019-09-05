@@ -1663,7 +1663,7 @@ public class FunSupport implements IFunSDKResult {
 	 * @return
 	 */
 	public int requestDeviceStartTalk(FunDevice funDevice) {
-		return FunSDK.DevStarTalk(getHandler(), funDevice.getDevSn(), 0, 0, 0);
+		return FunSDK.DevStarTalk(getHandler(), funDevice.getDevSn(), 0,0,0);
 	}
 
 	public void requestDeviceStopTalk(int hTalker) {
@@ -3170,4 +3170,5 @@ public class FunSupport implements IFunSDKResult {
 		int result = FunSDK.DevSleep(getHandler(), sn, 0);
 		return result;
 	}
+
 }

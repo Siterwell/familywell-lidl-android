@@ -529,4 +529,14 @@
     <string name="wireless_config">Wifi asetukset</string>
     <string name="gs361_install_construction">Asenna termostaatti venttiiliin ja paina sitten nuppi uudelleen asennuksen loppuunsaattamiseksi.</string>
     <string name="reset_progress">laitteen nollaus, älä katkaise virtaa</string>
+    <string name="permission_reject_camera_tip">Nykyisillä sovelluksilla ei ole valokuvausoikeuksia.Ole hyvä ja klikkaa "Asetukset" ("Oikeudet") avataksesi vaaditut oikeudet.</string>
+    <string name="permission_reject_location_tip">Tällä sovelluksella ei ole sijaintilupaa eikä se voi asettaa WIFI: tä. Aseta sen avaamiseen tarvittava lupa.</string>
+    <string name="permission_reject_imei_tip">Jos matkapuhelimen asemaa koskevaa koodia ei ole luettu, se vaikuttaa sovelluksen tavanomaiseen käyttöön. Ole hyvä ja avaa puhelinlupa.</string>
+    <string name="permission_reject_write_local_tip">Ilman SD -kortin lukemis - ja kirjoituslupaa se vaikuttaa APP - kameraan liittyvien toimintojen käyttöön, avatkaa tallennuslupa</string>
+    <string name="permission_reject_location_service_tip">Avaa sijaintipalvelu, muuten et voi asettaa WIFI ä</string>
+    <string name="permission_register">Viranomaisen hakeminen</string>
+    <string name="goto_set">Asetetaan käyttöön</string>
+    <string name="file_is_exist">Tiedosto on jo olemassa</string>
+    <string name="look">Katso</string>
+    <string name="success_download">Lataus onnistui</string>
 </resources>

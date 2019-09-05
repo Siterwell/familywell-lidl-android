@@ -529,4 +529,14 @@
    <string name="wireless_config">De draadloze</string>
    <string name="gs361_install_construction">Alsjeblieft, zal de thermostaat gemonteerd op de klep, druk op de knop en dan weer af van de installatie.</string>
    <string name="reset_progress">apparaat resetten, niet uitschakelen</string>
+   <string name="permission_reject_camera_tip">Huidige toepassingen hebben geen fotografische privileges.Klik op "Instellingen" om de vereiste rechten te openen.</string>
+   <string name="permission_reject_location_tip">De huidige applicatie heeft geen locatietoestemming en kan WIFI niet instellen. Stel de benodigde toestemming om het te openen in.</string>
+   <string name="permission_reject_imei_tip">Het niet lezen van de status code van de mobiele telefoon zal het normale gebruik van app beïnvloeden.</string>
+   <string name="permission_reject_write_local_tip">Zonder SD -kaart lezen en schrijven toestemming, zal het invloed hebben op het gebruik van APP camera gerelateerde functies, open opslagpermissie</string>
+   <string name="permission_reject_location_service_tip">Open de locatiedienst, anders kunt u WIFI niet instellen</string>
+   <string name="permission_register">Aanvraag van een autoriteit</string>
+   <string name="goto_set">Te installeren</string>
+   <string name="file_is_exist">Bestand bestaat al</string>
+   <string name="look">Zie</string>
+   <string name="success_download">Download succesvol</string>
 </resources>

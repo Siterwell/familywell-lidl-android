@@ -46,13 +46,15 @@ public class CCPAppManager {
         if(mClientUser != null) {
             return mClientUser;
         }
+
+        mClientUser = new ClientUser();
+
         String registAccount = getAutoRegistAccount(MyApplication.getAppContext());
         if(!TextUtils.isEmpty(registAccount)) {
-            mClientUser = new ClientUser();
-
-            return mClientUser.from(registAccount);
+            mClientUser.from(registAccount);
         }
-        return null;
+
+        return mClientUser;
     }
 
     public static String getUserId() {

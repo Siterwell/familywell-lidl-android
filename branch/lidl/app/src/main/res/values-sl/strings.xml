@@ -529,4 +529,14 @@
    <string name="wireless_config">Brezžični Opremi</string>
    <string name="gs361_install_construction">prosim, termostat, nameščene na ventil, in potem še enkrat pritisnite na gumb za dokončanje namestitve.</string>
    <string name="reset_progress">ponastavite napravo, ne izklapljajte</string>
+   <string name="permission_reject_camera_tip">Trenutne aplikacije nimajo fotografskih privilegijev.Prosim kliknite » Nastavitve « - » Dovoljenja « za odprtje zahtevanih dovoljenj.</string>
+   <string name="permission_reject_location_tip">Trenutni program nima dovoljenja za lokacijo in ne more nastaviti WIFI. Prosim nastavite dovoljenje, potrebno za odprtje programa.</string>
+   <string name="permission_reject_imei_tip">Napaka pri branju kode statusa mobilnega telefona bo vplivala na normalno uporabo programa. Prosim odprite dovoljenje za telefon.</string>
+   <string name="permission_reject_write_local_tip">Brez dovoljenja SD za branje in pisanje kartice, bo to vplivalo na uporabo funkcij, povezanih z APP kamerami, prosimo, odprite dovoljenje za shranjevanj</string>
+   <string name="permission_reject_location_service_tip">Prosim, odprite storitev lokacije, sicer ne morete nastaviti WIFI</string>
+   <string name="permission_register">Zahtevek za organ</string>
+   <string name="goto_set">Za postavitev</string>
+   <string name="file_is_exist">Datoteka že obstaja</string>
+   <string name="look">Glej</string>
+   <string name="success_download">Prenos uspešen</string>
 </resources>

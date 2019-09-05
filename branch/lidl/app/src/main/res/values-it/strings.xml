@@ -529,4 +529,14 @@
    <string name="wireless_config">IL Wi-Fi!</string>
    <string name="gs361_install_construction">Per favore, il termostato montato a valvole, E POI ancora una Volta premuto il pulsante per completare l’installazione.</string>
    <string name="reset_progress">ripristino dispositivo, non spegnere</string>
+   <string name="permission_reject_camera_tip">Le attuali applicazioni mancano di privilegi fotografici.Fare clic su "Impostazioni"- "Permessi"- per aprire i permessi richiesti.</string>
+   <string name="permission_reject_location_tip">L’applicazione corrente manca di autorizzazione di posizione e non può configurare WIFI. Per favore imposta l’autorizzazione necessaria per aprirlo.</string>
+   <string name="permission_reject_imei_tip">Senza il permesso di lettura e scrittura della scheda SD, influenzerà l’uso delle funzioni della fotocamera APP, si prega di aprire il permesso di archiviazione</string>
+   <string name="permission_reject_write_local_tip">Senza il permesso di lettura e scrittura della scheda SD, influenzerà l’uso delle funzioni della fotocamera APP, si prega di aprire il permesso di archiviazione</string>
+   <string name="permission_reject_location_service_tip">Si prega di aprire il servizio di localizzazione, altrimenti non è possibile configurare WIFI</string>
+   <string name="permission_register">Domanda di autorità</string>
+   <string name="goto_set">Come impostare</string>
+   <string name="file_is_exist">il file esiste già</string>
+   <string name="look">Vedi?</string>
+   <string name="success_download">Scarica riuscita</string>
 </resources>

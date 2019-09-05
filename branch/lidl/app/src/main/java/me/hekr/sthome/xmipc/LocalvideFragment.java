@@ -3,8 +3,10 @@ package me.hekr.sthome.xmipc;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,13 +66,24 @@ public class LocalvideFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent("android.intent.action.VIEW");
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                String type = "video/*";
+                File file=new File(localVideoAdapter.getItem(i).getFilepath());
+                Intent it =new Intent(Intent.ACTION_SEND);
 
-                Uri uri = Uri.fromFile(new File(localVideoAdapter.getItem(i).getFilepath()));
-                intent.setDataAndType(uri, type);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    it.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    Uri contentUri = FileProvider.getUriForFile(LocalvideFragment.this.getActivity(), LocalvideFragment.this.getActivity().getPackageName()+".fileprovider", file);
+                    it.setDataAndType(contentUri, "video/*");
+                    it.putExtra(Intent.EXTRA_STREAM, contentUri); //需要分享的文件URI
+                    startActivity(it);
+                } else {
+                    Uri mUri = Uri.parse("file://"+file.getPath());
+                    it.setDataAndType(mUri, "video/*");
+                    it.putExtra(Intent.EXTRA_STREAM, mUri); //需要分享的文件URI
+                    startActivity(it);
+                }
+
             }
         });
     }

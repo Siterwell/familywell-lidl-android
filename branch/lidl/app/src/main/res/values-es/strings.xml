@@ -529,4 +529,14 @@
     <string name="wireless_config">Preferencias wifi</string>
     <string name="gs361_install_construction">Haga el favor de instalar el controlador a la válvula y luego pulse el botón para completar la instalación.</string>
     <string name="reset_progress">reinicio del dispositivo, por favor no apague</string>
+    <string name="permission_reject_camera_tip">La aplicación actual carece de permisos fotográficos.Por favor,haga clic en"preferencias"-"permisos"-para abrir los permisos necesarios.</string>
+    <string name="permission_reject_location_tip">La aplicación actual no tiene permisos de posicionamiento para configurar WiFi,por favor,establezca los permisos necesarios para abrirlos</string>
+    <string name="permission_reject_imei_tip">No tiene permiso para leer el Código de Estado de su celular,lo que afecta al uso normal de la App.</string>
+    <string name="permission_reject_write_local_tip">No hay permisos de lectura y escritura de la tarjeta SD que puedan afectar el uso de la función de la Cámara de App.</string>
+    <string name="permission_reject_location_service_tip">Por favor,abra el Servicio de localización o no podráconfigurar wifi.</string>
+    <string name="permission_register">Solicitud de autorización</string>
+    <string name="goto_set">Preferencias</string>
+    <string name="file_is_exist">Archivo existente</string>
+    <string name="look">Ver</string>
+    <string name="success_download">Descarga exitosa</string>
 </resources>

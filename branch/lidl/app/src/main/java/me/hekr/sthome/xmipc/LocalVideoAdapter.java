@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import me.hekr.sthome.R;
+import me.hekr.sthome.common.ImageLoader;
 
 /**
  * Created by jishu0001 on 2016/10/21.
@@ -68,7 +69,13 @@ public class LocalVideoAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.imageView.setImageResource(R.drawable.u2);
+        try {
+            ImageLoader.getInstance(3, ImageLoader.Type.LIFO).loadImage(eq.getThumbpath(), holder.imageView);
+        }catch (Exception e){
+            holder.imageView.setImageResource(R.drawable.u2);
+        }
+
+
         holder.textView_name.setText(eq.getFilename());
         holder.textView_time.setText(yearFormat.format(new Date(Long.parseLong(eq.getModifytime())*1000)));
         return convertView;

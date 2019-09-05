@@ -529,4 +529,14 @@
     <string name="wireless_config">Paramètres WiFi</string>
     <string name="gs361_install_construction">S’il vous plaît, thermostat monté à la soupape, puis, une fois encore, appuyez sur le bouton Terminer l’installation.</string>
     <string name="reset_progress">réinitialiser l’appareil, s’il vous plaît ne pas éteindre</string>
+    <string name="permission_reject_camera_tip">L ’application actuelle manque de droits de prise de vues.Cliquez sur paramétrer -</string>
+    <string name="permission_reject_location_tip">L ’application actuelle n’ a pas de droits de positionnement pour effectuer la configuration WIFI</string>
+    <string name="permission_reject_imei_tip">Si vous ne pouvez pas lire le code d ’état d’ un téléphone portable, cela affectera l ’utilisation normale de l’ app.</string>
+    <string name="permission_reject_write_local_tip">Si vous n ’avez pas de droits de lecture et d’ écriture sur la carte SD, cela affectera l ’utilisation des fonctions associées à la caméra APP, ouvrez les droits de mémoire</string>
+    <string name="permission_reject_location_service_tip">Veuillez ouvrir le Service de localisation, sinon vous ne pourrez pas configurer WiFi</string>
+    <string name="permission_register">Demande d ’autorisation</string>
+    <string name="goto_set">Deformer</string>
+    <string name="file_is_exist">Fichier existant</string>
+    <string name="look">Regarder</string>
+    <string name="success_download">Téléchargement réussi</string>
 </resources>

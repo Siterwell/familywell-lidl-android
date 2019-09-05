@@ -18,7 +18,8 @@ public class SharedParamMng{
 		mContext = context;
 		if(mContext != null)
 		{
-			mPreferences = context.getSharedPreferences(FUN_PARAM_DB, Context.MODE_PRIVATE);
+			mPreferences = context.getSharedPreferences(FUN_PARAM_DB, 
+					Context.MODE_PRIVATE);
 		}
 	}
 	

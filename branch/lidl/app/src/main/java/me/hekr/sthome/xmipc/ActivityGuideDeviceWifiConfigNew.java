@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.DhcpInfo;
 import android.net.NetworkInfo;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,11 +21,13 @@ import com.lib.funsdk.support.FunSupport;
 import com.lib.funsdk.support.FunWifiPassword;
 import com.lib.funsdk.support.OnFunDeviceWiFiConfigListener;
 import com.lib.funsdk.support.models.FunDevice;
+import com.lib.funsdk.support.utils.DeviceWifiManager;
 import com.lib.funsdk.support.utils.MyUtils;
 import com.lib.funsdk.support.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
@@ -35,13 +37,11 @@ import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.MonitorBean;
-import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 
 public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implements OnClickListener, OnFunDeviceWiFiConfigListener {
 
-	static final long TIMEOUT_MS = 60000; // 60s
 
 	private final String TAG = "WifiConfig";
 	private EditText mEditWifiSSID = null;
@@ -53,17 +53,6 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 
 	private Toast mToast = null;
 	private boolean wireless = false;
-
-	private Handler errorHandler = new Handler();
-	private Runnable errorRunnable = new Runnable() {
-		@Override
-		public void run() {
-			LOG.E(TAG, "[ERROR] setting WIFI timeout");
-			hideProgressDialog();
-			showToast(R.string.config_fail_reason);
-		}
-	};
-
 
 	@Override
 	protected void onCreateInit() {
@@ -80,7 +69,7 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 		mEditWifiSSID.setText(currSSID);
 		mEditWifiPasswd.setText(FunWifiPassword.getInstance().getPassword(currSSID));
 		FunSupport.getInstance().registerOnFunDeviceWiFiConfigListener(this);
-		String title = wireless ? getResources().getString(R.string.wireless_config) : getResources().getString(R.string.wifi_config);
+		String title = wireless?getResources().getString(R.string.wireless_config):getResources().getString(R.string.wifi_config);
 		getTopBarView().setTopBarStatus(1, 1, title, null, new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -88,6 +77,7 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 				finish();
 			}
 		},null);
+
 	}
 
 	@Override
@@ -166,11 +156,6 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 					.append(" ");
 			
 			showProgressDialog(getResources().getString(R.string.wait));
-			if (wireless) {
-				LOG.D(TAG, "[ERROR] startQuickSetting >> ");
-				errorHandler.removeCallbacks(errorRunnable);
-				errorHandler.postDelayed(errorRunnable, TIMEOUT_MS);
-			}
 			
 			FunSupport.getInstance().startWiFiQuickConfig(ssid,
 					data.toString(), info.toString(), 
@@ -213,9 +198,7 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 		if ( null != funDevice ) {
 
 			if(wireless){
-				LOG.D(TAG, "[ERROR] onDeviceWiFiConfigSetted >> ");
 				showToast(getResources().getString(R.string.success_set));
-				errorHandler.removeCallbacks(errorRunnable);
 				finish();
 			}else {
 				List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
@@ -246,6 +229,28 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 
 		}
 	}
+
+	public void showToast(int resid){
+		if ( resid > 0 ) {
+			if ( null != mToast ) {
+				mToast.cancel();
+			}
+			mToast = Toast.makeText(this, resid, Toast.LENGTH_SHORT);
+			mToast.show();
+		}
+	}
+
+	public void showToast(String text){
+		if ( null != text ) {
+			if ( null != mToast ) {
+				mToast.cancel();
+			}
+			mToast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+			mToast.show();
+		}
+	}
+
+
 
 	private void adddevice(String devsn,final  String devname){
 		list.clear();

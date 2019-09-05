@@ -44,6 +44,8 @@ public class ActivityGuideSettingExpert extends TopbarIpcSuperActivity implement
         relativeLayout_other  = (RelativeLayout)findViewById(R.id.othersetting);
         relativeLayout_record.setOnClickListener(this);
         relativeLayout_alarm.setVisibility(View.GONE);
+        relativeLayout_image.setVisibility(View.GONE);
+        relativeLayout_other.setVisibility(View.GONE);
         relativeLayout_alarm.setOnClickListener(this);
         relativeLayout_image.setOnClickListener(this);
         relativeLayout_other.setOnClickListener(this);
