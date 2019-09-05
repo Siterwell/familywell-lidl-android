@@ -529,4 +529,14 @@
     <string name="wireless_config">WLAN einstellungen</string>
     <string name="gs361_install_construction">Bitte DAS thermostat zu installieren, dann wieder drücken sie den Knopf installieren.</string>
     <string name="reset_progress">Gerät zurücksetzen, bitte nicht ausschalten</string>
+    <string name="permission_reject_camera_tip">Aktuelle Anwendungen haben keine fotografischen Privilegien.Bitte klicken Sie auf "Einstellungen" -"Berechtigungen", um die erforderlichen Berechtigungen zu öffnen.</string>
+    <string name="permission_reject_location_tip">Die aktuelle Anwendung hat keine Standortberechtigung und kann kein WLAN konfigurieren. Bitte setzen Sie die für das Öffnen erforderliche Erlaubnis ein.</string>
+    <string name="permission_reject_imei_tip">Wenn Sie den Status -Code des Mobiltelefons nicht lesen, wird sich die normale Nutzung der App auswirken. Bitte öffnen Sie die Telefongenehmigung.</string>
+    <string name="permission_reject_write_local_tip">Ohne die Schreib - und Leseberechtigung der SD -Karte wird dies die Verwendung von APP -Kamerafunktionen beeinflussen. Bitte öffnen Sie die Speichergenehmigung</string>
+    <string name="permission_reject_location_service_tip">Bitte öffnen Sie den Standortservice, sonst können Sie das WLAN nicht konfigurieren</string>
+    <string name="permission_register">Antrag auf Zulassung</string>
+    <string name="goto_set">Zur Einrichtung</string>
+    <string name="file_is_exist">Datei existiert bereits</string>
+    <string name="look">Siehe</string>
+    <string name="success_download">Herunterladen erfolgreich</string>
 </resources>

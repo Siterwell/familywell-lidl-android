@@ -532,10 +532,13 @@ The connector has entered the networking mode.</string>
     <string name="gs361_install_construction">Please install the thermostat to the valve, then press the knob again to complete the installation.</string>
     <string name="reset_progress">resetting device, please do not power off</string>
     <string name="permission_reject_camera_tip">Current applications lack the camera permissions. Please click "Settings" - "Permissions" - Open the required permissions</string>
+    <string name="permission_reject_location_tip">The current application lacks location permission and cannot configure WIFI. Please set the permission required to open it.</string>
+    <string name="permission_reject_imei_tip">Failure to read the status code of the mobile phone will affect the normal use of app. Please open the phone permission.</string>
+    <string name="permission_reject_write_local_tip">Without SD card read and write permission, it will affect the use of APP camera related functions, please open storage permission</string>
+    <string name="permission_reject_location_service_tip">Please open the location service, otherwise you cannot configure WIFI</string>
     <string name="permission_register">Application for authority</string>
     <string name="goto_set">Setting</string>
     <string name="file_is_exist">File already exist</string>
     <string name="look">See</string>
     <string name="success_download">Download Successful</string>
-
 </resources>
