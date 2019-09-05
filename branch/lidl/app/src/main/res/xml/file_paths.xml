@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-path path="Android/data/com.cosa.elro/" name="files_root" />
-    <external-path path="." name="com.cosa.elro" />
+    <external-path path="Android/data/com.cosa.base/" name="files_root" />
+    <external-path path="." name="com.cosa.base" />
 </paths>
