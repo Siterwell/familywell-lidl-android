@@ -170,7 +170,7 @@
    <string name="add_device_hint">Druk drie keer kort na elkaar op de knop van het apparaat dat je toevoegt</string>
    <string name="add_device_tip">Let op! Wanneer het groene licht van de connector knippert, dan zorgt het ingedrukt houden van de connector knop gedurende tenminste 3 seconden ervoor dat alle apparaten verwijderd worden.</string>
    <string name="done">Klaar</string>
-   <string name="now_gateway_scene_is_happen_has_scene">Let op, huidige connector  %1$s(%2$s) %3$s is getriggerd.</string>
+   <string name="now_gateway_scene_is_happen_has_scene">Let op, huidige connector %1$s(%2$s) %3$s is getriggerd.</string>
    <string name="other_gateway_scene_is_happen_has_scene">Let op, andere connector %1$s(%2$s) %3$s is getriggerd, \ngraag overschakelen en bekijken.</string>
    <string name="now_gateway_scene_is_happen_has_no_scene">Let op, huidige connector %1$s(%2$s) scene %3$s is getriggerd.</string>
    <string name="other_gateway_scene_is_happen_has_no_scene">Let op, andere connector %1$s(%2$s) scene %3$s getriggerd, \ngraag overschakelen en bekijken.</string>
@@ -519,11 +519,24 @@
    <string name="gateway_version">Connector-versie</string>
    <string name="is_upgrading">Upgraden...</string>
    <string name="success_upgrade">Firmware update succesvol!</string>
-   <string name="fail_upgrade">Een nieuwe mislukking</string>
-    <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
-    <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
-   <string name="firmware_upgrade_info">Belangrijk: deze update verandert de werking van je systeem sterk. Klik op “Informatie” hieronder om te zien welke wijzigingen er worden doorgevoerd. Na de update dien je je melders opnieuw te koppelen.</string>
+   <string name="fail_upgrade">Update mislukt</string>
+   <string name="delete_condition">Weet je zeker dat je deze voorwaarde wilt verwijderen?</string>
+   <string name="delete_action">Weet je zeker dat je deze actie wilt verwijderen?</string>
+   <string name="firmware_upgrade_info">Belangrijk: deze update verandert de werking van je systeem. Klik op “Informatie” hieronder om te zien welke wijzigingen er worden doorgevoerd.</string>
    <string name="faq">Veelgestelde vragen (FAQ)</string>
    <string name="delete_timer">Weet je zeker dat je deze timer wilt verwijderen?</string>
    <string name="successfully_deleted">Succesvol verwijder</string>
+   <string name="wireless_config">De draadloze</string>
+   <string name="gs361_install_construction">Alsjeblieft, zal de thermostaat gemonteerd op de klep, druk op de knop en dan weer af van de installatie.</string>
+   <string name="reset_progress">apparaat resetten, niet uitschakelen</string>
+   <string name="permission_reject_camera_tip">Huidige toepassingen hebben geen fotografische privileges.Klik op "Instellingen" om de vereiste rechten te openen.</string>
+   <string name="permission_reject_location_tip">De huidige applicatie heeft geen locatietoestemming en kan WIFI niet instellen. Stel de benodigde toestemming om het te openen in.</string>
+   <string name="permission_reject_imei_tip">Het niet lezen van de status code van de mobiele telefoon zal het normale gebruik van app beïnvloeden.</string>
+   <string name="permission_reject_write_local_tip">Zonder SD -kaart lezen en schrijven toestemming, zal het invloed hebben op het gebruik van APP camera gerelateerde functies, open opslagpermissie</string>
+   <string name="permission_reject_location_service_tip">Open de locatiedienst, anders kunt u WIFI niet instellen</string>
+   <string name="permission_register">Aanvraag van een autoriteit</string>
+   <string name="goto_set">Te installeren</string>
+   <string name="file_is_exist">Bestand bestaat al</string>
+   <string name="look">Zie</string>
+   <string name="success_download">Download succesvol</string>
 </resources>

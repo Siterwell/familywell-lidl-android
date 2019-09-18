@@ -29,7 +29,7 @@ public class SystemInfo extends BaseConfig {
 	private int extraChannel;
 	private int videoInChannel;
 	private int videoOutChannel;
-	
+	private int deviceType;
 
 	public SystemInfo() {
 		
@@ -91,6 +91,14 @@ public class SystemInfo extends BaseConfig {
 		return videoOutChannel;
 	}
 
+	public int getDeviceType() {
+		return deviceType;
+	}
+
+	public void setDeviceType(int deviceType) {
+		this.deviceType = deviceType;
+	}
+
 	@Override
 	public boolean onParse(String json) {
 		if (!super.onParse(json))
@@ -123,6 +131,7 @@ public class SystemInfo extends BaseConfig {
 		extraChannel = obj.optInt("ExtraChannel");
 		videoInChannel = obj.optInt("VideoInChannel");
 		videoOutChannel = obj.optInt("VideoOutChannel");
+		deviceType = obj.optInt("DeviceType");
 		return true;
 	}
 

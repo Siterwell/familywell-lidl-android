@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.WindowManager;
@@ -27,6 +29,8 @@ import me.hekr.sthome.R;
 public class UnitTools {
     private Context context;
     private static MediaPlayer mediaPlayer = null;
+    private static SoundPool soundPool = null;
+    private static int streamID ;
     public UnitTools(Context context){
         this.context = context;
     }
@@ -192,7 +196,7 @@ public class UnitTools {
             return;
         }
 
-        mediaPlayer = MediaPlayer.create(context, R.raw.phonering);
+            mediaPlayer = MediaPlayer.create(context, R.raw.phonering);
 
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
@@ -201,17 +205,56 @@ public class UnitTools {
         mediaPlayer.start();
     }
 
+    public static void playNotifycationSound(Context context){
+
+        try {
+            if(streamID!=0){
+                soundPool.stop(streamID);
+                soundPool.release();
+                soundPool = null;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+//        HashMap<Integer, Integer>musicId=new HashMap<Integer, Integer>();
+//        musicId.put(1, soundPool.load(context, R.raw.phonering, 1));
+//        //soundPool.load(context, R.raw.phonering, 1);
+//        soundPool.play(musicId.get(1),1,1, 0, 0, 1);
+        final int soundID = soundPool.load(context, R.raw.phonering, 1);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                streamID = soundPool.play(soundID, 0.6f, 0.6f, 1, 0, 1);
+
+            }
+        });
+
+    }
+
+//    public static void stopMusic(Context context)
+//            throws IOException {
+//        // paly music ...
+//        if (mediaPlayer == null) {
+//            mediaPlayer = MediaPlayer.create(context, R.raw.phonering);
+//        }
+//        if (mediaPlayer.isPlaying()) {
+//            mediaPlayer.stop();
+//        }
+//        mediaPlayer.reset();
+//        mediaPlayer = null;
+//    }
+
     public static void stopMusic(Context context)
-            throws IOException {
-        // paly music ...
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, R.raw.phonering);
+            throws IOException{
+        if(soundPool!=null){
+            soundPool.stop(streamID);
+            soundPool.release();
+            soundPool = null;
         }
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-        }
-        mediaPlayer.reset();
-        mediaPlayer = null;
     }
 
     public static int getStatusBarHeight(Context context){

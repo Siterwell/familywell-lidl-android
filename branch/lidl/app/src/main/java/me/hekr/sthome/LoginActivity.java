@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tcpGetDomain();
         HekrSocketUtil.setDefaultChannel();
         LOG.I(TAG,"打开app的标识为："+ConnectionPojo.getInstance().open_app);
+        LOG.D(TAG, "[RYAN] onCreate");
 
         if (AccountUtil.forceLogout()) {
             // Force logout because of updated data encryption algorithm

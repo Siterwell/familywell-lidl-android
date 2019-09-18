@@ -526,4 +526,17 @@
     <string name="faq">系统说明书</string>
     <string name="delete_timer">您确定要删除此计时器吗？</string>
     <string name="successfully_deleted">成功删除</string>
+    <string name="wireless_config">无线设置</string>
+    <string name="gs361_install_construction">请将温控器安装到阀门，然后再一次按下旋钮完成安装。</string>
+    <string name="reset_progress">设备正在初始化，请勿断电</string>
+    <string name="permission_reject_camera_tip">当前应用缺少照相权限。请点击"设置"-"权限"-打开所需权限。</string>
+    <string name="permission_reject_location_tip">当前应用缺少定位权限,无法进行WIFI配置，请设置打开所需权限</string>
+    <string name="permission_reject_imei_tip">没有读取手机状态码的权限，会影响app正常使用，请打开电话权限</string>
+    <string name="permission_reject_write_local_tip">没有sd卡读写权限，会影响app摄像头相关功能的使用，请打开存储权限</string>
+    <string name="permission_reject_location_service_tip">请打开定位服务,否则无法进行WIFI配置</string>
+    <string name="permission_register">权限申请</string>
+    <string name="goto_set">去设置</string>
+    <string name="file_is_exist">文件已存在</string>
+    <string name="look">查看</string>
+    <string name="success_download">下载成功</string>
 </resources>

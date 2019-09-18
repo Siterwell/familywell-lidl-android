@@ -137,6 +137,15 @@ public abstract class TopbarIpcSuperActivity extends AppCompatActivity {
 
     }
 
+    protected void showProgressDialog(int resId){
+        mProgressDialog = new ProgressDialog(this, resId);
+
+        mProgressDialog.setCanceledOnTouchOutside(false);
+
+        mProgressDialog.show();
+
+    }
+
     protected void hideProgressDialog(){
         if(mProgressDialog!=null&&mProgressDialog.isShowing()){
             mProgressDialog.dismiss();

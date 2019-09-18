@@ -3,7 +3,9 @@ package me.hekr.sthome.xmipc;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.DhcpInfo;
+import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -25,6 +27,7 @@ import com.lib.funsdk.support.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
@@ -49,9 +52,11 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 	private com.alibaba.fastjson.JSONObject object;
 
 	private Toast mToast = null;
+	private boolean wireless = false;
 
 	@Override
 	protected void onCreateInit() {
+		wireless = getIntent().getBooleanExtra("wireless",false);
 		list = new ArrayList<MonitorBean>();
 		hekrUserAction = HekrUserAction.getInstance(this);
 		mEditWifiSSID = (EditText)findViewById(R.id.editWifiSSID);
@@ -64,7 +69,8 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 		mEditWifiSSID.setText(currSSID);
 		mEditWifiPasswd.setText(FunWifiPassword.getInstance().getPassword(currSSID));
 		FunSupport.getInstance().registerOnFunDeviceWiFiConfigListener(this);
-		getTopBarView().setTopBarStatus(1, 1, getResources().getString(R.string.wifi_config), null, new OnClickListener() {
+		String title = wireless?getResources().getString(R.string.wireless_config):getResources().getString(R.string.wifi_config);
+		getTopBarView().setTopBarStatus(1, 1, title, null, new OnClickListener() {
 			@Override
 			public void onClick(View v) {
              hideSoftKeyboard();
@@ -113,26 +119,24 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 			}
 			
 			String ssid = wifiInfo.getSSID().replace("\"", "");
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+			if(ssid.contains("unknow")){
+
+				ssid= networkInfo.getExtraInfo().replace("\"","");
+			}
 			if ( StringUtils.isStringNULL(ssid) ) {
 				showToast(R.string.device_opt_set_wifi_info_error);
 				return;
 			}
-			
-			ScanResult scanResult = DeviceWifiManager.getInstance(this).getCurScanResult(ssid);
-			if ( null == scanResult ) {
-				showToast(R.string.device_opt_set_wifi_info_error);
-				return;
-			}
 
-			int pwdType = MyUtils.getEncrypPasswordType(scanResult.capabilities);
 			String wifiPwd = mEditWifiPasswd.getText().toString().trim();
-			
 			if (  StringUtils.isStringNULL(wifiPwd) ) {
 				// 需要密码
 				showToast(R.string.device_opt_set_wifi_info_error);
 				return;
 			}
-			
+			int pwdType = networkInfo.getType();
 			StringBuffer data = new StringBuffer();
 			data.append("S:").append(ssid).append("P:").append(wifiPwd).append("T:").append(pwdType);
 			
@@ -171,7 +175,15 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 	private String getConnectWifiSSID() {
 		try {
 			WifiManager wifimanage=(WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-			return wifimanage.getConnectionInfo().getSSID().replace("\"", "");
+
+			String ssidinit = wifimanage.getConnectionInfo().getSSID().replace("\"", "");
+			if(ssidinit.contains("ssid")){
+				ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+				ssidinit = networkInfo.getExtraInfo();
+			}
+
+			return ssidinit.replace("\"","");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,29 +197,36 @@ public class ActivityGuideDeviceWifiConfigNew extends TopbarSuperActivity implem
 
 		if ( null != funDevice ) {
 
-			List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
+			if(wireless){
+				showToast(getResources().getString(R.string.success_set));
+				finish();
+			}else {
+				List<MonitorBean> list = CCPAppManager.getClientUser().getMonitorList();
 
-			if(list.size()>=15){
-				showToast(getResources().getString(R.string.monitor_so_many));
-				hideProgressDialog();
-			}else{
-				boolean flag = false;
-				for(MonitorBean monitorBean:list){
-					if(!TextUtils.isEmpty(monitorBean.getDevid())&&monitorBean.getDevid().equals(funDevice.getDevSn())){
-						flag = true;
-						break;
+				if(list.size()>=15){
+					showToast(getResources().getString(R.string.monitor_so_many));
+					hideProgressDialog();
+				}else{
+					boolean flag = false;
+					for(MonitorBean monitorBean:list){
+						if(!TextUtils.isEmpty(monitorBean.getDevid())&&monitorBean.getDevid().equals(funDevice.getDevSn())){
+							flag = true;
+							break;
+						}
+					}
+					if(flag){
+						showToast(getResources().getString(R.string.already_monitor_add));
+						hideProgressDialog();
+						Intent intent = new Intent(ActivityGuideDeviceWifiConfigNew.this, MainActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
+					}else{
+						adddevice(funDevice.getDevSn(),funDevice.getDevName());
 					}
 				}
-				if(flag){
-					showToast(getResources().getString(R.string.already_monitor_add));
-					hideProgressDialog();
-					Intent intent = new Intent(ActivityGuideDeviceWifiConfigNew.this, MainActivity.class);
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intent);
-				}else{
-                    adddevice(funDevice.getDevSn(),funDevice.getDevName());
-				}
 			}
+
+
 		}
 	}
 

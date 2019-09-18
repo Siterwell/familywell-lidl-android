@@ -86,7 +86,8 @@ public class SiterConstantsUtil {
         public static final String PUSH_TAG_BIND = "user/pushTagBind";
         public static final String UNPUSH_ALIAS_BIND = "user/unbindPushAlias";
         public static final String UNBIND_ALL_PSUH_ALIAS = "user/unbindAllPushAlias";
-
+        public static final String HISTORY_ALARM = "api/v1/notification?type=WARNING&";
+        public static final String HISTORY_LOGOUT = "/queryDevLoginHistory?devTid=";
 
 
         /**

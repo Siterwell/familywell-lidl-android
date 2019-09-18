@@ -35,6 +35,8 @@ public class EncryptUtil {
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
 
         return "";
@@ -54,6 +56,8 @@ public class EncryptUtil {
                 return new String(TextByte,"UTF-8");
             }
         } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 

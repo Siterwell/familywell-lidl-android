@@ -2,10 +2,15 @@ package me.hekr.sthome.service;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
@@ -13,6 +18,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -58,6 +65,7 @@ import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.http.bean.DcInfo;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.UserBean;
+import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.ResolveData;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
@@ -82,6 +90,10 @@ import me.hekr.sthome.tools.UnitTools;
  */
 
 public class SiterService extends Service {
+    private static final int NOTIFICATION_ID = 101;
+    private static final String CHANNEL_ID = "SiterService";
+    private static final String CHANNEL_NAME = "My Background Service";
+
     private final String TAG = this.getClass().getName();
     private InforTotalReceiver inforTotalReceiver;
     private ResolveData resolveData;
@@ -188,6 +200,14 @@ public class SiterService extends Service {
             public void Getinfolinstenr() {
                 setCount(0);  //还原计时，如果到5则同步超时
             }
+
+            @Override
+            public void reFreshCurrentMode() {
+                LOG.D(TAG, "[SCENE debug] reFreshCurrentMode ");
+                STEvent stEvent2 = new STEvent();
+                stEvent2.setRefreshevent(3);
+                EventBus.getDefault().post(stEvent2);
+            }
         };
         sendOtherData = new SendOtherData(this);
         sendSceneData = new SendSceneData(this) {
@@ -215,9 +235,41 @@ public class SiterService extends Service {
         };
         super.onCreate();
 
+        startForeground();
+    }
+
+    private void startForeground() {
+        String channelId = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForeground(1,new Notification());
+            channelId = createNotificationChannel();
         }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
+        Notification notification = builder.setOngoing(true)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setContentIntent(pi)
+                .setContentTitle(getString(R.string.app_name))
+                .build();
+
+        startForeground(NOTIFICATION_ID, notification);
+    }
+
+    private NotificationManager getNotificationManager() {
+        return (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private String createNotificationChannel() {
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT);
+
+        getNotificationManager().createNotificationChannel(channel);
+        return CHANNEL_ID;
     }
 
     @Override

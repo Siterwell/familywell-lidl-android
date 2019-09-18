@@ -1,6 +1,7 @@
 package me.hekr.sthome.xmipc;
 
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -25,7 +26,6 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.PorterDuffXfermodeView;
-import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by Administrator on 2017/9/4.
@@ -206,11 +206,11 @@ public class ActivityGuideDeviceSetupStorage extends TopbarIpcSuperActivity impl
                     remainSpace += partRemainSpace;
                 }
             }
-            LOG.I(TAG,"totalSpace:"+totalSpace);
-            LOG.I(TAG,"remainSpace:"+remainSpace);
+            Log.i(TAG,"totalSpace:"+totalSpace);
+            Log.i(TAG,"remainSpace:"+remainSpace);
             if(totalSpace>0 || remainSpace > 0){
                 percent = ((float) totalSpace / ((float)totalSpace+remainSpace));
-                LOG.I(TAG,"percent:"+percent);
+                Log.i(TAG,"percent:"+percent);
                 porterDuffXfermodeView.setPercent(percent);
 
                 mTextPercent.setText(df.format(percent*100)+"%");

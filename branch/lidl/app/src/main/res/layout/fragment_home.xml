@@ -125,9 +125,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/drawer1"
-        app:direction="bottomToTop"
+        app:muldirection="bottomToTop"
         app:handle="@+id/warnlist"
-        app:contentDimen="@+id/content">
+        app:drawcontent="@+id/content">
         <include
             android:id="@id/content"
             layout="@layout/pen_content" />

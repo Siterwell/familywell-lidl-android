@@ -18,9 +18,9 @@
     <string name="Door_Close">DOOR CLOSE</string>
     <string name="Door_Await">DOOR AWAIT</string>
     <string name="Help">HELP</string>
-    <string name="Offline">OFFLINE</string>
-    <string name="Somebody_There">SOMEBODY THERE</string>
-    <string name="Normal">NORMAL</string>
+    <string name="Offline">BREZ POVEZAVE</string>
+    <string name="Somebody_There">Gibanje</string>
+    <string name="Normal">Normalno</string>
     <string name="Illegal_Encroachment">ILLEGAL ENCROACHMENT</string>
     <string name="Warn_Alarm">WARN ALARM</string>
     <string name="Silence">SILENCE</string>

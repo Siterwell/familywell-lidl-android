@@ -3,7 +3,6 @@ package me.hekr.sthome.main;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
@@ -56,13 +55,12 @@ import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
+import me.hekr.sthome.model.modelbean.NoticeBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.NoticeDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
-import me.hekr.sthome.push.NoticeBean;
-import me.hekr.sthome.push.NoticeResolve;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.LOG;
@@ -347,47 +345,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
 
     private void historyDataShow() {
+        DeviceDAO DDO = new DeviceDAO(this.getActivity());
+        MyDeviceBean myDeviceBean = DDO.findByChoice(1);
+        if(myDeviceBean!=null){
+            HekrUserAction.getInstance(this.getActivity()).getAlarmHistoryList(this.getActivity(), myDeviceBean.getDevTid(), myDeviceBean.getCtrlKey(), myDeviceBean.getProductPublicKey(), page, new HekrUser.GetDeviceHistoryListener() {
+                @Override
+                public void getSuccess(List<NoticeBean> list, int pagenumber, boolean last) {
+                    if(pagenumber == 0){
+                        noticeDAO.deleteAllNotice();
+                        reslt.clear();
+                    }
+                    if(!last&&list.size()==20){
+                        //防止以前的告警数据造成解析失效
+                        page = pagenumber + 1;
+                    }
 
-        final NoticeResolve noticeResolve = new NoticeResolve(this.getActivity());
-        noticeResolve.getAlarmInforFromHrke(page,new HekrUserAction.GetHekrDataListener() {
-            @Override
-            public void getSuccess(Object object) {
-
-                LOG.I(TAG, "历史告警=============="+object.toString());
-                JSONObject jsonObject = JSONObject.parseObject(object.toString());
-
-                int pageload  = jsonObject.getIntValue("number");
-
-                if(pageload == 0){
-                    noticeDAO.deleteAllNotice();
-                    reslt.clear();
+                    reslt.addAll(list);
+                    noticeDAO.insertNoticeList(list);
+                    historyAdapter.refreshList(reslt);
+                    listView.stopLoadMore();
+                    if(!last&&list.size()==20)        listView.setPullLoadEnable(true);
+                    else listView.setPullLoadEnable(false);
                 }
 
-                boolean last = jsonObject.getBoolean("last");
-
-
-                List<NoticeBean> res2 =  noticeResolve.getJsonArrayResolve(object.toString());
-
-                if(!last&&res2.size()==20){
-                    //防止以前的告警数据造成解析失效
-                    page = pageload + 1;
+                @Override
+                public void getFail(int errorCode) {
+                    listView.stopLoadMore();
+                    if(reslt.size()>0)        listView.setPullLoadEnable(true);
+                    else listView.setPullLoadEnable(false);
                 }
+            });
+        }else {
+            Toast.makeText(HomeFragment.this.getActivity(),getResources().getString(R.string.please_choose_device),Toast.LENGTH_LONG).show();
+        }
 
-                reslt.addAll(res2);
-                noticeDAO.insertNoticeList(res2);
-                historyAdapter.refreshList(reslt);
-                listView.stopLoadMore();
-                if(!last&&res2.size()==20)        listView.setPullLoadEnable(true);
-                else listView.setPullLoadEnable(false);
-            }
-
-            @Override
-            public void getFail(int errorCode) {
-                listView.stopLoadMore();
-                if(reslt.size()>0)        listView.setPullLoadEnable(true);
-                else listView.setPullLoadEnable(false);
-            }
-        });
 
     }
 

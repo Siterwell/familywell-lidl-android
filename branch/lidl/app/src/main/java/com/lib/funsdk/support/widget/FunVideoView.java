@@ -20,6 +20,7 @@ import com.lib.EUIMSG;
 import com.lib.FunSDK;
 import com.lib.IFunSDKResult;
 import com.lib.MsgContent;
+import com.lib.SDKCONST;
 import com.lib.funsdk.support.FunError;
 import com.lib.funsdk.support.FunLog;
 import com.lib.funsdk.support.FunPath;

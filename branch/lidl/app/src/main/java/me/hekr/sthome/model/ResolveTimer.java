@@ -187,7 +187,7 @@ public class ResolveTimer {
     }
 
 
-    public static String getWeekinfo(String week,Context context,UnitTools tools){
+    public static String getWeekinfo(String week,Context context){
 
         try {
             String weektime = "";
@@ -197,13 +197,13 @@ public class ResolveTimer {
 
                 f =   (byte)((0x02 << i) & ds);
                 if(f!=0){
-                    weektime += (context.getResources().getStringArray(R.array.week)[i] + ("zh".equals( tools.readLanguage())?"、":","));
+                    weektime += (context.getResources().getStringArray(R.array.week)[i] + ",");
                 }
             }
             weektime = weektime.substring(0,weektime.length()-1);
 
 
-            return ("zh".equals( tools.readLanguage())?"周":"") + weektime;
+            return weektime;
         }catch (Exception e){
             Log.i(TAG,"week is null");
             return "";

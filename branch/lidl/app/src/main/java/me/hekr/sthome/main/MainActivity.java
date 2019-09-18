@@ -180,18 +180,18 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSION) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                LOG.I(TAG, "[RYAN] permissions[0] = " +  permissions[0]);
-            }
-            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                LOG.I(TAG, "[RYAN] permissions[1] = " +  permissions[1]);
-            }
-            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
-                LOG.I(TAG, "[RYAN] permissions[2] = " +  permissions[2]);
-
-            }
-        }
+//        if (requestCode == REQUEST_PERMISSION) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[0] = " +  permissions[0]);
+//            }
+//            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[1] = " +  permissions[1]);
+//            }
+//            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[2] = " +  permissions[2]);
+//
+//            }
+//        }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -868,6 +868,21 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 LOG.I(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
                 LOG.I(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
                 LOG.I(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
+
+                //刷新主页头部
+                STEvent stEvent = new STEvent();
+                stEvent.setRefreshevent(1);
+                EventBus.getDefault().post(stEvent);
+
+                //刷新主页数据
+                STEvent stEvent2 = new STEvent();
+                stEvent2.setRefreshevent(3);
+                EventBus.getDefault().post(stEvent2);
+
+                //开启搜索局域网服务
+                STEvent stEvent3= new STEvent();
+                stEvent3.setServiceevent(6);
+                EventBus.getDefault().post(stEvent3);
             }
         }
         catch (Exception e){

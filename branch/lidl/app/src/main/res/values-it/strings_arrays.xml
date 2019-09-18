@@ -19,8 +19,8 @@
     <string name="Door_Await">DOOR AWAIT</string>
     <string name="Help">HELP</string>
     <string name="Offline">OFFLINE</string>
-    <string name="Somebody_There">Movimento rilevato</string>
-    <string name="Normal">Nessun movimento rilevato</string>
+    <string name="Somebody_There">Movimento</string>
+    <string name="Normal">Normale</string>
     <string name="Illegal_Encroachment">ILLEGAL ENCROACHMENT</string>
     <string name="Warn_Alarm">WARN ALARM</string>
     <string name="Silence">SILENCE</string>

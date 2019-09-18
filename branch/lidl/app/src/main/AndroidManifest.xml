@@ -23,6 +23,8 @@
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入用户数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <!--<uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />-->
     <!-- 这些权限用于进行二维码扫描 -->
@@ -61,7 +63,7 @@
         <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <activity
-            android:name="com.zbar.lib.CaptureActivity"
+            android:name="com.zbar.lib.ScanCaptureAct"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
@@ -260,7 +262,16 @@
             android:name=".equipment.detail.TempControlDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".equipment.detail.TempControlDetail2Activity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".equipment.detail.TempControlSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".equipment.detail.TempControlTimerListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".equipment.detail.TempControlEditTimerActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".equipment.detail.LampDetailActivity"
@@ -510,6 +521,18 @@
             android:enabled="true"
             android:label="siterwell服务"
             android:exported="true"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.cosa.silvercrest.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
 
         <!-- Fetch Geolocation to address -->
         <service

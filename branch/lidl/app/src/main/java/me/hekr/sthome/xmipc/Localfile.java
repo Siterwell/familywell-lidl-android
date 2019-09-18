@@ -11,6 +11,7 @@ public class Localfile implements Serializable{
     private String filename;
     private String filepath;
     private String modifytime;
+    private String thumbpath;
 
 
     public String getFilename() {
@@ -37,12 +38,21 @@ public class Localfile implements Serializable{
         this.modifytime = modifytime;
     }
 
+    public String getThumbpath() {
+        return thumbpath;
+    }
+
+    public void setThumbpath(String thumbpath) {
+        this.thumbpath = thumbpath;
+    }
+
     @Override
     public String toString() {
         return "Localfile{" +
                 "filename='" + filename + '\'' +
                 ", filepath='" + filepath + '\'' +
                 ", modifytime='" + modifytime + '\'' +
+                ", thumbpath='" + thumbpath + '\'' +
                 '}';
     }
 }
