@@ -27,8 +27,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.igexin.sdk.PushManager;
-import com.igexin.sdk.Tag;
 import com.litesuits.android.log.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -240,30 +238,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initGTService() {
-
-
-        /**
-         * tag setting
-         */
-        if (!TextUtils.isEmpty(HekrSDK.getPid())) {
-            String[] tags = new String[]{HekrSDK.getPid()};
-            Tag[] tagParam = new Tag[tags.length];
-            for (int i = 0; i < tags.length; i++) {
-                Tag t = new Tag();
-                t.setName(tags[i]);
-                tagParam[i] = t;
-            }
-            PushManager.getInstance().setTag(this, tagParam, "100861");
-        }
-        /**
-         * alias setting
-         */
-        if(!TextUtils.isEmpty(CCPAppManager.getUserId())){
-            boolean t = PushManager.getInstance().bindAlias(this, CCPAppManager.getUserId());
-            String abc = t? "设置成功" : "设置失败";
-            LOG.I(TAG,abc+"set alias uid =" + CCPAppManager.getUserId());
-        }
-
         String fcmclientid = FirebaseInstanceId.getInstance().getToken();
         if(!TextUtils.isEmpty(fcmclientid)) {
             LOG.I(TAG, "FCM平台CLIENTID：" + fcmclientid);
@@ -275,34 +249,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             stEvent.setRefreshevent(9);
             stEvent.setFcm_token(fcmclientid);
             EventBus.getDefault().post(stEvent);
-
-            HekrUserAction.getInstance(this).unPushTagBind(PushManager.getInstance().getClientid(this), 0, new HekrUser.UnPushTagBindListener() {
-
-                @Override
-                public void unPushTagBindSuccess() {
-                    LOG.I(TAG, "FCM绑定的同时解绑个推成功");
-                }
-
-                @Override
-                public void unPushTagBindFail(int errorCode) {
-                    LOG.I(TAG, "FCM绑定的同时解绑个推失败");
-                }
-            });
-
         }
-//        else{
-//            String cid = PushManager.getInstance().getClientid(this);
-//            if(!TextUtils.isEmpty(cid)) {
-//                LOG.I(TAG, "个推client id =" + cid);
-//                STEvent stEvent = new STEvent();
-//                stEvent.setRefreshevent(11);
-//                stEvent.setFcm_token(cid);
-//                EventBus.getDefault().post(stEvent);
-//            }else{
-//                LOG.I(TAG, "个推client id为空");
-//            }
-//        }
-
     }
 
     /**
