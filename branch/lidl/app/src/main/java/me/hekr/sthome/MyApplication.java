@@ -11,7 +11,6 @@ import android.os.Process;
 import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
-import com.igexin.sdk.PushManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -20,8 +19,6 @@ import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 import me.hekr.sdk.HekrSDK;
-import me.hekr.sthome.push.GTPushService;
-import me.hekr.sthome.push.RGTIntentService;
 import me.hekr.sthome.service.SiterService;
 import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
@@ -46,12 +43,7 @@ public class MyApplication extends MultiDexApplication {
 //        FunSupport.getInstance().init(getApplicationContext());
         HekrSDK.init(getApplicationContext(), R.raw.config);
         HekrSDK.enableDebug(true);
-        //推送服务初始化
-        PushManager.getInstance().initialize(this.getApplicationContext(), GTPushService.class);
-    // 注册 intentService 后 PushDemoReceiver 无效, sdk 会使用 DemoIntentService 传递数据,
-    // AndroidManifest 对应保留一个即可(如果注册 DemoIntentService, 可以去掉 PushDemoReceiver, 如果注册了
-    // IntentService, 必须在 AndroidManifest 中声明)
-    PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), RGTIntentService.class);
+
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .memoryCacheExtraOptions(80, 80)
                 .denyCacheImageMultipleSizesInMemory()

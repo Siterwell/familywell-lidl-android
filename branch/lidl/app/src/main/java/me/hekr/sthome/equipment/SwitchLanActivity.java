@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.igexin.sdk.PushManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -148,26 +147,7 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
         message.obj = lan;
         message.what = SWITCH_SUCCESS;
         String fcmtoken = FirebaseInstanceId.getInstance().getToken();
-        if(TextUtils.isEmpty(fcmtoken)){
-
-            String token = PushManager.getInstance().getClientid(this);
-            JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-            jsonObject.put("clientId",token);
-            jsonObject.put("locale",lan);
-            jsonObject.put("pushPlatform","GETUI");
-            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekreu.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
-                @Override
-                public void getSuccess(Object object) {
-                    handler.sendMessageDelayed(message,1000);
-                }
-
-                @Override
-                public void getFail(int errorCode) {
-                    handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                }
-            });
-
-        }else{
+        if(!TextUtils.isEmpty(fcmtoken)){
             JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
 
             jsonObject.put("clientId",fcmtoken);
