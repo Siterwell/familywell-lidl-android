@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.igexin.sdk.PushManager;
 
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrCallback;
@@ -170,23 +169,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
                             });
 
                         }
-
-                        String getui = PushManager.getInstance().getClientid(ConfigActivity.this);
-                        if(!TextUtils.isEmpty(getui)){
-
-                            HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(getui, 0, new HekrUser.UnPushTagBindListener() {
-                                @Override
-                                public void unPushTagBindSuccess() {
-                                    Log.i(TAG,"解绑个推成功");
-                                }
-
-                                @Override
-                                public void unPushTagBindFail(int errorCode) {
-                                    Log.i(TAG,"解绑个推失败:"+errorCode);
-                                }
-                            });
-                        }
-
                     }
                 });
                 elc.show();
