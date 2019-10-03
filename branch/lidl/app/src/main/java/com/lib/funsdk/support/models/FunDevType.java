@@ -8,9 +8,9 @@ public enum FunDevType {
 			R.string.dev_type_monitor,
 			R.mipmap.qiangji),
 	// 1, 智能插座
-//	EE_DEV_INTELLIGENTSOCKET(1,
-//			R.string.dev_type_intelligentsocket,
-//			R.mipmap.xmjp_socket),
+	EE_DEV_INTELLIGENTSOCKET(1,
+			R.string.dev_type_intelligentsocket,
+			R.mipmap.qiangji),
 	// 2, 情景灯泡
 //	EE_DEV_SCENELAMP(2,
 //			R.string.dev_type_scenelamp,

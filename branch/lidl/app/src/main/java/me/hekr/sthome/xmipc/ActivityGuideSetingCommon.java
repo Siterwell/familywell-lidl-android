@@ -19,6 +19,7 @@ import com.lib.funsdk.support.models.FunDevice;
 import com.lib.funsdk.support.models.FunLoginType;
 import com.lib.funsdk.support.utils.DeviceConfigType;
 import com.lib.funsdk.support.widget.TimeTextView;
+import com.lib.sdk.bean.JsonConfig;
 import com.lib.sdk.struct.H264_DVR_FILE_DATA;
 
 import java.text.ParseException;
@@ -266,14 +267,9 @@ public class ActivityGuideSetingCommon extends TopbarIpcSuperActivity implements
                      public void onClick(DialogInterface dialog, int which) {
                          if(FunSupport.getInstance().getLoginType()== FunLoginType.LOGIN_BY_AP||
                                  FunSupport.getInstance().getLoginType()== FunLoginType.LOGIN_BY_LOCAL){
-//					onTimeSyn();
-                             Calendar cal = Calendar.getInstance(Locale.getDefault());
-                             String sysTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                                     Locale.getDefault()).format(cal.getTime());
-                             OPTimeSetting devtimeInfo = (OPTimeSetting)mFunDevice.checkConfig(OPTimeSetting.CONFIG_NAME);
-                             devtimeInfo.setmSysTime(sysTime);
                              showWaitDialog();
-                             FunSupport.getInstance().requestDeviceSetConfig(mFunDevice, devtimeInfo);
+                             FunSupport.getInstance().requestSyncSummer(mFunDevice);
+
                          }
                          else{
                              Toast.makeText(ActivityGuideSetingCommon.this, R.string.device_time_in_AP_or_local_mode, Toast.LENGTH_SHORT).show();
@@ -303,6 +299,26 @@ public class ActivityGuideSetingCommon extends TopbarIpcSuperActivity implements
                  break;
 
          }
+    }
+
+    //同步设备时区
+    private void syncDevZone(Calendar calendar) {
+        if (calendar == null) {
+            return;
+        }
+        float zoneOffset = (float) calendar.get(java.util.Calendar.ZONE_OFFSET);
+        float zone = (float) (zoneOffset / 60.0 / 60.0 / 1000.0);// 时区，东时区数字为正，西时区为负
+        FunSupport.getInstance().requestSyncDevZone(mFunDevice, (int) (-zone * 60));
+    }
+
+    //同步设备时间（这个时间同步 设备端如果开启了NTP服务器同步的话，
+    // 这个设置是不起作通的，因为设备会到服务器那边同步时间，
+    // 所以这个时候只需要同步时区就可以了）
+    private void syncDevTime(String sysTime) {
+        OPTimeSetting devtimeInfo = (OPTimeSetting)mFunDevice.checkConfig(OPTimeSetting.CONFIG_NAME);
+        devtimeInfo.setmSysTime(sysTime);
+
+        FunSupport.getInstance().requestDeviceSetConfig(mFunDevice, devtimeInfo);
     }
 
     /**
@@ -358,7 +374,14 @@ public class ActivityGuideSetingCommon extends TopbarIpcSuperActivity implements
             if(OPTimeQuery.CONFIG_NAME.equals(configName)){
                 hideWaitDialog();
                 refreshSystemInfo();
-            }else if(isCurrentUsefulConfig(configName)){
+            }else if(JsonConfig.GENERAL_LOCATION.equals(configName)){
+                Calendar cal = Calendar.getInstance(Locale.getDefault());
+                String sysTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                        Locale.getDefault()).format(cal.getTime());
+                syncDevZone(cal);
+                syncDevTime(sysTime);
+            }
+            else if(isCurrentUsefulConfig(configName)){
                 if (isAllConfigGetted()) {
                     hideWaitDialog();
                 }
