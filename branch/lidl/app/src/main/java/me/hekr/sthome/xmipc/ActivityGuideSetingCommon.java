@@ -36,6 +36,7 @@ import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.MonitorBean;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -270,6 +271,8 @@ public class ActivityGuideSetingCommon extends TopbarIpcSuperActivity implements
                              Calendar cal = Calendar.getInstance(Locale.getDefault());
                              String sysTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
                                      Locale.getDefault()).format(cal.getTime());
+                             LOG.D(TAG, "[XM IPC] sysTime = " + sysTime);
+
                              OPTimeSetting devtimeInfo = (OPTimeSetting)mFunDevice.checkConfig(OPTimeSetting.CONFIG_NAME);
                              devtimeInfo.setmSysTime(sysTime);
                              showWaitDialog();
@@ -325,6 +328,7 @@ public class ActivityGuideSetingCommon extends TopbarIpcSuperActivity implements
                     .getConfig(OPTimeQuery.CONFIG_NAME);
             if (null != showDevtimeQuery) {
                 String mOPTimeQuery = showDevtimeQuery.getOPTimeQuery();
+                LOG.D(TAG, "[XM IPC] mOPTimeQuery = " + mOPTimeQuery);
                 timeTextView.setText(mOPTimeQuery);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date;
