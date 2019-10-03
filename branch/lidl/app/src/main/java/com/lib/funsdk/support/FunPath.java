@@ -1,6 +1,11 @@
 package com.lib.funsdk.support;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 
@@ -9,10 +14,6 @@ import com.lib.funsdk.support.utils.FileDataUtils;
 import com.lib.funsdk.support.utils.StringUtils;
 import com.lib.sdk.struct.H264_DVR_FILE_DATA;
 import com.lib.sdk.struct.SDK_SYSTEM_TIME;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class FunPath {
@@ -43,6 +44,7 @@ public class FunPath {
 	
 	public static String PATH_LOCAL_DEVICE_PASSWORD; //库函数实现本地保存密码路径
 	public static String PATH_DEVICE_UPDATE_FILE_PATH; //设备升级文件保存路径
+	public static String PATH_DEVICE_CONFIG_PATH; //保存SDK相关配置文件路径
 	
 	public static void init(Context context, String rootDirName) {
 		DEFAULT_PATH = getMediaPath(context) 
@@ -72,6 +74,7 @@ public class FunPath {
 		
 		PATH_LOCAL_DEVICE_PASSWORD = DEFAULT_PATH + "ConfigPath/password.txt";
 		PATH_DEVICE_UPDATE_FILE_PATH = DEFAULT_PATH + "UpgradeFiles/";
+		PATH_DEVICE_CONFIG_PATH = DEFAULT_PATH + "devSDK/";
 		
 		onCreatePath();
 	}
@@ -302,7 +305,7 @@ public class FunPath {
 	public static String getAutoCapturePath(String devid){
 
 		File file = new File(FunPath.PATH_CAPTURE_TEMP + File.separator +  devid);
-        //判断文件夹是否存在,如果不存在则创建文件夹
+		//判断文件夹是否存在,如果不存在则创建文件夹
 		if (!file.exists()) {
 			file.mkdir();
 		}
@@ -310,11 +313,18 @@ public class FunPath {
 		return FunPath.PATH_CAPTURE_TEMP + File.separator + devid + File.separator + devid + ".jpg";
 	}
 
-    public static String getTempPicPath(){
+
+	public static String getTempPicPath(){
         return FunPath.PATH_PHOTO + File.separator + "temp" + ".jpg";
     }
 
-    public static String getRecordPath(String devid) {
+    public static String getRecordPath() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String strDate = sdf.format(new Date());
+        return FunPath.PATH_VIDEO + File.separator + strDate + ".mp4";
+    }
+
+	public static String getRecordPath(String devid) {
 
 
 		File file = new File(FunPath.PATH_VIDEO + File.separator +  devid);
@@ -323,17 +333,21 @@ public class FunPath {
 			file.mkdir();
 		}
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String strDate = sdf.format(new Date());
-        return FunPath.PATH_VIDEO + File.separator + devid + File.separator + strDate + ".mp4";
-    }
-    
-    public static String getConfigPassword() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String strDate = sdf.format(new Date());
+		return FunPath.PATH_VIDEO + File.separator + devid + File.separator + strDate + ".mp4";
+	}
+
+
+	public static String getConfigPassword() {
     	return PATH_LOCAL_DEVICE_PASSWORD;
     }
     
     public static String getDeviceUpdatePath(){
     	return PATH_DEVICE_UPDATE_FILE_PATH;
     }
+    public static String getDeviceConfigPath(){
+    	return PATH_DEVICE_CONFIG_PATH;
+    }   
 }
 
