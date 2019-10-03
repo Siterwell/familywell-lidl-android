@@ -6,8 +6,9 @@ public enum FunDevStatus {
 
 	STATUS_UNKNOWN(0, R.string.device_stauts_unknown),
 	STATUS_ONLINE(1, R.string.device_stauts_online),
-	STATUS_OFFLINE(2, R.string.device_stauts_offline);
-	
+	STATUS_OFFLINE(2, R.string.device_stauts_offline),
+	STATUS_SLEEP(3,R.string.device_stauts_offline),
+	STATUS_CAN_NOT_WAKE_UP(4,R.string.device_stauts_offline);
 	private int mStatusId;
 	private int mStatusResId;
 	
