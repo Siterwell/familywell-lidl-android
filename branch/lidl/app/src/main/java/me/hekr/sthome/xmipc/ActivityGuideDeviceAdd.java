@@ -3,6 +3,7 @@ package me.hekr.sthome.xmipc;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;
@@ -15,7 +16,7 @@ import me.hekr.sthome.service.NetWorkUtils;
 public class ActivityGuideDeviceAdd extends TopbarIpcSuperActivity implements View.OnClickListener{
 
     private LinearLayout linearLayout_add_new,linearLayout_add_share,linearLayout_add_local;
-
+    private TextView textView;
 
     @Override
     protected void onCreateInit() {
@@ -25,6 +26,8 @@ public class ActivityGuideDeviceAdd extends TopbarIpcSuperActivity implements Vi
         linearLayout_add_new = (LinearLayout)findViewById(R.id.add_new_ipc);
         linearLayout_add_share = (LinearLayout)findViewById(R.id.add_share_ipc);
         linearLayout_add_local=(LinearLayout)findViewById(R.id.add_local_ipc);
+        textView = (TextView)findViewById(R.id.aaa);
+        textView.setSelected(true);
         linearLayout_add_new.setOnClickListener(this);
         linearLayout_add_share.setOnClickListener(this);
         linearLayout_add_local.setOnClickListener(this);

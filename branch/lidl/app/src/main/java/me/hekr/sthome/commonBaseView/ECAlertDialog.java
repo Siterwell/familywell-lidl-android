@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -112,6 +111,22 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
                                            OnClickListener negativeClickListener,
                                            OnClickListener positive) {
         return buildAlert(ctx, ctx.getString(message), ctx.getString(leftBtnText), ctx.getString(rightText), negativeClickListener, positive);
+    }
+
+    public static ECAlertDialog buildAlert(Context ctx, CharSequence message,
+
+                                           CharSequence leftBtnText,
+                                           CharSequence middleBtnText,
+                                           CharSequence rightBtnText,
+                                           OnClickListener negativeClickListener,
+                                           OnClickListener neutralClickListener,
+                                           OnClickListener positive) {
+        ECAlertDialog dialog = new ECAlertDialog(ctx);
+        dialog.setMessage(message);
+        dialog.setButton(BUTTON_NEGATIVE, leftBtnText, negativeClickListener);
+        dialog.setButton(BUTTON_NEUTRAL, middleBtnText, neutralClickListener);
+        dialog.setButton(BUTTON_POSITIVE, rightBtnText, positive);
+        return dialog;
     }
 
     /**
@@ -385,4 +400,7 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
         }
     }
 
+    public void setButtonHidden(){
+        mLayoutButton.setVisibility(View.GONE);
+    }
 }

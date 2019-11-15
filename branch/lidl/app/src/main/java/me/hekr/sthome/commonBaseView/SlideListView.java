@@ -2,7 +2,6 @@ package me.hekr.sthome.commonBaseView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -11,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Scroller;
 
 import me.hekr.sthome.R;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 
@@ -146,7 +146,7 @@ public class SlideListView extends ListView {
 				break;
 			case MotionEvent.ACTION_MOVE:
 				System.out.println("touch-->" + "move");
-                Log.i("ceshi","canMove"+canMove);
+                LOG.I("ceshi","canMove"+canMove);
 				if (!canMove
 						&& slidePosition != AdapterView.INVALID_POSITION
 						&& (Math.abs(ev.getX() - downX) > mTouchSlop && Math.abs(ev

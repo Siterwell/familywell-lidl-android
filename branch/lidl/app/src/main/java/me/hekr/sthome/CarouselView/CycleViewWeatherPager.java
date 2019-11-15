@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,10 +22,7 @@ import java.util.List;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.Weatherlinearlayout;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
-import me.hekr.sthome.model.modelbean.MonitorBean;
 import me.hekr.sthome.model.modelbean.WeatherInfoBean;
-import me.hekr.sthome.tools.NameSolve;
 
 
 /**
@@ -87,7 +83,7 @@ public class CycleViewWeatherPager extends FrameLayout implements OnPageChangeLi
 		View view = LayoutInflater.from(context).inflate(
 				R.layout.view_cycle_viewpager_contet, null);
 
-		viewPager = (BaseViewPager) view.findViewById(R.id.viewPager);
+		viewPager = (BaseViewPager) view.findViewById(R.id.viewpager_ipc);
 		viewPager.setOffscreenPageLimit(1);
 		indicatorLayout = (LinearLayout) view
 				.findViewById(R.id.layout_viewpager_indicator);

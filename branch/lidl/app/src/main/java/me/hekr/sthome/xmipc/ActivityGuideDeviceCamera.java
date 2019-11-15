@@ -1,6 +1,7 @@
 package me.hekr.sthome.xmipc;
 
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -166,6 +169,7 @@ public class ActivityGuideDeviceCamera
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_device_camera);
+		initPermission();
 		systemTintManager = new SystemTintManager(this);
 		String dvid = getIntent().getStringExtra("FUN_DEVICE_ID");
 		String dvname = getIntent().getStringExtra("FUN_DEVICE_NAME");
@@ -1912,5 +1916,54 @@ public class ActivityGuideDeviceCamera
 
 	}
 
+
+	private void initPermission() {
+		parseManifests();
+		PackageManager pkgManager = getPackageManager();
+
+		// read phone state用于获取 imei 设备信息
+		boolean maikePermission =
+				pkgManager.checkPermission(Manifest.permission.RECORD_AUDIO, getPackageName()) == PackageManager.PERMISSION_GRANTED;
+
+		if ( !maikePermission ) {
+			requestPermission();
+		}else{
+
+
+		}
+
+
+	}
+	private static final int REQUEST_PERMISSION = 0;
+	private void requestPermission() {
+		ActivityCompat.requestPermissions(this, new String[] {android.Manifest.permission.RECORD_AUDIO},
+				REQUEST_PERMISSION);
+	}
+	private void parseManifests() {
+		String packageName = getApplicationContext().getPackageName();
+		try {
+			android.content.pm.ApplicationInfo appInfo = getPackageManager().getApplicationInfo(packageName, PackageManager.GET_META_DATA);
+			if (appInfo.metaData != null) {
+				String appid = appInfo.metaData.getString("PUSH_APPID");
+				String appsecret = appInfo.metaData.getString("PUSH_APPSECRET");
+				String appkey = appInfo.metaData.getString("PUSH_APPKEY");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		if (requestCode == REQUEST_PERMISSION) {
+
+
+
+		} else {
+			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		}
+
+	}
 
 }

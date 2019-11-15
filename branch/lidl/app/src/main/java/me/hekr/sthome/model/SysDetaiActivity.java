@@ -349,7 +349,7 @@ public class SysDetaiActivity extends TopbarSuperActivity {
 
                 if(TextUtils.isEmpty(getTopBarView().getEditTitleText())){
                     clickNum = -1;
-                }else if(getTopBarView().getEditTitleText().getBytes("GBK").length>15){
+                }else if(getTopBarView().getEditTitleText().getBytes("UTF-8").length>15){
                     Toast.makeText(SysDetaiActivity.this,getResources().getString(R.string.name_is_too_long),Toast.LENGTH_LONG).show();
                     clickNum = -2;
                 }  else if(getTopBarView().getEditTitleText().indexOf("@")!=-1||getTopBarView().getEditTitleText().indexOf("$")!=-1){

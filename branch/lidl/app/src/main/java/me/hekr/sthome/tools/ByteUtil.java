@@ -1,10 +1,10 @@
 package me.hekr.sthome.tools;
 
 
-import android.util.Log;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
+
+import me.hekr.sthome.crc.CoderUtils;
 
 /**
  * In Java, it don't support unsigned int, so we use char to replace uint8.
@@ -571,7 +571,7 @@ public class ByteUtil {
 				ret[i] = uniteBytes(src.substring(i * 2, m), src.substring(m, n));
 			}
 		}catch (Exception e){
-               Log.i("ceshi","格式 err");
+               LOG.I("ceshi","格式 err");
 		}
 
 		return ret;
@@ -585,6 +585,70 @@ public class ByteUtil {
 		int output = 65536 + a ;
 		byte ds = (byte)output;
 		return ds;
+	}
+
+	public static byte[] getAllEncryption(String input){
+
+		int x=(int)(Math.random()*256);
+		String s = input;
+		String aa = CoderUtils.getAscii2(s);
+
+		byte[] bb = new byte[aa.length()/2+1];
+		bb[0] = (byte)x;
+		for(int i=0;i<aa.length()/2;i++){
+			String a = aa.substring(2*i,2*i+2);
+			int b1 = (x)^(0x23)^(Integer.parseInt(a,16));
+			bb[i+1] = (byte)b1;
+		}
+		return bb;
+	}
+
+	public static String getAllDescryption(String input){
+
+
+
+		try {
+			int random = Integer.parseInt(input.substring(0,2),16);
+
+			String re = input.substring(2);
+			StringBuffer buffer = new StringBuffer("");
+			for(int i=0;i<re.length()/2;i++){
+				int  a1 = Integer.parseInt(input.substring(2*i,2*i+2),16);
+				int a = random ^ 0x23 ^ a1;
+
+				String v = a<16?("0"+Integer.toHexString(a)):(Integer.toHexString(a));
+				buffer.append(v);
+			}
+			return buffer.toString();
+		}catch (Exception e){
+			return "";
+		}
+
+
+	}
+
+
+	public static String getAllDescryption(byte[] input){
+
+
+
+		try {
+			int random = input[0];
+
+			StringBuffer buffer = new StringBuffer("");
+			for(int i=1;i<input.length;i++){
+				int  a1 = input[i];
+				int a = random ^ 0x23 ^ a1;
+
+				String v = a<16?("0"+Integer.toHexString(a)):(Integer.toHexString(a));
+				buffer.append(v);
+			}
+			return buffer.toString();
+		}catch (Exception e){
+			return "";
+		}
+
+
 	}
 
 	public static void main(String args[]) {

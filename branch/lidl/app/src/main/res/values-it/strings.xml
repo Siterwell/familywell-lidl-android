@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <string name="app_name">SilverCrest Alarm</string>
    <string name="btnConfirmTitle">CONNETTI</string>
    <string name="config_instruction">Tieni premuto il pulsante per la modalità network cinque secondi dopo aver inserito il connettore.</string>
    <string name="how_to_config">Assicurarsi che la luce blu del connettore lampeggi e poi premere "passaggio successivo".</string>
@@ -24,7 +23,7 @@
    <string name="connect_alert">Connettore attuale:</string>
    <string name="connect_equipment_alert">Per favore scegli il connettore</string>
    <string name="please_input_complete">Completa l’ingresso</string>
-   <string name="password_length">La password deve contenere almeno 6 caratteri!</string>
+   <string name="password_length">La password deve contenere almeno 10 caratteri!</string>
    <string name="password_two_different">La password inserita non corrisponde</string>
    <string name="name_hint">E-mail</string>
    <string name="password_hint">Inserisci password</string>
@@ -93,7 +92,7 @@
    <string name="all_condition_hint_one">Se aggiungi condizioni multiple, tutte devono essere soddisfatte per eseguire le azioni;</string>
    <string name="all_condition_hint_two">Se aggiungi solamente una condizioni di partenza, le azioni saranno eseguite quando la condizione è soddisfatta;</string>
    <string name="all_condition_hint_three">Se non capisci questa funzione selezione l’opzione di default o contattaci.</string>
-   <string name="my_scene">My_Scene_</string>
+   <string name="my_action">La mia azione</string>
    <string name="name_is_null">Il nome non può essere vuoto</string>
    <string name="name_is_repeat">Nome duplicato</string>
    <string name="name_is_too_long">Il nome è troppo lungo</string>
@@ -116,7 +115,7 @@
    <string name="set_weekday">Per favore imposta il giorno della settimana</string>
    <string name="set_delay">Imposta ripetizione</string>
    <string name="manage">Gestisci</string>
-   <string name="offline">Offline</string>
+   <string name="offline">OFFLINE</string>
    <string name="alarm">Sveglia</string>
    <string name="lowvolt_alarm">Avviso del basso livello della batteria</string>
    <string name="help">Aiuto</string>
@@ -127,8 +126,8 @@
    <string name="emergency_call">Chiamata d’emergenza</string>
    <string name="call">CHIAMATA</string>
    <string name="update_name">Aggiornamento nome</string>
-   <string name="door_open">Porta aperta</string>
-   <string name="door_still_open">La porta è aperta</string>
+   <string name="door_open">Ha aperto</string>
+   <string name="door_still_open">Rimane aperto</string>
    <string name="Illegal_demolition">Rimozione non permessa</string>
    <string name="has_been_moved">è stato spostato</string>
    <string name="has_people">Azionatore</string>
@@ -229,7 +228,7 @@
    <string name="other_gateway">Altro connettore</string>
    <string name="receive_one_notice">Hai ricevuto un messaggio d’allarme, controlla</string>
    <string name="save">Salva</string>
-   <string name="no_save">Non salvare </string>
+   <string name="no_save">Non salvare</string>
    <string name="on_line">(Online)</string>
    <string name="off_line">(Offline)</string>
    <string name="btn_silence">silenzioso</string>
@@ -291,7 +290,7 @@
    <string name="device_setup_record_mode">Modalità di registrazione</string>
    <string name="device_setup_exposure_time">Tempo di esposizione</string>
    <string name="device_setup_scene_mode">Modalità di scena</string>
-   <string name="device_setup_electronic_slow_shutter">Oscuratore automatico elettronico </string>
+   <string name="device_setup_electronic_slow_shutter">Oscuratore automatico elettronico</string>
    <string name="device_setup_electronic_slow_shutter_prompt">In un ambiente a luce bassa, migliora la luminosità dello schermo. Questo può causare evanescenza nell’immagine dinamica.</string>
    <string name="device_setup_color_mode">Modalità colore</string>
    <string name="device_setup_record_audio">Registrazione audio</string>
@@ -344,7 +343,7 @@
    <string name="monitor_manage">Gestione schermo</string>
    <string name="confirm_delete_monitor">Sei sicuro di voler cancellare lo schermo?</string>
    <string name="please_choose_mode">Seleziona modalità interruttore</string>
-   <string name="timer_list">Timer</string>
+   <string name="timer_list">Panoramica del timer</string>
    <string name="please_choose_switch_time">Seleziona tempo interruttore</string>
    <string name="edit_timer">Modifica timer</string>
    <string name="switch_to">A</string>
@@ -395,8 +394,7 @@
    <string name="success_add">Aggiunta con successo</string>
    <string name="temp_or_hum">Azionatore temperatura o azionatore umidità</string>
    <string name="trigger_style">Stile azionatore</string>
-   <string name="server_intro">1. La conferma e l’accettazione dei termini del servizio \ nI contenuti su questo sito Web e dell’app sono di proprietà di CoSa Connects BV. Gli utenti devono leggere attentamente i termini e le condizioni prima di accettare. Gli utenti che utilizzano il servizio o le persone che hanno completato il processo di registrazione accettano tutti i termini del servizio. \ N2. Gli utenti accettano di: \ n (1) fornire informazioni personali dettagliate e accurate. \ N (2) aggiornare continuamente le informazioni di registrazione e soddisfare i requisiti. \ NSe le informazioni fornite dall’utente sono imprecise, questo sito web ha il diritto di terminare servizio. \ nQuesto sito Web e app non rivelano il nome, l’indirizzo, l’indirizzo e-mail, il numero di account, il numero di telefono o altre informazioni degli utenti (consultare la clausola sulla privacy). \ nGli utenti di questo sito e di questa applicazione devono rispettare quanto segue: \ n (1) La trasmissione dei dati deve essere conforme ai regolamenti dell’UE. \ n (2) L’uso dei servizi di informazione non può essere illegale o immorale. \ n (3) Non interferire con il servizio di rete. \ n (4 ) Rispettare tutti i protocolli, le regole, le procedure e le pratiche di rete per l’utilizzo dei servizi. Il codice di condotta dell’utente si basa su regolamenti, politiche, procedure e pratiche su Internet. \ N3, Modifica dei termini di servizio \ nQuesto sito Web e le app hanno il diritto di modificare i termini di servizio se necessario. Qualsiasi modifica sarà pubblicata sulla pagina. \ nSe non si accettano queste modifiche, l’utente può decidere di annullare l’iscrizione. Non annullando, l’utente accetta le modifiche ai termini del servizio. \ N4, Il numero dell’account utente, la password e la sicurezza \ nUna volta registrata con successo come membro, avrai una password e un nome utente.</string>
-   <string name="about_app">Il sistema SilverCrest Alarm consiste di due parti principali: il connettore e i dispositivi smart. Il connettore, un componente chiave del sistema, comunica con i dispositivi smart utilizzando una tecnologia di comunicazione RG e si collega alla tua rete WiFi per comunicare con un server cloud e poi all’app sul tuo smartphone tramite Internet. Il sistema, in questo modo, ti permette di utilizzare il tuo smartphone come centro comandi per controllare, monitorare e configurare diverse funzioni, incluse la creazione di scene, aggiungere e cancellare componenti, armare e disarmare, ricevere notifiche immediate quando gli allarmi entrano in funzione e altre operazioni personalizzate. I dispositivi smart nel sistema includono i seguenti dispositivi che possono essere scelti a seconda dei tuoi bisogni: rilevatore di fumo, rilevatore di gas, rilevatore di movimenti PIR, pulsanti d’emergenza, prese smart, sensori della temperatura e umidità e così via. La lista dei dispositivi nel SilverCrest Connects viene aggiornata continuamente, le camere di rete, i blocchi alle porte, i pannelli di campo, i pannelli delle prese, i purificatori d’aria, le valvole dell’acqua elettromagnetiche e altro sarà presto disponibile!</string>
+   <string name="about_app">"Il sistema di allarme BASE è costituito da due parti: il connettore e i dispositivi intelligenti. Il connettore, la parte principale del sistema, comunica con i dispositivi intelligenti tramite la tecnologia di comunicazione RF e utilizza la rete Wi-Fi per entrare in contatto con un server cloud e da lì con l'app sullo smartphone. Il sistema consente quindi di utilizzare lo smartphone come centro di comando per operazioni, monitoraggio e altre operazioni personalizzate. Si possono scegliere i seguenti dispositivi intelligenti in base alle proprie esigenze: rilevatori di fumo, rilevatori di gas, rilevatori di acqua, contatti porte / finestre, rilevatori di movimento PIR, pulsanti di emergenza, interruttori intelligenti, sensori di temperatura e umidità, ecc. L'elenco dei dispositivi nel sistema BASE viene continuamente aggiornato; telecamere di rete, serrature per porte, quadri elettrici, filtri aria intelligenti, valvole elettromagnetiche per l'acqua e molto altro ancora sarà presto disponibile!"</string>
    <string name="modebutton_ins">Pulsante scorciatoia scena</string>
    <string name="input_exist">Non può avere dispositivi input duplicati</string>
    <string name="output_exist">Dispositivi output adiacenti non possono essere ripetuti</string>
@@ -472,7 +470,7 @@
    <string name="gps_phone">GPS per dispositivo mobile</string>
    <string name="re_login">Effettua nuovamente l’accesso</string>
    <string name="temp_controler">Termostato</string>
-   <string name="firewarm_to_update">Connettore ha una nuova versione firmware disponibile: %1$s, vuoi aggiornare?</string>
+   <string name="firewarm_to_update">Aggiornamenti disponibili, fanno si desidera aggiornare?</string>
    <string name="now_not_to_update">Non ora</string>
    <string name="fireware_is_updating">Il firmware si sta aggiornando, si prega di attendere…</string>
    <string name="dimming_module">Modulo regolabile</string>
@@ -513,9 +511,34 @@
    <string name="door_default_scene_hint">Scena predefinita: allarme e notifica push quando si apre un contatto magnetico</string>
    <string name="old_man_default_scene_hint">Scena standard: notifica push e bip del connettore su Nessun movimento per 5 ore</string>
    <string name="alert_elder_care">Per l’assistenza agli Anziani</string>
-   <string name="three_zifu">Password deve contenere le Lettere maiuscole, minuscole Lettere, CIFRE, almeno tre di carattere PARTICOLARE.</string>
+   <string name="three_zifu">Password devono contenere almeno tre delle lettere maiuscole e minuscole, numeri / caratteri speciali.</string>
    <string name="config_fail_reason">Le ragioni del fallimento della Rete di Distribuzione</string>
    <string name="click_check_firemare">Vista l’aggiornamento Firmware</string>
    <string name="view_yinsi">Vista la Privacy del protocollo</string>
    <string name="fireware_is_lastest">Il firmware è aggiornato</string>
+   <string name="gateway_version">Versione del server</string>
+   <string name="is_upgrading">Aggiornamento...</string>
+   <string name="success_upgrade">Aggiornamento del firmware riuscito!</string>
+   <string name="fail_upgrade">Aggiornamento non riuscito</string>
+   <string name="delete_condition">Are you sure you want to delete this condition?</string>
+   <string name="delete_action">Are you sure you want to delete this action?</string>
+   <string name="firmware_upgrade_info">Important: this update strongly changes the functionality of your system. Click on “Information” below to see what changes will be made. After the update you need to reconnect the devices.</string>
+   <string name="faq">Frequently asked questions (FAQ)</string>
+   <string name="delete_timer">Sei sicuro di voler cancellare questo timer?</string>
+   <string name="successfully_deleted">Eliminato con successo</string>
+   <string name="wireless_config">IL Wi-Fi!</string>
+   <string name="gs361_install_construction">Per favore, il termostato montato a valvole, E POI ancora una Volta premuto il pulsante per completare l’installazione.</string>
+   <string name="reset_progress">ripristino dispositivo, non spegnere</string>
+   <string name="permission_reject_camera_tip">Le attuali applicazioni mancano di privilegi fotografici.Fare clic su "Impostazioni"- "Permessi"- per aprire i permessi richiesti.</string>
+   <string name="permission_reject_location_tip">L’applicazione corrente manca di autorizzazione di posizione e non può configurare WIFI. Per favore imposta l’autorizzazione necessaria per aprirlo.</string>
+   <string name="permission_reject_imei_tip">Senza il permesso di lettura e scrittura della scheda SD, influenzerà l’uso delle funzioni della fotocamera APP, si prega di aprire il permesso di archiviazione</string>
+   <string name="permission_reject_write_local_tip">Senza il permesso di lettura e scrittura della scheda SD, influenzerà l’uso delle funzioni della fotocamera APP, si prega di aprire il permesso di archiviazione</string>
+   <string name="permission_reject_location_service_tip">Si prega di aprire il servizio di localizzazione, altrimenti non è possibile configurare WIFI</string>
+   <string name="permission_register">Domanda di autorità</string>
+   <string name="goto_set">Come impostare</string>
+   <string name="file_is_exist">il file esiste già</string>
+   <string name="look">Vedi?</string>
+   <string name="success_download">Scarica riuscita</string>
+   <string name="hint">Questioni che richiedono attenzione</string>
+   <string name="get_more">Ottenere ulteriori informazioni sul dispositivo</string>
 </resources>

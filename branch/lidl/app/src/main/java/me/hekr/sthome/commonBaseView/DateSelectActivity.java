@@ -1,25 +1,17 @@
 package me.hekr.sthome.commonBaseView;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lib.funsdk.support.FunError;
 import com.lib.funsdk.support.FunSupport;
 import com.lib.funsdk.support.OnFunDeviceOptListener;
-import com.lib.funsdk.support.OnFunDeviceRecordListener;
 import com.lib.funsdk.support.config.DevCmdOPSCalendarInMonth;
-import com.lib.funsdk.support.config.OPTimeQuery;
-import com.lib.funsdk.support.models.FunDevRecordFile;
 import com.lib.funsdk.support.models.FunDevice;
 import com.lib.sdk.struct.H264_DVR_FILE_DATA;
-import com.lib.sdk.struct.SDK_SearchByTime;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;

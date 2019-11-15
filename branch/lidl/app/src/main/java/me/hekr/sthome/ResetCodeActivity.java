@@ -1,30 +1,33 @@
 package me.hekr.sthome;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.litesuits.common.assist.Toastor;
 
+import me.hekr.sdk.Constants;
+import me.hekr.sdk.Hekr;
+import me.hekr.sdk.inter.HekrCallback;
+import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.CodeEdit;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
+import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.commonBaseView.VerfyDialog;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.http.bean.UserBean;
+import me.hekr.sthome.tools.LOG;
+import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
 public class ResetCodeActivity extends TopbarSuperActivity implements View.OnClickListener{
+    private static final String TAG = ResetCodeActivity.class.getSimpleName();
+
     private EditText et_phone, et_code,et_email;
     private CodeEdit codeEdit,codeEdit_firm;
     private Button btn_get_code, btn_register;
@@ -34,6 +37,7 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
     private LinearLayout liner_phone,liner_email;
     private int type = 1; //1代表手机 2代表邮箱
 
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreateInit() {
@@ -139,14 +143,17 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit_firm.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(pwd)) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
-                            reset(phone, pwd, code);
-
+                            if(PasswordPattern.matchs(pwd)){
+                                reset(phone, pwd, code);
+                            }else {
+                                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+                            }
                         }
 
 
@@ -159,14 +166,17 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(email) ) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
-                            resetByEmail(email,pwd,code);
-
+                            if(PasswordPattern.matchs(pwd)){
+                                resetByEmail(email, pwd, code);
+                            }else {
+                                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+                            }
                         }
                     }
                     else{
@@ -200,9 +210,53 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
     }
 
     private void resetByEmail(final String email,final String pwd,final String code) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setPressText(getResources().getString(R.string.wait));
+        progressDialog.show();
+
         hekrUserAction.resetPwdByEmail(email,code,pwd, new HekrUser.ResetPwdListener() {
             @Override
             public void resetSuccess() {
+                LOG.V(TAG, "resetByEmail > success");
+                autoLoginForUnbindPush(email, pwd);
+            }
+
+            @Override
+            public void resetFail(int errorCode) {
+                LOG.V(TAG, "resetByEmail > fail");
+                showError(errorCode);
+                progressDialog.dismiss();
+            }
+        });
+
+    }
+
+    private void autoLoginForUnbindPush(final String email, final String password) {
+        Hekr.getHekrUser().login(email, password, new HekrCallback() {
+            @Override
+            public void onSuccess() {
+                LOG.V(TAG, "autoLoginForUnbindPush > success");
+
+                UserBean userBean = new UserBean(email, password, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
+                HekrUserAction.getInstance(ResetCodeActivity.this).setUserCache(userBean);
+
+                unbindAllPush();
+            }
+
+            @Override
+            public void onError(int errorCode, String message) {
+                LOG.V(TAG, "autoLoginForUnbindPush > fail");
+                progressDialog.dismiss();
+                finish();
+            }
+        });
+    }
+
+    private void unbindAllPush() {
+        HekrUserAction.getInstance(this).unbindAllPush(new HekrUser.PushTagBindListener() {
+            @Override
+            public void pushTagBindSuccess() {
+                LOG.V(TAG, "unbindAllPush > success");
                 ECAlertDialog D = ECAlertDialog.buildPositiveAlert(ResetCodeActivity.this, R.string.success_reset, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -213,11 +267,12 @@ public class ResetCodeActivity extends TopbarSuperActivity implements View.OnCli
             }
 
             @Override
-            public void resetFail(int errorCode) {
-                showError(errorCode);
+            public void pushTagBindFail(int errorCode) {
+                LOG.V(TAG, "unbindAllPush > fail");
+                progressDialog.dismiss();
+                finish();
             }
         });
-
     }
 
     private void showError(int errorCode) {

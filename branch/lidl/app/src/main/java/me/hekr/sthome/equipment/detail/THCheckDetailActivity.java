@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,17 +38,8 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/10/9.
  */
-public class THCheckDetailActivity extends AppCompatActivity {
+public class THCheckDetailActivity extends AbstractDetailActivity {
     private static final String TAG = "THcheckDetail";
-    private ImageView signal,quatity,deviceLogo;
-    private TextView operation,emergencyCall,showStatus;
-    private EquipmentBean device;
-    private EquipDAO ED;
-    private ImageView back_img;
-    private TextView  edt_txt,eq_name,battay_text;
-    private LinearLayout root;
-    private ECAlertDialog alertDialog;
-    private SendEquipmentData sd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -143,7 +132,7 @@ public class THCheckDetailActivity extends AppCompatActivity {
                                         if(!TextUtils.isEmpty(newname)){
 
                                             try {
-                                                if(newname.getBytes("GBK").length<=15){
+                                                if(newname.getBytes("UTF-8").length<=15){
                                                     if(!EmojiFilter.containsEmoji(newname)) {
                                                         alertDialog.setDismissFalse(true);
                                                         eq_name.setText(newname);
@@ -190,23 +179,23 @@ public class THCheckDetailActivity extends AppCompatActivity {
                 ecListDialog.show();
             }
         });
-        root = (LinearLayout)findViewById(R.id.root);
+        root = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
             root.setPadding(0,top,0,0);
         }
-        showStatus = (TextView) findViewById(R.id.showStatus);
-        signal = (ImageView) findViewById(R.id.signalPosition);
-        quatity = (ImageView) findViewById(R.id.quantityPosition);
-        deviceLogo = (ImageView) findViewById(R.id.devicePosition);
+        showStatus = findViewById(R.id.showStatus);
+        signal = findViewById(R.id.signalPosition);
+        quatity = findViewById(R.id.quantityPosition);
+        deviceLogo = findViewById(R.id.devicePosition);
         deviceLogo.setImageResource(R.drawable.detail11);
-        operation = (TextView) findViewById(R.id.operation);
+        operation = findViewById(R.id.operation);
         operation.setText("T");
         operation.setVisibility(View.VISIBLE);
-        emergencyCall = (TextView) findViewById(R.id.emergencyCall);
+        emergencyCall = findViewById(R.id.emergencyCall);
         emergencyCall.setText("H");
-        eq_name = (TextView)findViewById(R.id.eq_name);
+        eq_name = findViewById(R.id.eq_name);
         eq_name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         eq_name.setSelected(true);
         eq_name.setFocusable(true);
@@ -217,6 +206,8 @@ public class THCheckDetailActivity extends AppCompatActivity {
         }else{
             eq_name.setText(device.getEquipmentName());
         }
+
+        initLogHistoryDrawer();
 
         doStatusShow(device.getState());
         showBattery();
@@ -235,7 +226,8 @@ public class THCheckDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
         try {
             root.setBackgroundColor(getResources().getColor(R.color.device_normal));
             showStatus.setTextColor(getResources().getColor(R.color.device_normal));

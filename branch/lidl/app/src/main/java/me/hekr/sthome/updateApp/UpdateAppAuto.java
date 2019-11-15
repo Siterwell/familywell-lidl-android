@@ -10,25 +10,32 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.File;
 import java.io.IOException;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import me.hekr.sthome.BuildConfig;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.SettingItem;
-import me.hekr.sthome.http.HekrUser;
-import me.hekr.sthome.http.SiterHttpUtil;
 import me.hekr.sthome.service.NetWorkUtils;
-import me.hekr.sthome.service.SiterService;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * ClassName:UpdateAppAuto
@@ -37,7 +44,7 @@ import me.hekr.sthome.tools.ECPreferences;
  * 描述:自动更新，HTT访问服务器地址文件中的版本号大小，与APP的版本号进行比较，若大于本地版本则弹出对话框
  */
 public class UpdateAppAuto {
-    private final String TAG = "UpdateAppAuto";
+    private final String TAG = UpdateAppAuto.class.getSimpleName();
     private Context context;
     private Handler handlerUpdate;
     private final static int DOWN_UPDATE = 11;
@@ -162,59 +169,78 @@ public class UpdateAppAuto {
         context.startActivity(intent);
     }
 
-    public void getUpdateInfo(){
-//        String appname =  context.getPackageName();
-//        Log.i(TAG,"appname:"+appname);
-//        Config.getUpdateInfo(context, new HekrUser.LoginListener() {
-//            @Override
-//            public void loginSuccess(String str) {
-//                try {
-//                    JSONObject object = new JSONObject(str);
-//                    int code = object.getInt("code");
-//                    String name = object.getString("name");
-//                    Config.UpdateInfo ds = new Config.UpdateInfo();
-//                    ds.setCode(code);
-//                    ds.setName(name);
-//                    if (Config.getVerCode(context, context.getPackageName()) < code) {
-//                        handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void loginFail(int errorCode) {
-//                com.litesuits.android.log.Log.i(TAG,"更新消息获取失败");
-//            }
-//        });
+    public void getUpdateInfo() {
+        Observable.create(new ObservableOnSubscribe<Document>() {
 
-
-            new Thread(){
-            @Override
-                public void run() {
-                try {
-                        String verinfo =  SiterHttpUtil.getResultForHttpGet();
-
-                    JSONObject object = new JSONObject(verinfo);
-                    int code = object.getInt("code");
-                    String name = object.getString("name");
-                    Config.UpdateInfo ds = new Config.UpdateInfo();
-                    ds.setCode(code);
-                    ds.setName(name);
-                    if (Config.getVerCode(context, context.getPackageName()) < code) {
-                        handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
+                @Override
+                public void subscribe(ObservableEmitter<Document> emitter) {
+                    Document document = null;
+                    try {
+                        document = Jsoup.connect("https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "&hl=en")
+                                .timeout(5000)
+                                .userAgent("Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
+                                .get();
+                    } catch (HttpStatusException ex2) {
+                        ex2.printStackTrace();
+                    } catch (IOException ex1) {
+                        ex1.printStackTrace();
                     }
-                    } catch (IOException e) {
-                    e.printStackTrace();
-                    }catch (JSONException e1){
-                        e1.printStackTrace();
+
+                    if (document == null) {
+                        emitter.onComplete();
+                    } else {
+                        emitter.onNext(document);
+                    }
                 }
-
+        }).subscribeOn(Schedulers.io()) // subscribe run on multi-thread
+        .map(new Function<Document, String>() {
+            @Override
+            public String apply(Document document) throws Exception {
+                Element element = document.select("div:matchesOwn(^Current Version$)")
+                        .first()
+                        .parent()
+                        .select("span")
+                        .first();
+                return element.text();
             }
-            }.start();
+        }).subscribe(new Observer<String>() {
 
+            private Disposable disposable;
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onNext(String version) {
+                LOG.D(TAG, "getUpdateInfo > onNext");
+
+                int code = (int) (Float.parseFloat(version)*1000);
+
+//                Log.d(TAG, "[RYAN] getUpdateInfo > version: " + version + ", code: " + code);
+
+                Config.UpdateInfo ds = new Config.UpdateInfo();
+                ds.setCode(code);
+                ds.setName(version);
+                if (Config.getVerCode(context, context.getPackageName()) < code) {
+                    handlerUpdate.sendMessage(handlerUpdate.obtainMessage(3, ds));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LOG.E(TAG, "getUpdateInfo > onError > ");
+                e.printStackTrace();
+                disposable.dispose();
+            }
+
+            @Override
+            public void onComplete() {
+                LOG.D(TAG, "getUpdateInfo > onComplete");
+                disposable.dispose();
+            }
+        });
     }
 
     public void initCheckUpate(){

@@ -2,7 +2,6 @@ package me.hekr.sthome.model.newstyle;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.model.modeladapter.OptionAdapter;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.wheelwidget.view.WheelView;
 
@@ -58,7 +58,7 @@ public class GuardNewActivity extends TopbarSuperActivity {
         }
         initViewGuider();
     }catch (Exception e){
-        Log.i("ceshi","data is null");
+        LOG.I("ceshi","data is null");
     }
     }
 

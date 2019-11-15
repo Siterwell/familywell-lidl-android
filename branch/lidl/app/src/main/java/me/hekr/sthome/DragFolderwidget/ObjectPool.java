@@ -55,7 +55,7 @@ public class ObjectPool {
 
     private Paint createPaintTextBlack() {
         Paint paint = new Paint();
-        paint.setColor(ctx.getResources().getColor(android.R.color.black));
+        paint.setColor(ctx.getResources().getColor(android.R.color.white));
         paint.setTextSize(Math.min(lc.propIconHeight(lc.dpToPixel(14)), lc.dpToPixel(14)));
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);

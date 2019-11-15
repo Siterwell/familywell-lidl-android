@@ -17,6 +17,7 @@ import me.hekr.sthome.model.modeladapter.GridAdapter;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 
 /**
@@ -47,7 +48,7 @@ public class ModelCellListActivity extends TopbarSuperActivity {
 
     private void initView() {
         gv = (GridView) findViewById(R.id.equipShow);
-        Log.i("ceshi","listDate"+listDate.toString());
+        LOG.I("ceshi","listDate"+listDate.toString());
         listAdapter = new GridAdapter(this,listDate);
         gv.setAdapter(listAdapter);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -174,10 +175,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                                     throw new Exception("the same");
                                 }
                             }
-                            Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                            eq.setState("00005500");
-                            eq.setState("0000BB00");
-                            mcp.input.add(eq);
+                            Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                            mcp.device = eq;
                             startActivity(device);
                             finish();
                         }catch (Exception e){
@@ -185,10 +184,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                             ecAlertDialog.show();
                         }
                     }else {
-                        Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                        eq.setState("00005500");
-                        eq.setState("0000BB00");
-                        mcp.input.add(eq);
+                        Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                        mcp.device = eq;
                         startActivity(device);
                         finish();
                     }
@@ -200,10 +197,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                                     throw new Exception("the same");
                                 }
                             }
-                            Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                            eq.setState("00005500");
-                            eq.setState("0000BB00");
-                            mcp.input.add(eq);
+                            Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                            mcp.device = eq;
                             startActivity(device);
                             finish();
                         }catch (Exception e){
@@ -211,10 +206,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                             ecAlertDialog.show();
                         }
                     }else {
-                        Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                        eq.setState("00005500");
-                        eq.setState("0000BB00");
-                        mcp.input.add(eq);
+                        Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                        mcp.device = eq;
                         startActivity(device);
                         finish();
                     }
@@ -226,10 +219,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                                     throw new Exception("the same");
                                 }
                             }
-                            Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                            eq.setState("00005500");
-                            eq.setState("00005500");
-                            mcp.input.add(eq);
+                            Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                            mcp.device = eq;
                             startActivity(device);
                             finish();
                         }catch (Exception e){
@@ -237,10 +228,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                             ecAlertDialog.show();
                         }
                     }else {
-                        Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                        eq.setState("00005500");
-                        eq.setState("00005500");
-                        mcp.input.add(eq);
+                        Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                        mcp.device = eq;
                         startActivity(device);
                         finish();
                     }
@@ -252,9 +241,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                                     throw new Exception("the same");
                                 }
                             }
-                            Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-                            eq.setState("00005500");
-                            mcp.input.add(eq);
+                            Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                            mcp.device = eq;
                             startActivity(device);
                             finish();
                         }catch (Exception e){
@@ -262,9 +250,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                             ecAlertDialog.show();
                         }
                     }else {
-                        Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-                        eq.setState("00005500");
-                        mcp.input.add(eq);
+                        Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                        mcp.device = eq;
                         startActivity(device);
                         finish();
                     }
@@ -516,16 +503,12 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                             ecAlertDialog = ECAlertDialog.buildPositiveAlert(ModelCellListActivity.this, R.string.input_exist,null);
                             ecAlertDialog.show();
                         }
-
-
-
                     }else {
                         Intent device = new Intent(ModelCellListActivity.this, CXSMALARMNewActivity.class);
                         mcp.device = eq;
                         startActivity(device);
                         finish();
                     }
-
 
                 }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
                     if(mcp.input != null){
@@ -535,10 +518,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                                     throw new Exception("the same");
                                 }
                             }
-                            Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                            eq.setState("00005500");
-                            eq.setState("00005500");
-                            mcp.input.add(eq);
+                            Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                            mcp.device = eq;
                             startActivity(device);
                             finish();
                         }catch (Exception e){
@@ -546,10 +527,8 @@ public class ModelCellListActivity extends TopbarSuperActivity {
                             ecAlertDialog.show();
                         }
                     }else {
-                        Intent device = new Intent(ModelCellListActivity.this, NewGroup2Activity.class);
-//                        eq.setState("00005500");
-                        eq.setState("00005500");
-                        mcp.input.add(eq);
+                        Intent device = new Intent(ModelCellListActivity.this, AlarmNewActivity.class);
+                        mcp.device = eq;
                         startActivity(device);
                         finish();
                     }

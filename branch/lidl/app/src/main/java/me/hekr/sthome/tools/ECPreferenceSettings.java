@@ -6,16 +6,16 @@ public enum ECPreferenceSettings {
      * Whether is the first use of the application
      *
      */
-	
-	
+
+    SETTINGS_FORCE_LOGOUT("com.siterwell.sthome.forcelogout.v1106",Boolean.TRUE),
     SETTINGS_USERNAME("com.siterwell.sthome.username" , ""),
     SETTINGS_PASSWORD("com.siterwell.sthome.password" , ""),
     SETTINGS_REMEMBER_PASSWORD("com.siterwell.sthome.rememberpassword",Boolean.FALSE),
     SETTINGS_CONFIG_REMEMBER_PASSWORD("com.siterwell.sthome.configrememberpassword",Boolean.TRUE),
     SETTINGS_LOCK_PASSWORD("com.siterwell.sthome.lockpassword",""),
     SETTINGS_CONFIG_REMEMBER_LOCK_PASSWORD("com.siterwell.sthome.rememberlockpassword",Boolean.TRUE),
-    SETTINGS_HUAWEI_TOKEN("com.siterwell.sthome.huaweitoken",""),
-    SETTINGS_DOMAIN("com.siterwell.sthome.domain","hekr.me"),
+    SETTINGS_DOMAIN("com.siterwell.sthome.domain","hekreu.me"),
+    SETTINGS_EMERGENCY_NUMBER_CHECKED("com.siterwell.sthome.emergencynumberchecked",Boolean.TRUE),
     SETTINGS_PGS_SETTING("com.siterwell.sthome.gps","yes");
     private final String mId;
     private final Object mDefaultValue;

@@ -1,13 +1,19 @@
 package me.hekr.sthome.xmipc;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.lib.funsdk.support.FunSupport;
+import com.lib.funsdk.support.OnFunDeviceListener;
+import com.lib.funsdk.support.config.BaseConfig;
+import com.lib.funsdk.support.config.SystemInfo;
+import com.lib.funsdk.support.models.FunDevType;
 import com.lib.funsdk.support.models.FunDevice;
 
 import java.util.List;
+import java.util.Map;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
@@ -21,7 +27,7 @@ import me.hekr.sthome.model.modelbean.MonitorBean;
 
 public class ActivityGuideSetingMain extends TopbarIpcSuperActivity implements View.OnClickListener{
    private final static String TAG = ActivityGuideSetingMain.class.getName();
-    private RelativeLayout commonsetting_liner,expertsetting_liner,codesetting_liner,storage_liner,relativeLayout_common;
+    private RelativeLayout commonsetting_liner,expertsetting_liner,codesetting_liner,storage_liner,relativeLayout_common,relativeLayout_wireless;
     private int id;
     private FunDevice mFunDevice;
     private ECAlertDialog alertDialog;
@@ -34,6 +40,11 @@ public class ActivityGuideSetingMain extends TopbarIpcSuperActivity implements V
     @Override
     protected void onCreateInit() {
         initview();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -59,12 +70,22 @@ public class ActivityGuideSetingMain extends TopbarIpcSuperActivity implements V
         storage_liner = (RelativeLayout)findViewById(R.id.storage);
         expertsetting_liner =(RelativeLayout)findViewById(R.id.expertsetting);
         relativeLayout_common = (RelativeLayout)findViewById(R.id.tongyong);
+        relativeLayout_wireless = (RelativeLayout)findViewById(R.id.wireless);
         textView_back.setOnClickListener(this);
         commonsetting_liner.setOnClickListener(this);
         codesetting_liner.setOnClickListener(this);
         storage_liner.setOnClickListener(this);
         expertsetting_liner.setOnClickListener(this);
         relativeLayout_common.setOnClickListener(this);
+        relativeLayout_wireless.setOnClickListener(this);
+        // 注册设备操作回调
+        SystemInfo baseConfig = (SystemInfo)mFunDevice.getConfig(SystemInfo.CONFIG_NAME);
+        if(baseConfig!=null){
+            if(FunDevType.getType(baseConfig.getDeviceType())==FunDevType.EE_DEV_GUN_MONITOR){
+                relativeLayout_wireless.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
 
@@ -100,6 +121,12 @@ public class ActivityGuideSetingMain extends TopbarIpcSuperActivity implements V
                  j.putExtra("FUN_DEVICE_ID",id);
                  startActivity(j);
                  break;
+             case R.id.wireless:
+                 Intent intent = new Intent(this,ActivityGuideDeviceWifiConfigNew.class);
+                 intent.putExtra("wireless",true);
+                 startActivity(intent);
+                 break;
          }
     }
+
 }

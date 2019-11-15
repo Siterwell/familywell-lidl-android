@@ -3,9 +3,12 @@ package me.hekr.sthome.xmipc;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,15 +36,19 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import me.hekr.sthome.http.HekrUser;
-import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.TopbarIpcSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
+import me.hekr.sthome.commonBaseView.progress.ColorArcProgressBar;
+import me.hekr.sthome.http.HekrUser;
+import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.ClientUser;
 import me.hekr.sthome.model.modelbean.MonitorBean;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -50,6 +57,9 @@ import me.hekr.sthome.tools.UnitTools;
 
 public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements View.OnClickListener,OnFunDeviceOptListener,IFunSDKResult {
    private final static String TAG = ActivityGuideSetingInfo.class.getName();
+
+    private static final long TIMEOUT_MS = 60000; // 60s
+
     private TextView textView_sn,textView_type,textView_net_type,textView_net_status;
     private ImageView imageView;
     private int id;
@@ -58,12 +68,31 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
     private DefaultConfigBean mdefault = null;
     private int mHandler;
     private ECAlertDialog ecAlertDialog_ipc;
+    private ColorArcProgressBar colorArcProgressBar;
+    private TextView textView_count;
     private Button btn_reset,btn_delete;
     private ECAlertDialog alertDialog;
     private String devid;
     private List<MonitorBean> lists;
     private List<MonitorBean> list;
     private com.alibaba.fastjson.JSONObject object;
+
+    private int count_s;
+    private boolean flag_set = false;
+    private Animation loadAnimation;
+    private Timer timer_set;
+    private UpdateCommandTask timertask;
+
+    private Handler errorHandler = new Handler();
+
+    private Runnable errorRunnable = new Runnable() {
+        @Override
+        public void run() {
+            LOG.E(TAG, "[ERROR] factory reset timeout");
+            hideProgressDialog();
+            showToast(R.string.failed);
+        }
+    };
 
 
     @Override
@@ -107,6 +136,10 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
 
         mHandler = FunSDK.RegUser(this);
         requestSystemInfo();
+        loadAnimation = AnimationUtils.loadAnimation(this, R.anim.loading_reset);
+        timer_set = new Timer();
+        timertask = new UpdateCommandTask();
+        timer_set.schedule(timertask,0,1000);
     }
 
 
@@ -118,6 +151,8 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
                  break;
              case R.id.reset:
                  DeviceDefaltConfig();
+                 errorHandler.removeCallbacks(errorRunnable);
+                 errorHandler.postDelayed(errorRunnable, TIMEOUT_MS);
                  break;
              case R.id.delete:
                  alertDialog = ECAlertDialog.buildAlert(this,getResources().getString(R.string.confirm_delete_monitor), getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
@@ -347,14 +382,14 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
                         System.out.print("TTT--------->> " + object.toString());
                         FunSDK.DevCmdGeneral(mHandler, mFunDevice.devSn, EDEV_JSON_ID.OPMACHINE, JsonConfig.OPERATION_MACHINE, 1024, 5000,
                                 HandleConfigData.getSendData(JsonConfig.OPERATION_MACHINE, "0x1", object).getBytes(), -1, 0);
-                        showToast(R.string.device_system_info_defaultconfigsucc);
+                        startToCountdown();
+                        errorHandler.removeCallbacks(errorRunnable);
+                        hideProgressDialog();
                     }
                 }
             }
             break;
         }
-
-
         return 0;
     }
 
@@ -366,7 +401,8 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
             ecAlertDialog_ipc = ECAlertDialog.buildAlert(this, R.string.reset_to_default_set, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    showWaitDialog();
+                    LOG.E(TAG, "[ERROR] factory reset start!!!!!");
+                    showProgressDialog(R.string.reset_progress);
                     mdefault.setAllConfig(1);
                     FunSDK.DevSetConfigByJson(mHandler, mFunDevice.devSn, JsonConfig.OPERATION_DEFAULT_CONFIG, HandleConfigData.getSendData(JsonConfig.OPERATION_DEFAULT_CONFIG, "0x1", mdefault), -1, 20000, mFunDevice.getId());
                 }
@@ -374,6 +410,61 @@ public class ActivityGuideSetingInfo extends TopbarIpcSuperActivity implements V
 
             ecAlertDialog_ipc.show();
         }
+    }
 
+    private void startToCountdown(){
+        alertDialog = ECAlertDialog.buildAlert(this, getResources().getString(R.string.update_name),getResources().getString(R.string.cancel),getResources().getString(R.string.ok), null, null);
+        alertDialog.setContentView(R.layout.layout_resetloading);
+        colorArcProgressBar = alertDialog.getContent().findViewById(R.id.loading);
+        textView_count = alertDialog.getContent().findViewById(R.id.prodcess);
+        alertDialog.setTitle(getResources().getString(R.string.device_system_info_defaultconfigsucc));
+        alertDialog.setButtonHidden();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+        colorArcProgressBar.startAnimation(loadAnimation);
+        flag_set = true;
+        count_s = 0;
+        textView_count.setText(""+(60-count_s));
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                flag_set = false;
+            }
+        });
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    textView_count.setText(""+(60-count_s));
+                    break;
+                case 2:
+                    if(alertDialog!=null && alertDialog.isShowing()){
+                        alertDialog.dismiss();
+                        alertDialog = null;
+                    }
+                    showToast(R.string.operation_success);
+                    break;
+            }
+        }
+    };
+
+    class UpdateCommandTask extends TimerTask {
+        @Override
+        public void run() {
+            if(flag_set) {
+                android.util.Log.i(TAG,"设置命令超时计数:"+count_s);
+                count_s ++;
+                handler.sendEmptyMessage(1);
+            }
+
+            if(count_s >= 60){
+                count_s = 0;
+                handler.sendEmptyMessage(2);
+            }
+
+        }
     }
 }

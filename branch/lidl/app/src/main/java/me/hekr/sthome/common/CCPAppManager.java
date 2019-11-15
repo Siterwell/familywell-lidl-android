@@ -32,6 +32,8 @@ public class CCPAppManager {
             SharedPreferences.Editor mydata = users.edit();
             mydata.putString("userinfo" ,user.toString());
             mydata.commit();
+
+//            LOG.D("CCPAppManager", "[RYAN] setClientUser > " + user.toString());
         }
     }
 
@@ -44,13 +46,15 @@ public class CCPAppManager {
         if(mClientUser != null) {
             return mClientUser;
         }
+
+        mClientUser = new ClientUser();
+
         String registAccount = getAutoRegistAccount(MyApplication.getAppContext());
         if(!TextUtils.isEmpty(registAccount)) {
-            mClientUser = new ClientUser();
-
-            return mClientUser.from(registAccount);
+            mClientUser.from(registAccount);
         }
-        return null;
+
+        return mClientUser;
     }
 
     public static String getUserId() {

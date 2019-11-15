@@ -10,9 +10,9 @@
         android:id="@+id/toolbar"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/white">
+        android:background="@color/base_dark_background">
         <ImageView
-            android:src="@drawable/back"
+            android:src="@drawable/back_white"
             android:id="@+id/goBack"
             android:clickable="true"
             android:layout_gravity="left"
@@ -46,7 +46,7 @@
             android:textSize="@dimen/title_size"
             android:clickable="true"
             android:text="title"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_centerInParent="true" />
 
         <LinearLayout
@@ -107,6 +107,6 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="@color/mainGround"
+        android:background="@color/title_low_black"
         />
 </LinearLayout>

@@ -1,9 +1,8 @@
 package me.hekr.sthome;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +11,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
@@ -32,32 +29,34 @@ import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.crc.CoderUtils;
-import me.hekr.sthome.equipment.ConfigActivity;
 import me.hekr.sthome.equipment.EmergencyEditActivity;
-import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.UnitTools;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by TracyHenry on 2018/5/9.
  */
 
 public class InitActivity extends AppCompatActivity {
-private final static String TAG = "InitActivity";
-private ImageView imageView1;
-private boolean empty;
-private boolean flag = false;
-private static boolean flag_login_timeout = false;
+
+    private final static String TAG = "InitActivity";
+    private ImageView imageView1;
+    private boolean empty;
+    private boolean flag = false;
+    private static boolean flag_login_timeout = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LOG.D(TAG, "[RYAN] onCreate");
+
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
@@ -65,47 +64,41 @@ private static boolean flag_login_timeout = false;
         propetyAnim2(imageView1);
         boolean flag = getIntent().getBooleanExtra("login_flag",false);
 
-        if(!flag){
-            login();
-        }else{
-            EventBus.getDefault().post(new AutoSyncEvent());
+        if (AccountUtil.forceLogout()) {
+            logout();
+        } else {
+            if(!flag){
+                login();
+            }else{
+                EventBus.getDefault().post(new AutoSyncEvent());
+            }
         }
 
-
     }
 
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return CoderUtils.getDecrypt(autoflag);
+    private void logout() {
+        HekrUserAction.getInstance(InitActivity.this).userLogout();
+        CCPAppManager.setClientUser(null);
+        startActivity(new Intent(InitActivity.this, LoginActivity.class));
+        finish();
     }
 
     private void login(){
+        final String username = AccountUtil.getUsername();
+        final String password = AccountUtil.getPassword();
 
-       Log.i(TAG,"自动登录");
-       handler.sendEmptyMessageDelayed(2,4000);
-        Hekr.getHekrUser().login(getUsername(), getPassword(), new HekrCallback() {
+        LOG.I(TAG,"自动登录");
+        handler.sendEmptyMessageDelayed(2,4000);
+        Hekr.getHekrUser().login(username, password, new HekrCallback() {
             @Override
             public void onSuccess() {
-                Log.i(TAG,"自动登录成功");
-                UserBean userBean = new UserBean(getUsername(), getPassword(), CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
+                LOG.I(TAG,"自动登录成功");
+                UserBean userBean = new UserBean(username, password, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
                 HekrUserAction.getInstance(InitActivity.this).setUserCache(userBean);
                 if(!flag_login_timeout){
                     flag_login_timeout = true;
                 EventBus.getDefault().post(new AutoSyncEvent());
                 }
-
-
             }
 
             @Override
@@ -114,17 +107,10 @@ private static boolean flag_login_timeout = false;
                 try {
                     JSONObject d = JSON.parseObject(message);
                     int code = d.getInteger("code");
+
                     //密码错误
                     if(code == 3400010){
-                        try {
-                            ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                        } catch (InvalidClassException e) {
-                            e.printStackTrace();
-                        }
-                        HekrUserAction.getInstance(InitActivity.this).userLogout();
-                        CCPAppManager.setClientUser(null);
-                        startActivity(new Intent(InitActivity.this,LoginActivity.class));
-                        finish();
+                        logout();
                     }else {
                         if(!flag_login_timeout){
                             flag_login_timeout = true;
@@ -133,7 +119,7 @@ private static boolean flag_login_timeout = false;
                     }
                 }catch (Exception e){
                     e.printStackTrace();
-                    Log.i(TAG,"自动登录失败");
+                    LOG.I(TAG,"自动登录失败");
                     if(!flag_login_timeout){
                         flag_login_timeout = true;
                     EventBus.getDefault().post(new AutoSyncEvent());
@@ -143,15 +129,22 @@ private static boolean flag_login_timeout = false;
 
             }
         });
+
     }
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
 
-                    try {
+                    LOG.D(TAG, "[RYAN] ClientUser = " + CCPAppManager.getClientUser().toString());
+                    if (isNumberChecked()) {
+                        gotoMainActivity();
+                    } else {
+                        checkedEmergencyNumber();
+
                         empty  = (boolean)msg.obj;
                         String ds = CCPAppManager.getClientUser().getDescription();
                         if(TextUtils.isEmpty(ds)){
@@ -175,14 +168,8 @@ private static boolean flag_login_timeout = false;
                             ecAlertDialog2.setCanceledOnTouchOutside(false);
                             ecAlertDialog2.show();
                         }else{
-                            Intent intent = new Intent(InitActivity.this, MainActivity.class);
-                            intent.putExtra("empty",empty);
-                            startActivity(intent);
-                            finish();
+                            gotoMainActivity();
                         }
-
-                    }catch (Exception e){
-                        e.printStackTrace();
                     }
 
                     break;
@@ -195,6 +182,27 @@ private static boolean flag_login_timeout = false;
             }
         }
     };
+
+    private boolean isNumberChecked() {
+        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
+        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED;
+        return sharedPreferences.getBoolean(flag.getId(), (boolean) flag.getDefaultValue());
+    }
+
+    private void checkedEmergencyNumber() {
+        try {
+            ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED, true, true);
+        } catch (InvalidClassException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void gotoMainActivity() {
+        Intent intent = new Intent(InitActivity.this, MainActivity.class);
+        intent.putExtra("empty",empty);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
@@ -217,11 +225,6 @@ private static boolean flag_login_timeout = false;
                 CCPAppManager.setClientUser(null);
                 ControllerWifi.getInstance().wifiTag = false;
 
-                try {
-                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                } catch (InvalidClassException e) {
-                    e.printStackTrace();
-                }
                 Intent intent = new Intent(this,LoginActivity.class);
                 startActivity(intent);
                 finish();

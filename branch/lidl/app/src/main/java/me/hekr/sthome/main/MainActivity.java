@@ -1,13 +1,17 @@
 package me.hekr.sthome.main;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,12 +24,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.igexin.sdk.PushManager;
-import com.igexin.sdk.Tag;
 import com.litesuits.android.log.Log;
-import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,11 +35,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
 
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
@@ -52,15 +51,13 @@ import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.CustomViewPager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
+import me.hekr.sthome.commonBaseView.LoadingProceedDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
-import me.hekr.sthome.equipment.EmergencyEditActivity;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.event.TokenTimeoutEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
-import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.FirmwareBean;
 import me.hekr.sthome.http.bean.UserBean;
@@ -71,13 +68,14 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.service.SiterService;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.ECPreferenceSettings;
 import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SystemTintManager;
-import me.hekr.sthome.tools.SystemUtil;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.updateApp.UpdateAppAuto;
 
@@ -86,6 +84,9 @@ import me.hekr.sthome.updateApp.UpdateAppAuto;
  */
 public class MainActivity extends AppCompatActivity implements DeviceFragment.SetPagerView{
     private static final String TAG = "MainActivity";
+
+    public static final int REQUEST_PERMISSION = 0xA0;
+
     private CustomViewPager viewPager;// 页卡内容
     private List<Fragment> fragments;// Tab页面列表
     private RadioGroup bottomRg;
@@ -102,12 +103,26 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     private FirmwareBean file;
     private ECAlertDialog ecAlertDialog;
     public static boolean flag_checkfireware;
+    private LoadingProceedDialog loadingProceedDialog;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LOG.D(TAG, "[RYAN] onCreate");
+        
+//        String encode = StringUtil.encodeUTF8("ÄÖÅ");
+//        LOG.D(TAG, "[RYAN] onCreate > UTF8 encode: " + encode + ", decode: " + StringUtil.decodeUTF8(encode));
+//
+//        encode = StringUtil.encodeGBK("ÄÖÅ");
+//        LOG.D(TAG, "[RYAN] onCreate > GBK encode: " + encode + ", decode: " + StringUtil.decodeGBK(encode));
+
         initCurrentGateway();
         ConnectionPojo.getInstance().open_app = 1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_home);
         EventBus.getDefault().register(this);
+
+        checkPermissions();
+
         updateAppAuto = new UpdateAppAuto(this);
         initView();
         if(getIntent().getBooleanExtra("empty",false)){
@@ -116,8 +131,101 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             startActivity(tent);
         }else{
             updateAppAuto.initCheckUpate();
-            checkUpdatefirm();
+            checkUpdatefirm(true);
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LOG.D(TAG, "[RYAN] onStart");
+
+        checkLoginState();
+    }
+
+    private void checkPermissions() {
+        List<String> permissionList = new ArrayList<>();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.CAMERA);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.RECORD_AUDIO);
+        }
+
+        if (!permissionList.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    permissionList.toArray(new String[0]), REQUEST_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == REQUEST_PERMISSION) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[0] = " +  permissions[0]);
+//            }
+//            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[1] = " +  permissions[1]);
+//            }
+//            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[2] = " +  permissions[2]);
+//
+//            }
+//            if (grantResults[3] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[3] = " +  permissions[0]);
+//            }
+//            if (grantResults[4] == PackageManager.PERMISSION_GRANTED) {
+//                LOG.I(TAG, "[RYAN] permissions[4] = " +  permissions[0]);
+//            }
+//        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void checkLoginState(){
+        LOG.I(TAG,"[RYAN] checkLoginState");
+
+        final String username = AccountUtil.getUsername();
+        final String password = AccountUtil.getPassword();
+        Hekr.getHekrUser().login(username, password, new HekrCallback() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onError(int errorCode, String message) {
+                JSONObject d = JSON.parseObject(message);
+                if (d == null) {
+                    return;
+                }
+
+                int code = d.getInteger("code");
+
+                //密码错误
+                if(code == 3400010){
+                    HekrUserAction.getInstance(MainActivity.this).userLogout();
+                    CCPAppManager.setClientUser(null);
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 
     private void initView() {
@@ -130,119 +238,18 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initGTService() {
+        String fcmclientid = FirebaseInstanceId.getInstance().getToken();
+        if(!TextUtils.isEmpty(fcmclientid)) {
+            LOG.I(TAG, "FCM平台CLIENTID：" + fcmclientid);
+            SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
+            ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
+            String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
 
-
-        /**
-         * tag setting
-         */
-        if (!TextUtils.isEmpty(HekrSDK.getPid())) {
-            String[] tags = new String[]{HekrSDK.getPid()};
-            Tag[] tagParam = new Tag[tags.length];
-            for (int i = 0; i < tags.length; i++) {
-                Tag t = new Tag();
-                t.setName(tags[i]);
-                tagParam[i] = t;
-            }
-            PushManager.getInstance().setTag(this, tagParam, "100861");
+            STEvent stEvent = new STEvent();
+            stEvent.setRefreshevent(9);
+            stEvent.setFcm_token(fcmclientid);
+            EventBus.getDefault().post(stEvent);
         }
-        /**
-         * alias setting
-         */
-        if(!TextUtils.isEmpty(CCPAppManager.getUserId())){
-            boolean t = PushManager.getInstance().bindAlias(this, CCPAppManager.getUserId());
-            String abc = t? "设置成功" : "设置失败";
-            Log.i(TAG,abc+"set alias uid =" + CCPAppManager.getUserId());
-        }
-
-
-
-            if( "honor".equals(SystemUtil.getDeviceBrand().toLowerCase()) || "huawei".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-
-                com.huawei.android.pushagent.api.PushManager.requestToken(this);
-            }
-            else if("xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-                String ds = MiPushClient.getRegId(this);
-                Log.i(TAG,"小米平台CLIENTID："+ds);
-                if(!TextUtils.isEmpty(ds)) {
-                    STEvent stEvent = new STEvent();
-                    stEvent.setRefreshevent(13);
-                    stEvent.setFcm_token(ds);
-                    EventBus.getDefault().post(stEvent);
-                }else{
-                    Log.i(TAG, "小米平台CLIENTID为空");
-                }
-            }
-            else{
-
-                String fcmclientid = FirebaseInstanceId.getInstance().getToken();
-                if(!TextUtils.isEmpty(fcmclientid)){
-                    Log.i(TAG,"FCM平台CLIENTID："+fcmclientid);
-                    SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-                    ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_DOMAIN;
-                    String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-//                    if("hekr.me".equals(autoflag)){
-//                        String cid = PushManager.getInstance().getClientid(this);
-//                        if(!TextUtils.isEmpty(cid)) {
-//                            Log.i(TAG, "个推client id =" + cid);
-//                            STEvent stEvent = new STEvent();
-//                            stEvent.setRefreshevent(11);
-//                            stEvent.setFcm_token(cid);
-//                            EventBus.getDefault().post(stEvent);
-//
-//                            HekrUserAction.getInstance(this).unPushTagBind(fcmclientid, 3, new HekrUser.UnPushTagBindListener() {
-//                                @Override
-//                                public void unPushTagBindSuccess() {
-//                                    Log.i(TAG,"个推绑定的同时解绑FCM成功");
-//                                }
-//
-//                                @Override
-//                                public void unPushTagBindFail(int errorCode) {
-//                                    Log.i(TAG,"个推绑定的同时解绑FCM失败");
-//                                }
-//                            });
-//
-//                        }else{
-//                            Log.i(TAG, "个推client id为空");
-//                        }
-//                    }else{
-
-                    STEvent stEvent = new STEvent();
-                    stEvent.setRefreshevent(9);
-                    stEvent.setFcm_token(fcmclientid);
-                    EventBus.getDefault().post(stEvent);
-
-                        HekrUserAction.getInstance(this).unPushTagBind(PushManager.getInstance().getClientid(this), 0, new HekrUser.UnPushTagBindListener() {
-                            @Override
-                            public void unPushTagBindSuccess() {
-                                Log.i(TAG,"FCM绑定的同时解绑个推成功");
-                            }
-
-                            @Override
-                            public void unPushTagBindFail(int errorCode) {
-                                Log.i(TAG,"FCM绑定的同时解绑个推失败");
-                            }
-                        });
-
-//                    }
-
-
-                }else{
-                    String cid = PushManager.getInstance().getClientid(this);
-                    if(!TextUtils.isEmpty(cid)) {
-                        Log.i(TAG, "个推client id =" + cid);
-                        STEvent stEvent = new STEvent();
-                        stEvent.setRefreshevent(11);
-                        stEvent.setFcm_token(cid);
-                        EventBus.getDefault().post(stEvent);
-                    }else{
-                        Log.i(TAG, "个推client id为空");
-                    }
-                }
-            }
-
-
-
-
     }
 
     /**
@@ -393,6 +400,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         }
     }
 
+    public void jumpToDevice() {
+        viewPager.setCurrentItem(2,false);
+    }
+
     @Override
     public void setdrag(boolean flag) {
         if(viewPager!=null) viewPager.setScanScroll(flag);
@@ -404,13 +415,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
      */
     public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
-
-
-
         public void onPageScrollStateChanged(int index) {
             try {
                 changeIndex = index;
-                Log.i(TAG,"onPageScrollStateChanged:"+index);
+                LOG.I(TAG,"onPageScrollStateChanged:"+index);
                 if(index==0){
                     switch (currIndex){
                         case 0:
@@ -447,7 +455,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                 }
             }catch (NullPointerException e){
-               Log.i(TAG,"tintManager is null");
+               LOG.I(TAG,"tintManager is null");
             }
 
         }
@@ -579,7 +587,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-       Log.i(TAG,"onNewIntent");
+       LOG.I(TAG,"onNewIntent");
 
         try {
             int current = intent.getIntExtra("current_dev",0);
@@ -602,10 +610,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         try {
             if(MainActivity.flag_checkfireware == true){
                 MainActivity.flag_checkfireware = false;
-                checkUpdatefirm();
+                checkUpdatefirm(true);
             }
         }catch (Exception e){
-            Log.i(TAG,"已退出了");
+            LOG.I(TAG,"已退出了");
         }
         if(TextUtils.isEmpty(HekrUserAction.getInstance(this).getJWT_TOKEN())){
             startActivity(new Intent(this,LoginActivity.class));
@@ -633,8 +641,8 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
             mProgressDialog.dismiss();
         }
 
-        final String loginname = getUsername();
-        final String loginpsw = getPassword();
+        final String loginname = AccountUtil.getUsername();
+        final String loginpsw = AccountUtil.getPassword();
 
         Hekr.getHekrUser().login(loginname, loginpsw, new HekrCallback() {
             @Override
@@ -649,11 +657,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 CCPAppManager.setClientUser(null);
                 ControllerWifi.getInstance().wifiTag = false;
 
-                try {
-                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                } catch (InvalidClassException e) {
-                    e.printStackTrace();
-                }
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -714,12 +717,12 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                         HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 3, new HekrUser.PushTagBindListener() {
                             @Override
                             public void pushTagBindSuccess() {
-                                android.util.Log.i(TAG,"FCM绑定成功getSuccess:");
+                                LOG.I(TAG,"FCM绑定成功getSuccess:");
                             }
 
                             @Override
                             public void pushTagBindFail(int errorCode) {
-                                android.util.Log.i(TAG,"FCM绑定失败getFail:"+errorCode);
+                                LOG.I(TAG,"FCM绑定失败getFail:"+errorCode);
                                 if(errorCode==1){
                                     LogoutEvent tokenTimeoutEvent = new LogoutEvent();
                                     EventBus.getDefault().post(tokenTimeoutEvent);
@@ -728,73 +731,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                         });
 
                     }
-
-        }else if(event.getRefreshevent() == 11){
-            if(!"xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-
-                        String token = event.getFcm_token();
-                        if(!TextUtils.isEmpty(token)){
-
-                            HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 0, new HekrUser.PushTagBindListener() {
-                                @Override
-                                public void pushTagBindSuccess() {
-                                    android.util.Log.i(TAG,"个推绑定成功getSuccess:");
-                                }
-
-                                @Override
-                                public void pushTagBindFail(int errorCode) {
-                                    android.util.Log.i(TAG,"个推绑定失败getFail:"+errorCode);
-                                    if(errorCode==1){
-                                        LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                                        EventBus.getDefault().post(tokenTimeoutEvent);
-                                    }
-                                }
-                            });
-                        }
-            }
-
-        }else if(event.getRefreshevent() == 12){
-                    String token = event.getFcm_token();
-                    if(!TextUtils.isEmpty(token)){
-
-                        HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 2, new HekrUser.PushTagBindListener() {
-                            @Override
-                            public void pushTagBindSuccess() {
-                                android.util.Log.i(TAG,"HUAWEI绑定成功getSuccess:");
-                            }
-
-                            @Override
-                            public void pushTagBindFail(int errorCode) {
-                                android.util.Log.i(TAG,"HUAWEI绑定失败getFail:"+errorCode);
-                                if(errorCode==1){
-                                    LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                                    EventBus.getDefault().post(tokenTimeoutEvent);
-                                }
-                            }
-                        });
-
-                    }
-        }else if(event.getRefreshevent()==13) {
-            String token = event.getFcm_token();
-            if (!TextUtils.isEmpty(token)) {
-
-
-                HekrUserAction.getInstance(MainActivity.this).pushTagBind(token, 1, new HekrUser.PushTagBindListener() {
-                    @Override
-                    public void pushTagBindSuccess() {
-                        android.util.Log.i(TAG, "小米绑定成功getSuccess:");
-                    }
-
-                    @Override
-                    public void pushTagBindFail(int errorCode) {
-                        android.util.Log.i(TAG, "小米绑定失败getFail:" + errorCode);
-                        if (errorCode == 1) {
-                            LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                            EventBus.getDefault().post(tokenTimeoutEvent);
-                        }
-                    }
-                });
-            }
         }
         try {
             if(event.getEvent()== SendCommand.CHOOSE_SCENE_GROUP){
@@ -817,26 +753,10 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        // super.onSaveInstanceState(outState);
-    }
-
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//         super.onSaveInstanceState(outState);
+//    }
 
     private void initCurrentGateway(){
 
@@ -927,11 +847,26 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 sceneBean6.setName("");
                 sceneDAO.addinit(sceneBean6);
 
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().bind:"+ ConnectionPojo.getInstance().bind);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().deviceTid:"+ ConnectionPojo.getInstance().deviceTid);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
-                android.util.Log.i(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
+                LOG.I(TAG,"ConnectionPojo.getInstance().bind:"+ ConnectionPojo.getInstance().bind);
+                LOG.I(TAG,"ConnectionPojo.getInstance().deviceTid:"+ ConnectionPojo.getInstance().deviceTid);
+                LOG.I(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
+                LOG.I(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
+                LOG.I(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
+
+                //刷新主页头部
+                STEvent stEvent = new STEvent();
+                stEvent.setRefreshevent(1);
+                EventBus.getDefault().post(stEvent);
+
+                //刷新主页数据
+                STEvent stEvent2 = new STEvent();
+                stEvent2.setRefreshevent(3);
+                EventBus.getDefault().post(stEvent2);
+
+                //开启搜索局域网服务
+                STEvent stEvent3= new STEvent();
+                stEvent3.setServiceevent(6);
+                EventBus.getDefault().post(stEvent3);
             }
         }
         catch (Exception e){
@@ -943,17 +878,17 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     private void doActionSend() {
         DeviceDAO deviceDAO = new DeviceDAO(this);
-        DeviceBean d = deviceDAO.findByChoice(1);
-        if(d!=null){
+        DeviceBean currentDevice = deviceDAO.findByChoice(1);
+        if(currentDevice != null){
             String abc = "{\"msgId\":16810,\"action\":\"devUpgrade\"," +
                     "\"params\":{\"appTid\":\""+ ConnectionPojo.getInstance().IMEI+"\"," +
-                    "\"devTid\":\""+d.getDevTid()+"\"," +
-                    "\"ctrlKey\":\""+d.getCtrlKey()+"\"," +
-                    "\"binUrl\":\""+file.getBinUrl()+"\"," +
-                    "\"md5\":\""+file.getMd5()+"\"," +
-                    "\"binType\":\""+file.getLatestBinType()+"\"," +
-                    "\"binVer\":\""+file.getLatestBinVer()+"\"," +
-                    "\"size\":"+file.getSize()+"}}";
+                    "\"devTid\":\"" + currentDevice.getDevTid() +"\"," +
+                    "\"ctrlKey\":\"" + currentDevice.getCtrlKey() +"\"," +
+                    "\"binUrl\":\"" + file.getBinUrl() +"\"," +
+                    "\"md5\":\"" + file.getMd5() +"\"," +
+                    "\"binType\":\"" + file.getLatestBinType() +"\"," +
+                    "\"binVer\":\"" + file.getLatestBinVer() +"\"," +
+                    "\"size\":" + file.getSize()+"}}";
             try {
                 Hekr.getHekrClient().sendMessage(new org.json.JSONObject(abc), new HekrMsgCallback() {
                     @Override
@@ -968,7 +903,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"doActionSend > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
 
@@ -981,11 +916,18 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     }
 
-    private void checkUpdatefirm(){
-        DeviceDAO deviceDAO = new DeviceDAO(this);
-        DeviceBean d = deviceDAO.findByChoice(1);
-        if(d!=null ){
-            HekrUserAction.getInstance(this).checkFirmwareUpdate(d.getDevTid(),d.getProductPublicKey(), d.getBinType(), d.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
+    private void checkUpdatefirm(final boolean first){
+        final DeviceDAO deviceDAO = new DeviceDAO(this);
+        final DeviceBean currentDevice = deviceDAO.findByChoice(1);
+        if (currentDevice == null) {
+            return;
+        }
+
+        if(currentDevice.isOnline() || !first){
+            HekrUserAction.getInstance(this).checkFirmwareUpdate(currentDevice.getDevTid(),
+                    currentDevice.getProductPublicKey(),
+                    currentDevice.getBinType(),
+                    currentDevice.getBinVersion(), new HekrUser.CheckFwUpdateListener() {
                 @Override
                 public void checkNotNeedUpdate() {
                 }
@@ -994,10 +936,20 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 public void checkNeedUpdate(FirmwareBean firmwareBean) {
                     file = firmwareBean;
                     if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
+                        String message = null;
+                        String confirm = null;
+                        if(first){
+                            message = getString(R.string.firewarm_to_update);
+                            confirm =  getResources().getString(R.string.ok);
+                        }else {
+                            message = getResources().getString(R.string.fail_upgrade);
+                            confirm = getResources().getString(R.string.retry);
+                        }
+
                         ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(),
-                                String.format(getResources().getString(R.string.firewarm_to_update),file.getLatestBinVer()),
+                                message,
                                 getResources().getString(R.string.now_not_to_update),
-                                getResources().getString(R.string.ok),
+                                confirm,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -1007,7 +959,45 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         doActionSend();
-                                        Toast.makeText(MainActivity.this,getResources().getString(R.string.fireware_is_updating),Toast.LENGTH_LONG).show();
+                                        loadingProceedDialog = new LoadingProceedDialog(MainActivity.this);
+                                        loadingProceedDialog.setResultListener(new LoadingProceedDialog.ResultListener() {
+                                            @Override
+                                            public void result(boolean success) {
+                                                if(success){
+                                                    Toast.makeText(MainActivity.this,getResources().getString(R.string.success_upgrade),Toast.LENGTH_LONG).show();
+                                                }else {
+                                                    checkUpdatefirm(false);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void proceed() {
+                                                HekrUserAction.getInstance(MainActivity.this).getDevices(currentDevice.getDevTid(), new HekrUser.GetDevicesListener() {
+                                                    @Override
+                                                    public void getDevicesSuccess(List<DeviceBean> devicesLists) {
+                                                        if(devicesLists!=null && devicesLists.size()>0){
+                                                            DeviceBean otaDevice = devicesLists.get(0);
+                                                            LOG.D(TAG, "[RYAN] FW upgrading > current: " + currentDevice.getBinVersion() +
+                                                                    ", ota: " + otaDevice.getBinVersion());
+                                                            if(!currentDevice.getBinVersion().equals(otaDevice.getBinVersion())){
+                                                                if(loadingProceedDialog != null) {
+                                                                    loadingProceedDialog.setFlag_success(true);
+                                                                }
+                                                                deviceDAO.updateDeivceBinversion(otaDevice.getDevTid(), otaDevice.getBinVersion());
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void getDevicesFail(int errorCode) {
+                                                        Log.i(TAG,"更新获取网关信息错误："+errorCode);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        loadingProceedDialog.setPressText(getResources().getText(R.string.is_upgrading));
+                                        loadingProceedDialog.setCancelable(false);
+                                        loadingProceedDialog.show();
                                     }
 
                                 });

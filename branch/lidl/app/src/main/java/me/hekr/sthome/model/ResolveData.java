@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.text.TextUtils;
 
-import com.litesuits.android.log.Log;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -20,13 +18,13 @@ import me.hekr.sthome.model.modelbean.ShortcutBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
 import me.hekr.sthome.model.modelbean.TimerGatewayBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
-import me.hekr.sthome.model.modeldb.PackDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.model.modeldb.TimerDAO;
 import me.hekr.sthome.tools.ByteUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by Administrator on 2017/6/30.
@@ -63,7 +61,7 @@ public abstract class ResolveData {
     public abstract void EndSyncEqName();//同步设备名称结束
     public abstract void EndSyncTimerInfo();//同步定时信息结束
     public abstract void Getinfolinstenr();  //同步时收取数据监听，为了计时判断同步超时;
-
+    public abstract void reFreshCurrentMode();  //实时刷新当前模式;
     //开始同步情景
     public void StartSyncScene(){
         setSync_scene(true);
@@ -85,9 +83,17 @@ public abstract class ResolveData {
         return now_mode;
     }
 
-    public void setNow_mode(int now_mode) {
+    public void setNow_mode(int now_mode,String deviceid) {
+        LOG.D(TAG, "[SCENE debug] setNow_mode > now_mode = " + now_mode + ", isSync_scene = " + isSync_scene());
         this.now_mode = now_mode;
-        Getinfolinstenr();
+        if(isSync_scene()){
+            Getinfolinstenr();
+        }else{
+            SysmodelDAO sysmodelDAO = new SysmodelDAO(context);
+            sysmodelDAO.updateChoice(String.valueOf(now_mode),deviceid);
+            reFreshCurrentMode();
+        }
+
     }
 
     //同步获取情景模式组信息到hashmap
@@ -96,7 +102,7 @@ public abstract class ResolveData {
             GroupSceneMode.put(group_id,scene_content);
             Getinfolinstenr();
         }catch (Exception e){
-            Log.i(TAG,"Groupdata is null");
+            LOG.I(TAG,"Groupdata is null");
         }
     }
 
@@ -106,7 +112,7 @@ public abstract class ResolveData {
             Scenedata.put(mid,scene_content);
             Getinfolinstenr();
         }catch (Exception e){
-            Log.i(TAG,"Groupdata is null");
+            LOG.I(TAG,"Groupdata is null");
         }
     }
 
@@ -115,7 +121,7 @@ public abstract class ResolveData {
         SceneDAO sceneDAO = new SceneDAO(context);
         SysmodelDAO sysmodelDAO = new SysmodelDAO(context);
       if(isSync_scene()){
-          Log.i(TAG,"Scenedata:=="+Scenedata.toString());
+          LOG.I(TAG,"Scenedata:=="+Scenedata.toString());
           Object[] key_arr = Scenedata.keySet().toArray();
           Arrays.sort(key_arr);
           for  (Object key : key_arr) {
@@ -141,7 +147,7 @@ public abstract class ResolveData {
                           }
                       }
                   }catch (NumberFormatException e){
-                      Log.i(TAG,"data is not Number");
+                      LOG.I(TAG,"data is not Number");
                   }
               }else if("0000".equals(codeDetele)){
 
@@ -159,7 +165,7 @@ public abstract class ResolveData {
           setSync_scene(false);
           EndSyncScene();
       }else{
-          Log.i(TAG,"is not Sync_scene");
+          LOG.I(TAG,"is not Sync_scene");
       }
 
     }
@@ -177,7 +183,7 @@ public abstract class ResolveData {
         SceneDAO sceneDAO = new SceneDAO(context);
         Object[] key_arr2 = GroupSceneMode.keySet().toArray();
         Arrays.sort(key_arr2);
-        Log.i(TAG,"setSceneGroups:=="+GroupSceneMode.toString());
+        LOG.I(TAG,"setSceneGroups:=="+GroupSceneMode.toString());
         for  (Object key : key_arr2) {
             String value = GroupSceneMode.get(key);
             String codeDetele = value.substring(0,4);
@@ -205,7 +211,7 @@ public abstract class ResolveData {
                             default_scene_code = ByteUtil.hexStr2Bytes(scene_code)[0];
                         }
                     }
-                    Log.i(TAG,"initname:=="+initname);
+                    LOG.I(TAG,"initname:=="+initname);
                     String name =  CoderUtils.getStringFromAscii(initname);
                     if(name != null){
                         SysModelBean bean = new SysModelBean();
@@ -291,7 +297,7 @@ public abstract class ResolveData {
 
                 }
             }catch (Exception e){
-                Log.i(TAG,"data is null");
+                LOG.I(TAG,"data is null");
             }
 
 
@@ -322,7 +328,7 @@ public abstract class ResolveData {
 
                 String eqid =String.valueOf(Integer.parseInt(data.substring(0,4),16));
                 String content =  String.valueOf(Integer.parseInt(data.substring(4,6),16));
-                Log.i(TAG,"同步得到快捷键关联:eqid"+eqid+"  content:"+content+"  deviceid:"+deviceid+"  sid:"+group);
+                LOG.I(TAG,"同步得到快捷键关联:eqid"+eqid+"  content:"+content+"  deviceid:"+deviceid+"  sid:"+group);
                 ShortcutBean shortcutBean = new ShortcutBean();
                 shortcutBean.setEqid(eqid);
                 shortcutBean.setDes_sid(content);
@@ -409,7 +415,7 @@ public abstract class ResolveData {
 
 
         }else{
-            Log.i(TAG,"data is illegal!");
+            LOG.I(TAG,"data is illegal!");
 
         }
     }
@@ -445,7 +451,7 @@ public abstract class ResolveData {
                     equipDAO.addEq(applicationInfo);
                 }else{
                     if("DEL".equals(devtype)&&"00000000".equals(status)){
-                        Log.i(TAG," ED.deleteByEqid(eq1);"+status);
+                        LOG.I(TAG," ED.deleteByEqid(eq1);"+status);
                         equipDAO.deleteByEqid(applicationInfo);
                         shortcutDAO.deleteShortcurtByEqid(applicationInfo.getDeviceid(),applicationInfo.getEqid());
                     }else{
@@ -486,6 +492,7 @@ public abstract class ResolveData {
 
          try {
              EquipDAO equipDAO = new EquipDAO(context);
+             LOG.D(TAG, "[RYAN] resolveEqName > info: " + info + ", deviceid: " + deviceid);
              if("NAME_OVER".equals(info)){
                  EndSyncEqName();
              }else{
@@ -493,9 +500,11 @@ public abstract class ResolveData {
                  String eqid = info.substring(0, 4);
                  int ds = Integer.parseInt(eqid, 16);
                  String value = info.substring(4);
+                 LOG.I(TAG, "value+++++" + value);
+
                  if (value.length() == 32) {
                      String lastname = CoderUtils.getStringFromAscii(value);
-                     Log.i(TAG, "name+++++" + lastname);
+                     LOG.I(TAG, "name+++++" + lastname);
 
                      try {
                          EquipmentBean equipmentBean = new EquipmentBean();
@@ -504,12 +513,12 @@ public abstract class ResolveData {
                          equipmentBean.setDeviceid(deviceid);
                          equipDAO.updateName(equipmentBean);
                      } catch (SQLiteConstraintException e) {
-                         Log.i(TAG, "name is repeat");
+                         LOG.I(TAG, "name is repeat");
                      }
 
 
                  }else{
-                     Log.i(TAG, "name format is error");
+                     LOG.I(TAG, "name format is error");
                      try {
                          EquipmentBean equipmentBean = new EquipmentBean();
                          equipmentBean.setEqid(String.valueOf(ds));
@@ -517,7 +526,7 @@ public abstract class ResolveData {
                          equipmentBean.setDeviceid(deviceid);
                          equipDAO.updateName(equipmentBean);
                      } catch (SQLiteConstraintException e) {
-                         Log.i(TAG, "name is repeat");
+                         LOG.I(TAG, "name is repeat");
                      }
                  }
              }
@@ -543,7 +552,7 @@ public abstract class ResolveData {
                         TimerGatewayBean timerGatewayBean = resolveTimer.getTimerGatewayBean();
                         timerDAO.insertTimer(timerGatewayBean);
                     }else{
-                        Log.i(TAG,"timer data format is error");
+                        LOG.I(TAG,"timer data format is error");
                     }
 
                 }

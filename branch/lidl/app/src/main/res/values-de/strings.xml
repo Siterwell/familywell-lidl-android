@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SilverCrest Alarm</string>
     <string name="btnConfirmTitle">Verbinden</string>
     <string name="config_instruction">Nach Einstecken 5 Sekunden warten, dann drücken Sie min. 3 Sekunden den Knopf, um in den Netzmodus zu gelangen.</string>
     <string name="how_to_config">Sobald der Connector blau blinkt, drücken Sie Weiter.</string>
-    <string name="next">WEITER</string>
-    <string name="retry">WIEDERHOLEN</string>
+    <string name="next">Weiter</string>
+    <string name="retry">Wiederholen</string>
     <string name="sure_to_logout">Sind Sie sicher, dass sich sich abmelden möchten?</string>
     <string name="loading_press">Laden..</string>
     <string name="dialog_btn_confim">Bestätigen</string>
@@ -24,7 +23,7 @@
     <string name="connect_alert">Derzeitiger Connector:</string>
     <string name="connect_equipment_alert">Bitte wählen sie den Connector</string>
     <string name="please_input_complete">Bitte vervollständigen Sie die Eingabe</string>
-    <string name="password_length">Das Passwort muss mindestens 6 Zeichen haben!</string>
+    <string name="password_length">Das Passwort muss mindestens 10 Zeichen haben!</string>
     <string name="password_two_different">Die eingegebenen Passwörter stimmen nicht überein</string>
     <string name="name_hint">E-Mail</string>
     <string name="password_hint">Passwort eingeben</string>
@@ -50,31 +49,31 @@
     <string name="modify_password">Passwort ändern</string>
     <string name="modifying_newpassword">Passwort ändern...</string>
     <string name="code_fault">Passwort Fehler</string>
-    <string name="setting_old_password">Bitte geben Sie Ihr altes Passwort an </string>
+    <string name="setting_old_password">Bitte geben Sie Ihr altes Passwort an</string>
     <string name="setting_password_hint">Bitte legen Sie Ihr Passwort fest</string>
     <string name="setting_confirm_password_hint">Bitte bestätigen Sie Ihr Passwort</string>
     <string name="setting_new_password_hint">Bitte legen Sie Ihr neues Passwort fest</string>
     <string name="setting_confirm_new_password_hint">Bitte bestätigen Sie Ihr neues Passwort</string>
     <string name="delete_or_unbind_device">Sind Sie sicher, dass Sie den Connector %1$s(%2$s) trennen möchten?</string>
     <string name="delete_or_not">Löschen bestätigen?</string>
-    <string name="ok">OK</string>
-    <string name="success">ERFOLG</string>
-    <string name="cancel">ABBRECHEN</string>
+    <string name="ok">Ok</string>
+    <string name="success">Erfolg</string>
+    <string name="cancel">Abbrechen</string>
     <string name="delete_success">Erfolgreich gelöscht!</string>
     <string name="device_list">Connector Liste</string>
     <string name="device_is_not_at">Das Gerät ist nicht vorhanden</string>
     <string name="main">Start</string>
     <string name="scene">Szenen</string>
     <string name="equipment">Geräte</string>
-    <string name="equipment_warn">Meldungen</string>
+    <string name="equipment_warn">Alarmgeschichte</string>
     <string name="update_alert">Derzeit Version:%1$s,VerCode:%2$d,Find New Version:%3$s,New VerCode:%4$d, Möchten sie aktualisieren?</string>
     <string name="exit_hint">%1$s wird wieder verlassen</string>
     <string name="my_home">Mein Heim</string>
     <string name="system_scene">Szenen Modell</string>
     <string name="scene_list">Automatische Aktion</string>
     <string name="choose_color">Connector Farbe</string>
-    <string name="edit">BEARBEITEN</string>
-    <string name="get_max_scene_group">Ok, erhalten Sie die maximale Größe!</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="get_max_scene_group">Kann keine weiteren Szenen hinzufügen</string>
     <string name="equipment_list">Geräte Liste</string>
     <string name="add_equipment">Gerät zufügen</string>
     <string name="replace_equipment">Ersetzen</string>
@@ -89,11 +88,11 @@
     <string name="one_condition">Maßnahme erfolgt bei einer efüllten Bedingung</string>
     <string name="all_condition">Maßnahme erfolgt, wenn alle Bedingungen erfüllt sind</string>
     <string name="choose_condition">Wählen Sie die Bedingung</string>
-    <string name="one_condition_hint">DDie Aktion(en) des Gerätes werden durchgeführt, wenn eine der Bedingungen erfüllt wird. </string>
+    <string name="one_condition_hint">DDie Aktion(en) des Gerätes werden durchgeführt, wenn eine der Bedingungen erfüllt wird.</string>
     <string name="all_condition_hint_one">Alle Bedingungen müssen erfüllt sein, bevor das Gerät die Aktion(en) durchführt.</string>
     <string name="all_condition_hint_two">Wenn Sie nur eine Bedingung hinzufügen, wird/werden die Aktion(en) durchgeführt, wenn diese eine Bedingung erfüllt wird.</string>
     <string name="all_condition_hint_three">Wenn Sie die Funktionsweise dieser Option nicht verstehen, wählen Sie bitte die standardmäßig eingestellte Option:</string>
-    <string name="my_scene">Meine_Szene_</string>
+    <string name="my_action">Meine aktion</string>
     <string name="name_is_null">Der name Darf nicht Leer sein</string>
     <string name="name_is_repeat">Name bereits verwendet</string>
     <string name="name_is_too_long">Name ist zu lang</string>
@@ -125,10 +124,10 @@
     <string name="test">Test</string>
     <string name="operation">Vorgang</string>
     <string name="emergency_call">Notruf</string>
-    <string name="call">ANRUFEN</string>
+    <string name="call">Anrufen</string>
     <string name="update_name">Name aktualisieren</string>
-    <string name="door_open">Öffnen</string>
-    <string name="door_still_open">Warten</string>
+    <string name="door_open">Geöffnet</string>
+    <string name="door_still_open">Bleibt offen</string>
     <string name="Illegal_demolition">illegaler Eingriff</string>
     <string name="has_been_moved">wurde bewegt</string>
     <string name="has_people">Auslöser</string>
@@ -140,7 +139,7 @@
     <string name="is_connected_to_wifi">%1$s ist mit WiFi verbunden</string>
     <string name="esptouch_is_configuring">Connector wird verbunden, bitte warten</string>
     <string name="failed">Fehlgeschlagen</string>
-    <string name="failed_Esptouch_check_eq">Verbindung ist fehlgeschlagen, überprüfen Sie den Status des Connectors und verbinden Sie die Geräte</string>
+    <string name="failed_Esptouch_check_eq">Die Konfiguration schlägt fehl. Überprüfen Sie, ob das Wi-Fi-Signal stabil ist oder das 2,4-GHz-WLAN angemeldet ist und sich der Anschluss im Konfigurationsmodus befindet (blau blinkend).</string>
     <string name="failed_Esptouch_check_net">Verbindung fehlgeschlagen, bitte überprüfen Sie das WiFi</string>
     <string name="success_Esptouch">Verbindung erfolgreich</string>
     <string name="wait">Warten...</string>
@@ -155,10 +154,10 @@
     <string name="dialog_empetycode">Code ist leer</string>
     <string name="dialog_errorcode">Eingabefehler</string>
     <string name="success_send">Erfolgreich gesendet!</string>
-    <string name="input_graph">Geben Sie den Grafik Verifizierungscode ein </string>
+    <string name="input_graph">Geben Sie den Grafik Verifizierungscode ein</string>
     <string name="check_email">Die email - Registrierung war erfolgreich</string>
     <string name="update_name_success">Name erfolgreich aktualisiert</string>
-    <string name="serve_instruction">zustimmung zu den Nutzungsbedingungen</string>
+    <string name="serve_instruction">Nutzungsbedingungen</string>
     <string name="serve">Anleitung</string>
     <string name="click_to_call">Klicken zum anrufen</string>
     <string name="not_setting">Nicht eingestellt</string>
@@ -169,37 +168,37 @@
     <string name="set_username">Username eingeben</string>
     <string name="set_devname_success">Eingeben des Gerätenamens erfolgreich</string>
     <string name="add_device_hint">Bitte drücken Sie den Knopf des Gerätes schnell drei Mal nacheinander</string>
-    <string name="add_device_tip">Achtung!Wenn das grüne Licht des Verbinders aufleuchtet und Sie den Knopf des Connectors länger als drei Sekunden halten, werden alle Geräte gelöscht. </string>
+    <string name="add_device_tip">Achtung!Wenn das grüne Licht des Verbinders aufleuchtet und Sie den Knopf des Connectors länger als drei Sekunden halten, werden alle Geräte gelöscht.</string>
     <string name="done">Fertig</string>
     <string name="now_gateway_scene_is_happen_has_scene">Derzeitiger Connector %1$s(%2$s) %3$s hat ausgelöst, Vorsicht bitte.</string>
     <string name="other_gateway_scene_is_happen_has_scene">Anderer Connector %1$s(%2$s) %3$s hat ausgelöst, Vorsicht bitte \nBitte wechseln und nachsehen</string>
     <string name="now_gateway_scene_is_happen_has_no_scene">Derzeitiger Connector %1$s(%2$s) Szene %3$s ausgelöst, Vorsicht bitte.</string>
     <string name="other_gateway_scene_is_happen_has_no_scene">Anderer Connector %1$s(%2$s) Szene %3$s ausgelöst, Vorsicht bitte \nBitte wechseln und ansehen</string>
-    <string name="now_gateway_eq_is_happen_has_eq">Derzeitiger Connector %1$s(%2$s) device %3$s %4$s, Vorsicht bitte.   </string>
+    <string name="now_gateway_eq_is_happen_has_eq">Derzeitiger Connector %1$s(%2$s) device %3$s %4$s, Vorsicht bitte.</string>
     <string name="other_gateway_eq_is_happen_has_eq">Anderer Connector %1$s(%2$s) device %3$s %4$s, Vorsicht bitte, Vorsicht bitte \nBitte wechseln und ansehen</string>
     <string name="delete_or_not_withdata">Sind Sie sicher, dass Sie löschen wollen?</string>
     <string name="unbind">Verbindung abbrechen</string>
-    <string name="cxalert2">Schuld</string>
+    <string name="cxalert2">Fehler</string>
     <string name="cxalert5">Nicht stören</string>
     <string name="cxalert6">Nicht stören</string>
-    <string name="cxalert7">Test ALARM</string>
-    <string name="cxalert9">FeUer - ALARM</string>
+    <string name="cxalert7">Test alarm</string>
+    <string name="cxalert9">Feuer alarm</string>
     <string name="cxalert11">Stumm</string>
-    <string name="low_battery">NIEDRIGE-SPANNUNG</string>
-    <string name="please_set_emergencyphone">Bitte geben Sie eine Notrufnummer in EINSTELLUNGEN ein</string>
+    <string name="low_battery">Niedrige spannung</string>
+    <string name="please_set_emergencyphone">Bitte geben Sie eine Notrufnummer in einstellungen ein</string>
     <string name="door">Tür/ Fenster-Kontakt</string>
     <string name="socket">Steckdose</string>
     <string name="soskey">Paniktaster</string>
     <string name="pir">Bewegungsmelder</string>
     <string name="coalarm">CO Alarm</string>
-    <string name="gasalarm">GASalarm</string>
+    <string name="gasalarm">Gasalarm</string>
     <string name="thermalalarm">Thermik</string>
     <string name="smalarm">Rauchmelder</string>
     <string name="wt">Wassermelder</string>
     <string name="lamp">Lampe</string>
-    <string name="thcheck">Temp/Hydro</string>
+    <string name="thcheck">Temperatur- / Feuchtigkeitssensoren</string>
     <string name="guardor">Türöffner</string>
-    <string name="valve">Ventil</string>
+    <string name="valve">Thermostat-Taste</string>
     <string name="button">Taste</string>
     <string name="curtain">Vorhang</string>
     <string name="cxsmalarm">Rauchmelder</string>
@@ -208,13 +207,13 @@
     <string name="gateway">Connector</string>
     <string name="phone">Push-Notification</string>
     <string name="delay">Verzögerung</string>
-    <string name="clicktoaction">Klicken</string>
+    <string name="clicktoaction">Klick</string>
     <string name="timer">Timer</string>
     <string name="pull_to_refresh">Zum aktualisieren nach unten ziehen</string>
     <string name="release_to_refresh">Zum aktualisieren loslassen</string>
     <string name="refreshing">Laden...</string>
     <string name="not_updated_yet">Derzeit nicht aktualisiert</string>
-    <string name="updated_at">Aktualisierung von %1$s  vorher</string>
+    <string name="updated_at">Aktualisierung von %1$s vorher</string>
     <string name="updated_just_now">Jetzt aktualisiert</string>
     <string name="time_error">Zeit Fehler</string>
     <string name="minute">Minute</string>
@@ -233,9 +232,9 @@
     <string name="on_line">(Online)</string>
     <string name="off_line">(Offline)</string>
     <string name="btn_silence">stumm</string>
-    <string name="dev_type_monitor">MONITOR</string>
-    <string name="dev_type_intelligentsocket">STECKDOSE</string>
-    <string name="dev_type_smalleye">Stecker</string>
+    <string name="dev_type_monitor">Monitor</string>
+    <string name="dev_type_intelligentsocket">Steckdose</string>
+    <string name="dev_type_smalleye">Intelligenter Schalter</string>
     <string name="dev_type_boutiquerotot">Schüttelt den Kopf</string>
     <string name="device_stauts_unknown">Stecker Status unbekannt</string>
     <string name="device_stauts_online">Stecker online</string>
@@ -243,11 +242,11 @@
     <string name="common_confirm">Bestätigen</string>
     <string name="common_retry">Erneut versuchen</string>
     <string name="user_change_password">Passwort ändern</string>
-    <string name="user_change_password_hint_old_password">altes Passwot</string>
+    <string name="user_change_password_hint_old_password">Altes Passwort</string>
     <string name="user_change_password_hint_new_password">neues Passwort</string>
     <string name="user_change_password_hint_new_password_confirm">Passwort bestätigen</string>
     <string name="user_change_password_error_passwnotequal">Passwort nicht gleich</string>
-    <string name="device_login_input_password">Bitte geben Sie das Login Passwort des Gerätes an </string>
+    <string name="device_login_input_password">Bitte geben Sie das Login Passwort des Gerätes an</string>
     <string name="device_opt_picture_list">Fotos des Systems</string>
     <string name="device_opt_record_list">Videos des Systems</string>
     <string name="device_opt_alarm_config">Alarm Konfiguration</string>
@@ -268,7 +267,7 @@
     <string name="device_setup_image">Bildeinstellungen</string>
     <string name="device_setup_expert">Expert Einstellungen</string>
     <string name="device_setup_other">andere Einstellungen</string>
-    <string name="common">Information</string>
+    <string name="common">Informationen</string>
     <string name="device_setup_storage">Speicher Konfiguration</string>
     <string name="device_setup_change_password">Passworteinstellung</string>
     <string name="device_time_in_AP_or_local_mode">Bitte synchronisieren Sie die Zeit im AP Modus oder lokal Modus</string>
@@ -279,7 +278,7 @@
     <string name="device_setup_camera_osd_timeswitch">Zeit Wasserzeichen Schalter</string>
     <string name="device_setup_camera_osd">beliebiger Text Wasserzeichen</string>
     <string name="device_setup_camera_blcmode">Gegenlichkompensation</string>
-    <string name="device_setup_camera_wide_dynamic">weit dynamisch </string>
+    <string name="device_setup_camera_wide_dynamic">weit dynamisch</string>
     <string name="device_setup_camera_noise_reduction">Geräusch Reduktion</string>
     <string name="device_setup_camera_anti_shake">elektronische Wackel-Korrektur</string>
     <string name="device_setup_camera_metering">Dosierung</string>
@@ -302,7 +301,7 @@
     <string name="device_setup_storage_record_stop">Aufzeichnung Stop</string>
     <string name="device_setup_storage_record_cycle">Aufzeichnungskreislauf</string>
     <string name="device_setup_storage_format_tip">Wollen Sie das Gerätlaufwerk formatieren?</string>
-    <string name="user_forget_pwd_reset_passw_success">Passwort Zurückstellung erfolgreich </string>
+    <string name="user_forget_pwd_reset_passw_success">Passwort Zurückstellung erfolgreich</string>
     <string name="device_socket_capture_preview">Vorschau</string>
     <string name="device_socket_capture_save_success">Fortschritt speichern %1$s</string>
     <string name="device_socket_capture_delete_success">Fortschritt löschen</string>
@@ -314,15 +313,15 @@
     <string name="device_sport_camera_record_success_cancel">abbrechen</string>
     <string name="device_sport_camera_load_first">Bitte laden sie die Datei herunter nachdem das Bild erfolgreich geladen wurde</string>
     <string name="device_sport_camera_pic_existed">Bild Existierte</string>
-    <string name="device_camera_video_list_empty">Die Videoliste dieses Tages ist leer. Bitte wählen Sie eine andere Datei. </string>
+    <string name="device_camera_video_list_empty">Die Videoliste dieses Tages ist leer. Bitte wählen Sie eine andere Datei.</string>
     <string name="device_alarm_motion_detection">Bewegungsmelder</string>
-    <string name="device_alarm_motion_detection_tip">Das Gerät löst einen Alarm aus, wenn eine Bewegung erkannt wird. </string>
+    <string name="device_alarm_motion_detection_tip">Das Gerät löst einen Alarm aus, wenn eine Bewegung erkannt wird.</string>
     <string name="device_alarm_func_record">Video Interaktion</string>
     <string name="device_alarm_func_capture">Kamera Interaktion</string>
     <string name="device_alarm_func_pushmsg">MobilePush Verknüpfung</string>
     <string name="device_alarm_func_level">Alarm Sensitivität</string>
     <string name="device_alarm_func_record_motion_tip">Das Gerät fängt mit der Aufnahme an, wenn Bewegungen erkannt wurden.</string>
-    <string name="device_alarm_func_capture_motion_tip">Das Gerät wird ein Foto aufnehmen, wenn Bewegung erkannt wird. </string>
+    <string name="device_alarm_func_capture_motion_tip">Das Gerät wird ein Foto aufnehmen, wenn Bewegung erkannt wird.</string>
     <string name="device_alarm_func_pushmsg_motion_tip">Wenn das Gerät einen Alarm auslöst, wird eine Benachrichtigung an Ihr Smartphone gesendet.</string>
     <string name="device_alarm_video_block">Video Okklusion</string>
     <string name="device_alarm_no_change">keine Veränderung</string>
@@ -344,7 +343,7 @@
     <string name="monitor_manage">Monitor kontrollieren</string>
     <string name="confirm_delete_monitor">Sind sie sicher, dass sie diesen Monitor löschen möschten?</string>
     <string name="please_choose_mode">Wählen Sie Schaltmodus</string>
-    <string name="timer_list">Timer</string>
+    <string name="timer_list">Timer-Übersicht</string>
     <string name="please_choose_switch_time">Wählen Sie die Schaltzeit</string>
     <string name="edit_timer">Timer bearbeiten</string>
     <string name="switch_to">zu</string>
@@ -352,7 +351,7 @@
     <string name="wifi_config">Neue Kamera hinzufügen</string>
     <string name="more">Mehr erfahren</string>
     <string name="system_mode_not_allow_delete">Heim, weg, Schlaf kann nicht gelöscht werden!</string>
-    <string name="current_mode_not_allow_delete">Derzeitiger Szenenmodus kann nicht gelöscht werden!</string>
+    <string name="current_mode_not_allow_delete">Szenen können bei Auswahl nicht gelöscht werden. Wählen Sie eine andere Szene und versuchen Sie es erneut.</string>
     <string name="sync_time">Zeit synch.</string>
     <string name="connected">verbunden</string>
     <string name="unconnected">getrennt</string>
@@ -371,8 +370,8 @@
     <string name="clear">leer</string>
     <string name="check_pic">Fotos</string>
     <string name="check_video">Videos</string>
-    <string name="see_more">MEHR ERFAHREN</string>
-    <string name="release_more">LÖSEN UND ZEIGEN</string>
+    <string name="see_more">Mehr erfahren</string>
+    <string name="release_more">Lösen und zeigen</string>
     <string name="background_update">Wird im Hintergrund heruntergeladen, bitte warten</string>
     <string name="success_test">Die Operation War erfolgreich, warten auf das Gerät</string>
     <string name="back">Zurück</string>
@@ -387,18 +386,17 @@
     <string name="video_common">allgemeine Einstellungen</string>
     <string name="video_alarm">Alarm</string>
     <string name="video_time">Zeit</string>
-    <string name="add_camera">IPC hinzufügen</string>
+    <string name="add_camera">Fügen Sie eine IP-Kamera hinzu</string>
     <string name="scan">Code scannen</string>
-    <string name="camera_empety_sn">Bitte geben Sie die Seriennummer ein </string>
+    <string name="camera_empety_sn">Bitte geben Sie die Seriennummer ein</string>
     <string name="camera_empety_name">Bitte geben Sie den Kameranamen ein</string>
     <string name="camera_already_added">Die Kamera wurde hinzugefügt</string>
     <string name="success_add">Hinzufügen erfolgreich</string>
     <string name="temp_or_hum">Temperaturauslöser oder Feuchtigkeitsauslöser</string>
     <string name="trigger_style">Auslöserart</string>
-    <string name="server_intro">Datenschutz-Bestimmungen Datum des Inkrafttretens: 1. August 2018 \nELRO Europe ("wir" oder "unser") vertreibt die ELRO Connects Linie und betreibt die mobile Applikationen SilverCrest Alarm sowie ELRO Connects (der "Service"). Diese Seite informiert Sie über unsere Richtlinien bezüglich der Erfassung, Verwendung und Offenlegung personenbezogener Daten bei der Nutzung unseres Service und der Auswahlmöglichkeiten, die Sie mit diesen Daten verknüpft haben.\nDiese Datenschutzrichtlinie für ELRO Europe wird von FreePrivacyPolicy.com unterstützt.\nWir verwenden Ihre Daten zur Bereitstellung und Verbesserung des Service. Durch die Nutzung des Service erklären Sie sich mit der Erfassung und Nutzung von Informationen gemäß dieser Richtlinie einverstanden. Sofern in dieser Datenschutzerklärung nicht anders festgelegt, haben die in dieser Datenschutzrichtlinie verwendeten Begriffe die gleiche Bedeutung wie in unseren Nutzungsbedingungen.\nSammlung und Verwendung von Informationen\nWir sammeln verschiedene Arten von Informationen für verschiedene Zwecke, um unseren Service für Sie bereitzustellen und zu verbessern.\nArten von erfassten Daten Persönliche Daten Bei der Nutzung unseres Service bitten wir Sie möglicherweise, uns bestimmte personenbezogene Daten zur Verfügung zu stellen, die Sie nutzen können, um Sie zu kontaktieren oder zu identifizieren ("personenbezogene Daten"). Zu den personenbezogenen Daten können unter anderem gehören: • E-Mail-Addresse • Passwort • Cookies und Nutzungsdaten\n Nutzungsdaten\nWir erfassen möglicherweise auch Informationen, die Ihr Browser sendet, wenn Sie unseren Service besuchen oder wenn Sie über ein mobiles Gerät auf den Service zugreifen ("Nutzungsdaten"). Diese Nutzungsdaten können Informationen wie die IP-Adresse Ihres Computers (z. B. IP-Adresse), den Browsertyp, die Browserversion, die von Ihnen besuchten Seiten unseres Dienstes, die Uhrzeit und das Datum Ihres Besuchs sowie die auf diesen Seiten verbrachte Zeit enthalten, sowie Gerätekennungen und andere Diagnosedaten. Wenn Sie über ein mobiles Gerät auf den Dienst zugreifen, können diese Nutzungsdaten Informationen wie den Typ des verwendeten mobilen Geräts, die eindeutige ID Ihres mobilen Geräts, die IP-Adresse Ihres mobilen Geräts, Ihr mobiles Betriebssystem und den Typ des mobilen Geräts enthalten, sowie mobiler Internetbrowser, eindeutige Gerätekennungen und andere Diagnosedaten.\nTracking- und Cookie-Daten\nWir verwenden Cookies und ähnliche Tracking-Technologien, um die Aktivitäten in unserem Service zu verfolgen und bestimmte Informationen zu speichern.\nCookies sind Dateien mit kleinen Datenmengen, die eine anonyme, eindeutige Kennung enthalten können. Cookies werden von einer Website an Ihren Browser gesendet und auf Ihrem Gerät gespeichert. Tracking-Technologien, die ebenfalls verwendet werden, sind Beacons, Tags und Skripte, um Informationen zu sammeln und zu verfolgen und um unseren Service zu verbessern und zu analysieren.\nSie können Ihren Browser anweisen, alle Cookies abzulehnen oder anzugeben, wenn ein Cookie gesendet wird. Wenn Sie jedoch keine Cookies akzeptieren, können Sie möglicherweise einige Teile unseres Service nicht nutzen.\nBeispiele für Cookies, die wir verwenden:\n• Sitzungscookies. Wir verwenden Session-Cookies, um unseren Service zu betreiben. • Präferenz-Cookies. Wir verwenden Präferenz-Cookies, um Ihre Präferenzen und verschiedene Einstellungen zu speichern. • Sicherheitscookies. Wir verwenden Sicherheitscookies für Sicherheitszwecke.\n Verwendung von Daten\nELRO Europe verwendet die gesammelten Daten für verschiedene Zwecke:\n• Bereitstellung und Wartung des Service • Um Sie über Änderungen an unserem Service zu informieren • Damit Sie an interaktiven Funktionen unseres Service teilnehmen können, wenn Sie dies wünschen • Bereitstellung von Kundenbetreuung und Support • Bereitstellung von Analysen oder wertvollen Informationen, um den Service zu verbessern • Um die Nutzung des Service zu überwachen • Technische Probleme erkennen, verhindern und beheben\n Übertragung von Daten\nIhre Daten, einschließlich personenbezogener Daten, können an Computer übertragen werden, die sich außerhalb Ihres Bundesstaates, Ihres Landes oder einer anderen Regierungsbehörde befinden, wo die Datenschutzgesetze von denen in Ihrem Land abweichen können.\nWenn Sie sich außerhalb der Europäischen Union befinden und beschließen, uns Informationen zur Verfügung zu stellen, beachten Sie bitte, dass wir die Daten, einschließlich personenbezogener Daten, in die EU übertragen und dort verarbeiten.\nIhre Zustimmung zu dieser Datenschutzrichtlinie, gefolgt von Ihrer Übermittlung dieser Informationen, bedeutet Ihre Zustimmung zu dieser Übertragung.\nELRO Europe wird alle notwendigen Schritte unternehmen, um sicherzustellen, dass Ihre Daten sicher und in Übereinstimmung mit dieser Datenschutzrichtlinie behandelt werden und keine Übertragung Ihrer persönlichen Daten an eine Organisation oder ein Land stattfindet, sofern keine angemessenen Kontrollen vorhanden sind, einschließlich der Sicherheit von Ihre Daten und andere persönliche Informationen.\nOffenlegung von Daten\nRechtliche Anforderungen\nELRO Europe kann Ihre persönlichen Daten ausschließlich dann in gutem Glauben offen legen, dass eine solche Maßnahme erforderlich ist, um:\n• Um einer gesetzlichen Verpflichtung nachzukommen • Schutz und Verteidigung der Rechte oder des Eigentums von ELRO Europe zu gewährleisten • um mögliche Fehlverhalten in Verbindung mit dem Service zu verhindern oder zu untersuchen • Zum Schutz der persönlichen Sicherheit der Benutzer des Dienstes oder der Öffentlichkeit • Vor gesetzlicher Haftung zu schützen\n Sicherheit von Daten\nDie Sicherheit Ihrer Daten ist uns wichtig, aber denken Sie daran, dass keine Methode der Übertragung über das Internet oder die Methode der elektronischen Speicherung 100% sicher ist. Obwohl wir uns bemühen, Ihre Daten mit kommerziell akzeptablen Mitteln zu schützen, können wir keine absolute Sicherheit garantieren.\nDienstleister\nWir können Drittunternehmen und Privatpersonen beschäftigen, um unseren Service ("Service Providers") zu erleichtern, den Service in unserem Auftrag zu erbringen, um servicebezogene Dienstleistungen zu erbringen oder um uns bei der Analyse der Nutzung unseres Service zu unterstützen.\nDiese Dritten haben nur Zugang zu Ihren personenbezogenen Daten, um diese Aufgaben in unserem Auftrag auszuführen, und sind verpflichtet, sie nicht für andere Zwecke offenzulegen oder zu verwenden.\nAnalysen\nWir können Service Provider von Drittanbietern verwenden, um die Nutzung unseres Service zu überwachen und zu analysieren.\n• Google Analytics\nGoogle Analytics ist ein von Google angebotener Webanalysedienst, der Website-Zugriffe erfasst und meldet. Google verwendet die erfassten Daten, um die Nutzung unseres Service zu verfolgen und zu überwachen. Diese Daten werden mit anderen Google-Diensten geteilt.\nGoogle kann die gesammelten Daten verwenden, um die Anzeigen des eigenen Werbenetzwerks zu kontextualisieren und zu personalisieren.\nWeitere Informationen zu den Datenschutzpraktiken von Google finden Sie auf der Website zu Google Datenschutz und Nutzungsbedingungen: https://policies.google.com/privacy?hl=de \nLinks zu anderen Websites\nUnser Service kann Links zu anderen Seiten enthalten, die nicht von uns betrieben werden. Wenn Sie auf einen Link eines Drittanbieters klicken, werden Sie auf die Website dieses Drittanbieters weitergeleitet. Wir empfehlen Ihnen dringend, die Datenschutzrichtlinien jeder besuchten Website zu lesen.\nWir haben keine Kontrolle über und übernehmen keine Verantwortung für den Inhalt, die Datenschutzrichtlinien oder Praktiken von Drittanbieter-Websites oder -Diensten.\nKinder Privatsphäre\nUnser Service wendet sich nicht an Personen unter 18 Jahren ("Kinder"). Wir sammeln wissentlich keine personenbezogenen Daten von Personen unter 18 Jahren.\nWenn Sie ein Elternteil oder Erziehungsberechtigter sind und wissen, dass Ihre Kinder uns personenbezogene Daten zur Verfügung gestellt haben, nehmen Sie bitte Kontakt mit uns auf.\nWenn wir feststellen, dass wir personenbezogene Daten von Kindern ohne Bestätigung der Zustimmung der Eltern erfasst haben, ergreifen wir Maßnahmen, um diese Informationen von unseren Servern zu entfernen.\nÄnderungen an dieser Datenschutzrichtlinie\nWir können unsere Datenschutzerklärung von Zeit zu Zeit aktualisieren. Wir werden Sie über Änderungen informieren, indem Sie die neue Datenschutzrichtlinie auf dieser Seite veröffentlichen.\nWir werden Sie vor Inkrafttreten der Änderung per E-Mail und / oder einer auffälligen Mitteilung über unseren Service informieren und das "Datum des Inkrafttretens" oben in dieser Datenschutzerklärung aktualisieren.\nEs wird empfohlen, diese Datenschutzrichtlinie regelmäßig auf Änderungen zu überprüfen. Änderungen an dieser Datenschutzerklärung werden wirksam, wenn sie auf dieser Seite veröffentlicht werden.\nKontaktieren sie uns\nWenn Sie Fragen zu dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte:\n• Per E-Mail: info@elro.eu • Durch den Besuch dieser Seite auf unserer Website: www.elro.eu/privacy-policy</string>
-    <string name="about_app">DasSystem besteht aus zwei Hauptteilen: dem Connector und intelligenten Geräten. Der Connector ist eine Schlüsselkomponente des Systems und kommuniziert mit intelligenten Geräten über die RF-Kommunikationstechnologie und stellt eine Verbindung zu einem Wi-Fi-Heimnetzwerk her, um über das mobile Internet durch einen Cloud-Server mit Ihrer Smartphone-App zu kommunizieren. Auf diese Weise ermöglicht das System die Verwendung Ihres Smartphones als Befehlszentrale zur Ergänzung verschiedener Vorgänge, einschließlich der Erstellung von Regeln, Hinzufügen und Löschen von Komponenten, Scharfschalten und Unscharfschalten, Empfangen von Push-Benachrichtigungen beim Auslösen des Alarms und anderen benutzerdefinierten Vorgängen. Zu den intelligenten Geräten im System gehören folgende Geräte, die je nach Bedarf ausgewählt werden können: Rauchmelder, Gasalarm, CO-Detektor, Wassermelder, Türsensoren, passiver Infrarotsensor, Notruftaste, Smart-Buchse, Temperatur- und Feuchtigkeitsmessgerät und so weiter. Die Liste der Geräte in  wird ständig aktualisiert. Netzwerk-Kamera, Türschloss, Schalttafel, Steckdosenleiste, intelligente Luftreinigung, elektromagnetische Wasserventil und andere kommen bald!</string>
-    <string name="modebutton_ins">Szenen-Shortcut-Taste</string>
-    <string name="input_exist">Eingabegerät kann nicht wiederholt werden</string>
+    <string name="about_app">Das BASE smart-Sicherheitssystem enthält zwei Hauptkomponenten: den Anschluss und die intelligenten Detektoren. Der Connector ist ein wichtiger Bestandteil des Systems und ermöglicht die Kommunikation mit den Detektoren (über RF-Signale) und stellt eine Verbindung zum Wi-Fi-Netzwerk her, um mit dem Cloud Server (und auf diese Weise auch mit Ihrem Smartphone und / oder oder Tablette). Verwenden Sie Ihr Gerät und die App und bedienen Sie alle Geräte auf intelligente und sichere Weise. Mit dem System können Sie Ihr Smartphone verwenden, um das System einzurichten und optimal zu nutzen. Erwägen Sie das Hinzufügen und Entfernen von Komponenten, das Aktivieren und Deaktivieren des Systems, das Empfangen von Push-Benachrichtigungen bei deren Aktivierung, das Festlegen von Bedingungen und Aktionen (z. B. im Home-Modus wird die Türklingel während der Bewegungserkennung ausgelöst) und andere benutzerdefinierte Vorgänge. Intelligente Detektoren können je nach Bedarf hinzugefügt werden: Rauchmelder, CO-Melder, Wassermelder, Türsensor, Bewegungsmelder, Notschalter, intelligenter Schalter, intelligenter Thermostat, Temperatur- und Feuchtigkeitsmesser und so weiter. Die Liste der Geräte in BASE wird ständig aktualisiert und verbessert. In Kürze verfügbar: Netzwerkkamera, Türschloss, Schaltfeld, Anschlussfeld, intelligente Luftreinigung, elektromagnetisches Wasserventil.</string>
+    <string name="modebutton_ins">Szenenkürzel</string>
+    <string name="input_exist">Gerät kann nicht zweimal hinzugefügt werden</string>
     <string name="output_exist">Benachbarte Ausgabegeräte können nicht wiederholt werden</string>
     <string name="click_exist">Klickaktion hinzugefügt</string>
     <string name="delay_exist">Kann keine Verzögerung einstellen</string>
@@ -408,7 +406,7 @@
     <string name="delete_last_delay">Wenn Sie dieses Gerät löschen, wird auch die vorherige Verzögerung gelöscht</string>
     <string name="unamed">Unbenannt</string>
     <string name="save_or_not">Speichern?</string>
-    <string name="hum">Luftfeuchtigkeit:</string>
+    <string name="hum">Luftfeuchte:</string>
     <string name="gateway_login">Einloggen</string>
     <string name="gateway_login_out">Ausloggen</string>
     <string name="logouting">Jetzt loggen sie Sich aus</string>
@@ -417,8 +415,8 @@
     <string name="opening">öffnen</string>
     <string name="electric_city_break_off">AC Abgeschaltet</string>
     <string name="electric_city_normal">AC Normal</string>
-    <string name="battery_normal">Batterie ok</string>
-    <string name="battery_low">Baaterie fast leer</string>
+    <string name="battery_normal">Batterie OK</string>
+    <string name="battery_low">Batterie fast leer</string>
     <string name="gateway_alert">Connector Alarm</string>
     <string name="choose_gateway_type">Connector-Typ</string>
     <string name="trigger">Auslösen</string>
@@ -441,7 +439,7 @@
     <string name="click_to_scan_qcode">Klicken und Code scannen</string>
     <string name="reset_to_default_set">Fabrikeinstellungen wiederherstellen</string>
     <string name="device_system_info_defaultconfigsucc">Fabrikeinstellungen werden wiederhergestellt..</string>
-    <string name="sn_is_illegal">SN illegal</string>
+    <string name="sn_is_illegal">Seriennummer ist unzulässig</string>
     <string name="no_emergency_call">Geben sie die Notfall-Nummer ein</string>
     <string name="set_eq_name">Bitte geben Sie den%1$s Namen ein</string>
     <string name="replace_success">Ersetzen erfolgreich</string>
@@ -450,7 +448,7 @@
     <string name="footprint_open">Fingerabdruck freischalten</string>
     <string name="illegal_operation">Illegale</string>
     <string name="dismantle">Eingriff</string>
-    <string name="coercion">Sabotage-Alarm</string>
+    <string name="coercion">Notfall</string>
     <string name="unlock">Entsperren</string>
     <string name="please_input_unlock_password">Bitte Passwort eingeben</string>
     <string name="actived">Aktiviert</string>
@@ -465,14 +463,14 @@
     <string name="no_des_model">Keine</string>
     <string name="please_choose">Bitte wählen SIE</string>
     <string name="success_set">Erfolgreich!</string>
-    <string name="alarm_remove">ALARM aufgehoben</string>
+    <string name="alarm_remove">Alarm aufgehoben</string>
     <string name="already_in_gateway">Das hinzugefügte Gerät befindet sich bereits im Connector. Bitte geben Sie den Namen%1$s ein</string>
-    <string name="gps_setting">Geo-Einstellungen</string>
-    <string name="no_gps">Keine Position</string>
-    <string name="gps_phone">GPS - Handy</string>
+    <string name="gps_setting">Ortseinstellungen</string>
+    <string name="no_gps">Deaktiviert</string>
+    <string name="gps_phone">Eingeschaltet</string>
     <string name="re_login">Re-Login</string>
     <string name="temp_controler">Thermostat</string>
-    <string name="firewarm_to_update">Das aktuelle Connector hat eine neue Firmware:%1$s, aktualisieren?</string>
+    <string name="firewarm_to_update">Updates verfügbar, möchten Sie aktualisieren?</string>
     <string name="now_not_to_update">Nicht jetzt</string>
     <string name="fireware_is_updating">Firmware-Aktualisierung läuft, bitte versuchen sie es später.</string>
     <string name="dimming_module">Dimmer Modul</string>
@@ -512,10 +510,35 @@
     <string name="pir_default_scene_hint">Standard Szene: Alarm und Push-Nachricht bei Bewegungserkennung</string>
     <string name="door_default_scene_hint">Standard Szene: Alarm und Push-Notification bei Öffnen eines Magnetkontaktes</string>
     <string name="old_man_default_scene_hint">Standard Szene: Push-Notification und Connector Hinweiston bei Keine Bewegung Für 5 Stunden</string>
-   <string name="alert_elder_care">Betreuung für ältere Menschen</string>
-    <string name="three_zifu">Das passwort muss MIT großbuchstaben, kleinbuchstaben, Zahlen, sonderzeichen mindestens drei</string>
-    <string name="config_fail_reason">Die gründe für das scheitern</string>
+    <string name="alert_elder_care">Betreuung für ältere Menschen</string>
+    <string name="three_zifu">Das Passwort muss aus mindestens 10 Zeichen mit mindestens einem Großbuchstaben, einem Kleinbuchstaben, einer Ziffer und einem Sonderzeichen bestehen.</string>
+    <string name="config_fail_reason">Verbindung fehlgeschlagen (Hinweis: Verwenden Sie immer 2,4-GHz-WLAN).</string>
     <string name="click_check_firemare">Klicken sie auf ein firmware Update</string>
-    <string name="view_yinsi">Um DATENSCHUTZ</string>
+    <string name="view_yinsi">Datenschutzbestimmungen</string>
     <string name="fireware_is_lastest">Gateway version hin ist die neueste Version</string>
+    <string name="gateway_version">Connector-Version</string>
+    <string name="is_upgrading">Aktualisieren...</string>
+    <string name="success_upgrade">Firmware update erfolgreich!</string>
+    <string name="fail_upgrade">Update fehlgeschlagen</string>
+    <string name="delete_condition">Möchten Sie diese Bedingung wirklich löschen?</string>
+    <string name="delete_action">Möchten Sie diese Aktion wirklich löschen?</string>
+    <string name="firmware_upgrade_info">Wichtig: Dieses Update ändert die Funktionalität Ihres Systems. Klicken Sie unten auf "Informationen", um zu sehen, welche Änderungen vorgenommen werden.</string>
+    <string name="faq">Häufig gestellte Fragen (FAQ)</string>
+    <string name="delete_timer">Möchten Sie diesen Timer wirklich löschen?</string>
+    <string name="successfully_deleted">Erfolgreich gelöscht</string>
+    <string name="wireless_config">WLAN einstellungen</string>
+    <string name="gs361_install_construction">Bitte DAS thermostat zu installieren, dann wieder drücken sie den Knopf installieren.</string>
+    <string name="reset_progress">Gerät zurücksetzen, bitte nicht ausschalten</string>
+    <string name="permission_reject_camera_tip">Aktuelle Anwendungen haben keine fotografischen Privilegien.Bitte klicken Sie auf "Einstellungen" -"Berechtigungen", um die erforderlichen Berechtigungen zu öffnen.</string>
+    <string name="permission_reject_location_tip">Die aktuelle Anwendung hat keine Standortberechtigung und kann kein WLAN konfigurieren. Bitte setzen Sie die für das Öffnen erforderliche Erlaubnis ein.</string>
+    <string name="permission_reject_imei_tip">Wenn Sie den Status -Code des Mobiltelefons nicht lesen, wird sich die normale Nutzung der App auswirken. Bitte öffnen Sie die Telefongenehmigung.</string>
+    <string name="permission_reject_write_local_tip">Ohne die Schreib - und Leseberechtigung der SD -Karte wird dies die Verwendung von APP -Kamerafunktionen beeinflussen. Bitte öffnen Sie die Speichergenehmigung</string>
+    <string name="permission_reject_location_service_tip">Bitte öffnen Sie den Standortservice, sonst können Sie das WLAN nicht konfigurieren</string>
+    <string name="permission_register">Antrag auf Zulassung</string>
+    <string name="goto_set">Zur Einrichtung</string>
+    <string name="file_is_exist">Datei existiert bereits</string>
+    <string name="look">Siehe</string>
+    <string name="success_download">Herunterladen erfolgreich</string>
+    <string name="hint">Dinge, die Aufmerksamkeit erfordern</string>
+    <string name="get_more">Weitere Geräteinformationen erhalten</string>
 </resources>

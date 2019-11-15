@@ -2,15 +2,16 @@ package me.hekr.sthome.model.newstyle;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.model.modeladapter.OptionAdapter;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.wheelwidget.view.WheelView;
 
@@ -29,7 +30,6 @@ public class SOSNewActivity extends TopbarSuperActivity {
         try {
         initData();
 
-
         wheelView = (WheelView)findViewById(R.id.item);
         wheelView.setAdapter(new OptionAdapter(itemslist,30));
         wheelView.addChangingListener(new WheelView.OnWheelChangedListener() {
@@ -37,10 +37,10 @@ public class SOSNewActivity extends TopbarSuperActivity {
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
                 switch (newValue){
                     case 0:
-                        device.setState("00005500");//设置为开
+                        device.setState("00005500");//设置为求救
                         break;
                     case 1:
-                        device.setState("00006600");//设置为关
+                        device.setState("0000AA00");//设置为正常
                         break;
                     default:break;
                 }
@@ -52,13 +52,13 @@ public class SOSNewActivity extends TopbarSuperActivity {
         if(a != null){
             if("00005500".equals(a)){
                 wheelView.setCurrentItem(0);
-            }else if("00006600".equals(a)){
+            }else if("0000AA00".equals(a)){
                 wheelView.setCurrentItem(1);
             }
         }
         initViewGuider();
     }catch (Exception e){
-        Log.i("ceshi","data is null");
+        LOG.I("ceshi","data is null");
     }
     }
 
@@ -107,11 +107,9 @@ public class SOSNewActivity extends TopbarSuperActivity {
     }
 
     private void initData() {
-
         String[] strs = getResources().getStringArray(R.array.sos_signs);
-        for(String ds:strs){
-            itemslist.add(ds);
-        }
+        itemslist.addAll(Arrays.asList(strs));
+
         if(mcp.position!=-1){
             device = mcp.input.get(mcp.position);
         }else {

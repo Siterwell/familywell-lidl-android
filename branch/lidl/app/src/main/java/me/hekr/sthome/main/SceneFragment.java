@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.litesuits.android.log.Log;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -26,8 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import me.hekr.sthome.commonBaseView.ToastTools;
-import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.RefreshableView;
@@ -36,13 +32,15 @@ import me.hekr.sthome.commonBaseView.TopBarView;
 import me.hekr.sthome.equipment.adapter.EqpAdapter;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.history.DataFromSceneGroup;
+import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.SysDetaiActivity;
 import me.hekr.sthome.model.TimerListActivity;
 import me.hekr.sthome.model.addsmodel.AddSystemActivity;
 import me.hekr.sthome.model.modeladapter.ModleSysAdapter;
-import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modelbean.SceneBean;
 import me.hekr.sthome.model.modelbean.SysModelBean;
+import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
@@ -50,6 +48,7 @@ import me.hekr.sthome.model.newstyle.ModelConditionPojo;
 import me.hekr.sthome.model.newstyle.NewGroup2Activity;
 import me.hekr.sthome.model.newstyle.SceneCopyPojo;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendSceneData;
 import me.hekr.sthome.tools.SendSceneGroupData;
@@ -127,23 +126,23 @@ private void initGuider() {
     ssgd = new SendSceneGroupData(this.getActivity()) {
         @Override
         protected void sendEquipmentDataFailed() {
-            Log.i(TAG,"operation failed");
+            LOG.I(TAG,"operation failed");
         }
 
         @Override
         protected void sendEquipmentDataSuccess() {
-            Log.i(TAG,"operation success");
+            LOG.I(TAG,"operation success");
         }
     };
     ssd = new SendSceneData(this.getActivity()) {
         @Override
         protected void sendEquipmentDataFailed() {
-            Log.i(TAG,"operation failed");
+            LOG.I(TAG,"operation failed");
         }
 
         @Override
         protected void sendEquipmentDataSuccess() {
-            Log.i(TAG,"operation success");
+            LOG.I(TAG,"operation success");
         }
     };
     root       = (LinearLayout)view.findViewById(R.id.root);
@@ -267,6 +266,7 @@ private void initGuider() {
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
+                LOG.D(TAG, "[RYAN] onRefresh !!!");
                 STEvent stEvent = new STEvent();
                 stEvent.setServiceevent(4);
                 EventBus.getDefault().post(stEvent);
@@ -274,9 +274,9 @@ private void initGuider() {
             }
         },1);
 
-        sListView = (SlideListView) view.findViewById(R.id.sysModleList);
+        sListView = view.findViewById(R.id.sysModleList);
         sListView.initSlideMode(SlideListView.MOD_FORBID);
-        msAdapter = new ModleSysAdapter(this.getActivity(), slist,sListView,this);
+        msAdapter = new ModleSysAdapter(getActivity(), slist,sListView,this);
         sListView.setAdapter(msAdapter);
         refresh();
     }
@@ -291,9 +291,9 @@ private void initGuider() {
             for (SysModelBean b : l){
                 slist.add(b);
             }
-            Log.i(TAG,"有系统情景"+slist.toString());
+            LOG.I(TAG,"有系统情景"+slist.toString());
         }else if(l.size() == 0){
-            Log.i(TAG,"无系统情景");
+            LOG.I(TAG,"无系统情景");
             SysModelBean a = new SysModelBean();
             a.setModleId(-1);
             a.setModleName("Home");
@@ -339,6 +339,8 @@ private void initGuider() {
     }
 
     public void refresh(){
+        LOG.D(TAG, "[RYAN] refresh");
+
        if(!TextUtils.isEmpty( HekrUserAction.getInstance(this.getActivity()).getJWT_TOKEN()))
         try {
             addSyslist();
@@ -364,24 +366,49 @@ private void initGuider() {
 
     }
 
-
+    private void showOfflineMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getString(R.string.current_gateway)).append(" ").append(getString(R.string.off_line));
+        Toast.makeText(getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void switchmode(int position) {
-        //情景同步时禁止控制
-      //  if(!ControllerSyncScene.getInstance().sync_server){
+        if (ConnectionPojo.getInstance().deviceTid == null) {
+            showOfflineMessage();
+            return;
+        }
+
+        DeviceDAO DDO = new DeviceDAO(getContext());
+        MyDeviceBean gateway = DDO.findByDeviceid(ConnectionPojo.getInstance().deviceTid);
+        if (gateway != null && gateway.isOnline()) {
+            //情景同步时禁止控制
+            //  if(!ControllerSyncScene.getInstance().sync_server){
             SendCommand.Command = SendCommand.CHOOSE_SCENE_GROUP;
             setHandleSceneGroupSid(Integer.valueOf(slist.get(position).getSid()));
             ssgd.sceneGroupChose(getHandleSceneGroupSid());
-      //  }
+            //  }
+        } else {
+            showOfflineMessage();
+        }
     }
 
     @Override
     public void edit(int position) {
+        if (ConnectionPojo.getInstance().deviceTid == null) {
+            showOfflineMessage();
+            return;
+        }
 
-        Intent intent = new Intent(SceneFragment.this.getActivity(),SysDetaiActivity.class);
-        intent.putExtra("sid",String.valueOf(slist.get(position).getSid()));
-        SceneFragment.this.getActivity().startActivity(intent);
+        DeviceDAO DDO = new DeviceDAO(getContext());
+        MyDeviceBean gateway = DDO.findByDeviceid(ConnectionPojo.getInstance().deviceTid);
+        if (gateway != null && gateway.isOnline()) {
+            Intent intent = new Intent(SceneFragment.this.getActivity(),SysDetaiActivity.class);
+            intent.putExtra("sid",String.valueOf(slist.get(position).getSid()));
+            SceneFragment.this.getActivity().startActivity(intent);
+        } else {
+            showOfflineMessage();
+        }
     }
 
     @Override
@@ -486,6 +513,7 @@ private void initGuider() {
               SD.delete(String.valueOf(getHandleSceneGroupSid()), ConnectionPojo.getInstance().deviceTid);
               SED.deleteBySid(getHandleSceneGroupSid(), ConnectionPojo.getInstance().deviceTid);
               shortcutDAO.deleteAllShortcurt(String.valueOf(getHandleSceneGroupSid()), ConnectionPojo.getInstance().deviceTid);
+
               refresh();
               SendCommand.clearCommnad();
           }else if(event.getEvent()== SendCommand.DELETE_SCENE){
@@ -493,6 +521,7 @@ private void initGuider() {
               SED.delete(ac);
               DataFromSceneGroup dfsg = new DataFromSceneGroup(SceneFragment.this.getActivity());
               dfsg.doSendSynCode();
+
               refresh();
               SendCommand.clearCommnad();
           }else if(event.getEvent()== SendCommand.SCENE_HANDLE){
@@ -501,10 +530,12 @@ private void initGuider() {
           }
 
 
-          if(event.getRefreshevent()==3){
-             if(refreshableView!=null) refreshableView.finishRefreshing();
-          }else if(event.getRefreshevent()==6){
-              if(refreshableView!=null) refreshableView.finishRefreshing();
+          if(event.getRefreshevent() == SendCommand.REPLACE_EQUIPMENT){
+             if(refreshableView != null)
+                 refreshableView.finishRefreshing();
+          }else if(event.getRefreshevent() == SendCommand.CHOOSE_SCENE_GROUP){
+              if(refreshableView != null)
+                  refreshableView.finishRefreshing();
           }
 
     }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.litesuits.common.assist.Toastor;
 
+import java.io.InvalidClassException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +27,9 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.VerfyDialog;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.ECPreferenceSettings;
+import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
 public class RegisterActivity extends TopbarSuperActivity implements View.OnClickListener{
@@ -38,7 +42,7 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
     private TextView tv_pid;
     private ImageView save_xieyi;
     private LinearLayout liner_phone,liner_email;
-    private int type = 1; //1代表手机 2代表邮箱
+    private int type = 2; //1代表手机 2代表邮箱
     private int xieyi = 0;
 
     @Override
@@ -81,7 +85,10 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
         btn_get_code.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         btn_register.setEnabled(false);
-        getTopBarView().setTopBarStatus(1, 2, getResources().getString(R.string.register), type == 1 ? getResources().getString(R.string.email_register) : getResources().getString(R.string.phone_register), new View.OnClickListener() {
+        getTopBarView().setTopBarStatus(1, 2,
+                getResources().getString(R.string.register),
+                "   ",
+                new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -89,7 +96,7 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
         }, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchType();
+//                switchType();
             }
         });
 
@@ -143,14 +150,14 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit_firm.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(pwd)) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
 
-                            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()-+=]+$)(?![0-9\\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()-+=]{6,30}$";
+                            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()-+=]+$)(?![0-9\\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()-+=]{10,30}$";
 
                             Pattern r = Pattern.compile(pattern);
                             Matcher m = r.matcher(pwd);
@@ -174,14 +181,17 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
                     pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     con_pwd = codeEdit.getCodeEdit().getText().toString().trim();
                     if (!TextUtils.isEmpty(code) && !TextUtils.isEmpty(email) ) {
-                        if(pwd.length()<6){
+                        if(pwd.length()<10){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_length));
                         }else if(!con_pwd.equals(pwd)){
                             toastor.showSingleLongToast(getResources().getString(R.string.password_two_different));
                         }
                         else{
-                            registerByEmail(email,pwd,code);
-
+                            if(PasswordPattern.matchs(pwd)){
+                                registerByEmail(email,pwd,code);
+                            }else {
+                                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+                            }
                         }
                     }
                     else{
@@ -213,6 +223,13 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
             @Override
             public void registerSuccess(String uid) {
                 toastor.showSingleLongToast(getResources().getString(R.string.success_register));
+
+                try {
+                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED, false, true);
+                } catch (InvalidClassException e) {
+                    e.printStackTrace();
+                }
+
                 Intent intent = new Intent();
                 intent.putExtra("username",phoneNumber);
                 intent.putExtra("password",pwd);
@@ -234,6 +251,12 @@ public class RegisterActivity extends TopbarSuperActivity implements View.OnClic
                 ECAlertDialog D = ECAlertDialog.buildPositiveAlert(RegisterActivity.this, R.string.check_email, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_EMERGENCY_NUMBER_CHECKED, false, true);
+                        } catch (InvalidClassException e) {
+                            e.printStackTrace();
+                        }
+
                         Intent intent = new Intent();
                         intent.putExtra("username",email);
                         intent.putExtra("password",pwd);

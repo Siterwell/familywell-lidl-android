@@ -19,11 +19,11 @@ import me.hekr.sthome.http.bean.NewDeviceBean;
 import me.hekr.sthome.http.bean.NewsBean;
 import me.hekr.sthome.http.bean.OAuthListBean;
 import me.hekr.sthome.http.bean.OAuthRequestBean;
-import me.hekr.sthome.http.bean.ProfileBean;
 import me.hekr.sthome.http.bean.RuleBean;
 import me.hekr.sthome.http.bean.UserFileBean;
 import me.hekr.sthome.http.bean.WeatherAirBean;
 import me.hekr.sthome.http.bean.WeatherBeanResultsNow;
+import me.hekr.sthome.model.modelbean.NoticeBean;
 
 
 /**
@@ -693,6 +693,22 @@ public class HekrUser {
     public interface GetNewDevicesListener {
         void getSuccess(List<NewDeviceBean> list);
 
+        void getFail(int errorCode);
+    }
+
+    /**
+     * 获取设备历史告警记录
+     */
+    public interface  GetDeviceHistoryListener {
+        void getSuccess(List<NoticeBean> list, int pagenumber, boolean last);
+        void getFail(int errorCode);
+    }
+
+    /**
+     * 获取设备离线记录
+     */
+    public  interface  getLogoutHistoryListener{
+        void getSuccess(List<Long> list, int pagenumber, boolean last);
         void getFail(int errorCode);
     }
 }

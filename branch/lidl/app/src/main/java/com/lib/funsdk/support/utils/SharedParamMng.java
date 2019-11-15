@@ -19,7 +19,7 @@ public class SharedParamMng{
 		if(mContext != null)
 		{
 			mPreferences = context.getSharedPreferences(FUN_PARAM_DB, 
-					Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE);   
+					Context.MODE_PRIVATE);
 		}
 	}
 	

@@ -2,6 +2,7 @@ package me.hekr.sthome.xmipc;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -56,7 +57,12 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
         initview();
         InitViewPager();
         init2SystemBar();
-        getImages();
+        if(pic_or_video==0){
+            getImages();
+        }else {
+            getVideos();
+        }
+
     }
 
     @Override
@@ -220,6 +226,14 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
         public void onPageSelected(int index) {
             currIndex = index;
             setButton(currIndex);
+            switch (currIndex){
+                case 0:
+                    getImages();
+                    break;
+                case 1:
+                    getVideos();
+                    break;
+            }
         }
     }
 
@@ -255,6 +269,7 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
                         MediaStore.Images.Media.DATE_MODIFIED  + " DESC");
 
                 Log.i(TAG, mCursor.getCount() + "");
+                localfiles_pic.clear();
                 while (mCursor.moveToNext())
                 {
                     // 获取图片的路径
@@ -275,7 +290,7 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
 
                 Log.i(TAG,"localfiles============"+localfiles_pic.toString());
                 // 通知Handler扫描图片完成
-                mHandler.sendEmptyMessage(0x110);
+                mHandler.sendEmptyMessage(0x111);
 
             }
         }).start();
@@ -287,13 +302,17 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
      */
     private void getVideos()
     {
+        final String[] thumbColumns = {MediaStore.Video.Thumbnails.DATA,
+                MediaStore.Video.Thumbnails.VIDEO_ID};
+
         if (!Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED))
         {
             Toast.makeText(this, getResources().getString(R.string.no_extern_storage), Toast.LENGTH_SHORT).show();
             return;
         }
-
+        // 显示进度条
+        mProgressDialog = ProgressDialog.show(this, null, getResources().getString(R.string.loading_press));
         new Thread(new Runnable()
         {
             @Override
@@ -307,7 +326,7 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
                          MediaStore.Video.Media.DATA +" like ?",
                         new String[] {  "%" + FunPath.PATH_VIDEO+File.separator+path_file+"%"},
                         MediaStore.Video.Media.DATE_MODIFIED  + " DESC");
-
+                localfiles_video.clear();
                 Log.i(TAG, mCursor.getCount() + "");
                 while (mCursor.moveToNext())
                 {
@@ -316,11 +335,27 @@ public class ActivityLocalpicvideo extends TopbarSuperActivity implements View.O
                             .getColumnIndex(MediaStore.Video.Media.DATA));
                     String modify = mCursor.getString(mCursor
                             .getColumnIndex(MediaStore.Video.Media.DATE_MODIFIED));
+
+                    int id = mCursor.getInt(mCursor
+                            .getColumnIndex(MediaStore.Video.Media._ID));
+                    Cursor thumbCursor = getContentResolver().query(
+                            MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI,
+                            thumbColumns, MediaStore.Video.Thumbnails.VIDEO_ID
+                                    + "=" + id, null, null);
+
+
+
                     File flie = new File(path);
                     Localfile localfile = new Localfile();
                     localfile.setFilename(flie.getName());
                     localfile.setFilepath(path);
                     localfile.setModifytime(modify);
+
+                    if (thumbCursor.moveToFirst()) {
+                        localfile.setThumbpath(thumbCursor.getString(thumbCursor
+                                .getColumnIndex(MediaStore.Video.Thumbnails.DATA)));
+                    }
+
                     localfiles_video.add(localfile);
                     // 拿到第一张图片的路径
                 }

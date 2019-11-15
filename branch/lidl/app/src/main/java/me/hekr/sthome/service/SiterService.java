@@ -1,11 +1,17 @@
 package me.hekr.sthome.service;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
@@ -13,6 +19,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,8 +28,6 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -40,19 +46,14 @@ import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.dispatcher.IMessageFilter;
 import me.hekr.sdk.http.HekrRawCallback;
-import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
-import me.hekr.sthome.LoginActivity;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.autoudp.ControllerWifi;
-import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
 import me.hekr.sthome.crc.CoderUtils;
-import me.hekr.sthome.equipment.EmergencyEditActivity;
 import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
@@ -65,8 +66,8 @@ import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.http.bean.DcInfo;
 import me.hekr.sthome.http.bean.DeviceBean;
-import me.hekr.sthome.http.bean.FirmwareBean;
 import me.hekr.sthome.http.bean.UserBean;
+import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.ResolveData;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
@@ -76,22 +77,25 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
+import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
-import me.hekr.sthome.tools.ECPreferenceSettings;
-import me.hekr.sthome.tools.ECPreferences;
 import me.hekr.sthome.tools.InforTotalReceiver;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendEquipmentData;
 import me.hekr.sthome.tools.SendOtherData;
 import me.hekr.sthome.tools.SendSceneData;
 import me.hekr.sthome.tools.UnitTools;
-import me.hekr.sthome.updateApp.UpdateAppAuto;
 
 /**
  * Created by Administrator on 2017/7/3.
  */
 
 public class SiterService extends Service {
+    private static final int NOTIFICATION_ID = 101;
+    private static final String CHANNEL_ID = "SiterService";
+    private static final String CHANNEL_NAME = "My Background Service";
+
     private final String TAG = this.getClass().getName();
     private InforTotalReceiver inforTotalReceiver;
     private ResolveData resolveData;
@@ -127,7 +131,7 @@ public class SiterService extends Service {
 
     @Override
     public void onCreate() {
-        Log.i(TAG,"on onCreate");
+        LOG.I(TAG,"on onCreate");
         EventBus.getDefault().register(this);
 
         timer = new Timer();
@@ -188,7 +192,7 @@ public class SiterService extends Service {
 
             @Override
             public void EndSyncTimerInfo() {
-                Log.i(TAG,"时间同步结束");
+                LOG.I(TAG,"时间同步结束");
                 STEvent stEvent = new STEvent();
                 stEvent.setRefreshevent(4);
                 EventBus.getDefault().post(stEvent);
@@ -197,6 +201,14 @@ public class SiterService extends Service {
             @Override
             public void Getinfolinstenr() {
                 setCount(0);  //还原计时，如果到5则同步超时
+            }
+
+            @Override
+            public void reFreshCurrentMode() {
+                LOG.D(TAG, "[SCENE debug] reFreshCurrentMode ");
+                STEvent stEvent2 = new STEvent();
+                stEvent2.setRefreshevent(3);
+                EventBus.getDefault().post(stEvent2);
             }
         };
         sendOtherData = new SendOtherData(this);
@@ -224,11 +236,47 @@ public class SiterService extends Service {
             }
         };
         super.onCreate();
+
+        startForeground();
+    }
+
+    private void startForeground() {
+        String channelId = "";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channelId = createNotificationChannel();
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
+        Notification notification = builder.setOngoing(true)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setContentIntent(pi)
+                .setContentTitle(getString(R.string.app_name))
+                .build();
+
+        startForeground(NOTIFICATION_ID, notification);
+    }
+
+    private NotificationManager getNotificationManager() {
+        return (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private String createNotificationChannel() {
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT);
+
+        getNotificationManager().createNotificationChannel(channel);
+        return CHANNEL_ID;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand()");
+        LOG.D(TAG, "onStartCommand()");
 
 
         receiveAllMessage();
@@ -248,7 +296,7 @@ public class SiterService extends Service {
 
     @Override
     public void onDestroy(){
-        Log.i(TAG,"onDestroy()");
+        LOG.I(TAG,"onDestroy()");
         handler.removeCallbacksAndMessages(null);
         EventBus.getDefault().unregister(this);
         if(inforTotalReceiver!=null){
@@ -396,12 +444,12 @@ public class SiterService extends Service {
                 sceneBean6.setName("");
                 sceneDAO.addinit(sceneBean6);
 
-                Log.i(TAG,"ConnectionPojo.getInstance().bind:"+ ConnectionPojo.getInstance().bind);
-                Log.i(TAG,"ConnectionPojo.getInstance().deviceTid:"+ ConnectionPojo.getInstance().deviceTid);
-                Log.i(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
-                Log.i(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
-                Log.i(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
-                Log.i(TAG,"ConnectionPojo.getInstance().version:"+ ConnectionPojo.getInstance().binversion);
+                LOG.I(TAG,"ConnectionPojo.getInstance().bind:"+ ConnectionPojo.getInstance().bind);
+                LOG.I(TAG,"ConnectionPojo.getInstance().deviceTid:"+ ConnectionPojo.getInstance().deviceTid);
+                LOG.I(TAG,"ConnectionPojo.getInstance().ctrlKey:"+ ConnectionPojo.getInstance().ctrlKey);
+                LOG.I(TAG,"ConnectionPojo.getInstance().propubkey:"+ ConnectionPojo.getInstance().propubkey);
+                LOG.I(TAG,"ConnectionPojo.getInstance().domain:"+ ConnectionPojo.getInstance().domain);
+                LOG.I(TAG,"ConnectionPojo.getInstance().version:"+ ConnectionPojo.getInstance().binversion);
             }
         }
         catch (Exception e){
@@ -426,7 +474,7 @@ public class SiterService extends Service {
             @Override
             public void getDevicesSuccess(final List<DeviceBean> devicesLists) {
 
-                Log.i(TAG,"第一次获取到网关列表信息:"+devicesLists.toString());
+                LOG.I(TAG,"第一次获取到网关列表信息:"+devicesLists.toString());
                 setTimer_of_sync_en_gateway(false);
                 setCount_update_gateway(0);
                 if(lock_gateway) return;
@@ -617,7 +665,7 @@ public class SiterService extends Service {
                                 }
 
                             }catch (Exception e){
-                                Log.i(TAG,"同步设备出错");
+                                LOG.I(TAG,"同步设备出错");
                                 e.printStackTrace();
                             }
                         }
@@ -665,7 +713,7 @@ public class SiterService extends Service {
                     if(lock_gateway)  return;
 
                     String status = (String)msg.obj;
-                    Toast.makeText(SiterService.this,getResources().getString(R.string.connect_alert)+status,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SiterService.this,getResources().getString(R.string.connect_alert) + " " + status,Toast.LENGTH_SHORT).show();
                     STEvent stEvent = new STEvent();
                     stEvent.setRefreshevent(1);
                     EventBus.getDefault().post(stEvent);
@@ -683,14 +731,14 @@ public class SiterService extends Service {
                             SeartchWifiData.MyTaskCallback taskCallback = new SeartchWifiData.MyTaskCallback() {
                                 @Override
                                 public void operationFailed() {
-                                    Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
+                                    LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
                                     udpRecData.close();
                                     handler.sendEmptyMessage(4);
                                 }
 
                                 @Override
                                 public void operationSuccess() {
-                                    Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
+                                    LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
                                     ControllerWifi.getInstance().wifiTag = true;
                                     initreceiveUdp();
                                     startUdp();
@@ -733,7 +781,7 @@ public class SiterService extends Service {
                     stEvent3.setRefreshevent(7);
                     stEvent3.setProgressText(getResources().getString(R.string.sync_eq));
                     EventBus.getDefault().post(stEvent3);
-                    Log.i(TAG,"定时开始1");
+                    LOG.I(TAG,"定时开始1");
                     setCount(0);
                     setTimer_of_sync_en(true);
                     break;
@@ -744,7 +792,7 @@ public class SiterService extends Service {
                     stEvent2.setRefreshevent(2);
                     stEvent2.setProgressText(getResources().getString(R.string.sync_eq));
                     EventBus.getDefault().post(stEvent2);
-                    Log.i(TAG,"定时开始1");
+                    LOG.I(TAG,"定时开始1");
                     setCount(0);
                     setTimer_of_sync_en(true);
                     break;
@@ -766,14 +814,14 @@ public class SiterService extends Service {
                         SeartchWifiData.MyTaskCallback taskCallback = new SeartchWifiData.MyTaskCallback() {
                             @Override
                             public void operationFailed() {
-                                Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
+                                LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
                                 udpRecData.close();
                                 handler.sendEmptyMessage(4);
                             }
 
                             @Override
                             public void operationSuccess() {
-                                Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
+                                LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
                                 ControllerWifi.getInstance().wifiTag = true;
                                 initreceiveUdp();
                                 startUdp();
@@ -844,7 +892,7 @@ public class SiterService extends Service {
                case 4:
                    //下拉刷新（刷新情景列表）
                    syncFromScenes();
-                   Log.i(TAG,"定时开始2");
+                   LOG.I(TAG,"定时开始2");
                    setCount(0);
                    setTimer_of_sync_en(true);
                    break;
@@ -873,7 +921,7 @@ public class SiterService extends Service {
                    SeartchWifiDataForConfig.MyTaskCallback taskCallback = new SeartchWifiDataForConfig.MyTaskCallback() {
                        @Override
                        public void operationFailed() {
-                           Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
+                           LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
                            UdpConfigEvent udpConfigEvent = new UdpConfigEvent();
                            if(TextUtils.isEmpty(ControllerWifi.getInstance().deviceTid)){
                                udpConfigEvent.setFlag_result(0);
@@ -886,7 +934,7 @@ public class SiterService extends Service {
 
                        @Override
                        public void operationSuccess() {
-                           Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
+                           LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
                            UdpConfigEvent udpConfigEvent = new UdpConfigEvent();
                            udpConfigEvent.setFlag_result(2);
                            EventBus.getDefault().post(udpConfigEvent);
@@ -910,7 +958,7 @@ public class SiterService extends Service {
                     SeartchWifiData.MyTaskCallback taskCallback2 = new SeartchWifiData.MyTaskCallback() {
                         @Override
                         public void operationFailed() {
-                            Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
+                            LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
                             udpRecData.close();
                             ControllerWifi.getInstance().wifiTag = false;
                             handler.sendEmptyMessage(3);
@@ -918,7 +966,7 @@ public class SiterService extends Service {
 
                         @Override
                         public void operationSuccess() {
-                            Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
+                            LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
                             ControllerWifi.getInstance().wifiTag = true;
                             initreceiveUdp();
                             startUdp();
@@ -952,14 +1000,14 @@ public class SiterService extends Service {
                                    SeartchWifiData.MyTaskCallback taskCallback3 = new SeartchWifiData.MyTaskCallback() {
                                        @Override
                                        public void operationFailed() {
-                                           Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
+                                           LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ failed");
                                            udpRecData.close();
                                            ControllerWifi.getInstance().wifiTag = false;
                                        }
 
                                        @Override
                                        public void operationSuccess() {
-                                           Log.i(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
+                                           LOG.I(TAG, "+++++++++++++++++++++++++++++++++++++++++++++++ success");
                                            ControllerWifi.getInstance().wifiTag = true;
                                            initreceiveUdp();
                                            startUdp();
@@ -984,12 +1032,12 @@ public class SiterService extends Service {
                    SeartchWifiDataForSwitchServer.MyTaskCallback myTaskCallback = new SeartchWifiDataForSwitchServer.MyTaskCallback() {
                        @Override
                        public void operationFailed() {
-                          Log.i(TAG,"++++切换后台失败");
+                          LOG.I(TAG,"++++切换后台失败");
                        }
 
                        @Override
                        public void operationSuccess() {
-                           Log.i(TAG,"++++切换后台成功");
+                           LOG.I(TAG,"++++切换后台成功");
                        }
 
                        @Override
@@ -1005,13 +1053,13 @@ public class SiterService extends Service {
 
     @Subscribe(threadMode = ThreadMode.MAIN)         //订阅事件TokenTimeoutEvent
     public  void onEventMainThread(TokenTimeoutEvent event){
-        final String loginname = getUsername();
-        final String loginpsw = getPassword();
+        final String loginname = AccountUtil.getUsername();
+        final String loginpsw = AccountUtil.getPassword();
         if(event.getType()==1){
             Hekr.getHekrUser().refreshToken(new HekrRawCallback() {
                 @Override
                 public void onSuccess(int httpCode, byte[] bytes) {
-                    Log.i(TAG,"刷新accesstoken成功");
+                    LOG.I(TAG,"刷新accesstoken成功");
                     UserBean userBean = new UserBean(loginname, loginpsw, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
                     HekrUserAction.getInstance(SiterService.this).setUserCache(userBean);
                 }
@@ -1036,18 +1084,18 @@ public class SiterService extends Service {
         initCurrentGateway();
         ChooseGayaway();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)         //订阅事件AlertEvent
     public  void onEventMainThread(AlertEvent event){
         if(!TextUtils.isEmpty(event.getDeviceid()) && !TextUtils.isEmpty(HekrUserAction.getInstance(this).getJWT_TOKEN())){
-
+            Log.i(TAG, "onEventMainThread: ");
             resolveAlertPushInfo(event.getContent(),event.getDeviceid());
-
         }
     }
 
 
     private void initBroadcastreceiveUdp() {
-        Log.i(TAG,"initBroadcastreceiveUdp");
+        LOG.I(TAG,"initBroadcastreceiveUdp");
         if(udpRecData!=null){
             udpRecData.close();
         }
@@ -1062,14 +1110,14 @@ public class SiterService extends Service {
             ip = InetAddress.getByName(localAddress);
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            Log.i(TAG, " send create ip failed");
+            LOG.I(TAG, " send create ip failed");
         }
 
 
 
         InetAddress target = null;
             String targetip = localAddress.substring(0, localAddress.lastIndexOf(".") + 1) + 255;
-        Log.i(TAG," 广播接收udp地址 ===" + targetip);
+        LOG.I(TAG," 广播接收udp地址 ===" + targetip);
             try {
                 target = InetAddress.getByName(targetip);
             } catch (UnknownHostException e) {
@@ -1100,7 +1148,7 @@ public class SiterService extends Service {
                 receiveservice.shutdown();
             }
 
-            Log.i(TAG,"initreceiveUdp");
+            LOG.I(TAG,"initreceiveUdp");
             DatagramSocket datagramSocket = null;
             try {
                     datagramSocket = new DatagramSocket(null);
@@ -1110,7 +1158,7 @@ public class SiterService extends Service {
             } catch (SocketException e) {
                 e.printStackTrace();
             }
-        Log.i(TAG," 接收udp地址 ===" + ControllerWifi.getInstance().targetip.toString());
+        LOG.I(TAG," 接收udp地址 ===" + ControllerWifi.getInstance().targetip.toString());
             receiveservice = Executors.newSingleThreadExecutor();
             udpRecData = new UDPRecData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,this,0);
             receiveservice.execute(udpRecData);
@@ -1128,8 +1176,8 @@ public class SiterService extends Service {
         }
 
 
-        Log.i(TAG,"initBindUdp");
-        Log.i(TAG," 绑定的接收udp地址 ===" + ControllerWifi.getInstance().targetip.toString());
+        LOG.I(TAG,"initBindUdp");
+        LOG.I(TAG," 绑定的接收udp地址 ===" + ControllerWifi.getInstance().targetip.toString());
         DatagramSocket datagramSocket = null;
         try {
             datagramSocket = new DatagramSocket(null);
@@ -1156,8 +1204,8 @@ public class SiterService extends Service {
         }
 
 
-        Log.i(TAG,"initSwitchUdp");
-        Log.i(TAG," 绑定的接收udp地址 ===" + ControllerWifi.getInstance().targetip.toString());
+        LOG.I(TAG,"initSwitchUdp");
+        LOG.I(TAG," 绑定的接收udp地址 ===" + ControllerWifi.getInstance().targetip.toString());
         DatagramSocket datagramSocket = null;
         try {
             datagramSocket = new DatagramSocket(null);
@@ -1184,14 +1232,14 @@ public class SiterService extends Service {
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
-            Log.i(TAG," 发送搜索udp广播地址 ===" + target.toString());
-            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds,target,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":LIDL01");
+            LOG.I(TAG," 发送搜索udp广播地址 ===" + target.toString());
+            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds,target,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":LIDL01EN");
             sendService.execute(udpSendData);
             sendService.awaitTermination(50, TimeUnit.MICROSECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }catch (NullPointerException e){
-            Log.i(TAG," targetip is null" );
+            LOG.I(TAG," targetip is null" );
         }
     }
 
@@ -1199,30 +1247,30 @@ public class SiterService extends Service {
     private void switchServer(){
         try {
 
-            Log.i(TAG," ControllerWifi.getInstance().targetip ===" + ControllerWifi.getInstance().targetip.toString());
+            LOG.I(TAG," ControllerWifi.getInstance().targetip ===" + ControllerWifi.getInstance().targetip.toString());
 
-            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,"IOT_SWITCH:"+ ConnectionPojo.getInstance().deviceTid+":LIDL01");
+            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,"IOT_SWITCH:"+ ConnectionPojo.getInstance().deviceTid+":LIDL01EN");
             sendService.execute(udpSendData);
             sendService.awaitTermination(50, TimeUnit.MICROSECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }catch (NullPointerException e){
-            Log.i(TAG," targetip is null" );
+            LOG.I(TAG," targetip is null" );
         }
     }
 
     private void startUdp(){
         try {
 
-            Log.i(TAG," ControllerWifi.getInstance().targetip ===" + ControllerWifi.getInstance().targetip.toString());
+            LOG.I(TAG," ControllerWifi.getInstance().targetip ===" + ControllerWifi.getInstance().targetip.toString());
 
-            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":LIDL01");
+            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":LIDL01EN");
             sendService.execute(udpSendData);
             sendService.awaitTermination(50, TimeUnit.MICROSECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }catch (NullPointerException e){
-            Log.i(TAG," targetip is null" );
+            LOG.I(TAG," targetip is null" );
         }
     }
 
@@ -1243,7 +1291,7 @@ public class SiterService extends Service {
 
 
             if(isTimer_of_sync_en()) {
-                Log.i(TAG,"同步接收超时计数:"+count);
+                LOG.I(TAG,"同步接收超时计数:"+count);
                 count ++;
             }
 
@@ -1262,7 +1310,7 @@ public class SiterService extends Service {
 
 
             if(isTimer_of_sync_en_gateway()) {
-                Log.i(TAG,"同步网关接收超时计数:"+count_update_gateway);
+                LOG.I(TAG,"同步网关接收超时计数:"+count_update_gateway);
                 count_update_gateway ++;
             }
 
@@ -1274,23 +1322,6 @@ public class SiterService extends Service {
 
         }
     }
-
-    private String getUsername(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_USERNAME;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
-    private String getPassword(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_PASSWORD;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
 
     /**
      * doAlertShow:
@@ -1313,15 +1344,11 @@ public class SiterService extends Service {
         }else if("BB".equals(status.substring(4,6))){
             ds = getString(R.string.test);
         }else {
-
             int volt = Integer.parseInt( status.substring(2,4),16);
             if(volt < 15){
                 ds = getString(R.string.lowvolt_alarm);
             }
-
         }
-
-
         current_gateway = ConnectionPojo.getInstance().deviceTid.equals(deviceid)?true:false;
 
 
@@ -1352,8 +1379,6 @@ public class SiterService extends Service {
         }else{
             title = String.format(getResources().getString(R.string.other_gateway_eq_is_happen_has_eq),gateway,deviceid.substring(deviceid.length()-4),place,ds);
         }
-
-
 
 
         if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
@@ -1475,6 +1500,8 @@ public class SiterService extends Service {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void doCXSMAlertShow(String aaaa,String eqid,String deviceid){
+        LOG.I(TAG, "[RYAN] doCXSMAlertShow");
+
         DeviceDAO deviceDAO = new DeviceDAO(this);
         EquipDAO equipDAO = new EquipDAO(this);
         String draw = aaaa.substring(4,6);
@@ -1501,6 +1528,7 @@ public class SiterService extends Service {
         MyDeviceBean deviceBean = deviceDAO.findByDeviceid(deviceid);
         boolean currentgateway = ConnectionPojo.getInstance().deviceTid.equals(deviceid)?true:false;
 
+        LOG.I(TAG, "[RYAN] doCXSMAlertShow 111");
 
         if(deviceBean == null){
             gateway = getResources().getString(R.string.my_home);
@@ -1528,7 +1556,7 @@ public class SiterService extends Service {
             title = String.format(getResources().getString(R.string.other_gateway_eq_is_happen_has_eq),gateway,deviceid.substring(deviceid.length()-4),place,ds);
         }
 
-
+        LOG.I(TAG, "[RYAN] doCXSMAlertShow 222");
 
         if(ecAlertDialog==null||!ecAlertDialog.isShowing()){
             ecAlertDialog = ECAlertDialog.buildAlert(MyApplication.getActivity(), title,
@@ -1713,17 +1741,18 @@ public class SiterService extends Service {
                             }else if(NameSolve.LOCK.equals(NameSolve.getEqType(applicationInfo.getEquipmentDesc()))){
                                 doLockAlertShow(applicationInfo.getState(), applicationInfo.getEqid(), deviceid);
                             } else {
+                                Log.i(TAG, "resolveAlertPushInfo: ");
                                 doAlertShow(applicationInfo.getState(),applicationInfo.getEquipmentDesc(),applicationInfo.getEqid(),deviceid);
                             }
 
                         }else{
-                            com.litesuits.android.log.Log.i(TAG,"data is not exist");
+                            LOG.I(TAG,"data is not exist");
                         }
                     }
 
 
                 }else{
-                    com.litesuits.android.log.Log.i(TAG,"applicationInfo is null");
+                    LOG.I(TAG,"applicationInfo is null");
                 }
 
 

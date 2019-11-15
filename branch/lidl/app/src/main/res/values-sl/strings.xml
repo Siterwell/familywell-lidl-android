@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <string name="app_name">SilverCrest Alarm</string>
    <string name="btnConfirmTitle">POVEŽI</string>
    <string name="config_instruction">Pet sekund po vklopu konektorja pritisnite in držite gumb za omrežni način.</string>
    <string name="how_to_config">Prosimo, prepričajte se, da modra lučka na konektorju utripa in nato pritisnite “naslednji korak”.</string>
@@ -24,7 +23,7 @@
    <string name="connect_alert">Trenutni konektor:</string>
    <string name="connect_equipment_alert">Prosimo, izberite konektor</string>
    <string name="please_input_complete">Prosimo, izpolnite polje</string>
-   <string name="password_length">Geslo mora vsebovati vsaj 6 znakov</string>
+   <string name="password_length">Geslo mora vsebovati vsaj 10 znakov</string>
    <string name="password_two_different">Vnešeni gesli se ne ujemata</string>
    <string name="name_hint">E-mail</string>
    <string name="password_hint">Vnašanje gesla</string>
@@ -93,7 +92,7 @@
    <string name="all_condition_hint_one">Če dodate več pogojev, morajo biti za izvedbo dejanj izpolnjeni vsi;</string>
    <string name="all_condition_hint_two">Če dodate le en začetni pogoj, bodo dejanja izvedena, ko bo ta pogoj izpolnjen;</string>
    <string name="all_condition_hint_three">Če ne razumete te funkcije, izberite privzeto možnost ali nas konktakirajte.</string>
-   <string name="my_scene">Moj prizor</string>
+   <string name="my_action">Moj prizor</string>
    <string name="name_is_null">Ime ne sme biti prazno</string>
    <string name="name_is_repeat">Ime je že v uporabi</string>
    <string name="name_is_too_long">Ime je predolgo</string>
@@ -116,7 +115,7 @@
    <string name="set_weekday">Prosimo, nastavite dan v tednu</string>
    <string name="set_delay">Prosimo, nastavite zamik</string>
    <string name="manage">Upravljanje</string>
-   <string name="offline">Brez povezave</string>
+   <string name="offline">BREZ POVEZAVE</string>
    <string name="alarm">Alarm</string>
    <string name="lowvolt_alarm">Opozorilo – skoraj prazna baterija</string>
    <string name="help">Pomoč</string>
@@ -231,7 +230,7 @@
    <string name="save">Shrani</string>
    <string name="no_save">Ne shrani</string>
    <string name="on_line">(Povezan)</string>
-   <string name="off_line">(Brez povezave)</string>
+   <string name="off_line">(BREZ POVEZAVE)</string>
    <string name="btn_silence">tišina</string>
    <string name="dev_type_monitor">ZASLON</string>
    <string name="dev_type_intelligentsocket">VTIČNICA</string>
@@ -395,8 +394,7 @@
    <string name="success_add">Uspešno dodano</string>
    <string name="temp_or_hum">Sprožilec temperature ali sprožilec vlažnosti</string>
    <string name="trigger_style">Stil sprožilca</string>
-   <string name="server_intro">1. Potrditev in sprejemanje pogojev storitve\nVsebina te spletne strani in aplikacije je last podjetja CoSa Connects BV. Uporabniki morajo pred potrditvijo pazljivo prebrati pogoje. Uporabniki storitve ali tisti, ki so zaključili postopek registracije, sprejemajo vse pogoje te storitve.\n2. Uporabniki se strinjajo, da bodo:\n(1) navedli podrobne in pravilne osebne podatke.\n(2)vseskozi posodabljali podatke, ki so jih vnesli med registracijo, in izpolnjevali zahteve.\nČe so informacije, ki jih je uporabnik navedel, napačne, ima ta spletna stran pravico, da prekine storitev.\nSpletna stran in aplikacija ne bosta razkrili imena, naslova, e-mail naslova, številke računa, telefonske številke ali drugih informacij uporabnika (glej odstavek o zaščiti zasebnosti).\nUporabniki te strani in aplikacije morajo upoštevati naslednje:\n(1)Posredovanje podatkov mora biti v skladu z uredbami EU.\n(2)Uporaba informacijskih storitev ne sme biti nelegalna ali nemoralna.\n(3)Prepovedano je motenje omrežne storitve.\n(4)Upoštevati je treba vse omrežne protokole, pravila, postopke in prakse za uporabo storitev. Kodeks ravnanja uporabnikov temelji na internetnih uredbah, politikah, postopkih in praksah.\n3, Spreminjanje pogojev storitve\nTa spletna stran in aplikacija imata pravico do spremembe pogojev storitve, če je to potrebno. Vse spremembe bodo objavljene na tej strani. \nČe teh sprememb ne sprejmete, lahko kot uporabnik na svojo pobudo prekinete svoje članstvo. Če ga ne prekinete, pomeni, da sprejemate spremembe pogojev storitve.\n4, Številka uporabniškega računa, geslo in varnost\nPo uspešni registraciji kot član boste dobili geslo in uporabniško ime.</string>
-   <string name="about_app">Sistem SilverCrest Alarm je sestavljen iz dveh glavnih delov: konektorja in pametnih naprav. Konektor, ključni sestavni del sistema, komunicira s pametnimi napravami prek brezžične tehnologije in se povezuje z vašim domačim WiFi omrežjem ter na ta način komunicira s strežnikom v oblaku, na drugi strani pa komunicira z aplikacijo na vašem mobilnem telefonu preko mobilnega interneta. Sistem tako omogoča uporabo pametnega telefona kot nadzornega centra za nadziranje, spremljanje in konfiguriranje različnih funkcij, kar vključuje kreiranje prizorov, dodajanje in brisanje komponent, aktiviranje in deaktiviranje senzorjev, prejemanje potisnih obvestil ob sprožitvi alarmov in druge operacije po meri. Pametne naprave v sistemu vključujejo naslednje naprave, ki jih lahko izberete glede na svoje potrebe: detektorji dima, plina, ogljikovega oksida, vode, stiki za vrata/okna, senzorji gibanja/PIR-senzorji, gumbi za nujne primere, pametne vtičnice, senzorji za temperaturo in vlažnost itn. SilverCrest Connects nenehno posodablja seznam naprav; omrežne kamere, ključavnice za vrata, plošče s stikali, plošče z vtičnicami, pametni čistilci zraka, elektromagnetni vodni ventili in druge naprave kmalu prihajajo!</string>
+   <string name="about_app">Alarmni sistem BASE sestavljata dva dela: konektor in pametne naprave. Konektor, osrednji del sistema, komunicira s pametnimi napravami preko komunikacijske tehnologije RF ter se poveže z vašim WiFi omrežjem, da vzpostavi stik s strežnikom v oblaku, in preko tega z aplikacijo na vašem pametnem telefonu. Sistem vam omogoča, da svoj pametni telefon uporabite kot nadzorni center za upravljanje, spremljanje in druga opravila po meri. Pametne naprave v sistemu so naslednje naprave, ki jih lahko izberete glede na svoje potrebe: detektorji dima, detektorji plina, detektorji ogljikovega monoksida, detektorji vode, stiki z vrati/oknom, detektorji gibanja PIR, gumbi za nujne primere, pametna stikala, senzorje za temperaturo in vlažnost ipd. Seznam naprav v sistemu BASE se stalno posodablja; omrežne kamere, ključavnice za vrata, stikalne plošče, pametni zračni filtri, elektromagnetni vodni ventili in še več naprav, ki prihajajo kmalu!</string>
    <string name="modebutton_ins">Gumb za bližnjico do prizora</string>
    <string name="input_exist">Ni mogoče imeti dveh vhodnih naprav</string>
    <string name="output_exist">Sosednjih izhodnih naprav ni mogoče ponoviti</string>
@@ -513,9 +511,34 @@
    <string name="door_default_scene_hint">Privzeta scena: alarm in potisni obvestilo pri odpiranju magnetnega kontakta</string>
    <string name="old_man_default_scene_hint">Standardna Scena: Push Notification in Konektor piska na Ni gibanja 5 ur</string>
    <string name="alert_elder_care">starejše sestre</string>
-   <string name="three_zifu">geslo mora vsebovati ime z velikimi tiskanimi črkami, male črke, številke, vsaj tri posebnega značaja.</string>
+   <string name="three_zifu">Geslo mora vsebovati vsaj tri velike črke, male črke, številke / posebne znake.</string>
    <string name="config_fail_reason">razlog za neuspeh distribucijskega omrežja</string>
    <string name="click_check_firemare">Klik na usb posodobitev</string>
    <string name="view_yinsi">Preveri zasebnosti</string>
    <string name="fireware_is_lastest">Vdelana programska oprema je posodobljena</string>
+   <string name="gateway_version">Različica konektorja</string>
+   <string name="is_upgrading">nadgradnja...</string>
+   <string name="success_upgrade">usb posodobitev uspeh</string>
+   <string name="fail_upgrade">Posodobitev ni uspela</string>
+   <string name="delete_condition">Ali ste prepričani, da želite izbrisati to stanje?</string>
+   <string name="delete_action">Ali ste prepričani, da želite izbrisati to dejanje?</string>
+   <string name="firmware_upgrade_info">Pomembno: Ta posodobitev spreminja funkcionalnost sistema. Kliknite na "informacije" spodaj, da vidite, kaj bo sprememb.</string>
+   <string name="faq">Pogosto zastavljena vprašanja (FAQ)</string>
+   <string name="delete_timer">Ali ste prepričani, da želite izbrisati ta časovnik?</string>
+   <string name="successfully_deleted">uspešno izbrisan</string>
+   <string name="wireless_config">Brezžični Opremi</string>
+   <string name="gs361_install_construction">prosim, termostat, nameščene na ventil, in potem še enkrat pritisnite na gumb za dokončanje namestitve.</string>
+   <string name="reset_progress">ponastavite napravo, ne izklapljajte</string>
+   <string name="permission_reject_camera_tip">Trenutne aplikacije nimajo fotografskih privilegijev.Prosim kliknite » Nastavitve « - » Dovoljenja « za odprtje zahtevanih dovoljenj.</string>
+   <string name="permission_reject_location_tip">Trenutni program nima dovoljenja za lokacijo in ne more nastaviti WIFI. Prosim nastavite dovoljenje, potrebno za odprtje programa.</string>
+   <string name="permission_reject_imei_tip">Napaka pri branju kode statusa mobilnega telefona bo vplivala na normalno uporabo programa. Prosim odprite dovoljenje za telefon.</string>
+   <string name="permission_reject_write_local_tip">Brez dovoljenja SD za branje in pisanje kartice, bo to vplivalo na uporabo funkcij, povezanih z APP kamerami, prosimo, odprite dovoljenje za shranjevanj</string>
+   <string name="permission_reject_location_service_tip">Prosim, odprite storitev lokacije, sicer ne morete nastaviti WIFI</string>
+   <string name="permission_register">Zahtevek za organ</string>
+   <string name="goto_set">Za postavitev</string>
+   <string name="file_is_exist">Datoteka že obstaja</string>
+   <string name="look">Glej</string>
+   <string name="success_download">Prenos uspešen</string>
+   <string name="hint">Matters needing attention</string>
+   <string name="get_more">Get more device information</string>
 </resources>

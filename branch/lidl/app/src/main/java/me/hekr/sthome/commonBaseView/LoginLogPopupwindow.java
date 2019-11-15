@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.hekr.sthome.R;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by gc-0001 on 2017/2/6.
@@ -266,7 +267,7 @@ public class LoginLogPopupwindow extends PopupWindow {
         // params.height最后得到整个ListView完整显示需要的高度
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() *  (listAdapter .getCount() - 1));
-        Log.i("ceshi","params.height"+params.height);
+        LOG.I("ceshi","params.height"+params.height);
         listView.setLayoutParams(params);
         userAdapter.notifyDataSetChanged();
     }

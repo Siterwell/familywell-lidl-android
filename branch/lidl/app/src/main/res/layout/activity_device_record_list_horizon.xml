@@ -204,30 +204,14 @@
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true">
-        <View
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:background="@color/common_history"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-			android:layout_centerVertical="true"
-			android:id="@+id/comcolor"/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_toRightOf="@id/comcolor"
-			android:layout_marginLeft="10dp"
-			android:text="@string/video_common"
-			android:id="@+id/comtxt"/>
 
 		<View
 			android:layout_width="10dp"
 			android:layout_height="10dp"
 			android:background="@color/test_history"
+			android:layout_alignParentLeft="true"
 			android:layout_marginLeft="10dp"
 			android:layout_centerVertical="true"
-			android:layout_toRightOf="@id/comtxt"
 			android:id="@+id/tecolor"/>
 
 		<TextView
@@ -238,21 +222,40 @@
 			android:id="@+id/tet"
 			android:text="@string/video_alarm"/>
 
+
+
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_toRightOf="@id/tet"
 			android:layout_marginLeft="10dp"
-			android:id="@+id/luxiangshijian"
-			android:text="@string/video_time"/>
+			android:id="@+id/luxiangtime"
+			android:text=""/>
+    </RelativeLayout>
 
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@id/bottomthing"
+		android:id="@+id/bottomthing2"
+		android:layout_marginBottom="10dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true">
+		<View
+			android:layout_width="10dp"
+			android:layout_height="10dp"
+			android:background="@color/common_history"
+			android:layout_alignParentLeft="true"
+			android:layout_marginLeft="10dp"
+			android:layout_centerVertical="true"
+			android:id="@+id/comcolor"/>
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_toRightOf="@id/luxiangshijian"
+			android:layout_toRightOf="@id/comcolor"
 			android:layout_marginLeft="10dp"
-			android:id="@+id/luxiangtime"
-			android:text=""/>
-    </RelativeLayout>
+			android:text="@string/video_common"
+			android:id="@+id/comtxt"/>
+	</RelativeLayout>
 </RelativeLayout>

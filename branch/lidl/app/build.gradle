@@ -1,20 +1,34 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 28
 
     defaultConfig {
         multiDexEnabled true
         ndk {
-            abiFilters  "armeabi"
+            abiFilters "armeabi", "arm64-v8a" /* , "armeabi-v7a" */
         }
 
-        applicationId "com.cosa.silvercrest"
-        minSdkVersion 15
-        targetSdkVersion 22
-        versionCode 1100
-        versionName "1.100"
+        applicationId "com.cosa.base"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 2205
+        versionName "2.205"
 
         manifestPlaceholders = [
                 GETUI_APP_ID    : "QdrGH5nq6m6BDx4ATwKJF9",
@@ -32,33 +46,37 @@ android {
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
 
-
+repositories {
+    google()
+    flatDir { dirs 'libs' }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'me.hekr.sdk:core:2.0.0_beta8'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'org.jetbrains:annotations-java5:15.0'
-    compile 'com.zhy:base-adapter:2.0.0'
-    compile 'com.google.firebase:firebase-core:10.2.6'
-    compile 'com.google.firebase:firebase-messaging:10.2.6'
-    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
-    compile files('libs/lite-common-1.1.3.jar')
-    compile files('libs/android-async-http-1.4.9.jar')
-    compile files('libs/httpclient-4.4.1.1.jar')
-    compile files('libs/fastjson.jar')
-    compile files('libs/locSDK_6.13.jar')
-    compile files('libs/GetuiSDK2.10.3.5.jar')
-    compile files('libs/highlight.jar')
-    compile files('libs/LibFunSDK.jar')
-    compile files('libs/zbar.jar')
-    compile files('libs/Core.jar')
-    compile files('libs/dewarp.jar')
-    compile files('libs/MiPush_SDK_Client_3_5_1.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation fileTree(include: ['*.aar'], dir: 'libs')
+    implementation(name: 'libxmfunsdk-release', ext: 'aar')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation "com.android.support.constraint:constraint-layout:1.1.3"
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'me.hekr.sdk:core:2.0.0_beta8'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.zhy:base-adapter:2.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.firebase:firebase-jobdispatcher:0.6.0'
+    implementation 'org.jsoup:jsoup:1.10.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
+        transitive = true
+    }
 }
 apply plugin: 'com.google.gms.google-services'

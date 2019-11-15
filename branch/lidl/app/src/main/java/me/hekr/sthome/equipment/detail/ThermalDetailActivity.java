@@ -7,12 +7,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,17 +39,8 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/26.
  */
-public class ThermalDetailActivity extends AppCompatActivity {
+public class ThermalDetailActivity extends AbstractDetailActivity {
     private static final String TAG = "ThermalDetailActivity";
-    private ImageView signal,quatity,deviceLogo;
-    private TextView operation,emergencyCall,showStatus,eq_name,silence;
-    private EquipmentBean device;
-    private EquipDAO ED;
-    private SendEquipmentData sd;
-    private ImageView back_img;
-    private TextView  edt_txt,battay_text;
-    private LinearLayout root;
-    private ECAlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,7 +133,7 @@ public class ThermalDetailActivity extends AppCompatActivity {
                                         if(!TextUtils.isEmpty(newname)){
 
                                             try {
-                                                if(newname.getBytes("GBK").length<=15){
+                                                if(newname.getBytes("UTF-8").length<=15){
                                                     if(!EmojiFilter.containsEmoji(newname)) {
                                                         alertDialog.setDismissFalse(true);
                                                         eq_name.setText(newname);
@@ -191,7 +180,7 @@ public class ThermalDetailActivity extends AppCompatActivity {
                 ecListDialog.show();
             }
         });
-        root       = (LinearLayout)findViewById(R.id.root);
+        root       = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
@@ -217,8 +206,8 @@ public class ThermalDetailActivity extends AppCompatActivity {
         operation = (TextView) findViewById(R.id.operation);
         try {
             int ds = Integer.parseInt(device.getEquipmentDesc().substring(device.getEquipmentDesc().length()-1),16);
-            if(ds<7){
-        operation.setVisibility(View.VISIBLE);
+            if(ds<=7||ds>=14){
+                operation.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -245,6 +234,9 @@ public class ThermalDetailActivity extends AppCompatActivity {
                 openPhoneAlert();
             }
         });
+
+        initLogHistoryDrawer();
+
         doStatusShow(device.getState());
         showBattery();
     }
@@ -261,7 +253,8 @@ public class ThermalDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
 
         try {
             String signal1 = aaaa.substring(0,2);

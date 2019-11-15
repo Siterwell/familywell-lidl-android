@@ -4,8 +4,6 @@ package me.hekr.sthome.crc;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.litesuits.android.log.Log;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +23,7 @@ import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.model.modeldb.TimerDAO;
 import me.hekr.sthome.tools.ByteUtil;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by jishu0001 on 2017/2/9.
@@ -50,7 +49,7 @@ public class CoderUtils {
                 return "";
             }
             byte[]a = ByteUtil.hexStr2Bytes(input);
-            String name  = new String(a,"GBK");
+            String name  = new String(a,"UTF-8");
             if(name.indexOf("$")==-1){
                 return "";
             }
@@ -60,6 +59,29 @@ public class CoderUtils {
             }
 
             return  name.substring(index + 1, name.indexOf("$"));
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+
+
+    }
+
+        /*
+    @method getStringFromAscii2
+    @autor Administrator
+    @time 2017/6/30 9:51
+    @email xuejunju_4595@qq.com
+    从ascii 码转成GBK编码的String类型变量，若格式不对则返回NUll
+    */
+    public static String getStringFromAscii2(String input){
+
+        try {
+
+            byte[]a = ByteUtil.hexStr2Bytes(input);
+            String name  = new String(a,"UTF-8");
+            return  name;
 
         }catch (Exception e){
             e.printStackTrace();
@@ -80,7 +102,7 @@ public class CoderUtils {
         int countf = 0;
 
         try {
-            countf = 15 - input.getBytes("GBK").length;
+            countf = 15 - input.getBytes("UTF-8").length;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -93,7 +115,7 @@ public class CoderUtils {
 
         byte[] nameBt = new byte[16];
         try {
-            nameBt = newname.getBytes("GBK");
+            nameBt = newname.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -108,13 +130,37 @@ public class CoderUtils {
     }
 
 
+    /**
+     * 获取字符串的ascii码
+     * @param input
+     * @return
+     */
+
+    public static String getAscii2(String input){
+
+        byte[] nameBt = new byte[input.length()];
+        try {
+            nameBt = input.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String ds = "";
+        for(int i=0;i<nameBt.length;i++){
+            String str = ByteUtil.convertByte2HexString(nameBt[i]);
+            ds+=str;
+        }
+
+        return ds;
+    }
+
     public static String getEncrypt(String input){
         String ds = "";
         try {
 
-        byte[] nameBt = new byte[input.getBytes("GBK").length];
+        byte[] nameBt = new byte[input.getBytes("UTF-8").length];
         try {
-            nameBt = input.getBytes("GBK");
+            nameBt = input.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -143,7 +189,7 @@ public class CoderUtils {
                 a[i] = (byte)(0x24 ^a[i]);
             }
 
-            String name  = new String(a,"GBK");
+            String name  = new String(a,"UTF-8");
 
             return  name;
 
@@ -189,7 +235,7 @@ public class CoderUtils {
                         statusCRC += "0000";
                     }
                 }
-                Log.i(TAG, "ceshi crc " + statusCRC);
+                LOG.I(TAG, "ceshi crc " + statusCRC);
 
                 String oooo = "0", num = "";
                 if (Integer.toHexString(listLength*2+2).length() < 4) {
@@ -203,7 +249,7 @@ public class CoderUtils {
 
                 return (num + statusCRC);
             } else {
-                Log.i(TAG, "there is no equipment exist");
+                LOG.I(TAG, "there is no equipment exist");
                 return "00020000";
             }
 
@@ -247,7 +293,7 @@ public class CoderUtils {
                         statusCRC += "0000";
                     }
                 }
-                Log.i(TAG, "ceshi crc " + statusCRC);
+                LOG.I(TAG, "ceshi crc " + statusCRC);
 
                 String oooo = "0", num = "";
                 if (Integer.toHexString(listLength*2+2).length() < 4) {
@@ -310,7 +356,7 @@ public class CoderUtils {
                     sceneCRC += "0000";
                 }
             }
-            Log.i(TAG, "ceshi crc " + sceneCRC);
+            LOG.I(TAG, "ceshi crc " + sceneCRC);
 
             int totalLength = codeLength ;
             Integer.toHexString(totalLength);

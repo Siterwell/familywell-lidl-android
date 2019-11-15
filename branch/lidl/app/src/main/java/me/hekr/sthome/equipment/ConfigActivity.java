@@ -1,9 +1,8 @@
 package me.hekr.sthome.equipment;
 
-import android.app.Dialog;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -14,11 +13,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.igexin.sdk.PushManager;
-import com.xiaomi.mipush.sdk.MiPushClient;
-
-import java.io.InvalidClassException;
-
 
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrCallback;
@@ -28,32 +22,23 @@ import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
-import me.hekr.sthome.commonBaseView.ECListDialog;
 import me.hekr.sthome.commonBaseView.SettingItem;
-
-import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.model.modelbean.MyDeviceBean;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.push.logger.Log;
-import me.hekr.sthome.service.SiterService;
-import me.hekr.sthome.tools.Config;
-import me.hekr.sthome.tools.ECPreferenceSettings;
-import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.SystemUtil;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.updateApp.UpdateAppAuto;
 import me.hekr.sthome.xmipc.ActivityGuideDeviceAdd;
-import me.hekr.sthome.xmipc.ActivityGuideDeviceWifiConfig;
 
 /**
  * Created by xjj on 2016/12/20.
  */
 public class ConfigActivity extends TopbarSuperActivity implements View.OnClickListener{
     private static final String TAG = "ConfigActivity";
-    private SettingItem wifitag,modifypwd,aboutitem,emergencyitem,switch_lan,wificonfig,instrunction,gps_set;
+    private SettingItem wifitag,modifypwd,aboutitem,emergencyitem,switch_lan,wificonfig,gps_set;
     private DeviceDAO DDO;
     private String lan_now;
     private UpdateAppAuto updateAppAuto;
@@ -83,14 +68,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
         }
     }
 
-    private String getHuaweiToken(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
-
     public void setUpViews() {
         DDO = new DeviceDAO(this);
         findViewById(R.id.btnAE).setOnClickListener(this);//go out
@@ -99,7 +76,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
         wifitag = (SettingItem)findViewById(R.id.wifitag);
         modifypwd = (SettingItem)findViewById(R.id.modifypwd);
         aboutitem = (SettingItem)findViewById(R.id.about);
-        instrunction = (SettingItem)findViewById(R.id.instruction);
         updateAppAuto = new UpdateAppAuto(this,aboutitem,false);
         emergencyitem =(SettingItem)findViewById(R.id.emergency);
         switch_lan = (SettingItem)findViewById(R.id.switch_lan);
@@ -110,9 +86,8 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
         emergencyitem.setOnClickListener(this);
         modifypwd.setOnClickListener(this);
         wificonfig.setOnClickListener(this);
-        instrunction.setOnClickListener(this);
-        instrunction.setVisibility(View.GONE);
         gps_set.setOnClickListener(this);
+        findViewById(R.id.fap).setOnClickListener(this);
         getTopBarView().setTopBarStatus(1, 1, getResources().getString(R.string.setting), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,99 +146,29 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
 
                         showProgressDialog(getResources().getString(R.string.logouting));
 
-                            if ("huawei".equals(SystemUtil.getDeviceBrand().toLowerCase()) || "honor".equals(SystemUtil.getDeviceBrand().toLowerCase())) {
-                                String token = getHuaweiToken();
-                                if (TextUtils.isEmpty(token)) {
-                                    handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                } else {
+                        String fcmtoken = FirebaseInstanceId.getInstance().getToken();
+                        if(TextUtils.isEmpty(fcmtoken)) {
+                            handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
+                        }else{
 
-                                    HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(token, 2, new HekrUser.UnPushTagBindListener() {
-                                        @Override
-                                        public void unPushTagBindSuccess() {
-                                            handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                        }
-
-                                        @Override
-                                        public void unPushTagBindFail(int errorCode) {
-                                            if(errorCode == 1){
-                                                handler.sendEmptyMessage(LOGOUT_SUCCESS);
-                                            }else{
-                                                showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
-                                                hideProgressDialog();
-                                            }
-
-                                        }
-                                    });
-
-
-                                }
-                            } else if ("xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())) {
-
-                                String clientid = MiPushClient.getRegId(ConfigActivity.this);
-                                HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(clientid, 1, new HekrUser.UnPushTagBindListener() {
-                                    @Override
-                                    public void unPushTagBindSuccess() {
-                                        handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                    }
-
-                                    @Override
-                                    public void unPushTagBindFail(int errorCode) {
-                                        if(errorCode == 1){
-                                            handler.sendEmptyMessage(LOGOUT_SUCCESS);
-                                        }else{
-                                            showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
-                                            hideProgressDialog();
-                                        }
-                                    }
-                                });
-
-                            } else {
-
-                                String fcmtoken = FirebaseInstanceId.getInstance().getToken();
-                                if(TextUtils.isEmpty(fcmtoken)) {
-                                    handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                }else{
-
-                                    HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(fcmtoken, 3, new HekrUser.UnPushTagBindListener() {
-                                        @Override
-                                        public void unPushTagBindSuccess() {
-                                            handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
-                                        }
-
-                                        @Override
-                                        public void unPushTagBindFail(int errorCode) {
-                                            if(errorCode == 1){
-                                                handler.sendEmptyMessage(LOGOUT_SUCCESS);
-                                            }else{
-                                                showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
-                                                hideProgressDialog();
-                                            }
-                                        }
-                                    });
-
-                                }
-
-
-
-
-                            }
-
-                        String getui = PushManager.getInstance().getClientid(ConfigActivity.this);
-                        if(!TextUtils.isEmpty(getui)){
-
-                            HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(getui, 0, new HekrUser.UnPushTagBindListener() {
+                            HekrUserAction.getInstance(ConfigActivity.this).unPushTagBind(fcmtoken, 3, new HekrUser.UnPushTagBindListener() {
                                 @Override
                                 public void unPushTagBindSuccess() {
-                                    Log.i(TAG,"解绑个推成功");
+                                    handler.sendEmptyMessageDelayed(LOGOUT_SUCCESS, 1000);
                                 }
 
                                 @Override
                                 public void unPushTagBindFail(int errorCode) {
-                                    Log.i(TAG,"解绑个推失败:"+errorCode);
+                                    if(errorCode == 1){
+                                        handler.sendEmptyMessage(LOGOUT_SUCCESS);
+                                    }else{
+                                        showToast(UnitTools.errorCode2Msg(ConfigActivity.this, errorCode));
+                                        hideProgressDialog();
+                                    }
                                 }
                             });
-                        }
 
+                        }
                     }
                 });
                 elc.show();
@@ -295,10 +200,10 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
             case R.id.gps_setting:
                 startActivity(new Intent(ConfigActivity.this,SettingGpsEnableActivity.class));
                 break;
-            case R.id.instruction:
+            case R.id.fap:
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("http://www.elro.eu");
+                Uri content_url = Uri.parse("https://safewith.me/base/");
                 intent.setData(content_url);
                 startActivity(intent);
                 break;
@@ -320,7 +225,7 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
    }
 
 
-
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -332,11 +237,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
                         @Override
                         public void onSuccess() {
                             hideProgressDialog();
-                            try {
-                                ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                            } catch (InvalidClassException e) {
-                                e.printStackTrace();
-                            }
                             HekrUserAction.getInstance(ConfigActivity.this).userLogout();
                             CCPAppManager.setClientUser(null);
                             finish();
@@ -347,11 +247,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
                             hideProgressDialog();
 
                             if(errorCode==1){
-                                try {
-                                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN, "", true);
-                                } catch (InvalidClassException e) {
-                                    e.printStackTrace();
-                                }
                                 HekrUserAction.getInstance(ConfigActivity.this).userLogout();
 
                                 CCPAppManager.setClientUser(null);

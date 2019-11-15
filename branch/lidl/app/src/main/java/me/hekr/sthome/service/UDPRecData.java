@@ -5,13 +5,19 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import me.hekr.sthome.autoudp.ControllerWifi;
+import me.hekr.sthome.crc.CoderUtils;
+import me.hekr.sthome.tools.ByteUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by Administrator on 2016/12/22 0022.
@@ -40,21 +46,33 @@ public class UDPRecData implements Runnable {
     @Override
     public void run() {
         while (enudp){
+            LOG.I(TAG,"[SCENE debug] run > enudp = " + enudp);
+
             bytes = new byte[512];
             datagramPacket = new DatagramPacket(bytes,bytes.length,hostAdd,PORT);
             try {
-                Log.i(TAG," start to receive");
+                LOG.I(TAG," start to receive");
                 datagramSocket.receive(datagramPacket);
-                String msg = new String(datagramPacket.getData());
-                Log.i(TAG,"get udp message:"+msg);
+                String msg = null;
+                if("7b".equals(ByteUtil.getAllDescryption(datagramPacket.getData()).substring(0,2))){
+                    ConnectionPojo.getInstance().encryption = true;
+                    msg = CoderUtils.getStringFromAscii2(ByteUtil.getAllDescryption(datagramPacket.getData()));
+                    Log.i(TAG,"get en udp message:"+msg);
+                }else {
+                    ConnectionPojo.getInstance().encryption = false;
+                    msg = new String(datagramPacket.getData());
+                    Log.i(TAG,"get udp message:"+msg);
+                }
+
+
                 hostip = datagramPacket.getAddress();
                 resolveData(msg);
             } catch (IOException e) {
-                Log.i(TAG," receive failed  Socket closed");
+                LOG.I(TAG," receive failed  Socket closed");
                 break;
             }catch (NullPointerException e){
                 e.printStackTrace();
-                Log.i(TAG," receive failed NullPointerException");
+                LOG.I(TAG," receive failed NullPointerException");
             }
         }
     }
@@ -63,7 +81,7 @@ public class UDPRecData implements Runnable {
         String deviceTid = "",bind="",ctrlkey="";
 
         if(type == 2){
-            if(msg.contains("ST_answer_OK")){
+            if(msg.contains("ST_answer_OK") ||  msg.contains("answer_yes_or_no")){
                 ControllerWifi.getInstance().switch_server_ok = true;
             }
             return;
@@ -74,25 +92,25 @@ public class UDPRecData implements Runnable {
                 if(msg.length()>20){
                     try{
                         deviceTid = msg.substring(msg.indexOf(":") + 1, msg.indexOf("\n"));
-                        Log.i(TAG +"name", "===" + deviceTid);
+                        LOG.I(TAG +"name", "===" + deviceTid);
                     }catch (StringIndexOutOfBoundsException e){
-                        Log.i(TAG,"get rabish deviceTid");
+                        LOG.I(TAG,"get rabish deviceTid");
                     }
 
                     try{
                         msg = msg.substring(msg.indexOf("\n") + 1);
                         bind = msg.substring(msg.indexOf(":") + 1, msg.indexOf("\n"));
-                        Log.i(TAG +"bind", "===" + bind);
+                        LOG.I(TAG +"bind", "===" + bind);
                     }catch (StringIndexOutOfBoundsException e){
-                        Log.i(TAG,"get rabish bind");
+                        LOG.I(TAG,"get rabish bind");
                     }
 
                     try{
                         msg = msg.substring(msg.indexOf("\n") + 1);
                         ctrlkey = msg.substring(msg.indexOf(":") + 1, msg.indexOf("\n"));
-                        Log.i(TAG +"key", "===" + ctrlkey);
+                        LOG.I(TAG +"key", "===" + ctrlkey);
                     }catch (StringIndexOutOfBoundsException e){
-                        Log.i(TAG,"get rabish ctrlkey");
+                        LOG.I(TAG,"get rabish ctrlkey");
                     }
 
                     if(type==1){
@@ -104,10 +122,10 @@ public class UDPRecData implements Runnable {
                         ControllerWifi.getInstance().deviceTid = deviceTid;
                         ControllerWifi.getInstance().bind = bind;
                         ControllerWifi.getInstance().ctrlKey = ctrlkey;
-                        Log.i(TAG," LAN.targetip="+ hostip.toString());
-                        Log.i(TAG," LAN.deviceTid="+ deviceTid.toString());
-                        Log.i(TAG," LAN.bind="+ bind.toString());
-                        Log.i(TAG," LAN.ctrlKey="+ ctrlkey.toString());
+                        LOG.I(TAG," LAN.targetip="+ hostip.toString());
+                        LOG.I(TAG," LAN.deviceTid="+ deviceTid.toString());
+                        LOG.I(TAG," LAN.bind="+ bind.toString());
+                        LOG.I(TAG," LAN.ctrlKey="+ ctrlkey.toString());
                     }else{
                         if( !TextUtils.isEmpty(ConnectionPojo.getInstance().deviceTid) && ConnectionPojo.getInstance().deviceTid.equals(deviceTid)){
                         ControllerWifi.getInstance().wifiTag = true;
@@ -115,21 +133,65 @@ public class UDPRecData implements Runnable {
                         ControllerWifi.getInstance().deviceTid = deviceTid;
                         ControllerWifi.getInstance().bind = bind;
                         ControllerWifi.getInstance().ctrlKey = ctrlkey;
-                        Log.i(TAG," LAN.targetip="+ hostip.toString());
-                        Log.i(TAG," LAN.deviceTid="+ deviceTid.toString());
-                        Log.i(TAG," LAN.bind="+ bind.toString());
-                        Log.i(TAG," LAN.ctrlKey="+ ctrlkey.toString());
+                        LOG.I(TAG," LAN.targetip="+ hostip.toString());
+                        LOG.I(TAG," LAN.deviceTid="+ deviceTid.toString());
+                        LOG.I(TAG," LAN.bind="+ bind.toString());
+                        LOG.I(TAG," LAN.ctrlKey="+ ctrlkey.toString());
                         }
                     }
                 }
-
-
         }else{
-            if(ControllerWifi.getInstance().wifiTag){
-                Intent intent = new Intent(SiterService.UDP_BROADCAST);
-                intent.putExtra("message",msg);
-                context.sendBroadcast(intent);
+
+            try {
+                JSONObject jsonObject = new JSONObject(msg);
+                if(jsonObject.has("NAME")&&jsonObject.has("KEY")){
+                     String devTid2 = jsonObject.getString("NAME");
+                     String bindkey2 = jsonObject.getString("BIND");
+                     String ctrlkey2 = jsonObject.getString("KEY");
+                    if(type==1){
+
+                        if( !TextUtils.isEmpty(ConnectionPojo.getInstance().deviceTid) && ConnectionPojo.getInstance().deviceTid.equals(devTid2)){
+                            ControllerWifi.getInstance().wifiTag = true;
+                        }
+                        ControllerWifi.getInstance().targetip = hostip;
+                        ControllerWifi.getInstance().deviceTid = devTid2;
+                        ControllerWifi.getInstance().bind = bindkey2;
+                        ControllerWifi.getInstance().ctrlKey = ctrlkey2;
+                        Log.i(TAG,"en: LAN.targetip="+ hostip.toString());
+                        Log.i(TAG,"en: LAN.deviceTid="+ devTid2.toString());
+                        Log.i(TAG,"en: LAN.bind="+ bindkey2.toString());
+                        Log.i(TAG,"en: LAN.ctrlKey="+ ctrlkey2.toString());
+                    }else{
+                        if( !TextUtils.isEmpty(ConnectionPojo.getInstance().deviceTid) && ConnectionPojo.getInstance().deviceTid.equals(devTid2)){
+                            ControllerWifi.getInstance().wifiTag = true;
+                            ControllerWifi.getInstance().targetip = hostip;
+                            ControllerWifi.getInstance().deviceTid = devTid2;
+                            ControllerWifi.getInstance().bind = bindkey2;
+                            ControllerWifi.getInstance().ctrlKey = ctrlkey2;
+                            Log.i(TAG,"en: LAN.targetip="+ hostip.toString());
+                            Log.i(TAG,"en: LAN.deviceTid="+ devTid2.toString());
+                            Log.i(TAG,"en: LAN.bind="+ bindkey2.toString());
+                            Log.i(TAG,"en: LAN.ctrlKey="+ ctrlkey2.toString());
+                        }
+                    }
+
+                }else {
+                    if(ControllerWifi.getInstance().wifiTag){
+                        Intent intent = new Intent(SiterService.UDP_BROADCAST);
+                        intent.putExtra("message",msg);
+                        context.sendBroadcast(intent);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                if(ControllerWifi.getInstance().wifiTag){
+                    Intent intent = new Intent(SiterService.UDP_BROADCAST);
+                    intent.putExtra("message",msg);
+                    context.sendBroadcast(intent);
+                }
             }
+
+
         }
     }
 
@@ -143,6 +205,7 @@ public class UDPRecData implements Runnable {
     }
 
     public void  close(){
+        LOG.E(TAG,"[SCENE debug] close");
         try {
             enudp = false;
             datagramSocket.close();

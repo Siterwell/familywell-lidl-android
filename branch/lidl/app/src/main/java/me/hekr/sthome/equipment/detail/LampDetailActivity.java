@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.crc.CoderUtils;
@@ -39,7 +38,7 @@ public class LampDetailActivity extends TopbarSuperActivity {
     private MyInforHandler myInforHandler;
 
     private static final String TAG = "LampDetail";
-    private MyApplication myApplication;
+//    private MyApplication myApplication;
     private EquipDAO ED;
     private LinearLayout drawBack;
     private ImageView deviceLogo;
@@ -110,7 +109,7 @@ public class LampDetailActivity extends TopbarSuperActivity {
                 myInforHandler.sendEmptyMessage(GETBACK_SUCCESS);
             }
         };
-        myApplication = (MyApplication) getApplicationContext();
+//        myApplication = (MyApplication) getApplicationContext();
     }
 
     private void initViewGuider() {
@@ -135,7 +134,7 @@ public class LampDetailActivity extends TopbarSuperActivity {
                 String edit = getTopBarView().getEditTitle().getText().toString().trim();
                 if(!TextUtils.isEmpty(edit)){
                     try {
-                        if(edit.getBytes("GBK").length<=15){
+                        if(edit.getBytes("UTF-8").length<=15){
                             if(!EmojiFilter.containsEmoji(edit)) {
                                 getTopBarView().setEditTitle(edit);
                                 updateName(edit);

@@ -1,6 +1,5 @@
 package me.hekr.sthome.service;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.Timer;

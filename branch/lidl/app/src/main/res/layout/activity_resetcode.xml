@@ -126,7 +126,7 @@
         android:layout_marginRight="@dimen/NormalPadding"
         android:background="@drawable/modle_done"
         android:textAllCaps="false"
-        android:text="@string/reset_code"
+        android:text="@string/setting_confirm_password_hint"
         android:textColor="@color/white"/>
 
 

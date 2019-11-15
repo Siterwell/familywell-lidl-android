@@ -2,20 +2,15 @@ package me.hekr.sthome.model.modeldb;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
-import com.litesuits.android.log.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import me.hekr.sthome.LoginActivity;
-import me.hekr.sthome.autoudp.ControllerWifi;
-import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.model.modelbean.TimerGatewayBean;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by jishu0001 on 2016/9/1.
@@ -50,7 +45,7 @@ public class TimerDAO {
             row = (int) db.insert("timertable", null, cv);
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return row;
@@ -86,7 +81,7 @@ public class TimerDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -123,7 +118,7 @@ public class TimerDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -157,7 +152,7 @@ public class TimerDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -184,7 +179,7 @@ public class TimerDAO {
             }
 
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return sys2;
@@ -215,7 +210,7 @@ public class TimerDAO {
                 sb.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return sb;
@@ -293,7 +288,7 @@ public class TimerDAO {
             String[] whereValue ={ tid,deviceid };
             db.delete("timertable", where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
         }
@@ -313,7 +308,7 @@ public class TimerDAO {
             cv.put("enable",beana.getEnable());
             db.update("timertable", cv, where, whereValue);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -332,7 +327,7 @@ public class TimerDAO {
                 list.add( cursor.getString(cursor.getColumnIndex("timerid")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed device");
+            LOG.I(TAG,"no choosed device");
         }finally {
             db.close();
             return list;

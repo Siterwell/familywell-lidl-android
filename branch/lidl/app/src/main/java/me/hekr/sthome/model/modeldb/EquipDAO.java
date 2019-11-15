@@ -2,7 +2,6 @@ package me.hekr.sthome.model.modeldb;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -11,9 +10,9 @@ import com.litesuits.android.log.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.tools.NameSolve;
 
 /**
  * Created by jishu0001 on 2016/8/22.
@@ -59,9 +58,9 @@ public class EquipDAO {
     {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         try {
-        String where = "eqid = ? and deviceid = ?";
-        String[] whereValue ={ eq.getEqid(),eq.getDeviceid() };
-        db.delete("equipment", where, whereValue);
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue ={ eq.getEqid(),eq.getDeviceid() };
+            db.delete("equipment", where, whereValue);
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -90,8 +89,8 @@ public class EquipDAO {
     {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         try {
-        String where = "deviceid = '"+deviceid+"'";
-        db.delete("equipment", where, null);
+            String where = "deviceid = '"+deviceid+"'";
+            db.delete("equipment", where, null);
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -105,17 +104,17 @@ public class EquipDAO {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         int row = 0;
         try {
-    /* ContentValues */
-        ContentValues cv = new ContentValues();
-        cv.put("name", eq.getEquipmentName());
-        cv.put("eqid",eq.getEqid());
-        cv.put("activitytime",eq.getActivityTime());
-        cv.put("state",eq.getState());
-        cv.put("equipmentdesc",eq.getEquipmentDesc());
-        cv.put("packageid",eq.getPackId());
-        cv.put("sort",eq.getOrder());
-        cv.put("deviceid",eq.getDeviceid());
-        row = (int) db.insert("equipment", null, cv);
+            /* ContentValues */
+            ContentValues cv = new ContentValues();
+            cv.put("name", eq.getEquipmentName());
+            cv.put("eqid",eq.getEqid());
+            cv.put("activitytime",eq.getActivityTime());
+            cv.put("state",eq.getState());
+            cv.put("equipmentdesc",eq.getEquipmentDesc());
+            cv.put("packageid",eq.getPackId());
+            cv.put("sort",eq.getOrder());
+            cv.put("deviceid",eq.getDeviceid());
+            row = (int) db.insert("equipment", null, cv);
 
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
@@ -129,15 +128,15 @@ public class EquipDAO {
     {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         try {
-        String where = "eqid = ? and deviceid = ?";
-        String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
-        ContentValues cv = new ContentValues();
-        cv.put("eqid", eq.getEqid());
-        cv.put("activitytime",eq.getActivityTime());
-        cv.put("state",eq.getState());
-        cv.put("equipmentdesc",eq.getEquipmentDesc());
-        db.update("equipment", cv, where, whereValue);
-        Log.i(TAG,"data "+eq.toString());
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
+            ContentValues cv = new ContentValues();
+            cv.put("eqid", eq.getEqid());
+            cv.put("activitytime",eq.getActivityTime());
+            cv.put("state",eq.getState());
+            cv.put("equipmentdesc",eq.getEquipmentDesc());
+            db.update("equipment", cv, where, whereValue);
+            Log.i(TAG,"data "+eq.toString());
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -172,16 +171,16 @@ public class EquipDAO {
     {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         try {
-        String where = "eqid = ? and deviceid = ?";
-        String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
-        ContentValues cv = new ContentValues();
-        cv.put("name", eq.getEquipmentName());
-        cv.put("eqid", eq.getEqid());
-        cv.put("activitytime",eq.getActivityTime());
-        cv.put("state",eq.getState());
-        cv.put("equipmentdesc",eq.getEquipmentDesc());
-        db.update("equipment", cv, where, whereValue);
-        Log.i(TAG,"data "+eq.toString());
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
+            ContentValues cv = new ContentValues();
+            cv.put("name", eq.getEquipmentName());
+            cv.put("eqid", eq.getEqid());
+            cv.put("activitytime",eq.getActivityTime());
+            cv.put("state",eq.getState());
+            cv.put("equipmentdesc",eq.getEquipmentDesc());
+            db.update("equipment", cv, where, whereValue);
+            Log.i(TAG,"data "+eq.toString());
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -194,13 +193,13 @@ public class EquipDAO {
     {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         try {
-        String where = "eqid = ? and deviceid = ? ";
-        String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
-        ContentValues cv = new ContentValues();
-        cv.put("name", eq.getEquipmentName());
+            String where = "eqid = ? and deviceid = ? ";
+            String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
+            ContentValues cv = new ContentValues();
+            cv.put("name", eq.getEquipmentName());
             cv.put("deviceid",eq.getDeviceid());
-        db.update("equipment", cv, where, whereValue);
-        Log.i(TAG," update equipment over data "+eq.toString());
+            db.update("equipment", cv, where, whereValue);
+            Log.i(TAG," update equipment over data "+eq.toString());
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -213,13 +212,13 @@ public class EquipDAO {
     {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         try {
-        String where = "eqid = ? and deviceid = ?";
-        String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
-        ContentValues cv = new ContentValues();
-        cv.put("sort", eq.getOrder());
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
+            ContentValues cv = new ContentValues();
+            cv.put("sort", eq.getOrder());
             cv.put("deviceid",eq.getDeviceid());
-        db.update("equipment", cv, where, whereValue);
-        Log.i( TAG,"update equipment over data "+eq.toString());
+            db.update("equipment", cv, where, whereValue);
+            Log.i( TAG,"update equipment over data "+eq.toString());
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -232,12 +231,66 @@ public class EquipDAO {
     {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         try {
-        String where = "eqid = ? and deviceid = ?";
-        String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
-        ContentValues cv = new ContentValues();
-        cv.put("packageid", eq.getPackId());
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue = {eq.getEqid(),eq.getDeviceid()};
+            ContentValues cv = new ContentValues();
+            cv.put("packageid", eq.getPackId());
             cv.put("deviceid",eq.getDeviceid());
-        db.update("equipment", cv, where, whereValue);
+            db.update("equipment", cv, where, whereValue);
+        }catch (NullPointerException e){
+            Log.i(TAG,"no choosed gateway");
+        }finally {
+            db.close();
+        }
+    }
+
+    //修改温控器自动温度操作
+    public void updateAutoTemp(String eq,String deviceid,String value)
+    {
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        try {
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue = {eq,deviceid};
+            ContentValues cv = new ContentValues();
+            cv.put("autotemp", value);
+            db.update("equipment", cv, where, whereValue);
+            Log.i(TAG,"data "+eq.toString());
+        }catch (NullPointerException e){
+            Log.i(TAG,"no choosed gateway");
+        }finally {
+            db.close();
+        }
+    }
+
+    //修改温控器手动温度操作
+    public void updateHandTemp(String eq,String deviceid,String value)
+    {
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        try {
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue = {eq,deviceid};
+            ContentValues cv = new ContentValues();
+            cv.put("handtemp", value);
+            db.update("equipment", cv, where, whereValue);
+            Log.i(TAG,"data "+eq.toString());
+        }catch (NullPointerException e){
+            Log.i(TAG,"no choosed gateway");
+        }finally {
+            db.close();
+        }
+    }
+
+    //修改温控器防冻温度操作
+    public void updateFangTemp(String eq,String deviceid,String value)
+    {
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        try {
+            String where = "eqid = ? and deviceid = ?";
+            String[] whereValue = {eq,deviceid};
+            ContentValues cv = new ContentValues();
+            cv.put("fangtemp", value);
+            db.update("equipment", cv, where, whereValue);
+            Log.i(TAG,"data "+eq.toString());
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -254,21 +307,21 @@ public class EquipDAO {
         List<ApplicationInfo> list = new ArrayList<ApplicationInfo>();
         try {
 
-        Cursor cursor = db.rawQuery("select * from equipment where packageid = 0 and deviceid = '"+deviceid+"' group by eqid order by sort,eqid",null);
-        while (cursor.moveToNext()){
-            ApplicationInfo  eq = new ApplicationInfo();
-            eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
-            eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
-            eq.setTitle(cursor.getString(cursor.getColumnIndex("name")));
-            eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
-            eq.setState(cursor.getString(cursor.getColumnIndex("state")));
-            eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
-            eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
-            eq.setOrder(cursor.getInt(cursor.getColumnIndex("sort")));
-            eq.setPackId(cursor.getInt(cursor.getColumnIndex("packageid")));
-            eq.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
-            list.add(eq);
-        }
+            Cursor cursor = db.rawQuery("select * from equipment where packageid = 0 and deviceid = '"+deviceid+"' group by eqid order by sort,eqid",null);
+            while (cursor.moveToNext()){
+                ApplicationInfo  eq = new ApplicationInfo();
+                eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
+                eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
+                eq.setTitle(cursor.getString(cursor.getColumnIndex("name")));
+                eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
+                eq.setState(cursor.getString(cursor.getColumnIndex("state")));
+                eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
+                eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
+                eq.setOrder(cursor.getInt(cursor.getColumnIndex("sort")));
+                eq.setPackId(cursor.getInt(cursor.getColumnIndex("packageid")));
+                eq.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
+                list.add(eq);
+            }
 
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
@@ -287,22 +340,22 @@ public class EquipDAO {
         List<ApplicationInfo> list = new ArrayList<ApplicationInfo>();
         try {
 
-        Cursor cursor = db.rawQuery("select * from equipment where deviceid = '"+deviceid+"' order by eqid",null);
-        while (cursor.moveToNext()){
-            ApplicationInfo eq = new ApplicationInfo();
-            eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
-            eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
-            eq.setTitle(cursor.getString(cursor.getColumnIndex("name")));
+            Cursor cursor = db.rawQuery("select * from equipment where deviceid = '"+deviceid+"' order by eqid",null);
+            while (cursor.moveToNext()){
+                ApplicationInfo eq = new ApplicationInfo();
+                eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
+                eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
+                eq.setTitle(cursor.getString(cursor.getColumnIndex("name")));
 //            eq.setActivityTime(cursor.getInt(cursor.getColumnIndex("activitytime")));
-            eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
-            eq.setState(cursor.getString(cursor.getColumnIndex("state")));
-            eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
-            eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
-            eq.setOrder(cursor.getInt(cursor.getColumnIndex("sort")));
-            eq.setPackId(cursor.getInt(cursor.getColumnIndex("packageid")));
-            eq.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
-            list.add(eq);
-        }
+                eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
+                eq.setState(cursor.getString(cursor.getColumnIndex("state")));
+                eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
+                eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
+                eq.setOrder(cursor.getInt(cursor.getColumnIndex("sort")));
+                eq.setPackId(cursor.getInt(cursor.getColumnIndex("packageid")));
+                eq.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
+                list.add(eq);
+            }
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -319,17 +372,17 @@ public class EquipDAO {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         List<EquipmentBean> list = new ArrayList<EquipmentBean>();
         try {
-        Cursor cursor = db.rawQuery("select * from equipment where deviceid = '"+deviceid+"' and (equipmentdesc GLOB '*0??' or equipmentdesc GLOB '*1??' or equipmentdesc GLOB '*3??' or equipmentdesc GLOB '*6??' or equipmentdesc = '1213') ",null);
-        while (cursor.moveToNext()){
-            EquipmentBean eq = new EquipmentBean();
-            eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
-            eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
-            eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
-            eq.setState(cursor.getString(cursor.getColumnIndex("state")));
-            eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
-            eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
-            list.add(eq);
-        }
+            Cursor cursor = db.rawQuery("select * from equipment where deviceid = '"+deviceid+"' and (equipmentdesc GLOB '*0??' or equipmentdesc GLOB '*1??' or equipmentdesc GLOB '*3??' or equipmentdesc GLOB '*6??' or equipmentdesc = '1213') ",null);
+            while (cursor.moveToNext()){
+                EquipmentBean eq = new EquipmentBean();
+                eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
+                eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
+                eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
+                eq.setState(cursor.getString(cursor.getColumnIndex("state")));
+                eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
+                eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
+                list.add(eq);
+            }
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -365,21 +418,30 @@ public class EquipDAO {
         }
     }
 
+    /**
+     * 除去361部分
+     * @param deviceid
+     * @return
+     */
     public List<EquipmentBean> findOutput(String deviceid){
         SQLiteDatabase db = this.sys.getWritableDatabase();
         List<EquipmentBean> list = new ArrayList<EquipmentBean>();
         try {
-        Cursor cursor = db.rawQuery("select * from equipment where deviceid = '"+deviceid+"' and equipmentdesc GLOB '*2??' and equipmentdesc !='1213'",null);
-        while (cursor.moveToNext()){
-            EquipmentBean eq = new EquipmentBean();
-            eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
-            eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
-            eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
-            eq.setState(cursor.getString(cursor.getColumnIndex("state")));
-            eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
-            eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
-            list.add(eq);
-        }
+            Cursor cursor = db.rawQuery("select * from equipment where deviceid = '"+deviceid+"' and equipmentdesc GLOB '*2??' and equipmentdesc !='1213'",null);
+            while (cursor.moveToNext()){
+                String type = cursor.getString(cursor.getColumnIndex("equipmentdesc"));
+                if(!NameSolve.getEqType(type).equals(NameSolve.TEMP_CONTROL)){
+                    EquipmentBean eq = new EquipmentBean();
+                    eq.setEquipmentId(cursor.getInt(cursor.getColumnIndex("id")));
+                    eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
+                    eq.setActivityTime(cursor.getString(cursor.getColumnIndex("activitytime")));
+                    eq.setState(cursor.getString(cursor.getColumnIndex("state")));
+                    eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
+                    eq.setEqid(cursor.getString(cursor.getColumnIndex("eqid")));
+                    list.add(eq);
+                }
+
+            }
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -394,12 +456,12 @@ public class EquipDAO {
         SQLiteDatabase db = this.sys.getWritableDatabase();
         EquipmentBean eq = null;
         try {
-        Cursor cursor = db.rawQuery("select name,equipmenttype,equipmentdesc from equipment where eqid =? and deviceid = ?",new String[]{eqid,deviceid});
-        if(cursor.moveToFirst()) {
-            eq = new EquipmentBean();
-            eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
-            eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
-        }
+            Cursor cursor = db.rawQuery("select name,equipmenttype,equipmentdesc from equipment where eqid =? and deviceid = ?",new String[]{eqid,deviceid});
+            if(cursor.moveToFirst()) {
+                eq = new EquipmentBean();
+                eq.setEquipmentName(cursor.getString(cursor.getColumnIndex("name")));
+                eq.setEquipmentDesc(cursor.getString(cursor.getColumnIndex("equipmentdesc")));
+            }
         }catch (NullPointerException e){
             Log.i(TAG,"no choosed gateway");
         }finally {
@@ -408,5 +470,65 @@ public class EquipDAO {
         }
     }
 
+    /**
+     * 查找温控器自动设置温度缓存值
+     * @return
+     */
+    public String findTempByAutoModel(String deviceid,String eqid){
 
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        String eq = null;
+        try {
+            Cursor cursor = db.rawQuery("select autotemp from equipment where eqid =? and deviceid = ?",new String[]{eqid,deviceid});
+            if(cursor.moveToFirst()) {
+                eq =(cursor.getString(cursor.getColumnIndex("autotemp")));
+            }
+        }catch (NullPointerException e){
+            Log.i(TAG,"no choosed gateway");
+        }finally {
+            db.close();
+            return eq;
+        }
+
+    }
+
+    /**
+     * 查找温控器手动设置温度缓存值
+     * @return
+     */
+    public String findTempByHandModel(String deviceid,String eqid){
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        String eq = null;
+        try {
+            Cursor cursor = db.rawQuery("select handtemp from equipment where eqid =? and deviceid = ?",new String[]{eqid,deviceid});
+            if(cursor.moveToFirst()) {
+                eq =(cursor.getString(cursor.getColumnIndex("handtemp")));
+            }
+        }catch (NullPointerException e){
+            Log.i(TAG,"no choosed gateway");
+        }finally {
+            db.close();
+            return eq;
+        }
+    }
+
+    /**
+     * 查找温控器防冻设置温度缓存值
+     * @return
+     */
+    public String findTempByFangModel(String deviceid,String eqid){
+        SQLiteDatabase db = this.sys.getWritableDatabase();
+        String eq = null;
+        try {
+            Cursor cursor = db.rawQuery("select fangtemp from equipment where eqid =? and deviceid = ?",new String[]{eqid,deviceid});
+            if(cursor.moveToFirst()) {
+                eq =(cursor.getString(cursor.getColumnIndex("fangtemp")));
+            }
+        }catch (NullPointerException e){
+            Log.i(TAG,"no choosed gateway");
+        }finally {
+            db.close();
+            return eq;
+        }
+    }
 }

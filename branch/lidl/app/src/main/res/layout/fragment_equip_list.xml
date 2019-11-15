@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroud_bk"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
 
@@ -17,7 +16,7 @@
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/base_dark_background">
             <me.hekr.sthome.commonBaseView.TopBarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
                 android:id="@+id/springboard_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="@color/base_dark_background"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@id/eq_instruction"
                 >
@@ -55,7 +54,6 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/icon_empty"
                         android:tint="#ABABAB"
-
                         />
 
                     <TextView

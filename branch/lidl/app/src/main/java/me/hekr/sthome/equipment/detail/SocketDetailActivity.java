@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,13 +49,13 @@ public class SocketDetailActivity extends AppCompatActivity {
     private TextView showStatus;
     private ImageView signal;
     private String eqid="";
-    private EquipmentBean device;
     private SendEquipmentData sd;
     private ImageView back_img;
     private TextView  edt_txt,eq_name;
-    private LinearLayout root;
     private ImageView operation_img;
     private ECAlertDialog alertDialog;
+    protected EquipmentBean device;
+    protected View root;
 
 
     @Override
@@ -170,7 +169,7 @@ public class SocketDetailActivity extends AppCompatActivity {
                                         if(!TextUtils.isEmpty(newname)){
 
                                             try {
-                                                if(newname.getBytes("GBK").length<=15){
+                                                if(newname.getBytes("UTF-8").length<=15){
                                                     if(!EmojiFilter.containsEmoji(newname)) {
                                                         alertDialog.setDismissFalse(true);
                                                         eq_name.setText(newname);
@@ -218,19 +217,19 @@ public class SocketDetailActivity extends AppCompatActivity {
 
             }
         });
-        root       = (LinearLayout)findViewById(R.id.root);
+        root       = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
             root.setPadding(0,top,0,0);
         }
-        operation_img = (ImageView)findViewById(R.id.operation);
-        showStatus = (TextView) findViewById(R.id.showStatus);
-        signal = (ImageView) findViewById(R.id.signalPosition);
-        deviceLogo = (ImageView) findViewById(R.id.devicePosition);
+        operation_img = findViewById(R.id.operation);
+        showStatus =  findViewById(R.id.showStatus);
+        signal =  findViewById(R.id.signalPosition);
+        deviceLogo =  findViewById(R.id.devicePosition);
         deviceLogo.setImageResource(R.drawable.detail7);
         newAction();
-        eq_name = (TextView)findViewById(R.id.eq_name);
+        eq_name = findViewById(R.id.eq_name);
         eq_name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         eq_name.setSelected(true);
         eq_name.setFocusable(true);
@@ -241,6 +240,7 @@ public class SocketDetailActivity extends AppCompatActivity {
         }else{
             eq_name.setText(device.getEquipmentName());
         }
+
         doStatusShow(device.getState());
     }
     private void updateName(String edit) {
@@ -290,16 +290,16 @@ public class SocketDetailActivity extends AppCompatActivity {
             signal.setImageResource(ShowBascInfor.choseSPic(signal1));
             if ("01".equals(socketStatus)) {
 //                    holder.s.setText("闭合");
-                root.setBackgroundColor(getResources().getColor(R.color.device_error));
-                showStatus.setTextColor(getResources().getColor(R.color.device_error));
-                operation_img.setImageResource(R.drawable.detail_switch_on);
-                showStatus.setText(getResources().getStringArray(R.array.socket_actions)[0]);
-            } else if ("00".equals(socketStatus)) {
-//                    holder.s.setText("断开");
                 root.setBackgroundColor(getResources().getColor(R.color.device_normal));
                 showStatus.setTextColor(getResources().getColor(R.color.device_normal));
+                operation_img.setImageResource(R.drawable.detail_switch_on);
+                showStatus.setText(getResources().getStringArray(R.array.socket_status)[0]);
+            } else if ("00".equals(socketStatus)) {
+//                    holder.s.setText("断开");
+                root.setBackgroundColor(getResources().getColor(R.color.device_error));
+                showStatus.setTextColor(getResources().getColor(R.color.device_error));
                 operation_img.setImageResource(R.drawable.detail_switch_off);
-                showStatus.setText(getResources().getStringArray(R.array.socket_actions)[1]);
+                showStatus.setText(getResources().getStringArray(R.array.socket_status)[1]);
             }else {
                 root.setBackgroundColor(getResources().getColor(R.color.device_offine));
                 showStatus.setTextColor(getResources().getColor(R.color.device_offine));

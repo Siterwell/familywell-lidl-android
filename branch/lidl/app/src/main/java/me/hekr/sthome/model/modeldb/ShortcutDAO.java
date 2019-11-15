@@ -2,23 +2,17 @@ package me.hekr.sthome.model.modeldb;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-
-import com.litesuits.android.log.Log;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-import me.hekr.sthome.LoginActivity;
-import me.hekr.sthome.autoudp.ControllerWifi;
-import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.model.modelbean.ShortcutBean;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by jishu0001 on 2016/8/22.
@@ -53,7 +47,7 @@ public class ShortcutDAO {
                 list.add(eq);
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -75,7 +69,7 @@ public class ShortcutDAO {
                 list.add(eq);
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return list;
@@ -97,7 +91,7 @@ public class ShortcutDAO {
                 eq.setDeviceid(cursor.getString(cursor.getColumnIndex("deviceid")));
             }
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
             return eq;
@@ -111,7 +105,7 @@ public class ShortcutDAO {
             String where = "deviceid = '"+deviceid+"' and  eqid = '"+eqid+"'";
             db.delete("modetable", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -125,7 +119,7 @@ public class ShortcutDAO {
             String where = "deviceid = '"+deviceid+"' and sid = '"+sid+"' and eqid = '"+eqid+"'";
             db.delete("modetable", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }
@@ -139,7 +133,7 @@ public class ShortcutDAO {
             String where = "deviceid = '"+deviceid+"' and sid = '"+sid+"'";
             db.delete("modetable", where, null);
         }catch (NullPointerException e){
-            Log.i(TAG,"no choosed gateway");
+            LOG.I(TAG,"no choosed gateway");
         }finally {
             db.close();
         }

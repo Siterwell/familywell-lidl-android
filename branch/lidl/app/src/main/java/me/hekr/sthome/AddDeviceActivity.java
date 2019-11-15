@@ -226,7 +226,7 @@ public class AddDeviceActivity extends TopbarSuperActivity {
                      if(!TextUtils.isEmpty(newname)){
 
                          try {
-                             if(newname.getBytes("GBK").length<=15){
+                             if(newname.getBytes("UTF-8").length<=15){
                                  alertDialog.setDismissFalse(true);
                                  updateName(newname,eqid);
                                  String ds = CoderUtils.getAscii(newname);

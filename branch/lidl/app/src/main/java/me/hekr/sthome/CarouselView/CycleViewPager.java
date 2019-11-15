@@ -82,7 +82,7 @@ public class CycleViewPager extends FrameLayout implements OnPageChangeListener 
 		View view = LayoutInflater.from(context).inflate(
 				R.layout.view_cycle_viewpager_contet, null);
 
-		viewPager = (BaseViewPager) view.findViewById(R.id.viewPager);
+		viewPager = (BaseViewPager) view.findViewById(R.id.viewpager_ipc);
 		viewPager.setOffscreenPageLimit(1);
 		indicatorLayout = (LinearLayout) view
 				.findViewById(R.id.layout_viewpager_indicator);
@@ -357,7 +357,7 @@ public class CycleViewPager extends FrameLayout implements OnPageChangeListener 
 			FrameLayout v = imageViews.get(position);
 			if (mImageCycleViewListener != null) {
 				v.getChildAt(0).setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 

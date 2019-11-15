@@ -16,6 +16,7 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.commonBaseView.ProgressWheel;
 import me.hekr.sthome.main.MainActivity;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by gc-0001 on 2017/2/17.
@@ -62,7 +63,7 @@ public class EsptouchSuccessActivity extends TopbarSuperActivity {
         progressWheelInterpolated.setCallback(new ProgressWheel.ProgressCallback() {
             @Override
             public void onProgressUpdate(float progress) {
-                Log.i("ceshi","progress:"+progress);
+                LOG.I("ceshi","progress:"+progress);
                 if(progress==1f){
                     progressWheelInterpolated.beginDrawTick();
                     timer = new Timer();

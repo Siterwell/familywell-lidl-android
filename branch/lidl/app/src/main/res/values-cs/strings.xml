@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <string name="app_name">SilverCrest Alarm</string>
    <string name="btnConfirmTitle">PŘIPOJIT</string>
    <string name="config_instruction">Pět sekund po zapojení konektoru stiskněte a podržte tlačítko pro režim sítě.</string>
    <string name="how_to_config">Zkontrolujte, zda modrá kontrolka konektoru bliká a potom stiskněte „Další krok“.</string>
@@ -24,7 +23,7 @@
    <string name="connect_alert">Aktuální konektor:</string>
    <string name="connect_equipment_alert">Vyberte konektor, prosím</string>
    <string name="please_input_complete">Dokončete zadání, prosím</string>
-   <string name="password_length">Heslo musí obsahovat minimálně 6 znaků!</string>
+   <string name="password_length">Heslo musí obsahovat minimálně 10 znaků!</string>
    <string name="password_two_different">Zadaná hesla se neshodují.</string>
    <string name="name_hint">E-mail</string>
    <string name="password_hint">Zadejte heslo</string>
@@ -93,7 +92,7 @@
    <string name="all_condition_hint_one">Pokud přidáte více podmínek, pro spuštění akcí je třeba splnit všechny;</string>
    <string name="all_condition_hint_two">Pokud přidáte pouze jednu výchozí podmínku, akce budou provedeny jakmile bude podmínka splněna;</string>
    <string name="all_condition_hint_three">Pokud této funkci nerozumíte, vyberte výchozí možnost nebo nás kontaktujte.</string>
-   <string name="my_scene">Moje_Scéna_</string>
+   <string name="my_action">Moje akce</string>
    <string name="name_is_null">Název nemůže být prázdný</string>
    <string name="name_is_repeat">Duplicitní název</string>
    <string name="name_is_too_long">Název je příliš dlouhý</string>
@@ -116,7 +115,7 @@
    <string name="set_weekday">Nastavte den v týdnu, prosím</string>
    <string name="set_delay">Nastavte prodlevu, prosím</string>
    <string name="manage">Spravovat</string>
-   <string name="offline">Off-line</string>
+   <string name="offline">OFF-LINE</string>
    <string name="alarm">Alarm</string>
    <string name="lowvolt_alarm">Alarm - slabá baterie</string>
    <string name="help">Pomoc</string>
@@ -127,8 +126,8 @@
    <string name="emergency_call">Nouzové volání</string>
    <string name="call">VOLAT</string>
    <string name="update_name">Název aktualizace</string>
-   <string name="door_open">Otevřené dveře</string>
-   <string name="door_still_open">Dveře jsou otevřené</string>
+   <string name="door_open">Otevřel</string>
+   <string name="door_still_open">Zůstane otevřený</string>
    <string name="Illegal_demolition">Nelegální odebrání</string>
    <string name="has_been_moved">Byl odebrán</string>
    <string name="has_people">Spoušť</string>
@@ -140,7 +139,7 @@
    <string name="is_connected_to_wifi">%1$s je připojený k WiFi</string>
    <string name="esptouch_is_configuring">Konektor se konfiguruje, čekejte, prosím...</string>
    <string name="failed">Nezdařilo se</string>
-   <string name="failed_Esptouch_check_eq">Konfigurace se nezdařila, zkontrolujte, zda je signál WiFi stabilní, zda je konektor v režimu konfigurace nebo zda má konektor problém. </string>
+   <string name="failed_Esptouch_check_eq">Konfigurace se nezdařila, zkontrolujte, zda je signál WiFi stabilní, zda je konektor v režimu konfigurace nebo zda má konektor problém.</string>
    <string name="failed_Esptouch_check_net">Konfigurace selhala, zkontrolujte síť WiFi, prosím.</string>
    <string name="success_Esptouch">Konfigurace byla úspěšná</string>
    <string name="wait">Čekání....</string>
@@ -165,10 +164,10 @@
    <string name="set_emergency_call">Nouzové volání</string>
    <string name="please_input_emergency_call">Zadejte nouzové telefonní číslo</string>
    <string name="emergency_desc_first">Může to být vaše číslo nebo číslo blízké osoby</string>
-   <string name="emergency_desc_second">Na stránce s podrobnostmi klikněte na tlačítko  „Nouzová situace“</string>
+   <string name="emergency_desc_second">Na stránce s podrobnostmi klikněte na tlačítko „Nouzová situace“</string>
    <string name="set_username">Nastavit uživatelské jméno</string>
    <string name="set_devname_success">Název konektoru nastaven úspěšně</string>
-   <string name="add_device_hint">3x rychle stiskněte tlačítko zařízení, které přidáváte </string>
+   <string name="add_device_hint">3x rychle stiskněte tlačítko zařízení, které přidáváte</string>
    <string name="add_device_tip">Upozornění! Když kontrolka konektoru bliká zeleně, dlouhé stisknutí tlačítka konektoru minimálně na 3 sekundy smaže všechna zařízení.</string>
    <string name="done">Hotovo</string>
    <string name="now_gateway_scene_is_happen_has_scene">Upozornění, byl spuštěn aktuální konektor %1$s(%2$s) %3$s</string>
@@ -226,7 +225,7 @@
    <string name="scene_alert">Alarm scény</string>
    <string name="sthalert">Alarm</string>
    <string name="current_gateway">Aktuální konektor</string>
-   <string name="other_gateway">Jiný konektor </string>
+   <string name="other_gateway">Jiný konektor</string>
    <string name="receive_one_notice">Obdrželi jste zprávu alarmu, zkontrolujte ji, prosím</string>
    <string name="save">Uložit</string>
    <string name="no_save">Neukládat</string>
@@ -292,7 +291,7 @@
    <string name="device_setup_exposure_time">Doba vystavení</string>
    <string name="device_setup_scene_mode">Režim scény</string>
    <string name="device_setup_electronic_slow_shutter">Elektronická pomalá clona</string>
-   <string name="device_setup_electronic_slow_shutter_prompt">V prostřední s nízkým osvětlením zvyšte jas obrazovky. To může způsobit dynamické rozostření snímku.</string>
+   <string name="device_setup_electronic_slow_shutter_prompt">V prostřední s nízkým osvětlením zvyšte jas obrazovky. To může způsobit dynamické rozostření snímku</string>
    <string name="device_setup_color_mode">Barevný režim</string>
    <string name="device_setup_record_audio">Nahrát audio</string>
    <string name="device_setup_storage_capacity">Kapacita úložiště:</string>
@@ -344,7 +343,7 @@
    <string name="monitor_manage">Správa monitorů</string>
    <string name="confirm_delete_monitor">Opravdu chcete monitor smazat?</string>
    <string name="please_choose_mode">Přepnout spínač</string>
-   <string name="timer_list">Časovač</string>
+   <string name="timer_list">Přehled časovače</string>
    <string name="please_choose_switch_time">Vybrat čas sepnutí</string>
    <string name="edit_timer">Upravit časovač</string>
    <string name="switch_to">Pro</string>
@@ -395,8 +394,7 @@
    <string name="success_add">Přidáno úspěšně</string>
    <string name="temp_or_hum">Spouštěč teploty nebo spouštěč vlhkosti</string>
    <string name="trigger_style">Styl spouštěče</string>
-   <string name="server_intro">1. Potvrzení a přijetí podmínek používání\nObsah těchto webových stránek a aplikace vlastní společnost CoSa Connects BV. Uživatelé si musí před přijetím pečlivě přečíst smluvní podmínky. Uživatelé, kteří službu používají, nebo lidé, kteří dokončili registrační proces, přijmou všechny smluvní podmínky.\n. Uživatelé souhlasí s tím, že: \n (1) poskytnou podrobné a přesné osobní údaje. \n (2) průběžně aktualizují registrační informace a splňují požadavky. \nPokud jsou informace poskytnuté uživatelem nepřesné, má tato webová stránka právo ukončit . \nTento web a aplikace nebudou zveřejňovat jméno, adresu, e-mailovou adresu, číslo účtu, telefonní číslo ani jiné informace (viz ustanovení o ochraně soukromí). \nUživatelé této stránky a aplikace musí splňovat následující požadavky: \n (1) Přenos dat musí být v souladu s předpisy EU. \n (2) Použití informačních služeb nemusí být nezákonným nebo nemorálním činem. \n (3) Neinterferujte se síťovou službou.) Dodržujte všechny síťové protokoly, pravidla, postupy a postupy pro používání služeb. Uživatelský kód chování je založen na internetových pravidlech, zásadách, postupech a postupech.\n3 Změna podmínek služby\nTyto webové stránky a aplikace mají v případě potřeby právo změnit podmínky služby.Veškeré změny budou zveřejněny na stránkách. \nPokud tyto změny nepřijmete, uživatel může své členství zrušit. Pokud uživatel neprovede zrušení, přijímá změny podmínek používání.\n4, Číslo účtu uživatele, heslo a zabezpečení\nJakmile se úspěšně zaregistrujete jako člen, budete mít heslo a uživatelské jméno.</string>
-   <string name="about_app">Systém SilverCrest tvoří dvě hlavní části: Konektor a chytrá zařízení. Konektor, klíčový komponent systému, komunikuje s chytrými zařízeními pomocí komunikační technologie RF a připojuje se k vaší domácí síti WiFi, aby komunikoval s cloudem a aplikací na vašem mobilním telefonu. Systém vám tak umožňuje používat váš chytrý telefon jako ovládací centrum pro ovládání, sledování a konfiguraci různých funkcí, včetně vytváření scén, přidávání a mazání komponent, zapínání a vypínání, přijímání zpráv při spuštění poplachu a dalších přizpůsobených operací. Inteligentní zařízení v systému zahrnují následující zařízení, která mohou být vybrána podle vašich potřeb: detektory kouře, detektory plynů, detektory CO, detektory vody, kontakty dveří/oken, detektory pohybu PIR, nouzová tlačítka, inteligentní zásuvky, snímače teploty a vlhkosti atd. Seznam zařízení v aplikaci SilverCrest Connects je průběžně aktualizován. síťové kamery, dveřní zámky, spínací panely, zásuvkové panely, inteligentní čističe vzduchu, elektromagnetické ventily a další! </string>
+   <string name="about_app">Systém BASE se skládá ze dvou částí: konektoru a inteligentních zařízení. Konektor, jádro systému, komunikuje s inteligentními zařízeními prostřednictvím technologie RF komunikace a připojuje se k síti Wi-Fi, aby kontaktoval cloudový server a prostřednictvím aplikace na vašem smartphonu. Systém proto umožňuje používat svůj smartphone jako příkazové centrum pro operace, sledování a další vlastní operace. Inteligentní zařízení v systému jsou: detektory kouře, detektory plynů, detektory CO, detektory vody, dveřní / okenní kontakty, detektory pohybu PIR, nouzová tlačítka, inteligentní přepínače, snímače teploty a vlhkosti, Systém BASE se neustále aktualizuje: brzy se objeví síťové kamery, zámky, přepínací panely, inteligentní vzduchové filtry, elektromagnetické ventily a další!</string>
    <string name="modebutton_ins">Tlačítko zkratky scény</string>
    <string name="input_exist">Nemůžete mít duplicitní vstupní zařízení</string>
    <string name="output_exist">Sousedící výstupní zařízení se nemohou opakovat</string>
@@ -428,7 +426,7 @@
    <string name="add_localnet_ipc">Přidat IP kameru na stejném routeru</string>
    <string name="ipc_in_localnet">IP kamera v lokální síti</string>
    <string name="guide_message_error_call">Rozhraní vrátilo chybu, proveďte kontrolu, prosím</string>
-   <string name="is_head_yuyin">Slyšeli jste výzvu zařízení \“Spustit rychlou konfiguraci\“ nebo  \"Čekání na připojení\"</string>
+   <string name="is_head_yuyin">Slyšeli jste výzvu zařízení \“Spustit rychlou konfiguraci\“ nebo \"Čekání na připojení\"</string>
    <string name="if_ok_click_next">Pokud potvrzeno, klikněte na \"další krok\"</string>
    <string name="some_device_kuaishan">Některá zařízení mají blikající kontrolky a žádné hlasové výzvy</string>
    <string name="no_support_fiveg_wifi">(Žádná podpora pro WiFi používající pásmo 5 GHz)</string>
@@ -440,7 +438,7 @@
    <string name="no_wifi">Žádná WiFi</string>
    <string name="click_to_scan_qcode">Kliknutím naskenujte kód</string>
    <string name="reset_to_default_set">Obnovení výchozího továrního nastavení</string>
-   <string name="device_system_info_defaultconfigsucc">Tovární nastavení bylo úspěšně obnoveno, restartování... </string>
+   <string name="device_system_info_defaultconfigsucc">Tovární nastavení bylo úspěšně obnoveno, restartování...</string>
    <string name="sn_is_illegal">Sériové číslo je nelegální</string>
    <string name="no_emergency_call">Nastavte číslo pro mimořádné situace</string>
    <string name="set_eq_name">Zadejte název %1$s</string>
@@ -472,7 +470,7 @@
    <string name="gps_phone">GPS pro mobil</string>
    <string name="re_login">Přihlásit se zpět</string>
    <string name="temp_controler">Termostat</string>
-   <string name="firewarm_to_update">Konektor má k dispozici novou verzi firmware:%1$s,Chcete provést aktualizaci?</string>
+   <string name="firewarm_to_update">K dispozici aktualizace, které chcete aktualizovat?</string>
    <string name="now_not_to_update">Nyní ne</string>
    <string name="fireware_is_updating">Firmware se nyní aktualizuje, čekejte, prosím...</string>
    <string name="dimming_module">Modul ztlumení</string>
@@ -513,9 +511,34 @@
    <string name="door_default_scene_hint">Výchozí scéna: budík a upozornění push při otevírání magnetického kontaktu</string>
    <string name="old_man_default_scene_hint">Standardní scéna: Push Notification a konektor pípnutí na Žádný pohyb po dobu 5 hodin</string>
    <string name="alert_elder_care">starší dohlížejí</string>
-   <string name="three_zifu">kód musí obsahovat hůlkovým písmem, malá písmena a čísla, zvláštní znaky nejméně tří</string>
+   <string name="three_zifu">Heslo musí obsahovat nejméně tři velká písmena, malá písmena, číslice / speciální znaky.</string>
    <string name="config_fail_reason">důvod, proč selhání</string>
    <string name="click_check_firemare">Klikněte na firmware update</string>
    <string name="view_yinsi">Dohoda na soukromí</string>
    <string name="fireware_is_lastest">Firmware je aktuální</string>
+   <string name="gateway_version">Verze konektoru</string>
+   <string name="is_upgrading">Aktualizace...</string>
+   <string name="success_upgrade">Úspěšná aktualizace firmwaru!</string>
+   <string name="fail_upgrade">Aktualizace selhala</string>
+   <string name="delete_condition">Are you sure you want to delete this condition?</string>
+   <string name="delete_action">Are you sure you want to delete this action?</string>
+   <string name="firmware_upgrade_info">Important: this update strongly changes the functionality of your system. Click on “Information” below to see what changes will be made. After the update you need to reconnect the devices.</string>
+   <string name="faq">Frequently asked questions (FAQ)</string>
+   <string name="delete_timer">Opravdu chcete tento časovač smazat?</string>
+   <string name="successfully_deleted">Úspěšně smazáno</string>
+   <string name="wireless_config">Nastavení Bezdrátové</string>
+   <string name="gs361_install_construction">prosím, termostat zařízení do ventily, a pak znovu zmáčknout knoflík dokončeno.</string>
+   <string name="reset_progress">resetovací zařízení, nevypínejte jej</string>
+   <string name="permission_reject_camera_tip">Současné aplikace postrádají fotografické výhody.Pro otevření požadovaných oprávnění klikněte na "Nastavení".</string>
+   <string name="permission_reject_location_tip">Současná aplikace postrádá povolení k umístění a nemůže nastavit WIFI. Prosím zadejte povolení potřebné k jeho otevření.</string>
+   <string name="permission_reject_imei_tip">Pokud si nepřečtete status kódu mobilního telefonu, ovlivní to běžné použití aplikace. Prosím, otevřete telefonní povolení.</string>
+   <string name="permission_reject_write_local_tip">Bez oprávnění k přečtení a zápisu karty SD to ovlivní použit í funkcí souvisejících s APP kamerou, prosím otevřete úložné povolení</string>
+   <string name="permission_reject_location_service_tip">Otevřete prosím službu lokace, jinak nemůžete nastavit WIFI</string>
+   <string name="permission_register">Žádost o povolení</string>
+   <string name="goto_set">K nastavení</string>
+   <string name="file_is_exist">Soubor již existuje</string>
+   <string name="look">Vidíš?</string>
+   <string name="success_download">Stahování úspěšně</string>
+   <string name="hint">Záležitosti vyžadující pozornost</string>
+   <string name="get_more">Získejte více informací o zařízení</string>
 </resources>

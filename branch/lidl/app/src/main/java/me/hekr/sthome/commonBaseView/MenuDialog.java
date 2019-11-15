@@ -21,7 +21,6 @@ import java.util.List;
 
 import me.hekr.sthome.R;
 import me.hekr.sthome.model.modelbean.SysModelBean;
-import me.hekr.sthome.tools.UnitTools;
 
 /**
  * Created by gc-0001 on 2017/5/23.
@@ -105,12 +104,12 @@ public class MenuDialog extends Dialog {
 
         private void initView(){
                RelativeLayout relativeLayout = (RelativeLayout)layout.findViewById(R.id.mu);
-               LinearLayout  rd = (LinearLayout) layout.findViewById(R.id.boss);
-               int statusheight = UnitTools.getStatusBarHeight(context);
+//               LinearLayout  rd = (LinearLayout) layout.findViewById(R.id.boss);
+//               int statusheight = UnitTools.getStatusBarHeight(context);
+//               RelativeLayout.LayoutParams layoutParams_rd =  (RelativeLayout.LayoutParams)rd.getLayoutParams();
+//               layoutParams_rd.topMargin = (int)context.getResources().getDimension(R.dimen.home_half_margin_top) - statusheight;
+//               rd.setLayoutParams(layoutParams_rd);
 
-               RelativeLayout.LayoutParams layoutParams_rd =  (RelativeLayout.LayoutParams)rd.getLayoutParams();
-               layoutParams_rd.topMargin = (int)context.getResources().getDimension(R.dimen.home_half_margin_top) - statusheight;
-               rd.setLayoutParams(layoutParams_rd);
                for(int i=0;i<getSysModellist().size();i++){
 
                    LinearLayout linearLayout = new LinearLayout(context);
@@ -118,7 +117,7 @@ public class MenuDialog extends Dialog {
                            LinearLayout.LayoutParams.WRAP_CONTENT    );
                    layoutParams.width = (int)context.getResources().getDimension(R.dimen.home_middle_icon_size);
                    layoutParams.height = (int)context.getResources().getDimension(R.dimen.home_middle_icon_size);
-                   layoutParams.topMargin = (int)context.getResources().getDimension(R.dimen.home_half_margin_top) - statusheight;
+                   layoutParams.topMargin = (int)context.getResources().getDimension(R.dimen.home_half_margin_top);
                    linearLayout.setOrientation(LinearLayout.VERTICAL);
                    linearLayout.setGravity(Gravity.CENTER);
                    linearLayout.setLayoutParams(layoutParams);
@@ -137,7 +136,7 @@ public class MenuDialog extends Dialog {
                    }else if("2".equals(getSysModellist().get(i).getSid())){
                        imageView.setImageResource(R.mipmap.sleep_mode22);
                    }else {
-                       imageView.setImageResource(R.mipmap.home_mode22);
+                       imageView.setImageResource(R.mipmap.other_mode22);
                    }
 
                    linearLayout.addView(imageView);

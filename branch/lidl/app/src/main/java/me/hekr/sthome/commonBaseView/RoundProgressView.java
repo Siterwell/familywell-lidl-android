@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import me.hekr.sthome.R;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -57,18 +58,24 @@ public class RoundProgressView extends View {
     public RoundProgressView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         Screenwidth = UnitTools.getScreenWidth(context);
+        mProgressRoundColor = context.getResources().getColor(R.color.text_color_selected);
+        mTextColor = context.getResources().getColor(R.color.text_color_selected);
         init();
     }
 
     public RoundProgressView(Context context, AttributeSet attrs) {
         super(context, attrs);
         Screenwidth = UnitTools.getScreenWidth(context);
+        mProgressRoundColor = context.getResources().getColor(R.color.text_color_selected);
+        mTextColor = context.getResources().getColor(R.color.text_color_selected);
         init();
     }
 
     public RoundProgressView(Context context) {
         super(context);
         Screenwidth = UnitTools.getScreenWidth(context);
+        mProgressRoundColor = context.getResources().getColor(R.color.text_color_selected);
+        mTextColor = context.getResources().getColor(R.color.text_color_selected);
         init();
     }
 
@@ -127,7 +134,6 @@ public class RoundProgressView extends View {
         }
 
 
-
         if(!flag){
             mPaint.reset();
             mPaint.setTextSize(mPencentTextSize);
@@ -135,7 +141,7 @@ public class RoundProgressView extends View {
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setTextAlign(Paint.Align.CENTER);
             String number = (int)(mProgress*100/mMax)+"";
-            canvas.drawText(number, mWidth/2+mPaddingX, mHeight/2, mPaint);
+            canvas.drawText(number, mWidth/2+mPaddingX, mHeight/2-mPaddingX, mPaint);
 
             float textWidth = mPaint.measureText(number);
             mPaint.setTextSize(mPencentTextSize/2);

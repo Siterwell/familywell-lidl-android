@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.FloatMath;
 
 import java.util.List;
 import java.util.Vector;
@@ -134,7 +133,7 @@ public class FolderInfo extends ApplicationInfo {
         float scale = 1;
         if (length > itemWidth)
             scale = length / textSub.length();
-        for (int j = (textSub.length() - (int) FloatMath.ceil((length - itemWidth) / scale)); paint.measureText(textSub, 0,
+        for (int j = (textSub.length() - (int) Math.ceil((length - itemWidth) / scale)); paint.measureText(textSub, 0,
                 textSub.length()) > itemWidth; --j) {
             textSub = (textSub.subSequence(0, j).toString() + "...");
         }

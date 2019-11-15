@@ -22,16 +22,16 @@
             <enum name="switchbutton" value="2" />
             <enum name="spinner" value="3" />
         </attr>
-        <attr name="showDivider" format="boolean" />
+        <attr name="Divider" format="boolean" />
     </declare-styleable>
 
 
     <declare-styleable name="MultiDirectionSlidingDrawer">
-        <attr name="handle" format="dimension"></attr>
-        <attr name="content" format="dimension"></attr>
-        <attr name="allowSingleTap" format="boolean"></attr>
-        <attr name="animateOnClick" format="boolean"></attr>
-        <attr name="direction" >
+        <attr name="handle" format="dimension"/>
+        <attr name="drawcontent" format="dimension"/>
+        <attr name="allowSingleTap" format="boolean"/>
+        <attr name="animateOnClick" format="boolean"/>
+        <attr name="muldirection" >
             <enum name="rightToLeft" value="0" />
             <enum name="bottomToTop" value="1" />
             <enum name="leftToRight" value="2" />
@@ -89,6 +89,54 @@
 
     <declare-styleable name="ProtractorViewTheme">
         <attr name="protractorViewStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ColorArcProgressBar">
+        <attr name="bg_arc_color" format="color"/>
+        <attr name="degree_color" format="color"/>
+        <attr name="hint_color" format="color"/>
+        <attr name="front_color1" format="color"/>
+        <attr name="front_color2" format="color"/>
+        <attr name="front_color3" format="color"/>
+        <attr name="bg_arc_width" format="dimension"/>
+        <attr name="front_width" format="dimension"/>
+
+        <attr name="is_seek_enable" format="boolean"/>
+        <attr name="is_need_title" format="boolean"/>
+        <attr name="is_need_content" format="boolean"/>
+        <attr name="is_need_unit" format="boolean"/>
+        <attr name="is_need_dial" format="boolean"/>
+
+        <attr name="string_title" format="string"/>
+        <attr name="string_unit" format="string"/>
+
+        <attr name="sweep_angle" format="integer"/>
+
+        <attr name="current_value" format="float"/>
+        <attr name="sub_current_value" format="float" />
+        <attr name="max_value" format="float"/>
+        <attr name="min_value" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="ZLoadingView">
+        <attr name="z_type">
+            <enum name="TextBuilder" value="9"/>
+            <enum name="SingleCircleBuilder" value="12"/>
+        </attr>
+        <attr name="z_color" format="color"/>
+        <attr name="z_duration_percent" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="ZLoadingTextView">
+        <attr name="z_text" format="string"/>
+    </declare-styleable>
+
+    <!--圆弧进度条-->
+    <declare-styleable name="TasksCompletedView">
+        <attr name="radius" format="dimension"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="ringColor" format="color"/>
+        <attr name="ringBgColor" format="color"/>
     </declare-styleable>
 
 </resources>

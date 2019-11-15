@@ -1,9 +1,6 @@
 package me.hekr.sthome.tools;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.xiaomi.mipush.sdk.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,13 +8,14 @@ import org.json.JSONObject;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sthome.autoudp.ControllerWifi;
+import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.service.SiterwellUtil;
 
 /**
  * Created by jishu0001 on 2016/11/16.
  */
 public abstract class SendEquipmentData {
-    private static final String TAG = "SendEquipmentData";
+    private static final String TAG = SendEquipmentData.class.getSimpleName();
     private Context context;
     private SendCommand sc;
     private boolean wifiTag;
@@ -33,19 +31,30 @@ public abstract class SendEquipmentData {
      * @param groupCode
      */
     private void sendAction(String groupCode){
+        LOG.I(TAG,"sendAction ====send groupCode=== " + groupCode);
+        LOG.I(TAG,"sendAction ====domain=== " + ConnectionPojo.getInstance().domain);
+
         ControllerWifi controllerWifi = ControllerWifi.getInstance();
         wifiTag = controllerWifi.wifiTag;
-        Log.i(TAG,"====send tag=== "+wifiTag);
+        LOG.I(TAG,"====send tag=== "+wifiTag);
         if(wifiTag){
-            new SiterwellUtil(context).sendData(groupCode);
-        }else {
 
+            if(ConnectionPojo.getInstance().encryption){
+                LOG.I(TAG,"Udp before encryption:"+groupCode);
+                 byte[] encode = ByteUtil.getAllEncryption(groupCode);
+                new SiterwellUtil(context).sendData(encode);
+            }else {
+                new SiterwellUtil(context).sendData(groupCode);
+            }
+
+        }else {
+            LOG.I(TAG,"sendAction ==== TCP");
             try {
 
                 Hekr.getHekrClient().sendMessage(new JSONObject(groupCode), new HekrMsgCallback() {
                     @Override
                     public void onReceived(String msg) {
-
+                        LOG.I(TAG,"sendAction > onReceived > " + msg);
                     }
 
                     @Override
@@ -55,7 +64,7 @@ public abstract class SendEquipmentData {
 
                     @Override
                     public void onError(int errorCode, String message) {
-
+                        LOG.E(TAG,"sendAction > onError > " + message);
                     }
                 }, ConnectionPojo.getInstance().domain);
             } catch (JSONException e) {

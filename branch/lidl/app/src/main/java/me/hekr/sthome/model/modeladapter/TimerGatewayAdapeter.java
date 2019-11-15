@@ -95,7 +95,7 @@ public class TimerGatewayAdapeter extends BaseAdapter  {
         }
 
 
-        holder.week.setText(ResolveTimer.getWeekinfo(sp.getWeek(),context,unitTools));
+        holder.week.setText(ResolveTimer.getWeekinfo(sp.getWeek(),context));
         holder.time_hour.setText(sp.getHour());
         holder.time_min.setText(sp.getMin());
         if(sp.getEnable()==1){

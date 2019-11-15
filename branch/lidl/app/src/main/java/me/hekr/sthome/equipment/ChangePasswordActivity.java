@@ -5,10 +5,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.litesuits.common.assist.Toastor;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.InvalidClassException;
+
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
+import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.tools.ECPreferenceSettings;
+import me.hekr.sthome.tools.ECPreferences;
+import me.hekr.sthome.tools.EncryptUtil;
+import me.hekr.sthome.tools.PasswordPattern;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -65,33 +77,70 @@ public class ChangePasswordActivity extends TopbarSuperActivity {
         }else if(!confirmpsw.equals(newpsw)){
             Toast.makeText(this,getResources().getString(R.string.password_two_different),Toast.LENGTH_SHORT).show();
             return;
-        }else if(confirmpsw.length()<6){
+        }else if(confirmpsw.length()<10){
             Toast.makeText(this,getResources().getString(R.string.password_length),Toast.LENGTH_SHORT).show();
             return;
         }else{
-             showProgressDialog(getResources().getString(R.string.modifying_newpassword));
-            HekrUserAction.getInstance(this).changePassword(newpsw, oldpsw, new HekrUser.ChangePwdListener() {
-                @Override
-                public void changeSuccess() {
-                    Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.success),Toast.LENGTH_SHORT).show();
+
+            if(PasswordPattern.matchs(newpsw)) {
+                updatePassword(oldpsw, newpsw);
+            } else {
+                Toastor toastor = new Toastor(this);
+                toastor.showSingleLongToast(getResources().getString(R.string.three_zifu));
+            }
+        }
+
+    }
+
+    private void updatePassword(final String oldpsw, final String newpsw) {
+        showProgressDialog(getResources().getString(R.string.modifying_newpassword));
+        HekrUserAction.getInstance(this).changePassword(newpsw, oldpsw, new HekrUser.ChangePwdListener() {
+            @Override
+            public void changeSuccess() {
+                Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.success),Toast.LENGTH_SHORT).show();
+
+                try {
+                    ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PASSWORD, EncryptUtil.encrypt(newpsw),true);
+                } catch (InvalidClassException e) {
+                    e.printStackTrace();
+                } finally {
                     hideProgressDialog();
                     hideSoftKeyboard();
                     finish();
                 }
 
-                @Override
-                public void changeFail(int errorCode) {
-                    hideProgressDialog();
-                    if(errorCode == 400014){
-                        Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.code_fault),Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(ChangePasswordActivity.this, UnitTools.errorCode2Msg(ChangePasswordActivity.this,errorCode),Toast.LENGTH_SHORT).show();
-                    }
+                unbindAllPush();
+            }
 
+            @Override
+            public void changeFail(int errorCode) {
+                hideProgressDialog();
+                if(errorCode == 400014){
+                    Toast.makeText(ChangePasswordActivity.this, getResources().getString(R.string.code_fault),Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(ChangePasswordActivity.this, UnitTools.errorCode2Msg(ChangePasswordActivity.this,errorCode),Toast.LENGTH_SHORT).show();
                 }
-            });
 
-        }
+            }
+        });
+    }
 
+    private void unbindAllPush() {
+        HekrUserAction.getInstance(this).unbindAllPush(new HekrUser.PushTagBindListener() {
+            @Override
+            public void pushTagBindSuccess() {
+                String fcmclientid = FirebaseInstanceId.getInstance().getToken();
+
+                STEvent stEvent = new STEvent();
+                stEvent.setRefreshevent(9);
+                stEvent.setFcm_token(fcmclientid);
+                EventBus.getDefault().post(stEvent);
+            }
+
+            @Override
+            public void pushTagBindFail(int errorCode) {
+
+            }
+        });
     }
 }

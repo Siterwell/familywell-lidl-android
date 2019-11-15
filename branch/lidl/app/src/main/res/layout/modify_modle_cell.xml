@@ -32,6 +32,8 @@ android:layout_height="@dimen/modle_item_height"
             android:gravity="left|center"
             android:minHeight="@dimen/SmallListHeight"
             android:paddingLeft="@dimen/SmallPadding"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:orientation="vertical">
 
             <TextView
@@ -40,6 +42,7 @@ android:layout_height="@dimen/modle_item_height"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
+                android:textSize="18sp"
                 android:singleLine="true" />
             <TextView
                 android:id="@+id/sub_title"
@@ -48,7 +51,7 @@ android:layout_height="@dimen/modle_item_height"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:textColor="@color/toast_text_content"
-                android:singleLine="true" />
+                android:singleLine="true"/>
 
         </LinearLayout>
 

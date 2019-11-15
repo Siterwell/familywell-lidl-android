@@ -13,10 +13,10 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import me.hekr.sthome.R;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.wheelwidget.helper.Common;
 
 /*
@@ -124,7 +124,7 @@ public class PorterDuffXfermodeView extends View {
         mTotalWidth = w;
         mTotalHeight = h;
 
-        Log.i("ceshi","mTotalHeight:"+mTotalHeight);
+        LOG.I("ceshi","mTotalHeight:"+mTotalHeight);
         int maskWidth = mMaskBitmap.getWidth();
         int maskHeight = mMaskBitmap.getHeight();
         mMaskSrcRect = new Rect(0, 0, maskWidth, maskHeight);

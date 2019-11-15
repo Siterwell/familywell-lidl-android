@@ -3,7 +3,6 @@ package me.hekr.sthome;
 import android.content.DialogInterface;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -38,6 +37,7 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 
@@ -78,7 +78,7 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
             tid = DDO.findByChoice(1).getDevTid();
         }catch (NullPointerException e){
             tid = null;
-            Log.i(TAG,"没有查到");
+            LOG.I(TAG,"没有查到");
         }
 
         lv = (SlideListView) findViewById(R.id.eqlist);
@@ -181,11 +181,12 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
     }
 
     private void saveNewDevice(DeviceBean deviceBean) {
+        LOG.I(TAG,"[Dev Sync] saveNewDevice - dev id = " + deviceBean.getDevTid());
 
        DDO.updateDeivceChoice(deviceBean.getDevTid());
 
         if((tid != null && !tid.equals(deviceBean.getDevTid())) || tid == null){
-            Log.i(TAG,"+++++++++++++++++++this is clear code");
+            LOG.I(TAG,"+++++++++++++++++++this is clear code");
             SysModelBean sysModelBean1 = new SysModelBean();
             SDO = new SysmodelDAO(this);
             sysModelBean1.setChice("N");
@@ -266,11 +267,9 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
         lists = DDO.findAllDevice();
         mo.refreshList(lists);
 
-        String name = null;
+        String name = deviceBean.getDeviceName();;
         if("报警器".equals(deviceBean.getDeviceName())){
             name = getResources().getString(R.string.my_home);
-        }else{
-            name = deviceBean.getDeviceName();
         }
         Toast.makeText(DeviceListActivity.this,getResources().getString(R.string.connect_alert)+name+(deviceBean.isOnline()?getResources().getString(R.string.on_line):getResources().getString(R.string.off_line)),Toast.LENGTH_LONG).show();
 
@@ -308,7 +307,7 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
         HekrUserAction.getInstance(this).getDevices(0, 80, new HekrUser.GetDevicesListener() {
             @Override
             public void getDevicesSuccess(final List<DeviceBean> devicesLists) {
-                Log.i(TAG,devicesLists.toString());
+                LOG.I(TAG,devicesLists.toString());
                 DDO = new DeviceDAO(DeviceListActivity.this);
                 DDO.deleteAll();
                 DeviceBean deviceBean = null;

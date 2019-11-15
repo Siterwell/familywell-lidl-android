@@ -5,33 +5,23 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.igexin.sdk.PushManager;
+import com.crashlytics.android.Crashlytics;
 import com.lib.funsdk.support.FunSupport;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import me.hekr.sdk.HekrSDK;
-import me.hekr.sthome.autoudp.ControllerWifi;
-import me.hekr.sthome.main.HomeFragment;
-import me.hekr.sthome.push.GTPushService;
-import me.hekr.sthome.push.RGTIntentService;
 import me.hekr.sthome.service.SiterService;
-import me.hekr.sthome.tools.CrashHandler;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -50,20 +40,11 @@ public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        // 注册push服务，注册成功后会向DemoMessageReceiver发送广播
-        // 可以从DemoMessageReceiver的onCommandResult方法中MiPushCommandMessage对象参数中获取注册信息
-        if (shouldInit()) {
-            MiPushClient.registerPush(this, APP_ID, APP_KEY);
-        }
+        Fabric.with(this, new Crashlytics());
         FunSupport.getInstance().init(getApplicationContext());
         HekrSDK.init(getApplicationContext(), R.raw.config);
         HekrSDK.enableDebug(true);
-        //推送服务初始化
-        PushManager.getInstance().initialize(this.getApplicationContext(), GTPushService.class);
-    // 注册 intentService 后 PushDemoReceiver 无效, sdk 会使用 DemoIntentService 传递数据,
-    // AndroidManifest 对应保留一个即可(如果注册 DemoIntentService, 可以去掉 PushDemoReceiver, 如果注册了
-    // IntentService, 必须在 AndroidManifest 中声明)
-    PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), RGTIntentService.class);
+
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .memoryCacheExtraOptions(80, 80)
                 .denyCacheImageMultipleSizesInMemory()
@@ -114,11 +95,15 @@ public class MyApplication extends MultiDexApplication {
         });
         UnitTools tools = new UnitTools(this);
         String d = tools.readLanguage();
-        Log.i("ceshi","语言为:"+d);
-        CrashHandler.getInstance().init(getApplicationContext());
-        InitLocation();
+        LOG.I("ceshi","语言为:"+d);
+//        CrashHandler.getInstance().init(getApplicationContext());
+
         Intent intent = new Intent(this, SiterService.class);
-        startService(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
     }
 
 
@@ -133,16 +118,6 @@ public class MyApplication extends MultiDexApplication {
 
     public static Activity getActivity(){
         return sActivity;
-    }
-
-    private void InitLocation(){
-        HomeFragment.mLocationClient = new LocationClient(this);
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
-        option.setCoorType("gcj02");//返回的定位结果是百度经纬度，默认值gcj02
-        option.setScanSpan(36000000);//设置发起定位请求的间隔时间为1000ms
-        option.setIsNeedAddress(true);
-        HomeFragment.mLocationClient.setLocOption(option);
     }
 
 

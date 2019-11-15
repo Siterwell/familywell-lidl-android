@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         style="@style/CCPPreferenceTextSmall"
         android:text="@string/normal"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginLeft="@dimen/NormalPadding"/>
 
     <ImageView
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         style="@style/CCPPreferenceTextSmall"
         android:text="@string/trigger"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginLeft="@dimen/NormalPadding"/>
 
     <ImageView
@@ -45,6 +45,6 @@
         android:layout_height="wrap_content"
         style="@style/CCPPreferenceTextSmall"
         android:text="@string/offline"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginLeft="@dimen/NormalPadding"/>
 </LinearLayout>

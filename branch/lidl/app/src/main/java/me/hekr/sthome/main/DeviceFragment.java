@@ -52,6 +52,7 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.CCPTabView;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.TopBarView;
+import me.hekr.sthome.equipment.EquipmentState;
 import me.hekr.sthome.equipment.detail.ButtonDetailActivity;
 import me.hekr.sthome.equipment.detail.Channel2SocketDetailActivity;
 import me.hekr.sthome.equipment.detail.CoDetailActivity;
@@ -69,7 +70,7 @@ import me.hekr.sthome.equipment.detail.SmDetailActivity;
 import me.hekr.sthome.equipment.detail.SocketDetailActivity;
 import me.hekr.sthome.equipment.detail.SosDetailActivity;
 import me.hekr.sthome.equipment.detail.THCheckDetailActivity;
-import me.hekr.sthome.equipment.detail.TempControlDetailActivity;
+import me.hekr.sthome.equipment.detail.TempControlDetail2Activity;
 import me.hekr.sthome.equipment.detail.ThermalDetailActivity;
 import me.hekr.sthome.equipment.detail.ValveDetailActivity;
 import me.hekr.sthome.equipment.detail.WaterDetailActivity;
@@ -80,6 +81,7 @@ import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.PackDAO;
 import me.hekr.sthome.model.modeldb.ShortcutDAO;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
@@ -124,14 +126,6 @@ public class DeviceFragment extends Fragment {
     private LinearLayout top_lay;
     private EquipmentBean deleteBean;
 
-    public DeviceFragment()
-    {
-        super();
-
-    }
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -175,7 +169,7 @@ public class DeviceFragment extends Fragment {
                 SendCommand.Command = SendCommand.INCREACE_EQUIPMENT;
                 Intent intent  = new Intent(DeviceFragment.this.getActivity(), AddDeviceActivity.class);
                 if(list!=null && openFolderIndex!=-1&&mFolderView!=null) {
-                    Log.i(TAG,"需要添加到的packID为："+((FolderInfo)list.get(openFolderIndex)).getPackId());
+                    LOG.I(TAG,"需要添加到的packID为："+((FolderInfo)list.get(openFolderIndex)).getPackId());
                     Bundle bundle = new Bundle();
                     bundle.putInt("folderid",((FolderInfo)list.get(openFolderIndex)).getPackId());
                     intent.putExtras(bundle);
@@ -209,20 +203,20 @@ public class DeviceFragment extends Fragment {
 
         ED = new EquipDAO(this.getActivity());
         shortcutDAO = new ShortcutDAO(this.getActivity());
-        top_lay = (LinearLayout)view.findViewById(R.id.eq_option);
-        mFrame = (RelativeLayout) view.findViewById(R.id.frame);
-        lay_empty =(RelativeLayout)view.findViewById(R.id.empty);
-        repalce_tabview = (CCPTabView)view.findViewById(R.id.tihuan);
-        delete_tabview  = (CCPTabView)view.findViewById(R.id.shanchu);
+        top_lay = view.findViewById(R.id.eq_option);
+        mFrame =  view.findViewById(R.id.frame);
+        lay_empty = view.findViewById(R.id.empty);
+        repalce_tabview = view.findViewById(R.id.tihuan);
+        delete_tabview  = view.findViewById(R.id.shanchu);
         repalce_tabview.setText(R.string.replace_equipment);
         repalce_tabview.setComP(R.mipmap.rep_eq);
         delete_tabview.setText(R.string.delete_equipment);
         delete_tabview.setComP(R.mipmap.del_eq);
         top_lay.setVisibility(View.GONE);
-        scrollView = (LinearLayout) view.findViewById(R.id.container);
-        mContainer = (RelativeLayout) view.findViewById(R.id.springboard_container);
-        mTouchController = (RelativeLayout) view.findViewById(R.id.touchController);
-        myScrollView = (MyScrollView)view.findViewById(R.id.myscrollView);
+        scrollView =  view.findViewById(R.id.container);
+        mContainer =  view.findViewById(R.id.springboard_container);
+        mTouchController =  view.findViewById(R.id.touchController);
+        myScrollView = view.findViewById(R.id.myscrollView);
         mTouchController.setOnTouchListener(scrollContainer_OnTouch);
         lc = new LayoutCalculator(this.getActivity());
         pp = new ObjectPool(this.getActivity(), lc);
@@ -287,15 +281,13 @@ public class DeviceFragment extends Fragment {
 
         if(touchon) return;
 
-        Log.i("ceshi","刷新了哦");
+        LOG.I("ceshi","刷新了哦");
         try {
             list.clear();
             controller.initData(list);
         } catch (Exception e) {
-            Log.i("ceshi", "data err");
+            LOG.I("ceshi", "data err");
         }
-
-
     }
 
  /*
@@ -308,12 +300,12 @@ public class DeviceFragment extends Fragment {
     public void init() {
 
         if(mFolderView==null) {
-            Log.i("ceshi","刷新了哦");
+            LOG.I("ceshi","刷新了哦");
             try {
                 list.clear();
                 controller.initData(list);
             } catch (Exception e) {
-                Log.i("ceshi", "data err");
+                LOG.I("ceshi", "data err");
             }
         }else{
             mContainer.removeView(mFolderView);
@@ -331,180 +323,183 @@ public class DeviceFragment extends Fragment {
 
            List<ApplicationInfo> list = ED.findAllEqByNoPack(ConnectionPojo.getInstance().deviceTid);
 
-            for (int i = 0; i < list.size(); i++) {
-                if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {      //menci
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
-                    if(list.get(i).getState()!=null&& list.get(i).getState().length() == 8){
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+           int size = list.size();
+            for (int i = 0; i < size; i++) {
+                ApplicationInfo equipment = list.get(i);
 
-                        if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {      //menci
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
+                    if(equipment.getState()!=null&& equipment.getState().length() == 8){
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                             }
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
-                        }else if("66".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                        }else if(EquipmentState.isDoorNotClosed(equipment)){
 //                    holder.s.setText("门已打开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
                         }
 
                     }
-                }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                         } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                         }
                     }
-                }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(4, 8);
+                }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = equipment.getState().substring(4, 8);
                         if ("0301".equals(ddd) || "0302".equals(ddd) || "0303".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
                         } else if ("0300".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
                         }
                     }
-                }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //pir
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+                }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //pir
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        String ddd = list.get(i).getState().substring(4, 6);
-                        if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                        String ddd = EquipmentState.getDevFirstState(equipment);
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("正常");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                             }
 
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                        }else if("11".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                        }else if(EquipmentState.isBroken(equipment)){
 //                    holder.s.setText("故障");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                        }else if("A0".equals(list.get(i).getState().substring(4,6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                        }else if(EquipmentState.isPirTeared(equipment)) {
 //                    holder.s.setText("拆除");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
                         }
                     }
-                }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //sod
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
-                    if(list.get(i).getState() != null && list.get(i).getState().length() == 8){
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+                }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sod
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
+                    if(EquipmentState.isEquipmentStateAvalible(equipment)){
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        String ddd = list.get(i).getState().substring(4, 6);
-                        if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                        String ddd = EquipmentState.getDevFirstState(equipment);
+                        if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
                             }else {
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                             }
 
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
-                        }else if("66".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                        }else if(EquipmentState.isDoorNotClosed(equipment)){
 //                    holder.s.setText("门已打开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
                         }
                     }
-                }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //sm
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
+                }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                        } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        }else if("AA".equals(list.get(i).getState().substring(4,6))){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                        }else if(EquipmentState.isNormal(equipment)){
 //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }
 
-                        }else if("BB".equals(list.get(i).getState().substring(4,6))) {
+                        }else if(EquipmentState.isTesting(equipment)) {
 //                    holder.s.setText("拆除");
 //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                        }else if("50".equals(list.get(i).getState().substring(4,6))){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                        }else if(EquipmentState.isMute(equipment)){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                         }
                     }
-                }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
                         }
                     }
-                }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
                         }
                     }
-                }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(2, 4);
-                        String temp = list.get(i).getState().substring(4,6);
+                }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = equipment.getState().substring(2, 4);
+                        String temp = EquipmentState.getDevFirstState(equipment);
                         String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
-                        String humidity = list.get(i).getState().substring(6,8);
+                        String humidity = EquipmentState.getDevSecondState(equipment);
                         int realH = Integer.parseInt(humidity,16);
                         String realT;
                         if (temp2.length()==8){
@@ -513,221 +508,217 @@ public class DeviceFragment extends Fragment {
                             realT = "" + Integer.parseInt(temp2,2);
                         }
 
-
                         if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || realH > 100 || realH < 0){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
                         }else{
 
                             int qqqq = Integer.parseInt(ddd,16);
                             if( qqqq <= 15 ){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
                             }
                         }
 
-
                     }
-                }else if(NameSolve.LAMP.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.LAMP.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if("38".equals(ddd)){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
                         }else{
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
                         }
                     }
-                }else if(NameSolve.GUARD.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
-                        if ("55".equals(ddd)) {
+                }else if(NameSolve.GUARD.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
+                        if (EquipmentState.isTriggered(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
-                        } else if ("AA".equals(ddd)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
+                        } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         }
                     }
-                }else if(NameSolve.VALVE.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.VALVE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
                         } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
                         }
                     }
-                }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ddd = list.get(i).getState().substring(6, 8);
+                }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevSecondState(equipment);
                         if ( ddd!=null && !"".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
                         }
                     }
-                }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){   //socket
+                }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
 //            holder.imageView.setImageResource(mImage[16]);
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("01".equals(list.get(i).getState().substring(4, 6)) || "AA".equals(list.get(i).getState().substring(4, 6))) {
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if ("01".equals(EquipmentState.getDevFirstState(equipment)) || EquipmentState.isNormal(equipment)) {
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
                             }
                         }
                     }
-                }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))) {  //sm
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-
-                        String ddd = list.get(i).getState().substring(4, 6);
+                }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ddd = EquipmentState.getDevFirstState(equipment);
+                        Log.i(TAG, "initData: "+ ddd);
                         if ("12".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                         } else if ("17".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                         } else if ("19".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                         }else if ("15".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                         }else if ("1B".equals(ddd)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
-                        }else if("AA".equals(ddd)){
-                            int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4), 16);
-                            if (quantity <= 15) {
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                        }else if(EquipmentState.isNormal(ddd)){
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isLowBattery(quantity)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }
                         }else{
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                         }
                     }else {
-                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                     }
-                }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                         }
                     }
-                }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                        } else if (EquipmentState.isNormal(equipment)) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
                         }
                     }
-                }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("11".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("55".equals(list.get(i).getState().substring(4, 6))) {
+                }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isBroken(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                        } else if (EquipmentState.isTriggered(equipment)) {
                             //                    holder.s.setText("有人");
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("AA".equals(list.get(i).getState().substring(4, 6))
-                                  || "01".equals(list.get(i).getState().substring(4, 6))
-                                || "02".equals(list.get(i).getState().substring(4, 6))
-                                || "04".equals(list.get(i).getState().substring(4, 6))
-                                || "08".equals(list.get(i).getState().substring(4, 6))
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                        } else if (EquipmentState.isNormal(equipment)
+                                  || "01".equals(EquipmentState.getDevFirstState(equipment))
+                                || "02".equals(EquipmentState.getDevFirstState(equipment))
+                                || "04".equals(EquipmentState.getDevFirstState(equipment))
+                                || "08".equals(EquipmentState.getDevFirstState(equipment))
                                  ) {
                             //                    holder.s.setText("故障");
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                             }
-                        } else if ("BB".equals(list.get(i).getState().substring(4, 6))) {
+                        } else if (EquipmentState.isTesting(equipment)) {
                             //                    holder.s.setText("拆除");
                             //                    holder.imageView.setImageResource(R.drawable.d1);
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                        } else if ("50".equals(list.get(i).getState().substring(4, 6))) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                        } else if (EquipmentState.isMute(equipment)) {
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
                         }
                     }
-                }else if(NameSolve.LOCK.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        String ds = list.get(i).getState().substring(4, 6);
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if ("AA".equals(ds) || "60".equals(ds) || "AB".equals(ds) || "55".equals(ds) || "56".equals(ds)) {
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                }else if(NameSolve.LOCK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        String ds = EquipmentState.getDevFirstState(equipment);
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if (EquipmentState.isNormal(ds) || "60".equals(ds) || "AB".equals(ds) || EquipmentState.isTriggered(ds) || "56".equals(ds)) {
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                             }else{
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
                             }
                         } else if ("51".equals(ds) || "52".equals(ds) || "53".equals(ds)  || "10".equals(ds) || "20".equals(ds) || "30".equals(ds)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
                         } else if ("40".equals(ds)) {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                         }
                     }
-                }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        if(quantity <= 15){
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        if(EquipmentState.isLowBattery(quantity)){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
                         }else {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                         }
                     }
-                }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                    list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
-                    if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
-                        int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                        String draw = list.get(i).getState().substring(4,6);
-                        int liangdu = Integer.parseInt(list.get(i).getState().substring(6,8),16);
+                }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
+                    if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                        int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                        String draw = EquipmentState.getDevFirstState(equipment);
+                        int liangdu = Integer.parseInt(EquipmentState.getDevSecondState(equipment),16);
                         if(("00".equals(draw) || "01".equals(draw)) && (liangdu>=0&&liangdu<=100)){
-                            if(quantity <= 15){
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
                             }else {
-                                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
                             }
                         }
-
-
                     }
                 }
 
-                ApplicationInfo info = list.get(i);
+                ApplicationInfo info = equipment;
                 list2.add(info);
             }
 
@@ -736,178 +727,180 @@ public class DeviceFragment extends Fragment {
             for(int j=0;j<listfold.size();j++){
                int packid = listfold.get(j).getPackId();
                List<ApplicationInfo> list2ds = PDO.findAppInfoList(packid, ConnectionPojo.getInstance().deviceTid);
-                for(int i=0;i<list2ds.size();i++){
+                size = list2ds.size();
+               for(int i=0 ; i<size ; i++){
+                   ApplicationInfo equipment = list2ds.get(i);
 
-                    if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {      //menci
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
-                        if(list2ds.get(i).getState()!=null&& list2ds.get(i).getState().length() == 8){
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
+                    if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {      //menci
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d10));
+                        if(EquipmentState.isEquipmentStateAvalible(equipment)){
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y10));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g10));
                                 }
 
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
-                            }else if("66".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                            }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
 //                    holder.s.setText("门已打开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e10));
                             }
 
                         }
-                    }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d7));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
                             } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g7));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e7));
                             }
                         }
-                    }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(4, 8);
+                    }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d20));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = equipment.getState().substring(4, 8);
                             if ("0301".equals(ddd) || "0302".equals(ddd) || "0303".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e20));
                             } else if ("0300".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g20));
                             }
                         }
-                    }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //pir
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //pir
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d1));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("正常");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y1));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g1));
                                 }
 
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                            }else if("11".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                            }else if(EquipmentState.isBroken(equipment)){
 //                    holder.s.setText("故障");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
-                            }else if("A0".equals(list2ds.get(i).getState().substring(4,6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                            }else if(EquipmentState.isPirTeared(equipment)) {
 //                    holder.s.setText("拆除");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e1));
                             }
                         }
-                    }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //sod
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
-                        if(list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8){
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
+                    }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sod
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d2));
+                        if(EquipmentState.isEquipmentStateAvalible(equipment)){
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            if (EquipmentState.isNormal(equipment)) {
 //                    holder.s.setText("关门");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y2));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g2));
                                 }
 
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("开门");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
-                            }else if("66".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                            }else if("66".equals(EquipmentState.getDevFirstState(equipment))){
 //                    holder.s.setText("门已打开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e2));
                             }
                         }
-                    }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //sm
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
+                    }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
 
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            } else if (EquipmentState.isTriggered(equipment)) {
 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            }else if("AA".equals(list2ds.get(i).getState().substring(4,6))){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            }else if(EquipmentState.isNormal(equipment)){
 //                    holder.s.setText("故障");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                                 }
 
-                            }else if("BB".equals(list2ds.get(i).getState().substring(4,6))) {
+                            }else if(EquipmentState.isTesting(equipment)) {
 //                    holder.s.setText("拆除");
 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
-                            }else if("50".equals(list2ds.get(i).getState().substring(4,6))){
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                            }else if(EquipmentState.isMute(equipment)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             }
                         }
-                    }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d9));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y9));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g9));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e9));
                             }
                         }
-                    }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d5));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y5));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g5));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e5));
                             }
                         }
-                    }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(2, 4);
-                            String temp = list2ds.get(i).getState().substring(4,6);
-                            String humidity = list2ds.get(i).getState().substring(6,8);
+                    }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = equipment.getState().substring(2, 4);
+                            String temp = EquipmentState.getDevFirstState(equipment);
+                            String humidity = EquipmentState.getDevSecondState(equipment);
                             int realH = Integer.parseInt(humidity,16);
                             String temp2 = Integer.toBinaryString(Integer.parseInt(temp,16));
                             String realT;
@@ -919,215 +912,215 @@ public class DeviceFragment extends Fragment {
 
 
                             if(Integer.parseInt(realT)>100 || Integer.parseInt(realT) < -40 || realH > 100 || realH < 0){
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d11));
                             }else{
 
                                 int qqqq = Integer.parseInt(ddd,16);
                                 if( qqqq <= 15 ){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y11));
                                 }else{
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g11));
                                 }
                             }
                         }
-                    }else if(NameSolve.LAMP.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.LAMP.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d12));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if("38".equals(ddd)){
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e12));
                             }else{
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g12));
                             }
                         }
-                    }else if(NameSolve.GUARD.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
-                            if ("55".equals(ddd)) {
+                    }else if(NameSolve.GUARD.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
+                            if (EquipmentState.isTriggered(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
-                            } else if ("AA".equals(ddd)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e14));
+                            } else if (EquipmentState.isNormal(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                             }
                         }
-                    }else if(NameSolve.VALVE.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.VALVE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d15));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if ("01".equals(ddd)) {
 //                    holder.s.setText("闭合");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e15));
                             } else if ("00".equals(ddd)) {
 //                    holder.s.setText("断开");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g15));
                             }
                         }
-                    }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ddd = list2ds.get(i).getState().substring(6, 8);
+                    }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d13));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ddd = EquipmentState.getDevSecondState(equipment);
                             if ( ddd!=null && !"".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g13));
                             }
                         }
-                    }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){   //socket
+                    }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){   //socket
 //            holder.imageView.setImageResource(mImage[16]);
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("01".equals(list2ds.get(i).getState().substring(4, 6)) || "AA".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d18));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if ("01".equals(EquipmentState.getDevFirstState(equipment)) || EquipmentState.isNormal(equipment)) {
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y18));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g18));
                                 }
                             }
                         }
-                    }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))) {  //sm
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
+                    }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))) {  //sm
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
 
-                            String ddd = list2ds.get(i).getState().substring(4, 6);
+                            String ddd = EquipmentState.getDevFirstState(equipment);
                             if ("11".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             } else if ("12".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             } else if ("13".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             } else if ("17".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             } else if ("18".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             }else if ("19".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e8));
                             }else if ("14".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else if ("15".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else if ("16".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                             }else if ("1A".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
                             }else if ("1B".equals(ddd)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
-                            }else if("AA".equals(ddd)){
-                                int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4), 16);
-                                if (quantity <= 15) {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                            }else if(EquipmentState.isNormal(ddd)){
+                                int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                                if (EquipmentState.isLowBattery(quantity)) {
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y8));
                                 }else{
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g8));
 
                                 }
                             }else{
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                             }
                         }else {
-                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d8));
                         }
-                    }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
+                    }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d3));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            } else if (EquipmentState.isTriggered(equipment)) {
                                 //                    holder.s.setText("有人");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            } else if (EquipmentState.isNormal(equipment)) {
                                 //                    holder.s.setText("故障");
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g3));
+                            } else if (EquipmentState.isTesting(equipment)) {
                                 //                    holder.s.setText("拆除");
                                 //                    holder.imageView.setImageResource(R.drawable.d1);
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e3));
                             }
                         }
-                    }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("AA".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
+                    }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d4));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isTriggered(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isNormal(equipment)) {
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y4));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g4));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isTesting(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e4));
                             }
                         }
-                    }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("11".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("55".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("AA".equals(list.get(i).getState().substring(4, 6))
-                                    || "01".equals(list.get(i).getState().substring(4, 6))
-                                    || "02".equals(list.get(i).getState().substring(4, 6))
-                                    || "04".equals(list.get(i).getState().substring(4, 6))
-                                    || "08".equals(list.get(i).getState().substring(4, 6))
+                    }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d16));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isBroken(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isTriggered(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isNormal(equipment)
+                                    || "01".equals(EquipmentState.getDevFirstState(equipment))
+                                    || "02".equals(EquipmentState.getDevFirstState(equipment))
+                                    || "04".equals(EquipmentState.getDevFirstState(equipment))
+                                    || "08".equals(EquipmentState.getDevFirstState(equipment))
                                     ) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y16));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g16));
                                 }
-                            } else if ("BB".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
-                            } else if ("50".equals(list2ds.get(i).getState().substring(4, 6))) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isTesting(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
+                            } else if (EquipmentState.isMute(equipment)) {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e16));
                             }
                         }
-                    }else if(NameSolve.LOCK.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            String ds = list2ds.get(i).getState().substring(4, 6);
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            if ("AA".equals(ds) || "60".equals(ds) || "AB".equals(ds) || "55".equals(ds) || "56".equals(ds)) {
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                    }else if(NameSolve.LOCK.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d19));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            String ds = EquipmentState.getDevFirstState(equipment);
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            if (EquipmentState.isNormal(ds) || "60".equals(ds) || "AB".equals(ds) || EquipmentState.isTriggered(ds) || "56".equals(ds)) {
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                                 }else{
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g19));
                                 }
                             } else if ("51".equals(ds) || "52".equals(ds) || "53".equals(ds) || "10".equals(ds) || "20".equals(ds) || "30".equals(ds)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.e19));
                             } else if ("40".equals(ds)) {
-                                list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y19));
                             }
                         }
-                    }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                    }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                                 }
                         }
-                    }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(list2ds.get(i).getEquipmentDesc()))){  //end
-                        list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
-                        if (list2ds.get(i).getState() != null && list2ds.get(i).getState().length() == 8) {
-                            int quantity = Integer.parseInt(list2ds.get(i).getState().substring(2, 4),16);
-                            String draw = list2ds.get(i).getState().substring(4,6);
-                            int liangdu = Integer.parseInt(list2ds.get(i).getState().substring(6,8),16);
+                    }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));
+                        if (EquipmentState.isEquipmentStateAvalible(equipment)) {
+                            int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            String draw = EquipmentState.getDevFirstState(equipment);
+                            int liangdu = Integer.parseInt(EquipmentState.getDevSecondState(equipment),16);
                             if(("00".equals(draw) || "01".equals(draw)) && (liangdu>=0&&liangdu<=100)){
-                                if(quantity <= 15){
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
+                                if(EquipmentState.isLowBattery(quantity)){
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y21));
                                 }else {
-                                    list2ds.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
+                                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g21));
                                 }
                             }
 
@@ -1156,31 +1149,17 @@ public class DeviceFragment extends Fragment {
 
             }
 
-
         }
-
 
         @Override
         public void onAppClick(EquipmentBean device) {
 
             if(NameSolve.DOOR_CHECK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {      //menci
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), DoorDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), DoorDetailActivity.class);
             }else if(NameSolve.SOCKET.equals(NameSolve.getEqType(device.getEquipmentDesc()))){   //chazuo
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), SocketDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), SocketDetailActivity.class);
             }else if(NameSolve.PIR_CHECK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //pir
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), PirDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), PirDetailActivity.class);
             }else if(NameSolve.SOS_KEY.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //sos
                 Intent detail = new Intent(DeviceFragment.this.getActivity(), SosDetailActivity.class);
                 //Bundle bundle = new Bundle();
@@ -1188,109 +1167,48 @@ public class DeviceFragment extends Fragment {
                 detail.putExtra("device",device);
                 startActivity(detail);
             }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //sm
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), SmDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), SmDetailActivity.class);
             }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //co
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), CoDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), CoDetailActivity.class);
             }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //co
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), GasDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), GasDetailActivity.class);
             }else if(NameSolve.WT_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //water
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), WaterDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), WaterDetailActivity.class);
             }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //temprature and hib
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), THCheckDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), THCheckDetailActivity.class);
             }else if(NameSolve.LAMP.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //lamp
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), LampDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), LampDetailActivity.class);
             }else if(NameSolve.GUARD.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), GuardDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), GuardDetailActivity.class);
             }else if(NameSolve.VALVE.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ValveDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ValveDetailActivity.class);
             }else if(NameSolve.BUTTON.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ButtonDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ButtonDetailActivity.class);
             }else if(NameSolve.CURTAIN.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), CurtainDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), CurtainDetailActivity.class);
             }else if(NameSolve.CXSM_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), CxSmDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), CxSmDetailActivity.class);
             }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ThermalDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ThermalDetailActivity.class);
             }else if(NameSolve.MODE_BUTTON.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), ModeButtonDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), ModeButtonDetailActivity.class);
             }else if(NameSolve.LOCK.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), LockDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), LockDetailActivity.class);
             }else if(NameSolve.TWO_SOCKET.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), Channel2SocketDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), Channel2SocketDetailActivity.class);
             }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), TempControlDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), TempControlDetail2Activity.class);
             }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(device.getEquipmentDesc()))) {  //door guard
-                Intent detail = new Intent(DeviceFragment.this.getActivity(), DimmingModuleDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                detail.putExtras(bundle);
-                startActivity(detail);
+                startDetailActivity(device, DeviceFragment.this.getActivity(), DimmingModuleDetailActivity.class);
             }
+        }
 
+        private void startDetailActivity(EquipmentBean device, Context context, Class<?> cls) {
+            Intent detail = new Intent(context, cls);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("device", device);
+            detail.putExtras(bundle);
+            startActivity(detail);
         }
 
         @Override
@@ -1440,7 +1358,7 @@ public class DeviceFragment extends Fragment {
 
                 try {
                     final ApplicationInfo app = mover.hook();
-                    Log.i("ceshi","mover.hook()"+app.toString());
+                    LOG.I("ceshi","mover.hook()"+app.toString());
                     EquipDAO dao = new EquipDAO(DeviceFragment.this.getActivity());
                     app.setPackId(0);
                     dao.updatePack(app);
@@ -1455,209 +1373,219 @@ public class DeviceFragment extends Fragment {
             }
         };
 
-        public boolean onTouchFolder(View v, final MotionEvent ev) {
+        boolean onTouchFolder(View v, final MotionEvent ev) {
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    try {
-                        touchon = true;
-                        if (mover.isMoving()) {
-                            return false;
-                        }
-                        x = ev.getX();
-                        y = ev.getY();
-                        isDrag = false;
-                        oldHitTest2.index = -1;
-                        oldHitTest2.inIcon = false;
-                        folderScrollView = mFolderView.getScrollView();
-                        mover.setAboveFolder(false);
-                        scrollPointY = folderScrollView.getScrollY();
-                        currentPage = getPage(true);
-                        if (x < mFolderView.getTranslateLeft() || y < mFolderView.getTranslateTop()
-                                || x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
-                                || y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
-                            closeFolder();
-                        }
-                        isDesktopActionDown = false;
-                        isFolderActionDown = true;
-                        if (currentPage != null) {
-                            currentPage.hitTest3((int) x - mFolderView.getTranslateLeft(),
-                                    (int) y - mFolderView.getTranslateTop() + scrollPointY, hitTest3);
-                            if (hitTest3.index >= 0) {
-                                currentPage.select(hitTest3.index);
-                                ApplicationInfo info = currentPage.getIcon(hitTest3.index);
-                                if (info != null) {
-                                            if (startDragWaiter == null) {
-                                                startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
-                                            }
-                                }
-                            }
-
-                        }
-                    }catch (Exception e){
-
-                    }
-
-
-                    return true;
+                    return actionDownFolder(ev);
                 case MotionEvent.ACTION_MOVE:
-
-                    if (!isFolderActionDown) {
-                        folderScrollView = mFolderView.getScrollView();
-                        x = ev.getX();
-                        y = ev.getY();
-                        mover.setAboveFolder(false);
-                        scrollPointY = folderScrollView.getScrollY();
-                        currentPage = getPage(true);
-                        isFolderActionDown = true;
-                        isDesktopActionDown = false;
-                    }
-                        if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
-                            if (currentPage != null) {
-                                if (isDrag) {
-                                    detachIcon(currentPage,currentPage.getSelectedIndex(), true);
-                                }
-                            }
-                        } else {
-                            if (currentPage != null) {
-                                currentPage.deselect();
-                            }
-                            if (startDragWaiter != null) {
-                                startDragWaiter.cancel();
-                                startDragWaiter = null;
-                            }
-                            hitTest3.buttonRemove = false;
-                        }
-                        if (mover.isMoving()) {
-                            Point point = new Point((int) ev.getX(), (int) ev.getY());
-                            mover.moveTo(point.x, point.y);
-                            mFolderView.invalidate(mover.getBounds());
-                            if (currentPage != null) {
-                                if (point.x < mFolderView.getTranslateLeft() || point.y < mFolderView.getTranslateTop()
-                                        || point.x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
-                                        || point.y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
-                                    if (moveToDesktopWaiter == null) {
-                                        moveToDesktopWaiter = new CancellableQueueTimer(handler,
-                                                ViewConfiguration.getLongPressTimeout(), moveToDesktopDetacher);
-                                    }
-                                } else {
-                                    if (moveToDesktopWaiter != null) {
-                                        moveToDesktopWaiter.cancel();
-                                        moveToDesktopWaiter = null;
-                                    }
-                                }
-
-
-                                if (point.y - mFolderView.getTranslateTop() < folderScrollView.getHeight() / 3) {
-                                    folderScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    scrollPointY = folderScrollView.getScrollY();
-                                }
-                                if (point.y - mFolderView.getTranslateTop() > folderScrollView.getHeight() * 2 / 3) {
-                                    mFolderView.getScrollView().scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    scrollPointY = folderScrollView.getScrollY();
-                                }
-
-
-                                int position = currentPage.hitTest2(point.x - mFolderView.getTranslateLeft(), point.y
-                                        - mFolderView.getTranslateTop() + scrollPointY, hitTest2, false);
-                                if (position == 0) {
-                                    if (hitTest2.index >= 0 && point.x >= mFolderView.getTranslateLeft() && point.y >= mFolderView.getTranslateTop()
-                                            && point.x <= folderScrollView.getWidth() + mFolderView.getTranslateLeft()
-                                            && point.y <= folderScrollView.getHeight() + mFolderView.getTranslateTop() ) {
-                                        if (oldHitTest2.index != hitTest2.index || oldHitTest2.inIcon != hitTest2.inIcon) {
-                                            oldHitTest2.index = hitTest2.index;
-                                            oldHitTest2.inIcon = hitTest2.inIcon;
-                                            if (moveIconWaiter != null) {
-                                                moveIconWaiter.cancel();
-                                                moveIconWaiter = null;
-                                            }
-                                            moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
-                                        }
-                                    }
-                                } else {
-                                    if (moveIconWaiter != null) {
-                                        moveIconWaiter.cancel();
-                                        moveIconWaiter = null;
-                                    }
-                                    if (mover.isAboveFolder()) {
-                                        mover.bisideFolder();
-                                        mover.setIndex(mover.getsIndex());
-                                        currentPage.removeFolderBound();
-                                        if (moveIntoFolderWaiter != null) {
-                                            moveIntoFolderWaiter.cancel();
-                                            moveIntoFolderWaiter = null;
-                                        }
-                                    }
-                                }
-
-                            }
-                            return true;
-                        } else {
-                            folderScrollView.scrollTo(0, (int) (scrollPointY - (ev.getY() - y)));
-                        }
-                    break;
+                    return actionMoveFolder(ev);
                 case MotionEvent.ACTION_CANCEL:
                     currentPage.deselect();
                 case MotionEvent.ACTION_UP:
-                    isDesktopActionDown = false;
-                    isFolderActionDown = false;
-                    if (jiggleModeWaiter != null) {
-                        jiggleModeWaiter.cancel();
-                        jiggleModeWaiter = null;
+                    return actionUpFolder(ev);
+            }
+            return false;
+
+        }
+
+        private boolean actionDownFolder(final MotionEvent ev) {
+            try {
+                touchon = true;
+                if (mover.isMoving()) {
+                    return false;
+                }
+                x = ev.getX();
+                y = ev.getY();
+                isDrag = false;
+                oldHitTest2.index = -1;
+                oldHitTest2.inIcon = false;
+                folderScrollView = mFolderView.getScrollView();
+                mover.setAboveFolder(false);
+                scrollPointY = folderScrollView.getScrollY();
+                currentPage = getPage(true);
+                if (x < mFolderView.getTranslateLeft() || y < mFolderView.getTranslateTop()
+                        || x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
+                        || y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
+                    closeFolder();
+                }
+                isDesktopActionDown = false;
+                isFolderActionDown = true;
+                if (currentPage != null) {
+                    currentPage.hitTest3((int) x - mFolderView.getTranslateLeft(),
+                            (int) y - mFolderView.getTranslateTop() + scrollPointY, hitTest3);
+                    if (hitTest3.index >= 0) {
+                        currentPage.select(hitTest3.index);
+                        ApplicationInfo info = currentPage.getIcon(hitTest3.index);
+                        if (info != null) {
+                            if (startDragWaiter == null) {
+                                startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
+                            }
+                        }
                     }
 
-                    if (startDragWaiter != null) {
-                        startDragWaiter.cancel();
-                        startDragWaiter = null;
+                }
+            }catch (Exception e){
+
+            }
+
+            return true;
+        }
+
+        private boolean actionMoveFolder(final MotionEvent ev) {
+            if (!isFolderActionDown) {
+                folderScrollView = mFolderView.getScrollView();
+                x = ev.getX();
+                y = ev.getY();
+                mover.setAboveFolder(false);
+                scrollPointY = folderScrollView.getScrollY();
+                currentPage = getPage(true);
+                isFolderActionDown = true;
+                isDesktopActionDown = false;
+            }
+            if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
+                if (currentPage != null) {
+                    if (isDrag) {
+                        detachIcon(currentPage,currentPage.getSelectedIndex(), true);
                     }
-                    if (moveToDesktopWaiter != null) {
-                        moveToDesktopWaiter.cancel();
-                        moveToDesktopWaiter = null;
+                }
+            } else {
+                if (currentPage != null) {
+                    currentPage.deselect();
+                }
+                if (startDragWaiter != null) {
+                    startDragWaiter.cancel();
+                    startDragWaiter = null;
+                }
+                hitTest3.buttonRemove = false;
+            }
+            if (mover.isMoving()) {
+                Point point = new Point((int) ev.getX(), (int) ev.getY());
+                mover.moveTo(point.x, point.y);
+                mFolderView.invalidate(mover.getBounds());
+                if (currentPage != null) {
+                    if (point.x < mFolderView.getTranslateLeft() || point.y < mFolderView.getTranslateTop()
+                            || point.x > folderScrollView.getWidth() + mFolderView.getTranslateLeft()
+                            || point.y > folderScrollView.getHeight() + mFolderView.getTranslateTop()) {
+                        if (moveToDesktopWaiter == null) {
+                            moveToDesktopWaiter = new CancellableQueueTimer(handler,
+                                    ViewConfiguration.getLongPressTimeout(), moveToDesktopDetacher);
+                        }
+                    } else {
+                        if (moveToDesktopWaiter != null) {
+                            moveToDesktopWaiter.cancel();
+                            moveToDesktopWaiter = null;
+                        }
                     }
-                    final IPageView currentPage = getPage(true);
-                    if (currentPage != null) {
-                        final int select = currentPage.getSelectedIndex();
-                        if (select >= 0) {
-                            ApplicationInfo info = currentPage.getSelectedApp();
-                            if (info != null) {
+
+
+                    if (point.y - mFolderView.getTranslateTop() < folderScrollView.getHeight() / 3) {
+                        folderScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        scrollPointY = folderScrollView.getScrollY();
+                    }
+                    if (point.y - mFolderView.getTranslateTop() > folderScrollView.getHeight() * 2 / 3) {
+                        mFolderView.getScrollView().scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        scrollPointY = folderScrollView.getScrollY();
+                    }
+
+
+                    int position = currentPage.hitTest2(point.x - mFolderView.getTranslateLeft(), point.y
+                            - mFolderView.getTranslateTop() + scrollPointY, hitTest2, false);
+                    if (position == 0) {
+                        if (hitTest2.index >= 0 && point.x >= mFolderView.getTranslateLeft() && point.y >= mFolderView.getTranslateTop()
+                                && point.x <= folderScrollView.getWidth() + mFolderView.getTranslateLeft()
+                                && point.y <= folderScrollView.getHeight() + mFolderView.getTranslateTop() ) {
+                            if (oldHitTest2.index != hitTest2.index || oldHitTest2.inIcon != hitTest2.inIcon) {
+                                oldHitTest2.index = hitTest2.index;
+                                oldHitTest2.inIcon = hitTest2.inIcon;
+                                if (moveIconWaiter != null) {
+                                    moveIconWaiter.cancel();
+                                    moveIconWaiter = null;
+                                }
+                                moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
+                            }
+                        }
+                    } else {
+                        if (moveIconWaiter != null) {
+                            moveIconWaiter.cancel();
+                            moveIconWaiter = null;
+                        }
+                        if (mover.isAboveFolder()) {
+                            mover.bisideFolder();
+                            mover.setIndex(mover.getsIndex());
+                            currentPage.removeFolderBound();
+                            if (moveIntoFolderWaiter != null) {
+                                moveIntoFolderWaiter.cancel();
+                                moveIntoFolderWaiter = null;
+                            }
+                        }
+                    }
+
+                }
+                return true;
+            } else {
+                folderScrollView.scrollTo(0, (int) (scrollPointY - (ev.getY() - y)));
+                return false;
+            }
+        }
+
+        private boolean actionUpFolder(final MotionEvent ev) {
+            isDesktopActionDown = false;
+            isFolderActionDown = false;
+            if (jiggleModeWaiter != null) {
+                jiggleModeWaiter.cancel();
+                jiggleModeWaiter = null;
+            }
+
+            if (startDragWaiter != null) {
+                startDragWaiter.cancel();
+                startDragWaiter = null;
+            }
+            if (moveToDesktopWaiter != null) {
+                moveToDesktopWaiter.cancel();
+                moveToDesktopWaiter = null;
+            }
+            final IPageView currentPage = getPage(true);
+            if (currentPage != null) {
+                final int select = currentPage.getSelectedIndex();
+                if (select >= 0) {
+                    ApplicationInfo info = currentPage.getSelectedApp();
+                    if (info != null) {
 //                                if (!mFolderView.isJiggling()) {
-                                    EquipmentBean bean = new EquipmentBean();
-                                    bean.setEqid(info.getEqid());
-                                    bean.setState(info.getState());
-                                    bean.setEquipmentName(info.getEquipmentName());
-                                    bean.setEquipmentDesc(info.getEquipmentDesc());
-                                    bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
-                                    controller.onAppClick(bean);
+                        EquipmentBean bean = new EquipmentBean();
+                        bean.setEqid(info.getEqid());
+                        bean.setState(info.getState());
+                        bean.setEquipmentName(info.getEquipmentName());
+                        bean.setEquipmentDesc(info.getEquipmentDesc());
+                        bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
+                        controller.onAppClick(bean);
 //                                } else {
 //                                    if (hitTest3.buttonRemove) {
 //                                        //currentPage.removeApp(hitTest3.index);
 //                                        controller.onAppRemove(info);
 //                                    }
 //                                }
-                            }
-                        }
-                        currentPage.deselect();
                     }
-                    if (mover.isMoving()) {
-                        final IPageView p = getPage(true);
-                        Point point = p.getIconLocation(mover.getIndex());
-                        final ApplicationInfo app = mover.hook();
-                        mover.stopMoving(point.x + mFolderView.getTranslateLeft(), point.y + mFolderView.getTranslateTop()
-                                - scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
-                            @Override
-                            public void movingStopped(ApplicationInfo appInfo) {
-                                p.clearUp(app);
-                                setPagerView.setdrag(true);
-                                ((FolderContentView)p).invalidate();
-                                touchon = false;
-                            }
-                        });
-                    }else {
+                }
+                currentPage.deselect();
+            }
+            if (mover.isMoving()) {
+                final IPageView p = getPage(true);
+                Point point = p.getIconLocation(mover.getIndex());
+                final ApplicationInfo app = mover.hook();
+                mover.stopMoving(point.x + mFolderView.getTranslateLeft(), point.y + mFolderView.getTranslateTop()
+                        - scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
+                    @Override
+                    public void movingStopped(ApplicationInfo appInfo) {
+                        p.clearUp(app);
+                        setPagerView.setdrag(true);
+                        ((FolderContentView)p).invalidate();
                         touchon = false;
                     }
-                    return true;
+                });
+            }else {
+                touchon = false;
             }
-            return false;
-
+            return true;
         }
 
         @Override
@@ -1670,167 +1598,165 @@ public class DeviceFragment extends Fragment {
             }
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    touchon = true;
-                    if (mover.isMoving()) {
-                        return false;
-                    }
-                    isDrag = false;
-                    oldHitTest2.index = -1;
-                    oldHitTest2.inIcon = false;
-                    mover.setAboveFolder(false);
-                    x = ev.getX();
-                    y = ev.getY();
-                    out_scrollPointY = myScrollView.getScrollY();
-                    currentPage = getPage(false);
-                    isDesktopActionDown = true;
-                    isFolderActionDown = false;
-                    if (currentPage != null) {
-                        currentPage.hitTest3((int) x, (int) y+out_scrollPointY, hitTest3);
-                        if (hitTest3.index >= 0) {
-                            currentPage.select(hitTest3.index);
-                            ApplicationInfo info = currentPage.getIcon(hitTest3.index);
-                            if (info != null) {
-                                        if (startDragWaiter == null) {
-                                            startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
-                                        }
-                                    hitTest3.buttonRemove = false;
-                            }
-                        }
-
-                    }
-                    return true;
+                    return actionDownDevice(ev);
                 case MotionEvent.ACTION_MOVE:
-                    currentPage = getPage(false);
-                    if (!isDesktopActionDown) {
-                        x = ev.getX();
-                        y = ev.getY();
-                        out_scrollPointY = myScrollView.getScrollY();
-                        isFolderActionDown = false;
-                        isDesktopActionDown = true;
-                    }
- //                   if (jma.isJiggling()) {
-                        if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
-                            if (currentPage != null) {
-                                if (isDrag) {
-                                    detachIcon(currentPage,currentPage.getSelectedIndex(), false);
-                                }
-                            }
-                        } else {
-                            if (currentPage != null) {
-                                currentPage.deselect();
-                            }
-                            if (startDragWaiter != null) {
-                                startDragWaiter.cancel();
-                                startDragWaiter = null;
-                            }
-                            hitTest3.buttonRemove = false;
-                        }
-                        if (mover.isMoving()) {
-                            Point point = new Point((int) ev.getX(), (int) ev.getY());
-                            mover.moveTo(point.x, point.y);
-                            mFrame.invalidate(mover.getBounds());
-                            if (currentPage != null) {
-
-                                if (point.y  < myScrollView.getHeight() / 3) {
-                                    myScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    out_scrollPointY = myScrollView.getScrollY();
-                                }
-                                if (point.y  > myScrollView.getHeight() * 2 / 3) {
-                                    myScrollView.scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
-                                    out_scrollPointY = myScrollView.getScrollY();
-                                }
-
-
-                                int position = currentPage.hitTest2(point.x, point.y+ out_scrollPointY, hitTest2,
-                                        mover.hook().getType() == ItemInfo.TYPE_FOLDER);
-                                if (position == -1) {
-                                    return true;
-                                } else if (position == 1) {
-                                    return true;
-                                } else if (position == 0) {
-                                    if (hitTest2.index >= 0) {
-                                        if (oldHitTest2.index != hitTest2.index
-                                                || oldHitTest2.inIcon != hitTest2.inIcon) {
-                                            oldHitTest2.index = hitTest2.index;
-                                            oldHitTest2.inIcon = hitTest2.inIcon;
-                                            if (moveIconWaiter != null) {
-                                                moveIconWaiter.cancel();
-                                                moveIconWaiter = null;
-                                            }
-                                            moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
-                                        }
-                                    }
-                                } else {
-                                    if (moveIconWaiter != null) {
-                                        moveIconWaiter.cancel();
-                                        moveIconWaiter = null;
-                                    }
-                                    if (mover.isAboveFolder()) {
-                                        mover.bisideFolder();
-                                        mover.setIndex(mover.getsIndex());
-                                        currentPage.removeFolderBound();
-                                        if (moveIntoFolderWaiter != null) {
-                                            moveIntoFolderWaiter.cancel();
-                                            moveIntoFolderWaiter = null;
-                                        }
-                                    }
-                                }
-                            }
-                            return true;
-                        } else {
-                            myScrollView.scrollTo(0, (int) (out_scrollPointY - (ev.getY() - y)));
-                        }
-//                    } else {
-//                        myScrollView.scrollTo(0, (int) (out_scrollPointY - (ev.getY() - y)));
-//                        if (getDistance(ev.getX(), ev.getY(), x, y) > touchSlop) {
-//                            if (jiggleModeWaiter != null) {
-//                                jiggleModeWaiter.cancel();
-//                                jiggleModeWaiter = null;
-//                            }
-//                            if (currentPage != null) {
-//                                if (currentPage.getSelectedIndex() >= 0) {
-//                                    currentPage.deselect();
-//                                }
-//                            }
-//                        }
-//
-//                    }
-
-                    break;
+                    return actionMoveDevice(ev);
                 case MotionEvent.ACTION_CANCEL:
                     if (currentPage != null) {
                         currentPage.deselect();
                     }
                 case MotionEvent.ACTION_UP:
-                    if (jiggleModeWaiter != null) {
-                        jiggleModeWaiter.cancel();
-                        jiggleModeWaiter = null;
+                    return actionUpDevice(ev);
+            }
+            return false;
+        }
+
+        private boolean actionDownDevice(final MotionEvent ev) {
+            touchon = true;
+            if (mover.isMoving()) {
+                return false;
+            }
+            isDrag = false;
+            oldHitTest2.index = -1;
+            oldHitTest2.inIcon = false;
+            mover.setAboveFolder(false);
+            x = ev.getX();
+            y = ev.getY();
+            out_scrollPointY = myScrollView.getScrollY();
+            currentPage = getPage(false);
+            isDesktopActionDown = true;
+            isFolderActionDown = false;
+            if (currentPage != null) {
+                currentPage.hitTest3((int) x, (int) y+out_scrollPointY, hitTest3);
+                if (hitTest3.index >= 0) {
+                    currentPage.select(hitTest3.index);
+                    ApplicationInfo info = currentPage.getIcon(hitTest3.index);
+                    if (info != null) {
+                        if (startDragWaiter == null) {
+                            startDragWaiter = new CancellableQueueTimer(handler, 200, startDragDetacher);
+                        }
+                        hitTest3.buttonRemove = false;
                     }
-                    if (startDragWaiter != null) {
-                        startDragWaiter.cancel();
-                        startDragWaiter = null;
+                }
+
+            }
+            return true;
+        }
+
+        private boolean actionMoveDevice(final MotionEvent ev) {
+            currentPage = getPage(false);
+            if (!isDesktopActionDown) {
+                x = ev.getX();
+                y = ev.getY();
+                out_scrollPointY = myScrollView.getScrollY();
+                isFolderActionDown = false;
+                isDesktopActionDown = true;
+            }
+            //                   if (jma.isJiggling()) {
+            if (getDistance(ev.getX(), ev.getY(), x, y) <= touchSlop) {
+                if (currentPage != null) {
+                    if (isDrag) {
+                        detachIcon(currentPage,currentPage.getSelectedIndex(), false);
                     }
-                    isDesktopActionDown = false;
-                    isFolderActionDown = false;
-                    final IPageView currentPage = getPage(false);
-                    if (currentPage != null) {
-                        final int select = currentPage.getSelectedIndex();
-                        if (select >= 0) {
-                            ApplicationInfo info = currentPage.getSelectedApp();
-                            if (info != null) {
+                }
+            } else {
+                if (currentPage != null) {
+                    currentPage.deselect();
+                }
+                if (startDragWaiter != null) {
+                    startDragWaiter.cancel();
+                    startDragWaiter = null;
+                }
+                hitTest3.buttonRemove = false;
+            }
+            if (mover.isMoving()) {
+                Point point = new Point((int) ev.getX(), (int) ev.getY());
+                mover.moveTo(point.x, point.y);
+                mFrame.invalidate(mover.getBounds());
+                if (currentPage != null) {
+
+                    if (point.y  < myScrollView.getHeight() / 3) {
+                        myScrollView.scrollBy(0, -(int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        out_scrollPointY = myScrollView.getScrollY();
+                    }
+                    if (point.y  > myScrollView.getHeight() * 2 / 3) {
+                        myScrollView.scrollBy(0, (int)getResources().getDimension(R.dimen.equipmentList_scroll_by));
+                        out_scrollPointY = myScrollView.getScrollY();
+                    }
+
+
+                    int position = currentPage.hitTest2(point.x, point.y+ out_scrollPointY, hitTest2,
+                            mover.hook().getType() == ItemInfo.TYPE_FOLDER);
+                    if (position == -1) {
+                        return true;
+                    } else if (position == 1) {
+                        return true;
+                    } else if (position == 0) {
+                        if (hitTest2.index >= 0) {
+                            if (oldHitTest2.index != hitTest2.index
+                                    || oldHitTest2.inIcon != hitTest2.inIcon) {
+                                oldHitTest2.index = hitTest2.index;
+                                oldHitTest2.inIcon = hitTest2.inIcon;
+                                if (moveIconWaiter != null) {
+                                    moveIconWaiter.cancel();
+                                    moveIconWaiter = null;
+                                }
+                                moveIconWaiter = new CancellableQueueTimer(handler, 100, moveIconDetacher);
+                            }
+                        }
+                    } else {
+                        if (moveIconWaiter != null) {
+                            moveIconWaiter.cancel();
+                            moveIconWaiter = null;
+                        }
+                        if (mover.isAboveFolder()) {
+                            mover.bisideFolder();
+                            mover.setIndex(mover.getsIndex());
+                            currentPage.removeFolderBound();
+                            if (moveIntoFolderWaiter != null) {
+                                moveIntoFolderWaiter.cancel();
+                                moveIntoFolderWaiter = null;
+                            }
+                        }
+                    }
+                }
+                return true;
+            } else {
+                myScrollView.scrollTo(0, (int) (out_scrollPointY - (ev.getY() - y)));
+                return false;
+            }
+        }
+
+        private boolean actionUpDevice(final MotionEvent ev) {
+            if (jiggleModeWaiter != null) {
+                jiggleModeWaiter.cancel();
+                jiggleModeWaiter = null;
+            }
+            if (startDragWaiter != null) {
+                startDragWaiter.cancel();
+                startDragWaiter = null;
+            }
+            isDesktopActionDown = false;
+            isFolderActionDown = false;
+            final IPageView currentPage = getPage(false);
+            if (currentPage != null) {
+                final int select = currentPage.getSelectedIndex();
+                if (select >= 0) {
+                    ApplicationInfo info = currentPage.getSelectedApp();
+                    if (info != null) {
 //                                if (!jma.isJiggling()) {
-                                    if (info.getType() == ItemInfo.TYPE_FOLDER) {
-                                        openFolderIndex = select;
-                                        openFolder((FolderInfo) info);
-                                    } else {
-                                        EquipmentBean bean = new EquipmentBean();
-                                        bean.setEqid(info.getEqid());
-                                        bean.setState(info.getState());
-                                        bean.setEquipmentName(info.getEquipmentName());
-                                        bean.setEquipmentDesc(info.getEquipmentDesc());
-                                        bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
-                                        controller.onAppClick(bean);
-                                    }
+                        if (info.getType() == ItemInfo.TYPE_FOLDER) {
+                            openFolderIndex = select;
+                            openFolder((FolderInfo) info);
+                        } else {
+                            EquipmentBean bean = new EquipmentBean();
+                            bean.setEqid(info.getEqid());
+                            bean.setState(info.getState());
+                            bean.setEquipmentName(info.getEquipmentName());
+                            bean.setEquipmentDesc(info.getEquipmentDesc());
+                            bean.setDeviceid(ConnectionPojo.getInstance().deviceTid);
+                            controller.onAppClick(bean);
+                        }
 //                                } else {
 //                                    if (hitTest3.buttonRemove&&info.getType()!=ItemInfo.TYPE_FOLDER) {
 //                                        //currentPage.removeApp(hitTest3.index);
@@ -1842,89 +1768,87 @@ public class DeviceFragment extends Fragment {
 //                                    }
 //                                }
 
-                            }
-                        }
-                        currentPage.deselect();
                     }
-                    if (mover.isMoving()) {
-                        final int lasty = (int)ev.getY();
-                        final IPageView p = getPage(false);
-                        if (p != null) {
-                            Point point = p.getIconLocation(mover.getIndex());
-                            final ApplicationInfo app = mover.hook();
-
-                            final int i = mover.getIndex();
-                            if (!mover.isAboveFolder()) {
-                                mover.stopMoving(point.x,
-                                        point.y-out_scrollPointY+(int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
-                                            @Override
-                                            public void movingStopped(ApplicationInfo appInfo) {
-                                                top_lay.setVisibility(View.GONE);
-                                                p.clearUp(app);
-                                                initContentLayout();
-                                                setPagerView.setdrag(true);
-                                                touchon = false;
-                                                if(lasty<0&&((int)ev.getX())>screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
-
-                                                    String ds = String.format(getResources().getString(R.string.want_to_delete_confirm_eq),app.getEquipmentName());
-
-                                                    ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                           deleteBean = app;
-                                                            SendCommand.Command = SendCommand.DELETE_EQUIPMENT;
-                                                            sed.deleteEquipment(app.getEqid());
-                                                        }
-                                                    });
-                                                    elc.show();
-
-
-                                                }else if(lasty<0&&((int)ev.getX())<screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
-
-                                                    String ds = String.format(getResources().getString(R.string.want_to_replace_confirm_eq),app.getEquipmentName());
-
-                                                    ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            SendCommand.Command  = SendCommand.REPLACE_EQUIPMENT;
-                                                            sed.replaceEquipment(app.getEqid());
-                                                            Intent intent =new Intent(DeviceFragment.this.getActivity(),AddDeviceActivity.class);
-                                                            Bundle bundle = new Bundle();
-                                                            bundle.putString("eqid",app.getEqid());
-                                                            intent.putExtras(bundle);
-                                                            startActivity(intent);
-                                                        }
-                                                    });
-                                                    elc.show();
-                                                }
-                                            }
-                                        });
-
-                            } else {
-                                mover.setAboveFolder(false);
-                                p.removeFolderBound();
-                                mover.moveIntoFolder(point.x,
-                                        point.y-out_scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
-                                            @Override
-                                            public void movingStopped(ApplicationInfo appInfo) {
-                                                Log.i("ceshi","停止了");
-                                                top_lay.setVisibility(View.GONE);
-                                                p.addToFolder(i, app);
-                                                p.clearUp(null);
-                                                initContentLayout();
-                                                setPagerView.setdrag(true);
-                                                touchon = false;
-                                            }
-                                        });
-                            }
-                        }
-                    }else {
-                        touchon = false;
-                    }
-
-                    return true;
+                }
+                currentPage.deselect();
             }
-            return false;
+            if (mover.isMoving()) {
+                final int lasty = (int)ev.getY();
+                final IPageView p = getPage(false);
+                if (p != null) {
+                    Point point = p.getIconLocation(mover.getIndex());
+                    final ApplicationInfo app = mover.hook();
+
+                    final int i = mover.getIndex();
+                    if (!mover.isAboveFolder()) {
+                        mover.stopMoving(point.x,
+                                point.y-out_scrollPointY+(int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
+                                    @Override
+                                    public void movingStopped(ApplicationInfo appInfo) {
+                                        top_lay.setVisibility(View.GONE);
+                                        p.clearUp(app);
+                                        initContentLayout();
+                                        setPagerView.setdrag(true);
+                                        touchon = false;
+                                        if(lasty<0&&((int)ev.getX())>screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
+
+                                            String ds = String.format(getResources().getString(R.string.want_to_delete_confirm_eq),app.getEquipmentName());
+
+                                            ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    deleteBean = app;
+                                                    SendCommand.Command = SendCommand.DELETE_EQUIPMENT;
+                                                    sed.deleteEquipment(app.getEqid());
+                                                }
+                                            });
+                                            elc.show();
+
+
+                                        }else if(lasty<0&&((int)ev.getX())<screenWidth/2&&app.getType() == ItemInfo.TYPE_APP){
+
+                                            String ds = String.format(getResources().getString(R.string.want_to_replace_confirm_eq),app.getEquipmentName());
+
+                                            ECAlertDialog elc = ECAlertDialog.buildAlert(DeviceFragment.this.getActivity(), ds, getResources().getString(R.string.cancel), getResources().getString(R.string.ok), null, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    SendCommand.Command  = SendCommand.REPLACE_EQUIPMENT;
+                                                    sed.replaceEquipment(app.getEqid());
+                                                    Intent intent =new Intent(DeviceFragment.this.getActivity(),AddDeviceActivity.class);
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putString("eqid",app.getEqid());
+                                                    intent.putExtras(bundle);
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                            elc.show();
+                                        }
+                                    }
+                                });
+
+                    } else {
+                        mover.setAboveFolder(false);
+                        p.removeFolderBound();
+                        mover.moveIntoFolder(point.x,
+                                point.y-out_scrollPointY+ (int)getResources().getDimension(R.dimen.toolbar_height)+(int)getResources().getDimension(R.dimen.equipmentList_instrution_height), new IconMover.OnMovingStopped() {
+                                    @Override
+                                    public void movingStopped(ApplicationInfo appInfo) {
+                                        LOG.I("ceshi","停止了");
+                                        top_lay.setVisibility(View.GONE);
+                                        p.addToFolder(i, app);
+                                        p.clearUp(null);
+                                        initContentLayout();
+                                        setPagerView.setdrag(true);
+                                        touchon = false;
+                                    }
+                                });
+                    }
+                }
+            }else {
+                touchon = false;
+            }
+
+            return true;
         }
 
         private void detachIcon(IPageView page, int index, boolean isFolder) {
@@ -1957,7 +1881,7 @@ public class DeviceFragment extends Fragment {
             FolderInfo ifno = (FolderInfo) list.get(openFolderIndex);
             ifno.setEquipmentName(mFolderView.getEditContent());
             dao.updateName(ifno);
-            Log.i("ceshi","更新名称为"+mFolderView.getEditContent());
+            LOG.I("ceshi","更新名称为"+mFolderView.getEditContent());
         }catch (Exception e){
 
         }

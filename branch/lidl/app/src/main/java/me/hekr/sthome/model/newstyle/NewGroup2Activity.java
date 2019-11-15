@@ -7,7 +7,6 @@ import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,6 +42,7 @@ import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
 import me.hekr.sthome.tools.ByteUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.MyInforHandler;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.tools.SendCommand;
@@ -117,20 +117,20 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         ssd = new SendSceneData(this) {
             @Override
             protected void sendEquipmentDataFailed() {
-                Log.i(TAG,"operation failed");
+                LOG.I(TAG,"operation failed");
                 myInforHandler.sendEmptyMessage(GETBACK_FAILED);
             }
 
             @Override
             protected void sendEquipmentDataSuccess() {
-                Log.i(TAG,"operation success");
+                LOG.I(TAG,"operation success");
                 myInforHandler.sendEmptyMessage(GETBACK_SUCCESS);
             }
         };
 
         amodle = mcp.sb;
         if(amodle!=null) init_code = amodle.getCode();
-        Log.i(TAG,"init_code:"+init_code);
+        LOG.I(TAG,"init_code:"+init_code);
         inputData = new ArrayList<>();
         outputData = new ArrayList<>();
         if(!mcp.modify) {
@@ -189,7 +189,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                     }
                                 }
                             }catch (Exception e){
-                                Log.i(TAG,"no input data");
+                                LOG.I(TAG,"no input data");
                                 inputShow = new ArrayList<>();
                                 mcp.input = inputShow;
                             }
@@ -231,7 +231,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                     }
                                 }
                             }catch (Exception e){
-                                Log.i(TAG,"no data output");
+                                LOG.I(TAG,"no data output");
                                 outputShow = new ArrayList<>();
                                 mcp.output = outputShow;
                             }
@@ -240,7 +240,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                         }
 
                 }else {
-                    Log.i(TAG,"code is illegal");
+                    LOG.I(TAG,"code is illegal");
                     if(mcp.input == null){
                         inputShow = new ArrayList<>();
                         mcp.input = new ArrayList<>();
@@ -269,7 +269,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
     private void initInput() {
         inputData.clear();
         if(inputShow != null){
-            Log.i(TAG,inputShow.toString());
+            LOG.I(TAG,inputShow.toString());
             for(EquipmentBean bean:inputShow){
                 if( TextUtils.isEmpty(bean.getEquipmentDesc())){
                     mcp.cleanModleCondition();
@@ -284,7 +284,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         EquipmentBean theLastTag = new EquipmentBean();
         theLastTag.setEqid(String.valueOf(-1));
         theLastTag.setEquipmentDesc("END");
-        theLastTag.setEquipmentName(getResources().getString(R.string.add_equipment));
+        theLastTag.setEquipmentName(getResources().getString(R.string.increase_input));
         inputData.add(theLastTag);
 
         inAdapter = new GridAdapter(this,inputData);
@@ -332,18 +332,52 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                     startActivity(addItem);
                     finish();
                 }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if (NameSolve.WT_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))) {
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
 //                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
-
                     Intent addItem = new Intent(NewGroup2Activity.this, ThcheckNewActivity.class);
                     ModelConditionPojo mcp = ModelConditionPojo.getInstance();
                     mcp.condition = "input";
@@ -403,7 +437,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                 if(!"END".equals(eq.getEquipmentDesc())){
 
 
-                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_condition),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             inputShow.remove(position);
@@ -423,7 +457,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
     private void initOutput() {
         outputData.clear();
         if(outputShow != null){
-            Log.i(TAG,outputShow.toString());
+            LOG.I(TAG,outputShow.toString());
             for(EquipmentBean bean:outputShow){
                 if(TextUtils.isEmpty(bean.getEquipmentDesc())){
                     mcp.cleanModleCondition();
@@ -438,7 +472,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         EquipmentBean theLastTag = new EquipmentBean();
         theLastTag.setEqid(String.valueOf(-1));
         theLastTag.setEquipmentDesc("END");
-        theLastTag.setEquipmentName(getResources().getString(R.string.add_equipment));
+        theLastTag.setEquipmentName(getResources().getString(R.string.increase_output));
         outputData.add(theLastTag);
         outAdapter = new GridAdapter(this,outputData);
         output.setAdapter(outAdapter);
@@ -635,7 +669,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                     buildAlert.setTitle(getResources().getString(R.string.dialog_title_alert));
                                     buildAlert.show();
                                 }else{
-                                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                                    ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_action),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             outputShow.remove(position);
@@ -648,7 +682,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                 }
 
                             }else{
-                                ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                                ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_action),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         outputShow.remove(position);
@@ -662,7 +696,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
                         }else{
-                            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_or_not),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
+                            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(NewGroup2Activity.this,getResources().getString(R.string.delete_action),getResources().getString(R.string.cancel),getResources().getString(R.string.ok),null,new Dialog.OnClickListener(){
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     outputShow.remove(position);
@@ -711,8 +745,9 @@ public class NewGroup2Activity extends TopbarSuperActivity {
             if(amodle != null){
                 getTopBarView().setEditTitle(amodle.getName());
             }else {
-                getTopBarView().setEditTitle(getResources().getString(R.string.my_scene)+getmid());
-
+                StringBuilder sb = new StringBuilder();
+                sb.append(getString(R.string.my_action)).append(" ").append(getmid());
+                getTopBarView().setEditTitle(sb.toString());
             }
         }
 
@@ -890,7 +925,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
             Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.name_is_illegal),Toast.LENGTH_LONG).show();
         }
         else
-            if(getTopBarView().getEditTitleText().getBytes("GBK").length>15){
+            if(getTopBarView().getEditTitleText().getBytes("UTF-8").length>15){
                 Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.name_is_too_long),Toast.LENGTH_LONG).show();
                 confirmNum = 0;
             }
@@ -930,7 +965,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
             amodle.setSid("-1");
             amodle.setDeviceid(ConnectionPojo.getInstance().deviceTid);
             int amid = getmid();
-            Log.i(TAG,"    ==="+amid);
+            LOG.I(TAG,"    ==="+amid);
             amodle.setMid(String.valueOf(amid));
         }
 
@@ -1087,7 +1122,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
         String deCode =  oooo + ooo + ds + cm3 + UnitTools.timeDecode(settime4,6) + click5 + inf6 + oo + o +inCode +outCode;
-        Log.i(TAG,deCode);
+        LOG.I(TAG,deCode);
         ByteUtil byteUtil = new ByteUtil();
         String crc = byteUtil.CRCmakerCharAndCode(deCode);
 
@@ -1256,8 +1291,8 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
         String deCode =  oooo + ooo + ds + cm3 + UnitTools.timeDecode(settime4,6) + click5 + inf6 + oo + o +inCode +outCode;
-        Log.i(TAG,deCode);
-        Log.i(TAG,"edit code :"+deCode);
+        LOG.I(TAG,deCode);
+        LOG.I(TAG,"edit code :"+deCode);
         return(deCode);
     }
 
@@ -1437,6 +1472,9 @@ public class NewGroup2Activity extends TopbarSuperActivity {
         }else if("es".equals(lan))
         {
             dr = R.layout.highlight_info_up_es;
+        }else if("fi".equals(lan))
+        {
+            dr = R.layout.highlight_info_up_fi;
         }else {
             dr = R.layout.highlight_info_up_en;
         }
@@ -1616,7 +1654,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                 SED = new SceneDAO(this);
                 amodle.setName(getTopBarView().getEditTitleText());
                 amodle.setCode(messageCode);
-                Log.i(TAG,"amodle.getCode()"+amodle.getCode());
+                LOG.I(TAG,"amodle.getCode()"+amodle.getCode());
 
                 if(!mcp.modify){
 
@@ -1624,7 +1662,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
 
 
                     try {
-                        Log.i(TAG,"添加前amodle："+amodle.toString());
+                        LOG.I(TAG,"添加前amodle："+amodle.toString());
                         SED.addScence(amodle);
                         SysmodelDAO sysmodelDAO = new SysmodelDAO(this);
                         String sid =  sysmodelDAO.findIdByChoice(ConnectionPojo.getInstance().deviceTid).getSid();
@@ -1633,11 +1671,11 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                         if(e != null && e.size()>0){
                             SED.deleteFromsceneGroup(amodle);
                         }
-                        Log.i(TAG,"添加后amodle："+amodle.toString());
+                        LOG.I(TAG,"添加后amodle："+amodle.toString());
                         SED.addScence(amodle);
                         SceneCopyPojo.getInstance().code = messageCode;
                     }catch (Exception e){
-                        Log.i("ceshi","无选中的情景组");
+                        LOG.I("ceshi","无选中的情景组");
                     }
 
                 }else{
@@ -1684,7 +1722,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                             }
                                     }
                                 } catch (Exception e) {
-                                    Log.i(TAG, "no input data");
+                                    LOG.I(TAG, "no input data");
                                 }
 
                                 try {
@@ -1698,7 +1736,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                         }
                                     }
                                 } catch (Exception e) {
-                                    Log.i(TAG, "no input data");
+                                    LOG.I(TAG, "no input data");
                                 }
                                 if(flag == false){
                                     ecAlertDialog = ECAlertDialog.buildAlert(NewGroup2Activity.this, getResources().getString(R.string.copy_scene_alert), new DialogInterface.OnClickListener() {
@@ -1735,7 +1773,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                                         }
                                                     }
                                                 }catch (Exception e){
-                                                    Log.i(TAG,"no input data");
+                                                    LOG.I(TAG,"no input data");
                                                     inputShow = new ArrayList<>();
                                                     mcp.input = inputShow;
                                                 }
@@ -1774,7 +1812,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                                                         }
                                                     }
                                                 }catch (Exception e){
-                                                    Log.i(TAG,"no data output");
+                                                    LOG.I(TAG,"no data output");
                                                     outputShow = new ArrayList<>();
                                                     mcp.output = outputShow;
                                                 }

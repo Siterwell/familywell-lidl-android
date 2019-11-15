@@ -10,6 +10,8 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.Arrays;
 
+import me.hekr.sthome.tools.LOG;
+
 public class UDPSocketServer {
 
 	private static final String TAG = "UDPSocketServer";
@@ -57,10 +59,10 @@ public class UDPSocketServer {
 			WifiManager manager = (WifiManager) mContext
 					.getSystemService(Context.WIFI_SERVICE);
 			mLock = manager.createMulticastLock("test wifi");
-			Log.d(TAG, "mServerSocket is created, socket read timeout: "
+			LOG.D(TAG, "mServerSocket is created, socket read timeout: "
 					+ socketTimeout + ", port: " + port);
 		} catch (IOException e) {
-			Log.e(TAG, "IOException");
+			LOG.E(TAG, "IOException");
 			e.printStackTrace();
 		}
 	}
@@ -88,11 +90,11 @@ public class UDPSocketServer {
 	 * @return
 	 */
 	public byte receiveOneByte() {
-		Log.d(TAG, "receiveOneByte() entrance");
+		LOG.D(TAG, "receiveOneByte() entrance");
 		try {
 			acquireLock();
 			mServerSocket.receive(mReceivePacket);
-			Log.d(TAG, "receive: " + (0 + mReceivePacket.getData()[0]));
+			LOG.D(TAG, "receive: " + (0 + mReceivePacket.getData()[0]));
 			return mReceivePacket.getData()[0];
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -107,16 +109,16 @@ public class UDPSocketServer {
 	 * @return
 	 */
 	public byte[] receiveSpecLenBytes(int len) {
-		Log.d(TAG, "receiveSpecLenBytes() entrance: len = " + len);
+		LOG.D(TAG, "receiveSpecLenBytes() entrance: len = " + len);
 		try {
 			acquireLock();
 			mServerSocket.receive(mReceivePacket);
 			byte[] recDatas = Arrays.copyOf(mReceivePacket.getData(), mReceivePacket.getLength());
-			Log.d(TAG, "received len : " + recDatas.length);
+			LOG.D(TAG, "received len : " + recDatas.length);
 			for (int i = 0; i < recDatas.length; i++) {
-				Log.e(TAG, "recDatas[" + i + "]:" + recDatas[i]);
+				LOG.E(TAG, "recDatas[" + i + "]:" + recDatas[i]);
 			}
-			Log.e(TAG, "receiveSpecLenBytes: " + new String(recDatas));
+			LOG.E(TAG, "receiveSpecLenBytes: " + new String(recDatas));
 			if (recDatas.length != len) {
 				Log.w(TAG,
 						"received len is different from specific len, return null");
@@ -130,13 +132,13 @@ public class UDPSocketServer {
 	}
 
 	public void interrupt() {
-		Log.i(TAG, "USPSocketServer is interrupt");
+		LOG.I(TAG, "USPSocketServer is interrupt");
 		close();
 	}
 
 	public synchronized void close() {
 		if (!this.mIsClosed) {
-			Log.e(TAG, "mServerSocket is closed");
+			LOG.E(TAG, "mServerSocket is closed");
 			mServerSocket.close();
 			releaseLock();
 			this.mIsClosed = true;

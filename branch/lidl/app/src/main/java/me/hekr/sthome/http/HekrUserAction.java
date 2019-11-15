@@ -20,11 +20,13 @@ import org.json.JSONException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.HekrSDK;
 import me.hekr.sdk.utils.SpCache;
@@ -53,6 +55,9 @@ import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.http.bean.UserFileBean;
 import me.hekr.sthome.http.bean.WeatherAirBean;
 import me.hekr.sthome.http.bean.WeatherBeanResultsNow;
+import me.hekr.sthome.model.ResolveHistory;
+import me.hekr.sthome.model.modelbean.NoticeBean;
+import me.hekr.sthome.tools.LOG;
 
 /**
  * Created by Administrator on 2017/10/16.
@@ -120,7 +125,7 @@ public class HekrUserAction {
         JWT_TOKEN = SpCache.getString(SiterConstantsUtil.JWT_TOKEN, "");
         refresh_TOKEN = SpCache.getString(SiterConstantsUtil.REFRESH_TOKEN, "");
         userId = TokenToUid();
-        Log.i(TAG,"userId+++++++++++++++++++++++++++++++++++"+userId);
+        LOG.I(TAG,"userId+++++++++++++++++++++++++++++++++++"+userId);
         //判断是线上还是测试环境
     }
 
@@ -1083,6 +1088,8 @@ public class HekrUserAction {
         getHekrData(url, new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
+                LOG.D(TAG, "[RYAN] getDevices > getSuccess > " + object.toString());
+
                 List<DeviceBean> lists = JSON.parseArray(object.toString(), DeviceBean.class);
                 getDevicesListener.getDevicesSuccess(lists);
             }
@@ -1304,7 +1311,7 @@ public class HekrUserAction {
         getHekrData(url, new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
-                Log.i(TAG, "object:" + object.toString());
+                LOG.I(TAG, "object:" + object.toString());
                 getNewDevicesListener.getSuccess(JSON.parseArray(object.toString(), NewDeviceBean.class));
             }
 
@@ -1938,10 +1945,6 @@ public class HekrUserAction {
         pushTagBind(clientId, 0, pushTagBindListener);
     }
 
-
-
-
-
     /**
      * 4.5.19 绑定推送标签接口(此接口请在主线程调用)
      *
@@ -1970,7 +1973,7 @@ public class HekrUserAction {
                 platform ="FCM";
                 break;
         }
-        Log.i(TAG, phoneType + "调用绑定推送标签接口:" + clientId + "语言:" + Locale.getDefault());
+        LOG.I(TAG, phoneType + "调用绑定推送标签接口:" + clientId + "语言:" + Locale.getDefault());
         JSONObject object = new JSONObject();
         object.put("clientId", clientId);
         String dr = Locale.getDefault().getLanguage();
@@ -1984,17 +1987,39 @@ public class HekrUserAction {
         postHekrData(url, object.toJSONString(), new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
-                Log.i(TAG, finalPhoneType + "绑定推送标签接口调用成功");
+                LOG.I(TAG, finalPhoneType + "绑定推送标签接口调用成功");
                 pushTagBindListener.pushTagBindSuccess();
             }
 
             @Override
             public void getFail(int errorCode) {
-                Log.i(TAG, finalPhoneType + "绑定推送标签接口调用失败");
+                LOG.I(TAG, finalPhoneType + "绑定推送标签接口调用失败");
                 pushTagBindListener.pushTagBindFail(errorCode);
             }
         });
     }
+
+    public void unbindAllPush(final HekrUser.PushTagBindListener pushTagBindListener) {
+        CharSequence url = TextUtils.concat(Constants.UrlUtil.BASE_USER_URL, SiterConstantsUtil.UrlUtil.UNBIND_ALL_PSUH_ALIAS);
+        LOG.I(TAG, "unbindAllPush > url : " + url);
+
+        deleteHekrData(url, new GetHekrDataListener() {
+
+            @Override
+            public void getSuccess(Object object) {
+                LOG.I(TAG, "unbindAllPush > success");
+                pushTagBindListener.pushTagBindSuccess();
+            }
+
+            @Override
+            public void getFail(int errorCode) {
+                LOG.I(TAG, "unbindAllPush > failed");
+                pushTagBindListener.pushTagBindFail(errorCode);
+            }
+        });
+    }
+
+
 
     /**
      * 4.5.20 解绑华为推送别名
@@ -2024,20 +2049,20 @@ public class HekrUserAction {
                 platform ="FCM";
                 break;
         }
-        Log.i(TAG, phoneType + "调用解绑推送标签接口:" + clientId);
+        LOG.I(TAG, phoneType + "调用解绑推送标签接口:" + clientId);
         JSONObject object = new JSONObject();
         object.put("clientId", clientId);
         object.put("pushPlatform", platform);
         postHekrData(url, object.toJSONString(), new GetHekrDataListener() {
             @Override
             public void getSuccess(Object object) {
-                Log.i(TAG, "推送解绑标签接口调用成功");
+                LOG.I(TAG, "推送解绑标签接口调用成功");
                 unPushTagBindListener.unPushTagBindSuccess();
             }
 
             @Override
             public void getFail(int errorCode) {
-                Log.i(TAG, "推送解绑标签接口调用失败");
+                LOG.I(TAG, "推送解绑标签接口调用失败");
                 unPushTagBindListener.unPushTagBindFail(errorCode);
             }
         });
@@ -2312,6 +2337,79 @@ public class HekrUserAction {
         });
     }
 
+    public void getAlarmHistoryList(final  Context context,final  @NotNull String devTid, @NotNull String ctrlKey,@NotNull String productPublicKey,int page,final HekrUser.GetDeviceHistoryListener getDeviceHistoryListener){
+
+        CharSequence url = TextUtils.concat(Constants.UrlUtil.BASE_USER_URL,SiterConstantsUtil.UrlUtil.HISTORY_ALARM,"ctrlKey=",ctrlKey,"&startTime=", ResolveHistory.dateGetOneDay(),"&page=",String.valueOf(page),"&size=20");
+
+        BasicHeader header = new BasicHeader("X-Hekr-ProdPubKey",productPublicKey);
+
+        getHekrData(url.toString(), new Header[]{header}, new GetHekrDataListener() {
+            @Override
+            public void getSuccess(Object object) {
+
+                JSONObject jsonObject = JSONObject.parseObject(object.toString());
+                int pageload  = jsonObject.getIntValue("number");
+                boolean last = jsonObject.getBoolean("last");
+                int i = jsonObject.getIntValue("totalElements");
+                List<NoticeBean> list = new ArrayList<>();
+                if(i > 0) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("content");
+
+                    for (int n=0 ; n< jsonArray.size(); n ++ ) {
+                        JSONObject child = (JSONObject) jsonArray.get(n);
+                        String nid = child.getString("id");
+                        String code = child.getJSONObject("data").getString("answer_content");
+                        Long reportTime = child.getLong("reportTime");
+                        ResolveHistory resolveHistory =new ResolveHistory(context,devTid,code,nid,reportTime);
+                        resolveHistory.isTarget();
+                        list.add(resolveHistory.noticeBean);
+                    }
+                    getDeviceHistoryListener.getSuccess(list,pageload,last);
+                }else{
+                    getDeviceHistoryListener.getSuccess(list,pageload,last);
+                }
+
+            }
+
+            @Override
+            public void getFail(int errorCode) {
+                getDeviceHistoryListener.getFail(errorCode);
+            }
+        });
+    }
+
+    public void getLogoutHistory(@NotNull String devTid,@NotNull String ctrlKey, int page,final HekrUser.getLogoutHistoryListener getLogoutHistoryListener){
+        CharSequence url = TextUtils.concat(Constants.UrlUtil.BASE_USER_URL,SiterConstantsUtil.UrlUtil.HISTORY_LOGOUT,devTid,"&ctrlKey=",ctrlKey,"&type=devLogout&start=",String.valueOf(ResolveHistory.getOneMonthMills()),"&page=",String.valueOf(page),"&size=20");
+        getHekrData(url, new GetHekrDataListener() {
+            @Override
+            public void getSuccess(Object object) {
+
+                JSONObject jsonObject = JSONObject.parseObject(object.toString());
+                int pageload  = jsonObject.getIntValue("number");
+                boolean last = jsonObject.getBoolean("last");
+                int i = jsonObject.getIntValue("totalElements");
+                List<Long> list = new ArrayList<>();
+                if(i > 0) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("content");
+
+                    for (int n=0 ; n< jsonArray.size(); n ++ ) {
+                        JSONObject child = (JSONObject) jsonArray.get(n);
+                        Long time = child.getLong("time");
+                        list.add(time);
+                    }
+                    getLogoutHistoryListener.getSuccess(list,pageload,last);
+                }else{
+                    getLogoutHistoryListener.getSuccess(list,pageload,last);
+                }
+
+            }
+
+            @Override
+            public void getFail(int errorCode) {
+                getLogoutHistoryListener.getFail(errorCode);
+            }
+        });
+    }
 
     /**
      * 5.2 根据pid获取企业资讯

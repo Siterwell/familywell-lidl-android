@@ -7,12 +7,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,17 +39,8 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/9/26.
  */
-public class CxSmDetailActivity extends AppCompatActivity {
+public class CxSmDetailActivity extends AbstractDetailActivity {
     private static final String TAG = "CxSmDetailActivity";
-    private ImageView signal,quatity,deviceLogo;
-    private TextView operation,emergencyCall,showStatus;
-    private EquipmentBean device;
-    private EquipDAO ED;
-    private ImageView back_img;
-    private TextView  edt_txt,eq_name,battay_text;
-    private LinearLayout root;
-    private ECAlertDialog alertDialog;
-    private SendEquipmentData sd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,7 +131,7 @@ public class CxSmDetailActivity extends AppCompatActivity {
                                         if(!TextUtils.isEmpty(newname)){
 
                                             try {
-                                                if(newname.getBytes("GBK").length<=15){
+                                                if(newname.getBytes("UTF-8").length<=15){
                                                     if(!EmojiFilter.containsEmoji(newname)) {
                                                         alertDialog.setDismissFalse(true);
                                                         eq_name.setText(newname);
@@ -189,7 +178,7 @@ public class CxSmDetailActivity extends AppCompatActivity {
                 ecListDialog.show();
             }
         });
-        root = (LinearLayout)findViewById(R.id.root);
+        root = findViewById(R.id.root);
         //沉浸式设置支持API19
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int top = UnitTools.getStatusBarHeight(this);
@@ -203,8 +192,8 @@ public class CxSmDetailActivity extends AppCompatActivity {
         operation = (TextView) findViewById(R.id.operation);
         try {
             int ds = Integer.parseInt(device.getEquipmentDesc().substring(device.getEquipmentDesc().length()-1),16);
-            if(ds<7){
-        operation.setVisibility(View.VISIBLE);
+            if(ds<=7||ds>=14){
+                operation.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -237,6 +226,8 @@ public class CxSmDetailActivity extends AppCompatActivity {
             eq_name.setText(device.getEquipmentName());
         }
 
+        initLogHistoryDrawer();
+
         doStatusShow(device.getState());
         showBattery();
     }
@@ -254,7 +245,8 @@ public class CxSmDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void doStatusShow(String aaaa) {
+    @Override
+    protected void doStatusShow(String aaaa) {
 
         try {
             String signal1 = aaaa.substring(0,2);
@@ -418,4 +410,5 @@ public class CxSmDetailActivity extends AppCompatActivity {
             Log.i(TAG,"data err");
         }
     }
+
 }

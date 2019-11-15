@@ -2,7 +2,6 @@ package me.hekr.sthome.model.newstyle;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.model.modeladapter.OptionAdapter;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
+import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.NameSolve;
 import me.hekr.sthome.wheelwidget.view.WheelView;
 
@@ -28,9 +28,7 @@ public class CXSMALARMNewActivity extends TopbarSuperActivity {
     protected void onCreateInit() {
         try {
         initData();
-
-
-        wheelView = (WheelView)findViewById(R.id.item);
+        wheelView = findViewById(R.id.item);
         wheelView.setAdapter(new OptionAdapter(itemslist,30));
         wheelView.addChangingListener(new WheelView.OnWheelChangedListener() {
             @Override
@@ -42,11 +40,13 @@ public class CXSMALARMNewActivity extends TopbarSuperActivity {
                     case 1:
                         device.setState("00001700");//设置为测试报警
                         break;
+                    case 2:
+                        device.setState("0000AA00");//设置为测试报警
+                        break;
                     default:break;
                 }
             }
         });
-
 
         a = device.getState();
         if(a != null){
@@ -54,12 +54,14 @@ public class CXSMALARMNewActivity extends TopbarSuperActivity {
                 wheelView.setCurrentItem(0);
             }else if("00001700".equals(a)){
                 wheelView.setCurrentItem(1);
+            }else if("0000AA00".equals(a)){
+                wheelView.setCurrentItem(2);
             }
         }
         initViewGuider();
-    }catch (Exception e){
-        Log.i("ceshi","data is null");
-    }
+        }catch (Exception e){
+            LOG.I("ceshi","data is null");
+        }
     }
 
     @Override
@@ -78,8 +80,6 @@ public class CXSMALARMNewActivity extends TopbarSuperActivity {
         getTopBarView().setTopBarStatus(1, 2, name, getResources().getString(R.string.ok), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if(mcp.position==-1){
                     Intent i = new Intent(CXSMALARMNewActivity.this, ModelCellListActivity.class);
                     startActivity(i);
@@ -88,7 +88,6 @@ public class CXSMALARMNewActivity extends TopbarSuperActivity {
                     Intent i = new Intent(CXSMALARMNewActivity.this, NewGroup2Activity.class);
                     startActivity(i);
                 }
-
                 finish();
             }
         }, new View.OnClickListener() {
@@ -121,10 +120,5 @@ public class CXSMALARMNewActivity extends TopbarSuperActivity {
             device = mcp.device;
             device.setState("00001900");//默认为烟雾
         }
-
     }
-
-
-
-
 }

@@ -1,6 +1,5 @@
 package me.hekr.sthome.equipment;
 
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -10,18 +9,13 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.igexin.sdk.PushManager;
-import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.greenrobot.eventbus.EventBus;
 
-import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.R;
 import me.hekr.sthome.common.TopbarSuperActivity;
 import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.tools.ECPreferenceSettings;
-import me.hekr.sthome.tools.ECPreferences;
-import me.hekr.sthome.tools.SystemUtil;
+import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.tools.UnitTools;
 
 /**
@@ -121,13 +115,6 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
         lan_now = tools.readLanguage();
     }
 
-    private String getHuaweiToken(){
-
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
-        ECPreferenceSettings flag = ECPreferenceSettings.SETTINGS_HUAWEI_TOKEN;
-        String autoflag = sharedPreferences.getString(flag.getId(), (String) flag.getDefaultValue());
-        return autoflag;
-    }
 
     Handler handler = new Handler() {
         @Override
@@ -160,77 +147,13 @@ public class SwitchLanActivity extends TopbarSuperActivity implements View.OnCli
         message.obj = lan;
         message.what = SWITCH_SUCCESS;
         String fcmtoken = FirebaseInstanceId.getInstance().getToken();
-        if(TextUtils.isEmpty(fcmtoken)){
-
-
-            if("huawei".equals(SystemUtil.getDeviceBrand().toLowerCase()) || "honor".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-                String token = getHuaweiToken();
-                if(TextUtils.isEmpty(token)){
-
-                    handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                }else{
-
-                    JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-                    jsonObject.put("clientId",token);
-                    jsonObject.put("locale",lan);
-                    jsonObject.put("pushPlatform","HUAWEI");
-                    HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
-                        @Override
-                        public void getSuccess(Object object) {
-                            handler.sendMessageDelayed(message,1000);
-                        }
-
-                        @Override
-                        public void getFail(int errorCode) {
-                            handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                        }
-                    });
-
-                }
-            }else if("xiaomi".equals(SystemUtil.getDeviceBrand().toLowerCase())){
-                String clientid = MiPushClient.getRegId(SwitchLanActivity.this);
-                JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-                jsonObject.put("clientId",clientid);
-                jsonObject.put("locale",lan);
-                jsonObject.put("pushPlatform","XIAOMI");
-                HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
-                    @Override
-                    public void getSuccess(Object object) {
-                        handler.sendMessageDelayed(message,1000);
-                    }
-
-                    @Override
-                    public void getFail(int errorCode) {
-                        handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                    }
-                });
-            }
-            else{
-                String token = PushManager.getInstance().getClientid(this);
-                JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-                jsonObject.put("clientId",token);
-                jsonObject.put("locale",lan);
-                jsonObject.put("pushPlatform","GETUI");
-                HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
-                    @Override
-                    public void getSuccess(Object object) {
-                        handler.sendMessageDelayed(message,1000);
-                    }
-
-                    @Override
-                    public void getFail(int errorCode) {
-                        handler.sendEmptyMessageDelayed(SWITCH_FAIL,1000);
-                    }
-                });
-            }
-
-        }else{
+        if(!TextUtils.isEmpty(fcmtoken)){
             JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
 
             jsonObject.put("clientId",fcmtoken);
             jsonObject.put("locale",lan);
             jsonObject.put("pushPlatform","FCM");
-            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekr.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
+            HekrUserAction.getInstance(SwitchLanActivity.this).postHekrData("https://user-openapi.hekreu.me/user/pushTagBind", jsonObject.toString(), new HekrUserAction.GetHekrDataListener() {
                 @Override
                 public void getSuccess(Object object) {
                     handler.sendMessageDelayed(message,1000);

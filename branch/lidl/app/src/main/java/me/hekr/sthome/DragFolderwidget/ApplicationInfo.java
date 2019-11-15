@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.TextUtils;
-import android.util.FloatMath;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
@@ -144,7 +143,7 @@ public class ApplicationInfo extends ItemInfo {
             float scale = 1;
             if (length > itemWidth)
                 scale = length / text.length();
-            for (int j = (text.length() - (int) FloatMath.ceil((length - itemWidth) / scale)); paint.measureText(text, 0,
+            for (int j = (text.length() - (int) Math.ceil((length - itemWidth) / scale)); paint.measureText(text, 0,
                     text.length()) > itemWidth; --j) {
                 text = (text.subSequence(0, j).toString() + "...");
             }

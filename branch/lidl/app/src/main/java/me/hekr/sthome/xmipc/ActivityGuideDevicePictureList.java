@@ -58,7 +58,6 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
     private final int REQUEST_SELECT_DATE = 1;
     private int mHandler = -1;
 
-
     @Override
     protected void onCreateInit() {
         int devId = getIntent().getIntExtra("FUN_DEVICE_ID", 0);
@@ -344,18 +343,10 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
              finish();
              break;
          case R.id.SettingBtnInTopLayout:
-//             new DatePickerDialog(ActivityGuideDevicePictureList.this, new DatePickerDialog.OnDateSetListener() {
-//
-//                 @Override
-//                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//
-//                     calendar.set(year, monthOfYear, dayOfMonth);
-//                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                     onSearchPicture(calendar.getTime(), 0);
-//                 }
-//             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-             startActivityForResult(new Intent(this, DateSelectActivity.class),REQUEST_SELECT_DATE);
-
+             Intent intent = new Intent(this, DateSelectActivity.class);
+             intent.putExtra("FUN_DEVICE_ID", mFunDevice.getId());
+             intent.putExtra("Date",calendar);
+             startActivityForResult(intent,REQUEST_SELECT_DATE);
              break;
      }
     }
@@ -369,7 +360,9 @@ public class ActivityGuideDevicePictureList extends TopbarIpcSuperActivity imple
             int result_year = data.getExtras().getInt("year");
             int result_month = data.getExtras().getInt("month");
             int result_day   = data.getExtras().getInt("day");
-
+            mDatas.clear();
+            mFunDevice.mDatas = mDatas;
+            notifyDataSetChanged();
             calendar.set(result_year, result_month, result_day);
             onSearchPicture(calendar.getTime(), 0);
 
