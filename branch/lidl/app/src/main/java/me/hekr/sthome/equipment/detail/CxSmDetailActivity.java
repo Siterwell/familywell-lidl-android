@@ -192,9 +192,7 @@ public class CxSmDetailActivity extends AbstractDetailActivity {
         operation = (TextView) findViewById(R.id.operation);
         try {
             int ds = Integer.parseInt(device.getEquipmentDesc().substring(device.getEquipmentDesc().length()-1),16);
-            if(ds<=7||ds>=14){
-                operation.setVisibility(View.VISIBLE);
-            }
+            hideStatus(ds);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -230,7 +228,6 @@ public class CxSmDetailActivity extends AbstractDetailActivity {
 
         doStatusShow(device.getState());
 //        showBattery();
-        hideStatus();
     }
 
     private void updateName(String edit) {

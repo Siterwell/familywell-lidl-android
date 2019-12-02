@@ -36,26 +36,27 @@
             android:text="@string/config_instruction"
             android:textColor="@color/black"
             android:textSize="@dimen/content_size"
+            android:gravity="center"
             android:layout_marginBottom="12dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/how_to_config"
             android:textColor="@color/black"
-            android:textSize="@dimen/content_size"/>
+            android:textSize="@dimen/content_size"
+            android:gravity="center"/>
 
     </LinearLayout>
 
     <View
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:layout_weight="0.5" />
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="180dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="50dp"
         android:textAllCaps="false"
         android:text="@string/next"
         android:textSize="@dimen/addsys_bottom_text_size"

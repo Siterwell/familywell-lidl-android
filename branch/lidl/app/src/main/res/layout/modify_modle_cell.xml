@@ -51,8 +51,7 @@ android:layout_height="@dimen/modle_item_height"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:textColor="@color/toast_text_content"
-                android:singleLine="true"
-                android:visibility="gone"/>
+                android:singleLine="true"/>
 
         </LinearLayout>
 

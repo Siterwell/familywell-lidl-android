@@ -41,7 +41,12 @@
     </string-array>
     <string-array name="sos_signs">
         <item>@string/Help</item>
-        <item>@string/Offline</item>
+        <item>@string/Normal</item>
+    </string-array>
+    <string-array name="alarm">
+        <item>@string/cxalert7</item>
+        <item>@string/sthalert</item>
+        <item>@string/Normal</item>
     </string-array>
     <string-array name="pir_signs">
         <item>@string/Somebody_There</item>
@@ -59,8 +64,8 @@
     </string-array>
     <string-array name="cx_alert_actions">
         <item>@string/Smoke_Alarm</item>
-        <item>@string/Temperature_Alarm</item>
         <item>@string/Test_Alarm</item>
+        <item>@string/Normal</item>
     </string-array>
     <string-array name="lamp_actions">
         <item>@string/Red</item>

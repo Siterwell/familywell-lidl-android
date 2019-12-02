@@ -40,7 +40,7 @@ public class SOSNewActivity extends TopbarSuperActivity {
                         device.setState("00005500");//设置为开
                         break;
                     case 1:
-                        device.setState("00006600");//设置为关
+                        device.setState("0000AA00");//设置为关
                         break;
                     default:break;
                 }
@@ -52,7 +52,7 @@ public class SOSNewActivity extends TopbarSuperActivity {
         if(a != null){
             if("00005500".equals(a)){
                 wheelView.setCurrentItem(0);
-            }else if("00006600".equals(a)){
+            }else if("0000AA00".equals(a)){
                 wheelView.setCurrentItem(1);
             }
         }

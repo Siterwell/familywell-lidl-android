@@ -25,10 +25,17 @@ public abstract class AbstractDetailActivity extends LogDetailActivity {
     protected ECListDialog ecListDialog;
     protected ArrayList<String> itemslist = new ArrayList<>();
 
-    protected void hideStatus() {
-        signal.setVisibility(View.INVISIBLE);
-        quatity.setVisibility(View.INVISIBLE);
-        battay_text.setVisibility(View.INVISIBLE);
+    protected void hideStatus(int ds) {
+        if(ds<=7||ds>=14){
+            operation.setVisibility(View.VISIBLE);
+            signal.setVisibility(View.VISIBLE);
+            quatity.setVisibility(View.VISIBLE);
+            battay_text.setVisibility(View.VISIBLE);
+        }else {
+            signal.setVisibility(View.INVISIBLE);
+            quatity.setVisibility(View.INVISIBLE);
+            battay_text.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

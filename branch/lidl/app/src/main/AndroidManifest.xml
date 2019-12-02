@@ -2,51 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.hekr.sthome">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 这个权限用于进行获取网络状态 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 这个权限用于进行获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <!-- 这个权限用于获取wifi的获取权限 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!-- 这个权限用于进行wifi组播 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 这个权限用于获取wifi的获取权限 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 这个权限用于进行wifi组播 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入用户数据 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 写入扩展存储，向扩展卡写入数据，用于写入用户数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
-    <!--<uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />-->
-    <!-- 这些权限用于进行二维码扫描 -->
-    <!--<uses-permission android:name="android.permission.CAMERA" />-->
-    <!--<uses-permission android:name="android.permission.FLASHLIGHT" />-->
-    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
-
-    <!--<uses-feature android:name="android.hardware.camera" />-->
-    <!--<uses-feature android:name="android.hardware.camera.autofocus" />-->
-    <!-- 这个权限用于进行配网时阻止屏幕休眠 -->
-    <!--<uses-permission android:name="android.permission.WAKE_LOCK" />-->
-
-    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS" />-->
-    <!--<uses-permission android:name="android.permission.RESTART_PACKAGES" />-->
-    <!--<uses-permission android:name="android.permission.RECORD_VIDEO" />-->
-    <!--<uses-permission android:name="android.permission.RECORD_AUDIO" />-->
-
-    <!-- 如果您想获得客户端crash的报告, 需要添加这个权限 -->
-    <!--<uses-permission android:name="android.permission.READ_LOGS" />-->
-    <!--<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />-->
-    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
-    <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
 
     <application
         android:name=".MyApplication"
@@ -56,12 +23,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".model.newstyle.AlarmNewActivity"></activity>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_launcher_alpha" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <activity
             android:name="com.zbar.lib.ScanCaptureAct"
             android:label="@string/app_name"
@@ -91,14 +61,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".equipment.ConfigActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
         <activity
             android:name=".equipment.AboutActivity"
             android:label="@string/app_name"
@@ -141,7 +108,7 @@
             android:name=".main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".model.addsmodel.AddSystemActivity"
             android:screenOrientation="portrait"
@@ -153,8 +120,7 @@
         <activity
             android:name=".configuration.activity.GatewayTypeChooseActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
-        <!-- new style -->
+            android:screenOrientation="portrait" /> <!-- new style -->
         <activity
             android:name=".model.newstyle.NewGroup2Activity"
             android:screenOrientation="portrait"
@@ -165,10 +131,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".model.newstyle.ModelCellListActivity"
-            android:screenOrientation="portrait" />
-        <!-- udp -->
-
-
+            android:screenOrientation="portrait" /> <!-- udp -->
         <!-- new style details -->
         <activity
             android:name=".model.newstyle.ThcheckNewActivity"
@@ -223,8 +186,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".model.newstyle.DimmingModuleNewActivity"
-            android:screenOrientation="portrait" />
-        <!-- device detail -->
+            android:screenOrientation="portrait" /> <!-- device detail -->
         <activity
             android:name=".equipment.detail.SocketDetailActivity"
             android:screenOrientation="portrait" />
@@ -327,8 +289,8 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".xmipc.ActivityGuideDeviceCamera"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize"
+            android:label="@string/app_name" />
         <activity
             android:name=".xmipc.ActivityGuideDeviceWifiConfig"
             android:label="@string/app_name"
@@ -339,67 +301,81 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".xmipc.ActivityGuideDeviceRecordList"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize"
+            android:label="@string/app_name" />
         <activity
             android:name=".xmipc.ActivityGuideDevicePictureList"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".xmipc.ActivityGuideDeviceChangePassw"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceChangePassw"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".xmipc.ActivityGuideDeviceNormalPic"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceNormalPic"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityLocalpicvideo"
+        <activity
+            android:name=".xmipc.ActivityLocalpicvideo"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideSetingMain"
+        <activity
+            android:name=".xmipc.ActivityGuideSetingMain"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideSetingCommon"
+        <activity
+            android:name=".xmipc.ActivityGuideSetingCommon"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideSettingExpert"
+        <activity
+            android:name=".xmipc.ActivityGuideSettingExpert"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideSetingInfo"
+        <activity
+            android:name=".xmipc.ActivityGuideSetingInfo"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideDeviceSetupRecord"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceSetupRecord"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideDeviceSetupCamera"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceSetupCamera"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideDeviceSetupAlarm"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceSetupAlarm"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideDeviceSetupExpert"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceSetupExpert"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideDeviceSetupStorage"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceSetupStorage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".commonBaseView.DateSelectActivity"
+        <activity
+            android:name=".commonBaseView.DateSelectActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".xmipc.ActivityGuideDeviceRecordListNew"
+        <activity
+            android:name=".xmipc.ActivityGuideDeviceRecordListNew"
+            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize"  />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".xmipc.ActivityGuideDeviceAdd"
             android:label="@string/app_name"
@@ -409,135 +385,114 @@
             android:name=".xmipc.ActivityGuideDeviceListLan"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".xmipc.ActivityGuideDeviceBeforeWifiConfig"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
-        <!-- push service -->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPID"-->
-            <!--android:value="${GETUI_APP_ID}" />-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPKEY"-->
-            <!--android:value="${GETUI_APP_KEY}" />-->
-        <!--<meta-data-->
-            <!--android:name="PUSH_APPSECRET"-->
-            <!--android:value="${GETUI_APP_SECRET}" />-->
-
+            android:screenOrientation="portrait" /> <!-- push service -->
+        <!-- <meta-data -->
+        <!-- android:name="PUSH_APPID" -->
+        <!-- android:value="${GETUI_APP_ID}" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="PUSH_APPKEY" -->
+        <!-- android:value="${GETUI_APP_KEY}" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="PUSH_APPSECRET" -->
+        <!-- android:value="${GETUI_APP_SECRET}" /> -->
         <!-- 配置SDK核心服务 -->
-        <!--<service-->
-            <!--android:name="com.igexin.sdk.PushService"-->
-            <!--android:exported="true"-->
-            <!--android:label="NotificationCenter"-->
-            <!--android:process=":cosa">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.igexin.sdk.action.service.message" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
-
-        <!--<receiver android:name="com.igexin.sdk.PushReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
-                <!--<action android:name="com.igexin.sdk.action.refreshls" />-->
-                <!--&lt;!&ndash; 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 &ndash;&gt;-->
-                <!--<action android:name="android.intent.action.MEDIA_MOUNTED" />-->
-                <!--<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />-->
-                <!--<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-
-        <!--<activity-->
-            <!--android:name="com.igexin.sdk.PushActivity"-->
-            <!--android:excludeFromRecents="true"-->
-            <!--android:exported="false"-->
-            <!--android:process=":cosa"-->
-            <!--android:taskAffinity="com.igexin.sdk.PushActivityTask"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"/>-->
-
-        <!--<service-->
-            <!--android:name="com.igexin.download.DownloadService"-->
-            <!--android:process=":cosa" />-->
-
-        <!--<receiver android:name="com.igexin.download.DownloadReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-
-        <!--<provider-->
-            <!--android:name="com.igexin.download.DownloadProvider"-->
-            <!--android:authorities="downloads.${applicationId}"-->
-            <!--android:exported="true"-->
-            <!--android:process=":cosa" />-->
-
-        <!--<activity-->
-            <!--android:name="com.igexin.sdk.GActivity"-->
-            <!--android:excludeFromRecents="true"-->
-            <!--android:exported="true"-->
-            <!--android:process=":cosa"-->
-            <!--android:taskAffinity="com.igexin.sdk.PushActivityTask"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
-
-        <!--<service-->
-            <!--android:name=".push.GTPushService"-->
-            <!--android:exported="true"-->
-            <!--android:label="PushService"-->
-            <!--android:process=":cosa"/>-->
-
+        <!-- <service -->
+        <!-- android:name="com.igexin.sdk.PushService" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="NotificationCenter" -->
+        <!-- android:process=":cosa"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.igexin.sdk.action.service.message" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!-- <receiver android:name="com.igexin.sdk.PushReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> -->
+        <!-- <action android:name="android.intent.action.USER_PRESENT" /> -->
+        <!-- <action android:name="com.igexin.sdk.action.refreshls" /> -->
+        <!-- &lt;!&ndash; 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 &ndash;&gt; -->
+        <!-- <action android:name="android.intent.action.MEDIA_MOUNTED" /> -->
+        <!-- <action android:name="android.intent.action.ACTION_POWER_CONNECTED" /> -->
+        <!-- <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- <activity -->
+        <!-- android:name="com.igexin.sdk.PushActivity" -->
+        <!-- android:excludeFromRecents="true" -->
+        <!-- android:exported="false" -->
+        <!-- android:process=":cosa" -->
+        <!-- android:taskAffinity="com.igexin.sdk.PushActivityTask" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"/> -->
+        <!-- <service -->
+        <!-- android:name="com.igexin.download.DownloadService" -->
+        <!-- android:process=":cosa" /> -->
+        <!-- <receiver android:name="com.igexin.download.DownloadReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- <provider -->
+        <!-- android:name="com.igexin.download.DownloadProvider" -->
+        <!-- android:authorities="downloads.${applicationId}" -->
+        <!-- android:exported="true" -->
+        <!-- android:process=":cosa" /> -->
+        <!-- <activity -->
+        <!-- android:name="com.igexin.sdk.GActivity" -->
+        <!-- android:excludeFromRecents="true" -->
+        <!-- android:exported="true" -->
+        <!-- android:process=":cosa" -->
+        <!-- android:taskAffinity="com.igexin.sdk.PushActivityTask" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+        <!-- <service -->
+        <!-- android:name=".push.GTPushService" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="PushService" -->
+        <!-- android:process=":cosa"/> -->
         <!-- [START firebase_service] -->
-        <service
-            android:name=".push.MyFirebaseMessagingService">
+        <service android:name=".push.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-        <!-- [END firebase_service] -->
+        </service> <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
-        <service
-            android:name=".push.MyFirebaseInstanceIDService">
+        <service android:name=".push.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </service>
-        <!-- [END firebase_iid_service] -->
-        <service android:name=".push.MyJobService"
+        </service> <!-- [END firebase_iid_service] -->
+        <service
+            android:name=".push.MyJobService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
-
         <service
             android:name=".updateApp.UpdateService"
             android:exported="true"
-            android:label="UpdateService"/>
-        <!--<service android:name=".push.RGTIntentService" />-->
-
+            android:label="UpdateService" /> <!-- <service android:name=".push.RGTIntentService" /> -->
         <service
             android:name=".service.SiterService"
             android:enabled="true"
-            android:label="siterwell服务"
-            android:exported="true"/>
+            android:exported="true"
+            android:label="siterwell服务" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.cosa.elro.fileprovider"
-            android:grantUriPermissions="true"
             android:exported="false"
-            >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
-
-        <!-- Fetch Geolocation to address -->
+        </provider> <!-- Fetch Geolocation to address -->
         <service
             android:name=".service.FetchAddressIntentService"
-            android:exported="false"/>
+            android:exported="false" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

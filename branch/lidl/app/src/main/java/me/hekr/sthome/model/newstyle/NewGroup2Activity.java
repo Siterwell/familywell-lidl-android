@@ -332,18 +332,51 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                     startActivity(addItem);
                     finish();
                 }else if(NameSolve.SM_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.CO_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.GAS_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.THERMAL_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if (NameSolve.WT_ALARM.equals(NameSolve.getEqType(eq.getEquipmentDesc()))) {
-                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
+                    Intent addItem = new Intent(NewGroup2Activity.this, AlarmNewActivity.class);
+                    ModelConditionPojo mcp = ModelConditionPojo.getInstance();
+                    mcp.condition = "input";
+                    mcp.position = position;
+                    mcp.input = inputShow;
+                    mcp.output = outputShow;
+                    startActivity(addItem);
+                    finish();
                 }else if(NameSolve.TH_CHECK.equals(NameSolve.getEqType(eq.getEquipmentDesc()))){
-//                    Toast.makeText(NewGroup2Activity.this,getResources().getString(R.string.no_need_to_check), Toast.LENGTH_LONG).show();
-
                     Intent addItem = new Intent(NewGroup2Activity.this, ThcheckNewActivity.class);
                     ModelConditionPojo mcp = ModelConditionPojo.getInstance();
                     mcp.condition = "input";

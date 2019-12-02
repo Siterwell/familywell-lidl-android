@@ -229,8 +229,8 @@ public class THCheckDetailActivity extends AbstractDetailActivity {
     @Override
     protected void doStatusShow(String aaaa) {
         try {
-            root.setBackgroundColor(getResources().getColor(R.color.device_offine));
-            showStatus.setTextColor(getResources().getColor(R.color.device_offine));
+            root.setBackgroundColor(getResources().getColor(R.color.device_normal));
+            showStatus.setTextColor(getResources().getColor(R.color.device_normal));
             String signal1 = aaaa.substring(0,2);
             String quantity1 = aaaa.substring(2,4);
             showStatus.setText(getResources().getString(R.string.normal));

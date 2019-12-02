@@ -207,9 +207,7 @@ public class CoDetailActivity extends AbstractDetailActivity {
         silence.setVisibility(View.VISIBLE);
         try {
             int ds = Integer.parseInt(device.getEquipmentDesc().substring(device.getEquipmentDesc().length()-1),16);
-            if(ds<=7||ds>=14){
-                operation.setVisibility(View.VISIBLE);
-            }
+            hideStatus(ds);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -241,7 +239,6 @@ public class CoDetailActivity extends AbstractDetailActivity {
 
          doStatusShow(device.getState());
 //        showBattery();
-        hideStatus();
     }
     private void updateName(String edit) {
         if( !device.getEquipmentName().equals(edit)){
