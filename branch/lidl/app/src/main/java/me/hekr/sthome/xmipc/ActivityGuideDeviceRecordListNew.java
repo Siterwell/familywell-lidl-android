@@ -53,6 +53,7 @@ import com.lib.sdk.struct.H264_DVR_FINDINFO;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -476,7 +477,6 @@ private void alertToDownLoad(final int index){
         FunSupport.getInstance().requestDeviceFileList(mFunDevice, info);
 
         textView_title.setText(df.format(calendar.getTime()));
-
     }
 
 
@@ -590,7 +590,6 @@ private void alertToDownLoad(final int index){
              case R.id.btnPlay:
              case R.id.btnPlay2:
                  if(mVideoView.isPlaying()){
-
                      ccpButton_play.setCCPButtonImageResource(R.mipmap.play_auto);
                      ccpButton_play2.setCCPButtonImageResource(R.mipmap.play_auto);
                      if ( null != mVideoView ) {
@@ -881,12 +880,9 @@ private void alertToDownLoad(final int index){
 
     @Override
     public void onDeviceFileListChanged(FunDevice funDevice, H264_DVR_FILE_DATA[] datas) {
-
-
-        if (null != funDevice
-                && null != mFunDevice
-                && funDevice.getId() == mFunDevice.getId()) {
-
+        Log.i(TAG, "onDeviceFileListChanged: " + datas.length);
+        Log.i(TAG, "onDeviceFileListChanged: " + Arrays.toString(datas));
+        if (null != funDevice && null != mFunDevice && funDevice.getId() == mFunDevice.getId()) {
             if(datas.length==0){
                 hideProgressDialog();
                  if(files.size()>0){
@@ -905,37 +901,25 @@ private void alertToDownLoad(final int index){
                  }
 
             }else{
-
                 for (H264_DVR_FILE_DATA data : datas) {
                     FunFileData funFileData = new FunFileData(data, new OPCompressPic());
                     Log.i(TAG,"funFileData++++++"+funFileData.toString());
-
-
-                        float startt = (float)(DateUtil.getSecondInDay(funFileData.getBeginTimeStr())* TimerHistoryHorizonScrollView.TOTAL_PROCESS) /86400f;
-                        float endt   = (float)(DateUtil.getSecondInDay(funFileData.getEndTimeStr()) * TimerHistoryHorizonScrollView.TOTAL_PROCESS) /86400f;
-
-
-                        if("00:00:00".equals(funFileData.getEndTimeStr())){
+                    float startt = (float)(DateUtil.getSecondInDay(funFileData.getBeginTimeStr())* TimerHistoryHorizonScrollView.TOTAL_PROCESS) /86400f;
+                    float endt   = (float)(DateUtil.getSecondInDay(funFileData.getEndTimeStr()) * TimerHistoryHorizonScrollView.TOTAL_PROCESS) /86400f;
+                    if("00:00:00".equals(funFileData.getEndTimeStr())){
                             endt = (float) TimerHistoryHorizonScrollView.TOTAL_PROCESS;
-                        }
-                    if((endt-startt)<=1 || funFileData.getFileType()>1 || (endt-startt)>15 )  {
-                        continue;
                     }
-
-                             int type = funFileData.getFileType();
-                             Map<String,Object> map = new HashMap<>();
-                             map.put("start",startt);
-                             map.put("end",endt);
-                             map.put("type",type);
-                             playlist.add(map);
-                             files.add(funFileData);
-
+                    int type = funFileData.getFileType();
+                    Log.i(TAG, "onDeviceFileListChanged: "+ startt);
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("start",startt);
+                    map.put("end",endt);
+                    map.put("type",type);
+                    playlist.add(map);
+                    files.add(funFileData);
                 }
-
-
-                    hideProgressDialog();
-
-                    if(files.size()>0){
+                hideProgressDialog();
+                if(files.size()>0){
                     horizontalScrollView_video.setVisibility(View.VISIBLE);
                     currfiles = files.get(0);
                     intVideoHorizon();
@@ -943,19 +927,13 @@ private void alertToDownLoad(final int index){
                     textView_time.setVisibility(View.VISIBLE);
                     scrollView.getHistoryView().setPlayList(playlist);
                     playRecordVideoByFile(currfiles);
-                    }else{
-                        Toast.makeText(this,getResources().getString(R.string.device_camera_video_list_empty),Toast.LENGTH_LONG).show();
-                        mLayoutPlayer.setVisibility(View.GONE);
-                        textView_time.setVisibility(View.GONE);
-                        horizontalScrollView_video.setVisibility(View.GONE);
-                    }
-
-
-
+                }else{
+                    Toast.makeText(this,getResources().getString(R.string.device_camera_video_list_empty),Toast.LENGTH_LONG).show();
+                    mLayoutPlayer.setVisibility(View.GONE);
+                    textView_time.setVisibility(View.GONE);
+                    horizontalScrollView_video.setVisibility(View.GONE);
+                }
             }
-
-
-
         }
     }
 

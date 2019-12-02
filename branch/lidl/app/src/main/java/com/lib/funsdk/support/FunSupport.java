@@ -1649,7 +1649,7 @@ public class FunSupport implements IFunSDKResult {
     public boolean requestDeviceFileList(FunDevice funDevice,
                                          H264_DVR_FINDINFO info) {
         int result = FunSDK.DevFindFile(getHandler(),
-                funDevice.getDevSn(), G.ObjToBytes(info), 128,
+                funDevice.getDevSn(), G.ObjToBytes(info), 1024,
                 20000, funDevice.getId());
         Log.i("SDK_LOG", "--> DevFindFile : info = " + info.toString());
         return (result == 0);
