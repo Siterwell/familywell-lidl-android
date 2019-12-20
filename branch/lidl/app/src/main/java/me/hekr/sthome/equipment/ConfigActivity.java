@@ -70,6 +70,8 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
 
     public void setUpViews() {
         DDO = new DeviceDAO(this);
+        findViewById(R.id.hint).setOnClickListener(this);
+        findViewById(R.id.more).setOnClickListener(this);
         findViewById(R.id.btnAE).setOnClickListener(this);//go out
         findViewById(R.id.configration).setOnClickListener(this);//hardare online
         wificonfig = (SettingItem)findViewById(R.id.wificonfig);
@@ -172,8 +174,6 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
                     }
                 });
                 elc.show();
-
-
                 break;
             case R.id.configration:
                 startActivity(new Intent(ConfigActivity.this,  BeforeConfigEsptouchActivity.class));
@@ -181,6 +181,20 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
             case R.id.wifitag:
                 Intent i = new Intent(ConfigActivity.this,DeviceListActivity.class);
                 startActivity(i);
+                break;
+            case R.id.hint:
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse("https://safewith.me/tips");
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+            case R.id.more:
+                Intent intent1 = new Intent();
+                intent1.setAction("android.intent.action.VIEW");
+                Uri content_url1 = Uri.parse("https://safewith.me/product-category/laitteet");
+                intent1.setData(content_url1);
+                startActivity(intent1);
                 break;
             case R.id.about:
                 gotoAboutActivity();
@@ -201,11 +215,11 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
                 startActivity(new Intent(ConfigActivity.this,SettingGpsEnableActivity.class));
                 break;
             case R.id.fap:
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://safewith.me/base/");
-                intent.setData(content_url);
-                startActivity(intent);
+                Intent intent2 = new Intent();
+                intent2.setAction("android.intent.action.VIEW");
+                Uri content_url2 = Uri.parse("https://safewith.me/base/");
+                intent2.setData(content_url2);
+                startActivity(intent2);
                 break;
             default:
                 break;

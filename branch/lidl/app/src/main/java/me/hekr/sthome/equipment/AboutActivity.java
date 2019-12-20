@@ -99,8 +99,6 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
         yinsi       = findViewById(R.id.yinsi);
         sale        = findViewById(R.id.sale);
         app_txt     = findViewById(R.id.app_version);
-        findViewById(R.id.hint).setOnClickListener(this);
-        findViewById(R.id.more).setOnClickListener(this);
         updateAppAuto = new UpdateAppAuto(this,app_txt,true);
         version_txt = findViewById(R.id.gateway_version);
         intro_txt =   findViewById(R.id.intro);
@@ -271,20 +269,6 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                 break;
             case R.id.yinsi:
                 startActivity(new Intent(this, ServeIntroActivity.class));
-                break;
-            case R.id.hint:
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://safewith.me/tips");
-                intent.setData(content_url);
-                startActivity(intent);
-                break;
-            case R.id.more:
-                Intent intent1 = new Intent();
-                intent1.setAction("android.intent.action.VIEW");
-                Uri content_url1 = Uri.parse("https://safewith.me/product-category/laitteet");
-                intent1.setData(content_url1);
-                startActivity(intent1);
                 break;
         }
 

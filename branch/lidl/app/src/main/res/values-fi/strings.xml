@@ -539,6 +539,6 @@
     <string name="file_is_exist">Tiedosto on jo olemassa</string>
     <string name="look">Katso</string>
     <string name="success_download">Lataus onnistui</string>
-    <string name="hint">Huomiota vaativat asiat</string>
-    <string name="get_more">Lisää tietoa laitteesta</string>
+    <string name="hint">Vinkkejä</string>
+    <string name="get_more">Hanki lisää laitteita</string>
 </resources>

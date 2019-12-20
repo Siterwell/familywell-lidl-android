@@ -112,24 +112,6 @@
                     app:item_titleText="@string/gateway_version_hint" />
 
                 <me.hekr.sthome.commonBaseView.SettingItem
-                    android:id="@+id/hint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:item_accessoryType = "arrow"
-                    app:item_showDivider="true"
-                    app:item_detailText=""
-                    app:item_titleText="@string/hint" />
-
-                <me.hekr.sthome.commonBaseView.SettingItem
-                    android:id="@+id/more"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:item_accessoryType = "arrow"
-                    app:item_showDivider="true"
-                    app:item_detailText=""
-                    app:item_titleText="@string/get_more" />
-
-                <me.hekr.sthome.commonBaseView.SettingItem
                     android:id="@+id/sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
