@@ -539,4 +539,5 @@
     <string name="file_is_exist">Datei existiert bereits</string>
     <string name="look">Siehe</string>
     <string name="success_download">Herunterladen erfolgreich</string>
+    <string name="network_hz">Das Gerät unterstützt nur 2,4GHz WLAN.</string>
 </resources>
