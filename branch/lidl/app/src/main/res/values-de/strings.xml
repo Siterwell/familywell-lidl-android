@@ -541,4 +541,5 @@
     <string name="success_download">Herunterladen erfolgreich</string>
     <string name="hint">Dinge, die Aufmerksamkeit erfordern</string>
     <string name="get_more">Weitere Geräteinformationen erhalten</string>
+    <string name="network_hz">Das Gerät unterstützt nur 2,4GHz WLAN.</string>
 </resources>

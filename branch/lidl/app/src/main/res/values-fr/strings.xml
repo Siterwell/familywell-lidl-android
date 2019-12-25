@@ -541,4 +541,5 @@
     <string name="success_download">Téléchargement réussi</string>
     <string name="hint">Attention</string>
     <string name="get_more">Acquisition d informations supplémentaires</string>
+    <string name="network_hz">Le dispositif ne prend en charge que les Wi-fi de 2,4 GHz.</string>
 </resources>

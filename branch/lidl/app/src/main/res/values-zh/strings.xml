@@ -541,4 +541,5 @@
     <string name="success_download">下载成功</string>
     <string name="hint">注意事项</string>
     <string name="get_more">获取更多设备信息</string>
+    <string name="network_hz">该设备只支持2.4GHz频率的Wi-Fi</string>
 </resources>

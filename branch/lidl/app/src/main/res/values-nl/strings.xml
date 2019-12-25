@@ -541,4 +541,5 @@
    <string name="success_download">Download succesvol</string>
    <string name="hint">Zaken die aandacht nodig hebben</string>
    <string name="get_more">Meer informatie over het apparaat</string>
+   <string name="network_hz">Het apparaat ondersteunt alleen 2.4GHz Wi Fi.</string>
 </resources>

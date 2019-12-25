@@ -541,4 +541,5 @@
    <string name="success_download">Stahování úspěšně</string>
    <string name="hint">Záležitosti vyžadující pozornost</string>
    <string name="get_more">Získejte více informací o zařízení</string>
+   <string name="network_hz">Zařízení podporuje pouze 2.4GHz Wi-Fi.</string>
 </resources>
