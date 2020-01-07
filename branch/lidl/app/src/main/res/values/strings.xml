@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btnConfirmTitle">Configure</string>
-    <string name="config_instruction">Plug in your connector.
-When the green led stops flashing and lights up continuously, press and hold the button.</string>
-    <string name="how_to_config">When the blue led starts flashing, release the button.
-The connector has entered the networking mode.</string>
+    <string name="config_instruction">Plug in your connector.When the green led stops flashing and lights up continuously, press and hold the button.</string>
+    <string name="how_to_config">When the blue led starts flashing, release the button.The connector has entered the networking mode.</string>
     <string name="next">Next</string>
     <string name="retry">Retry</string>
     <string name="sure_to_logout">Are you sure you want to log out?</string>

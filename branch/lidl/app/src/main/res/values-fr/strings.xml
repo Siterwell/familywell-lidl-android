@@ -426,6 +426,7 @@
     <string name="add_localnet_ipc">Ajouter une camera</string>
     <string name="ipc_in_localnet">Liste des caméras paramétrées</string>
     <string name="guide_message_error_call">Erreur, merci de bien vouloir vérifier</string>
+    <string name="is_head_yuyin">Est - ce que vous entendez un message de périphérique \"démarrer la configuration rapide \" ou \"attendre la connexion\"</string>
     <string name="if_ok_click_next">Si cela est confirmé, cliquez sur \"étape suivante\"</string>
     <string name="some_device_kuaishan">Certains appareils clignotent légèrement et aucune invite vocale</string>
     <string name="no_support_fiveg_wifi">Pour ajouter une camera :</string>
