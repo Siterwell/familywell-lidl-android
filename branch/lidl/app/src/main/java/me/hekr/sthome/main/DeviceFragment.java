@@ -693,13 +693,21 @@ public class DeviceFragment extends Fragment {
                         }
                     }
                 }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
-                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                    equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
                     if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                         int quantity = EquipmentState.getDevBatteryLevel(equipment);
-                        if(EquipmentState.isLowBattery(quantity)){
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                        int isOffLine = Integer.parseInt(EquipmentState.getDevFirstState(equipment), 16);
+                        int num = (((byte)((0x20) & isOffLine))==0 ? 0 : 1);
+                        int sta =  ((0x1F) & isOffLine);
+                        float setting_temp = ((float) sta)+(num == 0 ? 0f : 0.5f);
+                        if(setting_temp>30.0f){
+                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
                         }else {
-                            equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                            if(EquipmentState.isLowBattery(quantity)){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                            }else {
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                            }
                         }
                     }
                 }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
@@ -1101,14 +1109,22 @@ public class DeviceFragment extends Fragment {
                             }
                         }
                     }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
-                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                        equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
                         if (EquipmentState.isEquipmentStateAvalible(equipment)) {
                             int quantity = EquipmentState.getDevBatteryLevel(equipment);
+                            int isOffLine = Integer.parseInt(EquipmentState.getDevFirstState(equipment), 16);
+                            int num = (((byte)((0x20) & isOffLine))==0 ? 0 : 1);
+                            int sta =  ((0x1F) & isOffLine);
+                            float setting_temp = ((float) sta)+(num == 0 ? 0f : 0.5f);
+                            if(setting_temp>30.0f){
+                                equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
+                            }else {
                                 if(EquipmentState.isLowBattery(quantity)){
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
                                 }else {
                                     equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
                                 }
+                            }
                         }
                     }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(equipment.getEquipmentDesc()))){  //end
                         equipment.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d21));

@@ -47,7 +47,6 @@ import me.hekr.sthome.tools.LOG;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
 import me.hekr.sthome.tools.UnitTools;
-import me.hekr.sthome.wheelwidget.view.WheelView;
 
 /**
  * Created by jishu0001 on 2016/10/9.
@@ -313,7 +312,7 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             int status_tongsuo = (((byte)((0x20) & ds3))==0?0:1);
             int xiaoshu = (((byte)((0x20) & ds))==0?0:1);
             int sta =  ((0x1F) & ds);
-
+            float setting_temp = ((float) sta)+(xiaoshu==0?0f:0.5f);
 
 
                 if (status_tongsuo != 0) {
@@ -324,61 +323,15 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
                     tongsuo_check.setChecked(false);
                 }
 
-                switch (mode2){
-                    case 0:
-                        setting_mode = 0;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong_select);
-                        bar_setting_temp.setMaxValues(15f);
-                        if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                            install_alertDialog.dismiss();
-                        }
-                        break;
-                    case 1:
-                        setting_mode = 1;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer_select);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                        bar_setting_temp.setMaxValues(30f);
-                        if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                            install_alertDialog.dismiss();
-                        }
-                        break;
-                    case 2:
-                        setting_mode = 2;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle_select);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                        bar_setting_temp.setMaxValues(30f);
-                        if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                            install_alertDialog.dismiss();
-                        }
-                        break;
-                    case 3:
-                        showStatus.setText(getResources().getString(R.string.install_mode));
-                        setting_mode = 2;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle_select);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                        bar_setting_temp.setMaxValues(30f);
-                        if(install_alertDialog==null || (install_alertDialog!=null && !install_alertDialog.isShowing())){
-                            install_alertDialog = ECAlertDialog.buildPositiveAlert(this,R.string.gs361_install_construction,null);
-                            install_alertDialog.setCancelable(true);
-                            install_alertDialog.setCanceledOnTouchOutside(false);
-                            install_alertDialog.show();
-                        }
-                        break;
 
-                }
 
-            float setting_temp = ((float) sta)+(xiaoshu==0?0f:0.5f);
             if(setting_temp>30.0f){
                 bar_setting_temp.setCurrentValues(0f);
                 bar_setting_temp.setSubCurrentValues(0f);
                 showStatus.setText(getResources().getString(R.string.offline));
                 root.setBackgroundColor(getResources().getColor(R.color.device_offine));
             }else{
+                showTimeState(mode2);
                 ED= new EquipDAO(this);
                 if(mode2==0){
                     ED.updateFangTemp(device.getEqid(), device.getDeviceid(),String.valueOf(setting_temp));
@@ -418,8 +371,6 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             }
 
 
-
-
             if(cache_setting_temp!=0&&cache_setting_xiaoshu>=0&&cahce_tongsuo>=0&&cahce_valve>=0&&cahce_window>=0
                 &&cache_mode >= 0
                     &&cache_setting_temp == sta && cache_setting_xiaoshu==xiaoshu
@@ -452,6 +403,56 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             }
         }
 
+    }
+
+    private void showTimeState(int state){
+        switch (state){
+            case 0:
+                setting_mode = 0;
+                timer_mode.setImageResource(R.drawable.ui361a_timer);
+                handle_mode.setImageResource(R.drawable.ui361a_handle);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong_select);
+                bar_setting_temp.setMaxValues(15f);
+                if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                    install_alertDialog.dismiss();
+                }
+                break;
+            case 1:
+                setting_mode = 1;
+                timer_mode.setImageResource(R.drawable.ui361a_timer_select);
+                handle_mode.setImageResource(R.drawable.ui361a_handle);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                bar_setting_temp.setMaxValues(30f);
+                if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                    install_alertDialog.dismiss();
+                }
+                break;
+            case 2:
+                setting_mode = 2;
+                timer_mode.setImageResource(R.drawable.ui361a_timer);
+                handle_mode.setImageResource(R.drawable.ui361a_handle_select);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                bar_setting_temp.setMaxValues(30f);
+                if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                    install_alertDialog.dismiss();
+                }
+                break;
+            case 3:
+                showStatus.setText(getResources().getString(R.string.install_mode));
+                setting_mode = 2;
+                timer_mode.setImageResource(R.drawable.ui361a_timer);
+                handle_mode.setImageResource(R.drawable.ui361a_handle_select);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                bar_setting_temp.setMaxValues(30f);
+                if(install_alertDialog == null || !install_alertDialog.isShowing()){
+                    install_alertDialog = ECAlertDialog.buildPositiveAlert(this,R.string.gs361_install_construction,null);
+                    install_alertDialog.setCancelable(true);
+                    install_alertDialog.setCanceledOnTouchOutside(false);
+                    install_alertDialog.show();
+                }
+                break;
+
+        }
     }
 
     public void onDestroy() {
@@ -584,7 +585,6 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
         int set_temp_shiji = set_temp;
         byte [] ds= {0x00,0x00};
 
-
         ds[0]  = (byte)((window==0?0x00:0x80)|ds[0]);
         ds[0]  = (byte)((valve==0?0x00:0x40)|ds[0]);
         ds[0]  = (byte)((set_temp_xiaoshu==0?0x00:0x20)|ds[0]);
@@ -602,180 +602,6 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
         String str2 = ByteUtil.convertByte2HexString(ds[1]);
         return ((str1+str2+"0000").toUpperCase());
     }
-
-    private String getSetTempFrom(int set_temp,int set_temp_xiaoshu){
-
-        int set_temp_shiji = set_temp+5;
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-
-
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((set_temp_xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((set_temp_shiji&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
-        cache_setting_temp = set_temp+5;
-        cache_setting_xiaoshu = (byte)(set_temp_xiaoshu==0?0x00:0x01);
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getWindowEnableFrom(int window_check){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-
-        ds[0]  = (byte)((window_check==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((sta&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
-
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getValveEnableFrom(int valve_check){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((valve_check==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((sta&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
-
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getModeFrom(int mode3){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-        float fa = (((float) sta) + (xiaoshu==0?0.0f:0.5f));
-
-
-
-
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-
-        if(fa>15f){
-            ds[0]  = (byte)(0x00|ds[0]);
-            ds[0]  = (byte)((0x0F&0x1F)|ds[0]);
-            cache_setting_temp = 15;
-            cache_setting_xiaoshu = 0;
-        }else {
-            ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-            ds[0]  = (byte)((sta&0x1F)|ds[0]);
-            cache_setting_temp = sta;
-            cache_setting_xiaoshu = xiaoshu;
-        }
-        cache_mode = mode3;
-
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode3&0x03)|ds[1]);
-
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getTongsuoFrom(int tongsuo){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((sta&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
-
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private class NumberAdapter extends WheelView.WheelArrayAdapter<String> {
-
-        public NumberAdapter(ArrayList<String> items, int lengh) {
-            super(items,lengh);
-        }
-
-    }
-
 
     Handler handler = new Handler() {
         @Override

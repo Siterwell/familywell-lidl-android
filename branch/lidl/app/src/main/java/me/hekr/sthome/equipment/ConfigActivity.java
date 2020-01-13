@@ -217,7 +217,7 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
             case R.id.fap:
                 Intent intent2 = new Intent();
                 intent2.setAction("android.intent.action.VIEW");
-                Uri content_url2 = Uri.parse("https://safewith.me/base/");
+                Uri content_url2 = Uri.parse("https://safewith.me/tips/");
                 intent2.setData(content_url2);
                 startActivity(intent2);
                 break;

@@ -34,7 +34,7 @@ import me.hekr.sthome.equipment.detail.SmDetailActivity;
 import me.hekr.sthome.equipment.detail.SocketDetailActivity;
 import me.hekr.sthome.equipment.detail.SosDetailActivity;
 import me.hekr.sthome.equipment.detail.THCheckDetailActivity;
-import me.hekr.sthome.equipment.detail.TempControlDetailActivity;
+import me.hekr.sthome.equipment.detail.TempControlDetail2Activity;
 import me.hekr.sthome.equipment.detail.ThermalDetailActivity;
 import me.hekr.sthome.equipment.detail.ValveDetailActivity;
 import me.hekr.sthome.equipment.detail.WaterDetailActivity;
@@ -471,13 +471,21 @@ public class LayoutDeviceList extends FrameLayout implements EquipmentRecyclerAd
                     }
                 }
             }else if(NameSolve.TEMP_CONTROL.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
-                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
                 if (list.get(i).getState() != null && list.get(i).getState().length() == 8) {
                     int quantity = Integer.parseInt(list.get(i).getState().substring(2, 4),16);
-                    if(quantity <= 15){
-                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                    int isOffLine = Integer.parseInt(list.get(i).getState().substring(4, 6),16);
+                    int num = (((byte)((0x20) & isOffLine))==0 ? 0 : 1);
+                    int sta =  ((0x1F) & isOffLine);
+                    float setting_temp = ((float) sta)+(num == 0 ? 0f : 0.5f);
+                    if(setting_temp>30.0f){
+                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.d14));
                     }else {
-                        list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                        if(quantity <= 15){
+                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.y14));
+                        }else {
+                            list.get(i).setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.g14));
+                        }
                     }
                 }
             }else if(NameSolve.DIMMING_MODULE.equals(NameSolve.getEqType(list.get(i).getEquipmentDesc()))){  //end
@@ -561,7 +569,7 @@ public class LayoutDeviceList extends FrameLayout implements EquipmentRecyclerAd
         }else if(NameSolve.TWO_SOCKET.equals(type)) {  //door guard
             detail = new Intent(activity, Channel2SocketDetailActivity.class);
         }else if(NameSolve.TEMP_CONTROL.equals(type)) {  //door guard
-            detail = new Intent(activity, TempControlDetailActivity.class);
+            detail = new Intent(activity, TempControlDetail2Activity.class);
         }else if(NameSolve.DIMMING_MODULE.equals(type)) {  //door guard
             detail = new Intent(activity, DimmingModuleDetailActivity.class);
         }
