@@ -15,7 +15,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.AddDeviceActivity;
 import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.ColorArcProgressBar;
@@ -42,9 +45,11 @@ import me.hekr.sthome.event.ThcheckEvent;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.tools.ByteUtil;
+import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.EmojiFilter;
 import me.hekr.sthome.tools.SendCommand;
 import me.hekr.sthome.tools.SendEquipmentData;
+import me.hekr.sthome.tools.SiterSDK;
 import me.hekr.sthome.tools.UnitTools;
 import me.hekr.sthome.wheelwidget.view.WheelView;
 
@@ -67,12 +72,6 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
     private ColorArcProgressBar bar_setting_temp;
     private CheckBox window_check,valve_check,tongsuo_check;
 
-    private int cache_setting_temp;
-    private int cache_setting_xiaoshu;
-    private int cache_mode = -1;
-    private int cahce_tongsuo = -1;
-    private int cahce_window = -1;
-    private int cahce_valve = -1;
     private int count_s;
     private boolean flag_set = false;
     private int setting_mode = -1;
@@ -281,6 +280,7 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
 
     private void doStatusShow(String aaaa) {
         try {
+
             String signal1 = aaaa.substring(0,2);
             String quantity1 = aaaa.substring(2,4);
             String status1 = aaaa.substring(4,6);
@@ -295,7 +295,7 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             quatity.setImageResource(ShowBascInfor.choseQPic(qqqq));
             battay_text.setText(ShowBascInfor.choseLNum(qqqq));
             if(signal1 != null){
-               byte d = (byte)Integer.parseInt(signal1,16);
+                byte d = (byte)Integer.parseInt(signal1,16);
                 signal.setImageResource(ShowBascInfor.choseSPic(ByteUtil.convertByte2HexString((byte)(d&0x07))));
             }
 
@@ -314,21 +314,68 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             int sta =  ((0x1F) & ds);
             float setting_temp = ((float) sta)+(xiaoshu==0?0f:0.5f);
 
-                if (status_tongsuo != 0) {
-                    tongsuo_status.setImageResource(R.drawable.ui361a_suo_select);
-                    tongsuo_check.setChecked(true);
-                } else {
-                    tongsuo_status.setImageResource(R.drawable.ui361a_suo_disable);
-                    tongsuo_check.setChecked(false);
-                }
 
-            if(setting_temp>30.0f){
+            if (status_tongsuo != 0) {
+                tongsuo_status.setImageResource(R.drawable.ui361a_suo_select);
+                tongsuo_check.setChecked(true);
+            } else {
+                tongsuo_status.setImageResource(R.drawable.ui361a_suo_disable);
+                tongsuo_check.setChecked(false);
+            }
+
+            switch (mode2){
+                case 0:
+                    setting_mode = 0;
+                    timer_mode.setImageResource(R.drawable.ui361a_timer);
+                    handle_mode.setImageResource(R.drawable.ui361a_handle);
+                    fangdong_mode.setImageResource(R.drawable.ui361a_fangdong_select);
+                    bar_setting_temp.setMaxValues(15f);
+                    if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                        install_alertDialog.dismiss();
+                    }
+                    break;
+                case 1:
+                    setting_mode = 1;
+                    timer_mode.setImageResource(R.drawable.ui361a_timer_select);
+                    handle_mode.setImageResource(R.drawable.ui361a_handle);
+                    fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                    bar_setting_temp.setMaxValues(30f);
+                    if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                        install_alertDialog.dismiss();
+                    }
+                    break;
+                case 2:
+                    setting_mode = 2;
+                    timer_mode.setImageResource(R.drawable.ui361a_timer);
+                    handle_mode.setImageResource(R.drawable.ui361a_handle_select);
+                    fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                    bar_setting_temp.setMaxValues(30f);
+                    if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                        install_alertDialog.dismiss();
+                    }
+                    break;
+                case 3:
+                    showStatus.setText(getResources().getString(R.string.install_mode));
+                    setting_mode = 2;
+                    timer_mode.setImageResource(R.drawable.ui361a_timer);
+                    handle_mode.setImageResource(R.drawable.ui361a_handle_select);
+                    fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                    bar_setting_temp.setMaxValues(30f);
+                    if((install_alertDialog == null || !install_alertDialog.isShowing()) && setting_temp <= 30.0f){
+                        install_alertDialog = ECAlertDialog.buildPositiveAlert(this,R.string.gs361_install_construction,null);
+                        install_alertDialog.setCancelable(true);
+                        install_alertDialog.setCanceledOnTouchOutside(false);
+                        install_alertDialog.show();
+                    }
+                    break;
+            }
+
+            if(setting_temp > 30.0f){
                 bar_setting_temp.setCurrentValues(0f);
                 bar_setting_temp.setSubCurrentValues(0f);
                 showStatus.setText(getResources().getString(R.string.offline));
                 root.setBackgroundColor(getResources().getColor(R.color.device_offine));
             }else{
-                showTimeState(mode2);
                 ED= new EquipDAO(this);
                 if(mode2==0){
                     ED.updateFangTemp(device.getEqid(), device.getDeviceid(),String.valueOf(setting_temp));
@@ -363,24 +410,29 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
                     valve_status.setImageResource(R.drawable.ui361a_famen_disable);
                     valve_check.setChecked(false);
                 }
-            }
 
-            if(cache_setting_temp!=0&&cache_setting_xiaoshu>=0&&cahce_tongsuo>=0&&cahce_valve>=0&&cahce_window>=0
-                &&cache_mode >= 0
-                    &&cache_setting_temp == sta && cache_setting_xiaoshu==xiaoshu
-                    && cache_mode == mode2
-                    && cahce_tongsuo == status_tongsuo
-                    && cahce_valve == shineng_valve2
-                    && cahce_window == shineng_window2){
-               handler.sendEmptyMessage(1);
 
             }
-            cache_setting_xiaoshu = -1;
-            cache_setting_temp = 0;
-            cahce_tongsuo = -1;
-            cache_mode = -1;
-            cahce_window = -1;
-            cahce_valve = -1;
+
+
+
+
+//            if(cache_setting_temp!=0&&cache_setting_xiaoshu>=0&&cahce_tongsuo>=0&&cahce_valve>=0&&cahce_window>=0
+//                &&cache_mode >= 0
+//                    &&cache_setting_temp == sta && cache_setting_xiaoshu==xiaoshu
+//                    && cache_mode == mode2
+//                    && cahce_tongsuo == status_tongsuo
+//                    && cahce_valve == shineng_valve2
+//                    && cahce_window == shineng_window2){
+//               handler.sendEmptyMessage(1);
+//
+//            }
+//            cache_setting_xiaoshu = -1;
+//            cache_setting_temp = 0;
+//            cahce_tongsuo = -1;
+//            cache_mode = -1;
+//            cahce_window = -1;
+//            cahce_valve = -1;
 
         }catch (Exception e){
             showStatus.setText(getResources().getString(R.string.offline));
@@ -397,56 +449,6 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             }
         }
 
-    }
-
-    private void showTimeState(int state){
-        switch (state){
-            case 0:
-                setting_mode = 0;
-                timer_mode.setImageResource(R.drawable.ui361a_timer);
-                handle_mode.setImageResource(R.drawable.ui361a_handle);
-                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong_select);
-                bar_setting_temp.setMaxValues(15f);
-                if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                    install_alertDialog.dismiss();
-                }
-                break;
-            case 1:
-                setting_mode = 1;
-                timer_mode.setImageResource(R.drawable.ui361a_timer_select);
-                handle_mode.setImageResource(R.drawable.ui361a_handle);
-                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                bar_setting_temp.setMaxValues(30f);
-                if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                    install_alertDialog.dismiss();
-                }
-                break;
-            case 2:
-                setting_mode = 2;
-                timer_mode.setImageResource(R.drawable.ui361a_timer);
-                handle_mode.setImageResource(R.drawable.ui361a_handle_select);
-                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                bar_setting_temp.setMaxValues(30f);
-                if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                    install_alertDialog.dismiss();
-                }
-                break;
-            case 3:
-                showStatus.setText(getResources().getString(R.string.install_mode));
-                setting_mode = 2;
-                timer_mode.setImageResource(R.drawable.ui361a_timer);
-                handle_mode.setImageResource(R.drawable.ui361a_handle_select);
-                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                bar_setting_temp.setMaxValues(30f);
-                if(install_alertDialog==null || (install_alertDialog!=null && !install_alertDialog.isShowing())){
-                    install_alertDialog = ECAlertDialog.buildPositiveAlert(this,R.string.gs361_install_construction,null);
-                    install_alertDialog.setCancelable(true);
-                    install_alertDialog.setCanceledOnTouchOutside(false);
-                    install_alertDialog.show();
-                }
-                break;
-
-        }
     }
 
     public void onDestroy() {
@@ -473,7 +475,9 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             finish();
         }else if(event.getEvent()==SendCommand.EQUIPMENT_CONTROL){
             SendCommand.clearCommnad();
-            Toast.makeText(TempControlDetail2Activity.this,getResources().getString(R.string.data_syncing),Toast.LENGTH_SHORT).show();
+            updateDeviceStatus();
+            handler.sendEmptyMessage(1);
+            //Toast.makeText(TempControlDetail2Activity.this,getResources().getString(R.string.data_syncing),Toast.LENGTH_SHORT).show();
         }
 
         if(event.getRefreshevent()==5){
@@ -510,7 +514,7 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
         switch (view.getId()){
             case R.id.timer_mode:
                 if(setting_mode==1){
-                   Intent intent = new Intent(this,TempControlTimerListActivity.class);
+                    Intent intent = new Intent(this,TempControlTimerListActivity.class);
                     intent.putExtra("eqid",device.getEqid());
                     startActivity(intent);
                 }else {
@@ -579,7 +583,6 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
         int set_temp_shiji = set_temp;
         byte [] ds= {0x00,0x00};
 
-
         ds[0]  = (byte)((window==0?0x00:0x80)|ds[0]);
         ds[0]  = (byte)((valve==0?0x00:0x40)|ds[0]);
         ds[0]  = (byte)((set_temp_xiaoshu==0?0x00:0x20)|ds[0]);
@@ -587,188 +590,10 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
 
         ds[1]  = (byte)((suo==0?0x00:0x04)|ds[1]);
         ds[1]  = (byte)((mode&0x03)|ds[1]);
-        cache_setting_temp = set_temp;
-        cache_setting_xiaoshu = (byte)(set_temp_xiaoshu==0?0x00:0x01);
-        cache_mode = mode;
-        cahce_window = window;
-        cahce_tongsuo = suo;
-        cahce_valve = valve;
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getSetTempFrom(int set_temp,int set_temp_xiaoshu){
-
-        int set_temp_shiji = set_temp+5;
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-
-
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((set_temp_xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((set_temp_shiji&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
-        cache_setting_temp = set_temp+5;
-        cache_setting_xiaoshu = (byte)(set_temp_xiaoshu==0?0x00:0x01);
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getWindowEnableFrom(int window_check){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-
-        ds[0]  = (byte)((window_check==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((sta&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
 
         String str1 = ByteUtil.convertByte2HexString(ds[0]);
         String str2 = ByteUtil.convertByte2HexString(ds[1]);
         return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getValveEnableFrom(int valve_check){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((valve_check==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((sta&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
-
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getModeFrom(int mode3){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-        float fa = (((float) sta) + (xiaoshu==0?0.0f:0.5f));
-
-
-
-
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-
-        if(fa>15f){
-            ds[0]  = (byte)(0x00|ds[0]);
-            ds[0]  = (byte)((0x0F&0x1F)|ds[0]);
-            cache_setting_temp = 15;
-            cache_setting_xiaoshu = 0;
-        }else {
-            ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-            ds[0]  = (byte)((sta&0x1F)|ds[0]);
-            cache_setting_temp = sta;
-            cache_setting_xiaoshu = xiaoshu;
-        }
-        cache_mode = mode3;
-
-
-        ds[1]  = (byte)((status_tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode3&0x03)|ds[1]);
-
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private String getTongsuoFrom(int tongsuo){
-
-        byte [] ds= {0x00,0x00};
-        String status1 = device.getState().substring(4,6);
-        String status2 = device.getState().substring(6,8);
-        String status3 = device.getState().substring(0,2);
-        byte d = (byte)Integer.parseInt(status1,16);
-        byte ds2 = (byte)Integer.parseInt(status2,16);
-        byte ds3 = (byte)Integer.parseInt(status3,16);
-
-        byte enable_window2 = (byte)((0x80) & ds3);
-        byte enable_valve2 = (byte)((0x40) & ds3);
-        byte status_tongsuo = (byte)((0x20) & ds3);
-        int mode2 = (int)((0x03) & (ds2));
-        byte xiaoshu = (byte)((0x20) & d);
-        int sta =  ((0x1F) & d);
-
-        ds[0]  = (byte)((enable_window2==0?0x00:0x80)|ds[0]);
-        ds[0]  = (byte)((enable_valve2==0?0x00:0x40)|ds[0]);
-        ds[0]  = (byte)((xiaoshu==0?0x00:0x20)|ds[0]);
-        ds[0]  = (byte)((sta&0x1F)|ds[0]);
-
-        ds[1]  = (byte)((tongsuo==0?0x00:0x04)|ds[1]);
-        ds[1]  = (byte)((mode2&0x03)|ds[1]);
-
-        String str1 = ByteUtil.convertByte2HexString(ds[0]);
-        String str2 = ByteUtil.convertByte2HexString(ds[1]);
-        return ((str1+str2+"0000").toUpperCase());
-    }
-
-    private class NumberAdapter extends WheelView.WheelArrayAdapter<String> {
-
-        public NumberAdapter(ArrayList<String> items, int lengh) {
-            super(items,lengh);
-        }
-
     }
 
 
@@ -782,9 +607,8 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
                     if(progressDialog!=null && progressDialog.isShowing()){
                         progressDialog.dismiss();
                         progressDialog =null;
+                        Toast.makeText(TempControlDetail2Activity.this,getResources().getString(R.string.data_syncing),Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(TempControlDetail2Activity.this,getResources().getString(R.string.success_set),Toast.LENGTH_SHORT).show();
-
                     break;
                 case 2:
                     flag_set = false;
@@ -804,14 +628,12 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
     class UpdateCommandTask extends TimerTask {
         @Override
         public void run() {
-
-
             if(flag_set) {
                 android.util.Log.i(TAG,"设置命令超时计数:"+count_s);
                 count_s ++;
             }
 
-            if(count_s >= 25){
+            if(count_s >= 5){
                 count_s = 0;
 
                 handler.sendEmptyMessage(2);
@@ -820,5 +642,40 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
         }
     }
 
+    private void updateDeviceStatus(){
+        try {
+            float da = bar_setting_temp.getCurrentValues();
+            int settemtp = (int)Math.floor(da);
+            int settemtpxiaoshu = (String.valueOf(da).contains(".5")?1:0);
+            int valve = (valve_check.isChecked()?1:0);
+            int window = (window_check.isChecked()?1:0);
+            int tongsuo = (tongsuo_check.isChecked()?1:0);
+            String status = device.getState();
+            Log.i(TAG,"修改前:"+status);
+            byte[]ds = ByteUtil.hexStr2Bytes(status);
+            ds[0]  = (byte)(ds[0]&0x7F|(window==0?0x00:0x80));
+            ds[0]  = (byte)(ds[0]&0xBF|(valve==0?0x00:0x40));
+            ds[0]  = (byte)(ds[0]&0xDF|(tongsuo==0?0x00:0x20));
+            ds[2]  = (byte)(ds[2]&0xDF|(settemtpxiaoshu==0?0x00:0x20));
+            ds[2]  = (byte)(ds[2]&0xE0|(settemtp&0x1F));
+            ds[3]  = (byte)(ds[3]&0xFC|(setting_mode&0x03));
+            String str1 = ByteUtil.convertByte2HexString(ds[0]);
+            String str2 = ByteUtil.convertByte2HexString(ds[1]);
+            String str3 = ByteUtil.convertByte2HexString(ds[2]);
+            String str4 = ByteUtil.convertByte2HexString(ds[3]);
+            device.setState(str1+str2+str3+str4);
+            ED = new EquipDAO(this);
+            EquipmentBean applicationInfo = new EquipmentBean();
+            applicationInfo.setDeviceid(device.getDeviceid());
+            applicationInfo.setEqid(device.getEqid());
+            applicationInfo.setEquipmentDesc(device.getEquipmentDesc());
+            applicationInfo.setState(str1+str2+str3+str4);
+            Log.i(TAG,"修改后:"+str1+str2+str3+str4);
+            ED.update(applicationInfo);
+        }catch (Exception e){
+
+        }
+
+    }
 
 }
