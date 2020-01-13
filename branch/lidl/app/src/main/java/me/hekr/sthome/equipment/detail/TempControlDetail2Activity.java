@@ -312,8 +312,7 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             int status_tongsuo = (((byte)((0x20) & ds3))==0?0:1);
             int xiaoshu = (((byte)((0x20) & ds))==0?0:1);
             int sta =  ((0x1F) & ds);
-
-
+            float setting_temp = ((float) sta)+(xiaoshu==0?0f:0.5f);
 
                 if (status_tongsuo != 0) {
                     tongsuo_status.setImageResource(R.drawable.ui361a_suo_select);
@@ -323,61 +322,13 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
                     tongsuo_check.setChecked(false);
                 }
 
-                switch (mode2){
-                    case 0:
-                        setting_mode = 0;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong_select);
-                        bar_setting_temp.setMaxValues(15f);
-                        if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                            install_alertDialog.dismiss();
-                        }
-                        break;
-                    case 1:
-                        setting_mode = 1;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer_select);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                        bar_setting_temp.setMaxValues(30f);
-                        if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                            install_alertDialog.dismiss();
-                        }
-                        break;
-                    case 2:
-                        setting_mode = 2;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle_select);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                        bar_setting_temp.setMaxValues(30f);
-                        if(install_alertDialog!=null && install_alertDialog.isShowing()){
-                            install_alertDialog.dismiss();
-                        }
-                        break;
-                    case 3:
-                        showStatus.setText(getResources().getString(R.string.install_mode));
-                        setting_mode = 2;
-                        timer_mode.setImageResource(R.drawable.ui361a_timer);
-                        handle_mode.setImageResource(R.drawable.ui361a_handle_select);
-                        fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
-                        bar_setting_temp.setMaxValues(30f);
-                        if(install_alertDialog==null || (install_alertDialog!=null && !install_alertDialog.isShowing())){
-                            install_alertDialog = ECAlertDialog.buildPositiveAlert(this,R.string.gs361_install_construction,null);
-                            install_alertDialog.setCancelable(true);
-                            install_alertDialog.setCanceledOnTouchOutside(false);
-                            install_alertDialog.show();
-                        }
-                        break;
-
-                }
-
-            float setting_temp = ((float) sta)+(xiaoshu==0?0f:0.5f);
             if(setting_temp>30.0f){
                 bar_setting_temp.setCurrentValues(0f);
                 bar_setting_temp.setSubCurrentValues(0f);
                 showStatus.setText(getResources().getString(R.string.offline));
                 root.setBackgroundColor(getResources().getColor(R.color.device_offine));
             }else{
+                showTimeState(mode2);
                 ED= new EquipDAO(this);
                 if(mode2==0){
                     ED.updateFangTemp(device.getEqid(), device.getDeviceid(),String.valueOf(setting_temp));
@@ -412,12 +363,7 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
                     valve_status.setImageResource(R.drawable.ui361a_famen_disable);
                     valve_check.setChecked(false);
                 }
-
-
             }
-
-
-
 
             if(cache_setting_temp!=0&&cache_setting_xiaoshu>=0&&cahce_tongsuo>=0&&cahce_valve>=0&&cahce_window>=0
                 &&cache_mode >= 0
@@ -451,6 +397,56 @@ public class TempControlDetail2Activity extends AppCompatActivity implements OnC
             }
         }
 
+    }
+
+    private void showTimeState(int state){
+        switch (state){
+            case 0:
+                setting_mode = 0;
+                timer_mode.setImageResource(R.drawable.ui361a_timer);
+                handle_mode.setImageResource(R.drawable.ui361a_handle);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong_select);
+                bar_setting_temp.setMaxValues(15f);
+                if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                    install_alertDialog.dismiss();
+                }
+                break;
+            case 1:
+                setting_mode = 1;
+                timer_mode.setImageResource(R.drawable.ui361a_timer_select);
+                handle_mode.setImageResource(R.drawable.ui361a_handle);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                bar_setting_temp.setMaxValues(30f);
+                if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                    install_alertDialog.dismiss();
+                }
+                break;
+            case 2:
+                setting_mode = 2;
+                timer_mode.setImageResource(R.drawable.ui361a_timer);
+                handle_mode.setImageResource(R.drawable.ui361a_handle_select);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                bar_setting_temp.setMaxValues(30f);
+                if(install_alertDialog!=null && install_alertDialog.isShowing()){
+                    install_alertDialog.dismiss();
+                }
+                break;
+            case 3:
+                showStatus.setText(getResources().getString(R.string.install_mode));
+                setting_mode = 2;
+                timer_mode.setImageResource(R.drawable.ui361a_timer);
+                handle_mode.setImageResource(R.drawable.ui361a_handle_select);
+                fangdong_mode.setImageResource(R.drawable.ui361a_fangdong);
+                bar_setting_temp.setMaxValues(30f);
+                if(install_alertDialog==null || (install_alertDialog!=null && !install_alertDialog.isShowing())){
+                    install_alertDialog = ECAlertDialog.buildPositiveAlert(this,R.string.gs361_install_construction,null);
+                    install_alertDialog.setCancelable(true);
+                    install_alertDialog.setCanceledOnTouchOutside(false);
+                    install_alertDialog.show();
+                }
+                break;
+
+        }
     }
 
     public void onDestroy() {
