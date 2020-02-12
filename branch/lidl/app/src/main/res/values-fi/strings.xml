@@ -71,7 +71,7 @@
     <string name="my_home">Etusivu</string>
     <string name="system_scene">Teemat</string>
     <string name="scene_list">Säännöt</string>
-    <string name="choose_color">Tukiaseman väri</string>
+    <string name="choose_color">Tukiaseman valon väri</string>
     <string name="edit">Muokkaa</string>
     <string name="get_max_scene_group">Sääntöjen enimmäismäärä on saavutettu</string>
     <string name="equipment_list">Laitteet</string>
