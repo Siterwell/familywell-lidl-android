@@ -498,9 +498,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void tcpGetDomain(){
 
-        String domain = AccountUtil.getDomain();
-        LOG.I(TAG,"设置本地domain:"+domain);
-        Constants.setOnlineSite(domain);
+        Constants.setOnlineSite("hekreu.me");
 
         Observable.create(new ObservableOnSubscribe<String>() {
 
