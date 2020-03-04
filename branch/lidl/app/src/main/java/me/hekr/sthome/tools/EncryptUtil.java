@@ -21,9 +21,13 @@ public class EncryptUtil {
         if (text == null) {
             return "";
         }
-        byte[] TextByte = text.getBytes(StandardCharsets.UTF_8);
-        if (TextByte != null) {
-            return encoder.encodeToString(TextByte);
+        try {
+            byte[] TextByte = text.getBytes(StandardCharsets.UTF_8);
+            if (TextByte != null) {
+                return encoder.encodeToString(TextByte);
+            }
+        } catch (IllegalArgumentException e) {
+            return "";
         }
         return "";
     }
@@ -32,10 +36,13 @@ public class EncryptUtil {
         if (text == null) {
             return "";
         }
-        byte[] TextByte = decoder.decode(text);
-
-        if (TextByte != null) {
-            return new String(TextByte, StandardCharsets.UTF_8);
+        try {
+            byte[] TextByte = decoder.decode(text);
+            if (TextByte != null) {
+                return new String(TextByte, StandardCharsets.UTF_8);
+            }
+        } catch (IllegalArgumentException e) {
+            return "";
         }
         return "";
     }
