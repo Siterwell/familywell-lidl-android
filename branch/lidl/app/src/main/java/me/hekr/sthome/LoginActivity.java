@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -238,6 +239,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             UserBean userBean = new UserBean(phone, pwd, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
                             HekrUserAction.getInstance(LoginActivity.this).setUserCache(userBean);
                             HekrUserAction.getInstance(LoginActivity.this).getProfile(new HekrUser.GetProfileListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.O)
                                 @Override
                                 public void getProfileSuccess(Object object) {
                                     JSONObject d = JSON.parseObject(object.toString());
