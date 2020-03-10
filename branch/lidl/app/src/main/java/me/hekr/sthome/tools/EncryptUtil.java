@@ -1,30 +1,23 @@
 package me.hekr.sthome.tools;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import android.util.Base64;
 
 /**
  * Created by ryanhsueh on 2018/12/11
  */
-@RequiresApi(api = Build.VERSION_CODES.O)
-public class EncryptUtil {
 
-    private final static Base64.Encoder encoder = Base64.getEncoder();
-    private final static Base64.Decoder decoder = Base64.getDecoder();
+public class EncryptUtil {
 
     public static String encrypt(final String text) {
         if (text == null) {
             return "";
         }
-        try{
-            byte[] TextByte = text.getBytes(StandardCharsets.UTF_8);
+        try {
+            byte[] TextByte = text.getBytes();
             if (TextByte != null) {
-                return encoder.encodeToString(TextByte);
+                return Base64.encodeToString(TextByte, Base64.DEFAULT);
             }
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return "";
         }
         return "";
@@ -34,14 +27,15 @@ public class EncryptUtil {
         if (text == null) {
             return "";
         }
-        try{
-            byte[] TextByte = decoder.decode(text);
+        try {
+            byte[] TextByte = Base64.decode(text, Base64.DEFAULT);
             if (TextByte != null) {
-                return new String(TextByte, StandardCharsets.UTF_8);
+                return new String(TextByte);
             }
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return "";
         }
         return "";
     }
+
 }
