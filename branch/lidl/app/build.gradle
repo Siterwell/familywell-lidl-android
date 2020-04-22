@@ -27,8 +27,8 @@ android {
         applicationId "com.cosa.base"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 2210
-        versionName "2.210"
+        versionCode 2220
+        versionName "2.220"
 
         manifestPlaceholders = [
                 GETUI_APP_ID    : "QdrGH5nq6m6BDx4ATwKJF9",
