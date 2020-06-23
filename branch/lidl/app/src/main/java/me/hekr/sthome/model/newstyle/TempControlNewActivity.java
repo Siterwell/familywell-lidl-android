@@ -17,7 +17,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
  * Created by TracyHenry on 2018/8/31.
  */
 
-public class TempControlNewActivity extends TopbarSuperActivity {
+public class TempControlNewActivity extends SceneBaseActivity {
     private EquipmentBean device;
     private ModelConditionPojo mcp = ModelConditionPojo.getInstance();
     private ArrayList<String> set_xiaoshu = new ArrayList<>();

@@ -18,7 +18,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
  * Created by ST-020111 on 2017/7/6.
  */
 
-public class DimmingModuleNewActivity extends TopbarSuperActivity {
+public class DimmingModuleNewActivity extends SceneBaseActivity {
 
     private EquipmentBean device;
     private ModelConditionPojo mcp = ModelConditionPojo.getInstance();

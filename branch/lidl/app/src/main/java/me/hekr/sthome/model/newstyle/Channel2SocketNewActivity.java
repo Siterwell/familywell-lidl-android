@@ -17,7 +17,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
  * Created by ST-020111 on 2017/7/6.
  */
 
-public class Channel2SocketNewActivity extends TopbarSuperActivity {
+public class Channel2SocketNewActivity extends SceneBaseActivity {
 
     private EquipmentBean device;
     private ModelConditionPojo mcp = ModelConditionPojo.getInstance();

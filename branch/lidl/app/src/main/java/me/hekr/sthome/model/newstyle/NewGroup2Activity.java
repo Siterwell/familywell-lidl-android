@@ -52,7 +52,7 @@ import me.hekr.sthome.tools.UnitTools;
 /**
  * Created by jishu0001 on 2016/10/18.
  */
-public class NewGroup2Activity extends TopbarSuperActivity {
+public class NewGroup2Activity extends SceneBaseActivity {
     private static final  int GETBACK_SUCCESS = 1;
     private static final int GETBACK_FAILED = 2;
     private MyInforHandler myInforHandler;
@@ -988,6 +988,7 @@ public class NewGroup2Activity extends TopbarSuperActivity {
                 }
                 inCode += (  ei1 + eq.getState());
             }else{
+                if("TIMER".equals(eq.getEquipmentDesc()))
                 settime4 = eq.getState();
             }
         }
