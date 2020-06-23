@@ -524,7 +524,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.cosa.elro.fileprovider"
+            android:authorities="com.cosa.silvercrest.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false"
             >
