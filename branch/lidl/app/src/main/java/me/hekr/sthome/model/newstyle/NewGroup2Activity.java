@@ -988,6 +988,7 @@ public class NewGroup2Activity extends SceneBaseActivity {
                 }
                 inCode += (  ei1 + eq.getState());
             }else{
+                if("TIMER".equals(eq.getEquipmentDesc()))
                 settime4 = eq.getState();
             }
         }
