@@ -17,7 +17,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
 /**
  * Created by jishu0001 on 2016/10/14.
  */
-public class CurtainNewActivity extends TopbarSuperActivity {
+public class CurtainNewActivity extends SceneBaseActivity {
     private EquipmentBean device;
     String a;
     private WheelView wheelView;

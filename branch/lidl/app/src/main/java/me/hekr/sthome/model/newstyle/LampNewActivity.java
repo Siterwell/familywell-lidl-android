@@ -17,7 +17,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
 /**
  * Created by jishu0001 on 2016/10/13.
  */
-public class LampNewActivity extends TopbarSuperActivity {
+public class LampNewActivity extends SceneBaseActivity {
     private EquipmentBean device;
     String a,condition;
     private int position = -1;

@@ -23,7 +23,7 @@ import me.hekr.sthome.tools.NameSolve;
 /**
  * Created by jishu0001 on 2016/10/21.
  */
-public class ModelCellListActivity extends TopbarSuperActivity {
+public class ModelCellListActivity extends SceneBaseActivity {
     private List<EquipmentBean> listDate;
     private EquipDAO ED;
     private GridAdapter listAdapter;

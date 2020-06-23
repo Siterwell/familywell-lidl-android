@@ -34,7 +34,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
 /**
  * Created by jishu0001 on 2016/10/21.
  */
-public class TimerNewActivity extends TopbarSuperActivity {
+public class TimerNewActivity extends SceneBaseActivity {
     private EquipmentBean device;
     private String fromAdd="";
     private SceneBean amodle;
