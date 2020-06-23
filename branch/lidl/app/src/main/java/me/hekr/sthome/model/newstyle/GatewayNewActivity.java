@@ -20,7 +20,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
 /**
  * Created by jishu0001 on 2016/11/30.
  */
-public class GatewayNewActivity extends TopbarSuperActivity {
+public class GatewayNewActivity extends SceneBaseActivity {
     private EquipmentBean device;
     private String a;
     private ModelConditionPojo mcp = ModelConditionPojo.getInstance();

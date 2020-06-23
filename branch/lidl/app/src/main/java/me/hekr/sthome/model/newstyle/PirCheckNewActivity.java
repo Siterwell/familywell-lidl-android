@@ -17,7 +17,7 @@ import me.hekr.sthome.wheelwidget.view.WheelView;
 /**
  * Created by jishu0001 on 2016/9/18.
  */
-public class PirCheckNewActivity extends TopbarSuperActivity {
+public class PirCheckNewActivity extends SceneBaseActivity {
     private EquipmentBean device;
     String a;
     private ModelConditionPojo mcp = ModelConditionPojo.getInstance();

@@ -12,7 +12,7 @@ import me.hekr.sthome.common.TopbarSuperActivity;
  * Created by gc-0001 on 2017/4/21.
  */
 
-public class ChooseConditionActivity extends TopbarSuperActivity implements View.OnClickListener{
+public class ChooseConditionActivity extends SceneBaseActivity implements View.OnClickListener{
     private RelativeLayout oneCondition,allCondition;
     private ImageView oneimg,allimg;
     private boolean flag = false;
