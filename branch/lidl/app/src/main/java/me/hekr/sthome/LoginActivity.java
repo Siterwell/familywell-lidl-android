@@ -33,6 +33,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -501,6 +502,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void tcpGetDomain(){
 
         Constants.setOnlineSite("hekreu.me");
+        HashSet<String> set = new HashSet<String>();
+        set.add("fra-hub.hekreu.me");
+        Hekr.getHekrClient().setHosts(set);
 
     }
 

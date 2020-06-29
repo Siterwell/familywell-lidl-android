@@ -542,4 +542,5 @@
    <string name="hint">Questioni che richiedono attenzione</string>
    <string name="get_more">Ottenere ulteriori informazioni sul dispositivo</string>
    <string name="network_hz">Il dispositivo supporta solo 2.4GHz Wi Fi.</string>
+   <string name="restart_gateway">Si prega di riavviare il gateway e ridistribuire la rete</string>
 </resources>

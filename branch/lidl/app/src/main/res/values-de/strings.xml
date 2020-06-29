@@ -542,4 +542,5 @@
     <string name="hint">Dinge, die Aufmerksamkeit erfordern</string>
     <string name="get_more">Weitere Geräteinformationen erhalten</string>
     <string name="network_hz">Das Gerät unterstützt nur 2,4GHz WLAN.</string>
+    <string name="restart_gateway">Bitte starten Sie das Gateway neu und verteilen Sie das Netzwerk</string>
 </resources>

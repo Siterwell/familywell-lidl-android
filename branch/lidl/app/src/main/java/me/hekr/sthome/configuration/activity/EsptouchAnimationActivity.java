@@ -41,6 +41,7 @@ import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.event.UdpConfigEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.http.bean.BindDeviceBean;
 import me.hekr.sthome.http.bean.DcInfo;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.DeviceStatusBean;
@@ -365,68 +366,10 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
                 case 4:
                     if(count_of_bind<3){
                         count_of_bind ++;
-                        HekrUserAction.getInstance(EsptouchAnimationActivity.this).deviceBindStatusAndBind(ControllerWifi.getInstance().deviceTid,ControllerWifi.getInstance().bind, new HekrUser.GetBindStatusAndBindListener() {
-                            @Override
-                            public void getStatusSuccess(final List<DeviceStatusBean> deviceStatusBeanLists) {
-                                Log.i(TAG,"deviceStatusBeanLists"+deviceStatusBeanLists.toString());
-
-                                if(deviceStatusBeanLists.get(0).isForceBind()){
-                                    choosetoDeviceid = deviceStatusBeanLists.get(0).getDevTid();
-                                    flag = 1;
-                                }else{
-                                    if(deviceStatusBeanLists.get(0).isBindToUser()){
-
-                                        final ControllerWifi controllerWifi = ControllerWifi.getInstance();
-                                        Log.i(TAG, "device tid2="+controllerWifi.deviceTid+" +bind key="+controllerWifi.bind);
-                                        hekrUserAction.queryOwner(controllerWifi.deviceTid, controllerWifi.bind, new HekrUser.GetQueryOwnerListener() {
-                                            @Override
-                                            public void queryOwnerSuccess(String message) {
-                                                if(message.equals(CCPAppManager.getClientUser().getPhoneNumber())
-                                                        ||  message.equals(CCPAppManager.getClientUser().getEmail())   ){
-                                                    choosetoDeviceid = deviceStatusBeanLists.get(0).getDevTid();
-                                                    flag = 1;
-                                                }else{
-                                                    already_deivce_name = message;
-                                                    if(btn_retry.getVisibility()==View.VISIBLE){
-                                                        String text = String.format(getResources().getString(R.string.device_already_bind_to),controllerWifi.deviceTid,already_deivce_name);
-                                                        textView.setText(text);
-                                                    }
-                                                    Log.i(TAG,"已绑定其他设备");
-                                                    flag = 3;
-                                                }
-
-                                            }
-
-                                            @Override
-                                            public void queryOwnerFail(int errorCode) {
-                                                Log.i(TAG,"queryOwnerFail:errorCode:==="+errorCode);
-                                            }
-                                        });
-
-
-                                    }
-                                }
-
-
-
-                            }
-                            @Override
-                            public void getStatusFail(int errorCode) {
-                                if(errorCode != 1){
-                                    flag = 4;
-                                }else {
-                                    flag = 8;
-                                    ControllerWifi.getInstance().choose_gateway =true;
-                                }
-                                failmsg = UnitTools.errorCode2Msg(EsptouchAnimationActivity.this,errorCode);
-                                Log.i(TAG,"getStatusFail:errorCode:==="+errorCode);
-                            }
+                        BindDeviceBean bindDeviceBean = new BindDeviceBean(ControllerWifi.getInstance().deviceTid, ControllerWifi.getInstance().bind, getResources().getString(R.string.my_home), getResources().getString(R.string.app_name));
+                        HekrUserAction.getInstance(EsptouchAnimationActivity.this).bindDevice(bindDeviceBean, new HekrUser.BindDeviceListener() {
                             @Override
                             public void bindDeviceSuccess(DeviceBean deviceBean) {
-//                            ConnectionPojo.getInstance().deviceTid = deviceBean.getDevTid();
-//                            ConnectionPojo.getInstance().bind = deviceBean.getBindKey();
-//                            ConnectionPojo.getInstance().ctrlKey = deviceBean.getCtrlKey();
-//                            ConnectionPojo.getInstance().propubkey = deviceBean.getProductPublicKey();
                                 choosetoDeviceid = deviceBean.getDevTid();
                                 MyDeviceBean bean = new MyDeviceBean();
                                 bean.setChoice(1);
@@ -522,6 +465,7 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
 
                                 flag = 1;
                             }
+
                             @Override
                             public void bindDeviceFail(int errorCode) {
                                 if(errorCode == 5400043){
@@ -558,12 +502,14 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
                                             failmsg = UnitTools.errorCode2Msg(EsptouchAnimationActivity.this,errorCode);
                                         }
                                     });
+                                }else if(errorCode == 1400022){
+                                    flag = 2;
+                                    failmsg = getResources().getString(R.string.restart_gateway);
                                 }
                                 else{
                                     flag = 2;
                                     failmsg = UnitTools.errorCode2Msg(EsptouchAnimationActivity.this,errorCode);
                                 }
-
                             }
                         });
 
@@ -738,9 +684,9 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
 
                     if (ir.isSuc()) {
                         //暂时不切换后台
-//                        STEvent stEvent = new STEvent();
-//                        stEvent.setServiceevent(8);
-//                        EventBus.getDefault().post(stEvent);
+                        STEvent stEvent = new STEvent();
+                        stEvent.setServiceevent(8);
+                        EventBus.getDefault().post(stEvent);
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {

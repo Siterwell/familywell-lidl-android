@@ -542,4 +542,5 @@
    <string name="hint">Matters needing attention</string>
    <string name="get_more">Get more device information</string>
    <string name="network_hz">Naprava podpira le 2.4GHZ Wi Fi.</string>
+   <string name="restart_gateway">Prosim, ponovno zaženite prehod in prerazporedite mrežo</string>
 </resources>
