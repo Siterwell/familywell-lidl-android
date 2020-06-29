@@ -540,4 +540,5 @@
     <string name="look">See</string>
     <string name="success_download">Download Successful</string>
     <string name="network_hz">This device only supports 2.4GHZ frequency Wi-Fi.</string>
+    <string name="restart_gateway">Please restart the gateway and re-config the WiFi network</string>
 </resources>

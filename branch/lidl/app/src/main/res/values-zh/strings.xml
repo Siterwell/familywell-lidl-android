@@ -540,4 +540,5 @@
     <string name="look">查看</string>
     <string name="success_download">下载成功</string>
     <string name="network_hz">该设备只支持2.4GHz频率的Wi-Fi</string>
+    <string name="restart_gateway">请重启网关后重新配网</string>
 </resources>

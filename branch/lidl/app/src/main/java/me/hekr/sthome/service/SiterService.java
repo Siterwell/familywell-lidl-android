@@ -498,13 +498,11 @@ public class SiterService extends Service {
                         public void run() {
                             try {
 
-                                HashSet<String> set = new HashSet<String>();
 
                                 deviceDAO.deleteAll();
                                 String vl = null;
                                 choiceddevice = null;
                                 for(DeviceBean bean:devicesLists){
-                                    set.add(bean.getDcInfo().getConnectHost());
                                     MyDeviceBean bean1 = new MyDeviceBean();
                                     bean1.setDeviceName(bean.getDeviceName());
                                     bean1.setDevTid(bean.getDevTid());
@@ -537,9 +535,6 @@ public class SiterService extends Service {
                                         }
                                     }
                                     deviceDAO.addDevice(bean1);
-                                }
-                                if(devicesLists.size()>0) {
-                                    Hekr.getHekrClient().setHosts(set);
                                 }
                                 if (TextUtils.isEmpty(vl) ) {
 

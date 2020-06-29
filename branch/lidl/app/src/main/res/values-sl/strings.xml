@@ -540,4 +540,5 @@
    <string name="look">Glej</string>
    <string name="success_download">Prenos uspešen</string>
    <string name="network_hz">Naprava podpira le 2.4GHZ Wi Fi.</string>
+   <string name="restart_gateway">Prosim, ponovno zaženite prehod in prerazporedite mrežo</string>
 </resources>

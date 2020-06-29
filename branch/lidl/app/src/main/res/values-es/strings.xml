@@ -540,4 +540,5 @@
     <string name="look">Ver</string>
     <string name="success_download">Descarga exitosa</string>
     <string name="network_hz">El dispositivo sólo permite Wi-Fi en frecuencias de 2,4 GHz.</string>
+    <string name="restart_gateway">Reinicia el portal y Redimensiona la red.</string>
 </resources>
