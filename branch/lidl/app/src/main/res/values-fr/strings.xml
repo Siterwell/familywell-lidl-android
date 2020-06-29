@@ -539,4 +539,5 @@
     <string name="file_is_exist">Fichier existant</string>
     <string name="look">Regarder</string>
     <string name="success_download">Téléchargement réussi</string>
+    <string name="restart_gateway">Redémarrez le portail et reconfigurez le réseau.</string>
 </resources>

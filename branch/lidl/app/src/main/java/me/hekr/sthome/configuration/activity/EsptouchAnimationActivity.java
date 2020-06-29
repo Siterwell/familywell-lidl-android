@@ -41,6 +41,7 @@ import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.event.UdpConfigEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
+import me.hekr.sthome.http.bean.BindDeviceBean;
 import me.hekr.sthome.http.bean.DcInfo;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.DeviceStatusBean;
@@ -195,129 +196,6 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
                             break;
                         case 7:
                             textView.setText(getResources().getString(R.string.gateway_wifi_connect_but_not_connect_service));
-                            if(ecAlertDialog==null || (ecAlertDialog!=null && !ecAlertDialog.isShowing()))
-                            {
-                                ecAlertDialog = ECAlertDialog.buildAlert(EsptouchAnimationActivity.this, getResources().getString(R.string.gateway_lan_mode_tip), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        choosetoDeviceid = ControllerWifi.getInstance().deviceTid;
-                                        MyDeviceBean bean = new MyDeviceBean();
-                                        bean.setChoice(1);
-                                        bean.setDeviceName(getResources().getString(R.string.my_home));
-                                        bean.setDevTid(choosetoDeviceid);
-                                        bean.setBindKey("");
-                                        bean.setCtrlKey("");
-                                        bean.setOnline(false);
-                                        DcInfo dcInfo = new DcInfo();
-                                        dcInfo.setConnectHost("");
-                                        bean.setDcInfo(dcInfo);
-                                        bean.setProductPublicKey("");
-                                        bean.setBinVersion("");
-                                        bean.setBinType("");
-                                        DeviceDAO DDO = new DeviceDAO(EsptouchAnimationActivity.this);
-                                        DDO.deleteAllDeivceChoice();
-
-                                        if(DDO.finddeviceCount(choosetoDeviceid)<1)
-                                        DDO.addDevice(bean);
-
-
-                                        SysModelBean sysModelBean1 = new SysModelBean();
-                                        sysModelBean1.setChice("N");
-                                        sysModelBean1.setSid("0");
-                                        sysModelBean1.setModleName("在家");
-                                        sysModelBean1.setDeviceid(choosetoDeviceid);
-                                        sysModelBean1.setColor("F0");
-
-                                        SysModelBean sysModelBean2 = new SysModelBean();
-                                        sysModelBean2.setChice("N");
-                                        sysModelBean2.setSid("1");
-                                        sysModelBean2.setModleName("离家");
-                                        sysModelBean2.setDeviceid(choosetoDeviceid);
-                                        sysModelBean2.setColor("F1");
-
-                                        SysModelBean sysModelBean3 = new SysModelBean();
-                                        sysModelBean3.setChice("N");
-                                        sysModelBean3.setSid("2");
-                                        sysModelBean3.setModleName("睡眠");
-                                        sysModelBean3.setDeviceid(choosetoDeviceid);
-                                        sysModelBean3.setColor("F2");
-
-                                        sysmodelDAO.addinit(sysModelBean1);
-                                        sysmodelDAO.addinit(sysModelBean2);
-                                        sysmodelDAO.addinit(sysModelBean3);
-
-                                        SceneBean sceneBean = new SceneBean();
-                                        sceneBean.setDeviceid(choosetoDeviceid);
-                                        sceneBean.setSid("-1");
-                                        sceneBean.setMid("129");
-                                        sceneBean.setCode("");
-                                        sceneBean.setName("");
-                                        sceneDAO.addinit(sceneBean);
-
-                                        SceneBean sceneBean2 = new SceneBean();
-                                        sceneBean2.setDeviceid(choosetoDeviceid);
-                                        sceneBean2.setSid("-1");
-                                        sceneBean2.setMid("130");
-                                        sceneBean2.setCode("");
-                                        sceneBean2.setName("");
-                                        sceneDAO.addinit(sceneBean2);
-
-                                        SceneBean sceneBean3 = new SceneBean();
-                                        sceneBean3.setDeviceid(choosetoDeviceid);
-                                        sceneBean3.setSid("-1");
-                                        sceneBean3.setMid("131");
-                                        sceneBean3.setCode("");
-                                        sceneBean3.setName("");
-                                        sceneDAO.addinit(sceneBean3);
-
-                                        SceneBean sceneBean4 = new SceneBean();
-                                        sceneBean4.setDeviceid(choosetoDeviceid);
-                                        sceneBean4.setSid("1");
-                                        sceneBean4.setMid("129");
-                                        sceneBean4.setCode("");
-                                        sceneBean4.setName("");
-                                        sceneDAO.addinit(sceneBean4);
-
-                                        SceneBean sceneBean5 = new SceneBean();
-                                        sceneBean5.setDeviceid(choosetoDeviceid);
-                                        sceneBean5.setSid("1");
-                                        sceneBean5.setMid("130");
-                                        sceneBean5.setCode("");
-                                        sceneBean5.setName("");
-                                        sceneDAO.addinit(sceneBean5);
-
-                                        SceneBean sceneBean6 = new SceneBean();
-                                        sceneBean6.setDeviceid(choosetoDeviceid);
-                                        sceneBean6.setSid("2");
-                                        sceneBean6.setMid("130");
-                                        sceneBean6.setCode("");
-                                        sceneBean6.setName("");
-                                        sceneDAO.addinit(sceneBean6);
-
-                                        Log.i(TAG,"使用内网，切换到 choosetoDeviceid:"+choosetoDeviceid);
-
-                                        //刷新主页头部
-                                        STEvent stEvent = new STEvent();
-                                        stEvent.setRefreshevent(1);
-                                        EventBus.getDefault().post(stEvent);
-
-                                        //刷新主页数据
-                                        STEvent stEvent2 = new STEvent();
-                                        stEvent2.setRefreshevent(3);
-                                        EventBus.getDefault().post(stEvent2);
-                                        //开启搜索局域网服务
-                                        STEvent stEvent3= new STEvent();
-                                        stEvent3.setServiceevent(6);
-                                        EventBus.getDefault().post(stEvent3);
-                                        ControllerWifi.getInstance().choose_gateway =true;
-                                        ecAlertDialog.dismiss();
-                                    }
-                                });
-                                ecAlertDialog.setCanceledOnTouchOutside(false);
-                                ecAlertDialog.show();
-                            }
-
                             break;
                         case 5:
                             textView.setText(getResources().getString(R.string.failed_Esptouch_check_eq));
@@ -363,219 +241,141 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
                     finish();
                     break;
                 case 4:
-                    if(count_of_bind<3){
-                        count_of_bind ++;
-                        HekrUserAction.getInstance(EsptouchAnimationActivity.this).deviceBindStatusAndBind(ControllerWifi.getInstance().deviceTid,ControllerWifi.getInstance().bind, new HekrUser.GetBindStatusAndBindListener() {
-                            @Override
-                            public void getStatusSuccess(final List<DeviceStatusBean> deviceStatusBeanLists) {
-                                Log.i(TAG,"deviceStatusBeanLists"+deviceStatusBeanLists.toString());
+                if(count_of_bind<8){
+                    count_of_bind ++;
+                    Log.i(TAG,"绑定次数count_of_bind："+count_of_bind);
 
-                                if(deviceStatusBeanLists.get(0).isForceBind()){
-                                    choosetoDeviceid = deviceStatusBeanLists.get(0).getDevTid();
-                                    flag = 1;
-                                }else{
-                                    if(deviceStatusBeanLists.get(0).isBindToUser()){
+                    BindDeviceBean bindDeviceBean = new BindDeviceBean(ControllerWifi.getInstance().deviceTid, ControllerWifi.getInstance().bind, getResources().getString(R.string.my_home), getResources().getString(R.string.app_name));
+                    HekrUserAction.getInstance(EsptouchAnimationActivity.this).bindDevice(bindDeviceBean, new HekrUser.BindDeviceListener() {
+                        @Override
+                        public void bindDeviceSuccess(DeviceBean deviceBean) {
+                            choosetoDeviceid = deviceBean.getDevTid();
+                            MyDeviceBean bean = new MyDeviceBean();
+                            bean.setChoice(1);
+                            bean.setDeviceName(deviceBean.getDeviceName());
+                            bean.setDevTid(deviceBean.getDevTid());
+                            bean.setBindKey(deviceBean.getBindKey());
+                            bean.setCtrlKey(deviceBean.getCtrlKey());
+                            bean.setOnline(deviceBean.isOnline());
+                            DcInfo info = new DcInfo();
+                            info.setConnectHost(deviceBean.getDcInfo().getConnectHost());
+                            bean.setDcInfo(info);
+                            bean.setProductPublicKey(deviceBean.getProductPublicKey());
+                            bean.setBinVersion(deviceBean.getBinVersion());
+                            bean.setBinType(deviceBean.getBinType());
+                            DeviceDAO DDO = new DeviceDAO(EsptouchAnimationActivity.this);
+                            DDO.deleteAllDeivceChoice();
+                            if(DDO.finddeviceCount(choosetoDeviceid)<1)
+                                DDO.addDevice(bean);
 
-                                        final ControllerWifi controllerWifi = ControllerWifi.getInstance();
-                                        Log.i(TAG, "device tid2="+controllerWifi.deviceTid+" +bind key="+controllerWifi.bind);
-                                        hekrUserAction.queryOwner(controllerWifi.deviceTid, controllerWifi.bind, new HekrUser.GetQueryOwnerListener() {
-                                            @Override
-                                            public void queryOwnerSuccess(String message) {
-                                                if(message.equals(CCPAppManager.getClientUser().getPhoneNumber())
-                                                        ||  message.equals(CCPAppManager.getClientUser().getEmail())   ){
-                                                    choosetoDeviceid = deviceStatusBeanLists.get(0).getDevTid();
-                                                    flag = 1;
-                                                }else{
-                                                    already_deivce_name = message;
-                                                    if(btn_retry.getVisibility()==View.VISIBLE){
-                                                        String text = String.format(getResources().getString(R.string.device_already_bind_to),controllerWifi.deviceTid,already_deivce_name);
-                                                        textView.setText(text);
-                                                    }
-                                                    Log.i(TAG,"已绑定其他设备");
-                                                    flag = 3;
-                                                }
 
+                            SysModelBean sysModelBean1 = new SysModelBean();
+                            sysModelBean1.setChice("N");
+                            sysModelBean1.setSid("0");
+                            sysModelBean1.setModleName("在家");
+                            sysModelBean1.setDeviceid(deviceBean.getDevTid());
+                            sysModelBean1.setColor("F0");
+
+                            SysModelBean sysModelBean2 = new SysModelBean();
+                            sysModelBean2.setChice("N");
+                            sysModelBean2.setSid("1");
+                            sysModelBean2.setModleName("离家");
+                            sysModelBean2.setDeviceid(deviceBean.getDevTid());
+                            sysModelBean2.setColor("F1");
+
+                            SysModelBean sysModelBean3 = new SysModelBean();
+                            sysModelBean3.setChice("N");
+                            sysModelBean3.setSid("2");
+                            sysModelBean3.setModleName("睡眠");
+                            sysModelBean3.setDeviceid(deviceBean.getDevTid());
+                            sysModelBean3.setColor("F2");
+
+                            sysmodelDAO.addinit(sysModelBean1);
+                            sysmodelDAO.addinit(sysModelBean2);
+                            sysmodelDAO.addinit(sysModelBean3);
+
+                            SceneBean sceneBean = new SceneBean();
+                            sceneBean.setDeviceid(deviceBean.getDevTid());
+                            sceneBean.setSid("-1");
+                            sceneBean.setMid("129");
+                            sceneBean.setCode("");
+                            sceneBean.setName("");
+                            sceneDAO.addinit(sceneBean);
+
+                            SceneBean sceneBean2 = new SceneBean();
+                            sceneBean2.setDeviceid(deviceBean.getDevTid());
+                            sceneBean2.setSid("-1");
+                            sceneBean2.setMid("130");
+                            sceneBean2.setCode("");
+                            sceneBean2.setName("");
+                            sceneDAO.addinit(sceneBean2);
+
+                            SceneBean sceneBean3 = new SceneBean();
+                            sceneBean3.setDeviceid(deviceBean.getDevTid());
+                            sceneBean3.setSid("-1");
+                            sceneBean3.setMid("131");
+                            sceneBean3.setCode("");
+                            sceneBean3.setName("");
+                            sceneDAO.addinit(sceneBean3);
+
+
+                            flag = 1;
+                        }
+
+                        @Override
+                        public void bindDeviceFail(int errorCode) {
+                            if(errorCode == 5400043){
+                                final ControllerWifi controllerWifi = ControllerWifi.getInstance();
+                                Log.i(TAG, "device tid2="+controllerWifi.deviceTid+" +bind key="+controllerWifi.bind);
+                                hekrUserAction.queryOwner(controllerWifi.deviceTid, controllerWifi.bind, new HekrUser.GetQueryOwnerListener() {
+                                    @Override
+                                    public void queryOwnerSuccess(String message) {
+                                        if(message.equals(CCPAppManager.getClientUser().getPhoneNumber())
+                                                ||  message.equals(CCPAppManager.getClientUser().getEmail())   ){
+                                            choosetoDeviceid = controllerWifi.deviceTid;
+                                            flag = 1;
+                                        }else{
+                                            already_deivce_name = message;
+                                            if(btn_retry.getVisibility()==View.VISIBLE){
+                                                String text = String.format(getResources().getString(R.string.device_already_bind_to),controllerWifi.deviceTid,already_deivce_name);
+                                                textView.setText(text);
                                             }
-
-                                            @Override
-                                            public void queryOwnerFail(int errorCode) {
-                                                Log.i(TAG,"queryOwnerFail:errorCode:==="+errorCode);
-                                            }
-                                        });
-
+                                            Log.i(TAG,"已绑定其他设备");
+                                            flag = 3;
+                                        }
 
                                     }
-                                }
 
-
-
+                                    @Override
+                                    public void queryOwnerFail(int errorCode) {
+                                        Log.i(TAG,"queryOwnerFail:errorCode:==="+errorCode);
+                                        if(errorCode != 1){
+                                            flag = 2;
+                                        }else {
+                                            flag = 8;
+                                            ControllerWifi.getInstance().choose_gateway =true;
+                                        }
+                                        failmsg = UnitTools.errorCode2Msg(EsptouchAnimationActivity.this,errorCode);
+                                    }
+                                });
+                            }else if(errorCode == 1400022){
+                                flag = 2;
+                                failmsg = getResources().getString(R.string.restart_gateway);
                             }
-                            @Override
-                            public void getStatusFail(int errorCode) {
-                                if(errorCode != 1){
-                                    flag = 4;
-                                }else {
-                                    flag = 8;
-                                    ControllerWifi.getInstance().choose_gateway =true;
-                                }
+                            else{
+                                flag = 2;
                                 failmsg = UnitTools.errorCode2Msg(EsptouchAnimationActivity.this,errorCode);
-                                Log.i(TAG,"getStatusFail:errorCode:==="+errorCode);
                             }
-                            @Override
-                            public void bindDeviceSuccess(DeviceBean deviceBean) {
-//                            ConnectionPojo.getInstance().deviceTid = deviceBean.getDevTid();
-//                            ConnectionPojo.getInstance().bind = deviceBean.getBindKey();
-//                            ConnectionPojo.getInstance().ctrlKey = deviceBean.getCtrlKey();
-//                            ConnectionPojo.getInstance().propubkey = deviceBean.getProductPublicKey();
-                                choosetoDeviceid = deviceBean.getDevTid();
-                                MyDeviceBean bean = new MyDeviceBean();
-                                bean.setChoice(1);
-                                bean.setDeviceName(deviceBean.getDeviceName());
-                                bean.setDevTid(deviceBean.getDevTid());
-                                bean.setBindKey(deviceBean.getBindKey());
-                                bean.setCtrlKey(deviceBean.getCtrlKey());
-                                bean.setOnline(deviceBean.isOnline());
-                                DcInfo info = new DcInfo();
-                                info.setConnectHost(deviceBean.getDcInfo().getConnectHost());
-                                bean.setDcInfo(info);
-                                bean.setProductPublicKey(deviceBean.getProductPublicKey());
-                                bean.setBinVersion(deviceBean.getBinVersion());
-                                bean.setBinType(deviceBean.getBinType());
-                                DeviceDAO DDO = new DeviceDAO(EsptouchAnimationActivity.this);
-                                DDO.deleteAllDeivceChoice();
-                                if(DDO.finddeviceCount(choosetoDeviceid)<1)
-                                    DDO.addDevice(bean);
+                        }
+                    });
+                }else{
+                    count_of_bind = 0;
+                    flag = 2;
+                    failmsg = getResources().getString(R.string.network_timeout);
+                }
 
 
-                                SysModelBean sysModelBean1 = new SysModelBean();
-                                sysModelBean1.setChice("N");
-                                sysModelBean1.setSid("0");
-                                sysModelBean1.setModleName("在家");
-                                sysModelBean1.setDeviceid(deviceBean.getDevTid());
-                                sysModelBean1.setColor("F0");
-
-                                SysModelBean sysModelBean2 = new SysModelBean();
-                                sysModelBean2.setChice("N");
-                                sysModelBean2.setSid("1");
-                                sysModelBean2.setModleName("离家");
-                                sysModelBean2.setDeviceid(deviceBean.getDevTid());
-                                sysModelBean2.setColor("F1");
-
-                                SysModelBean sysModelBean3 = new SysModelBean();
-                                sysModelBean3.setChice("N");
-                                sysModelBean3.setSid("2");
-                                sysModelBean3.setModleName("睡眠");
-                                sysModelBean3.setDeviceid(deviceBean.getDevTid());
-                                sysModelBean3.setColor("F2");
-
-                                sysmodelDAO.addinit(sysModelBean1);
-                                sysmodelDAO.addinit(sysModelBean2);
-                                sysmodelDAO.addinit(sysModelBean3);
-
-                                SceneBean sceneBean = new SceneBean();
-                                sceneBean.setDeviceid(deviceBean.getDevTid());
-                                sceneBean.setSid("-1");
-                                sceneBean.setMid("129");
-                                sceneBean.setCode("");
-                                sceneBean.setName("");
-                                sceneDAO.addinit(sceneBean);
-
-                                SceneBean sceneBean2 = new SceneBean();
-                                sceneBean2.setDeviceid(deviceBean.getDevTid());
-                                sceneBean2.setSid("-1");
-                                sceneBean2.setMid("130");
-                                sceneBean2.setCode("");
-                                sceneBean2.setName("");
-                                sceneDAO.addinit(sceneBean2);
-
-                                SceneBean sceneBean3 = new SceneBean();
-                                sceneBean3.setDeviceid(deviceBean.getDevTid());
-                                sceneBean3.setSid("-1");
-                                sceneBean3.setMid("131");
-                                sceneBean3.setCode("");
-                                sceneBean3.setName("");
-                                sceneDAO.addinit(sceneBean3);
-
-                                SceneBean sceneBean4 = new SceneBean();
-                                sceneBean4.setDeviceid(deviceBean.getDevTid());
-                                sceneBean4.setSid("1");
-                                sceneBean4.setMid("129");
-                                sceneBean4.setCode("");
-                                sceneBean4.setName("");
-                                sceneDAO.addinit(sceneBean4);
-
-                                SceneBean sceneBean5 = new SceneBean();
-                                sceneBean5.setDeviceid(deviceBean.getDevTid());
-                                sceneBean5.setSid("1");
-                                sceneBean5.setMid("130");
-                                sceneBean5.setCode("");
-                                sceneBean5.setName("");
-                                sceneDAO.addinit(sceneBean5);
-
-                                SceneBean sceneBean6 = new SceneBean();
-                                sceneBean6.setDeviceid(deviceBean.getDevTid());
-                                sceneBean6.setSid("2");
-                                sceneBean6.setMid("130");
-                                sceneBean6.setCode("");
-                                sceneBean6.setName("");
-                                sceneDAO.addinit(sceneBean6);
-
-                                flag = 1;
-                            }
-                            @Override
-                            public void bindDeviceFail(int errorCode) {
-                                if(errorCode == 5400043){
-                                    final ControllerWifi controllerWifi = ControllerWifi.getInstance();
-                                    Log.i(TAG, "device tid2="+controllerWifi.deviceTid+" +bind key="+controllerWifi.bind);
-                                    hekrUserAction.queryOwner(controllerWifi.deviceTid, controllerWifi.bind, new HekrUser.GetQueryOwnerListener() {
-                                        @Override
-                                        public void queryOwnerSuccess(String message) {
-                                            if(message.equals(CCPAppManager.getClientUser().getPhoneNumber())
-                                                    ||  message.equals(CCPAppManager.getClientUser().getEmail())   ){
-                                                choosetoDeviceid = controllerWifi.deviceTid;
-                                                flag = 1;
-                                            }else{
-                                                already_deivce_name = message;
-                                                if(btn_retry.getVisibility()==View.VISIBLE){
-                                                    String text = String.format(getResources().getString(R.string.device_already_bind_to),controllerWifi.deviceTid,already_deivce_name);
-                                                    textView.setText(text);
-                                                }
-                                                Log.i(TAG,"已绑定其他设备");
-                                                flag = 3;
-                                            }
-
-                                        }
-
-                                        @Override
-                                        public void queryOwnerFail(int errorCode) {
-                                            Log.i(TAG,"queryOwnerFail:errorCode:==="+errorCode);
-                                            if(errorCode != 1){
-                                                flag = 2;
-                                            }else {
-                                                flag = 8;
-                                                ControllerWifi.getInstance().choose_gateway =true;
-                                            }
-                                            failmsg = UnitTools.errorCode2Msg(EsptouchAnimationActivity.this,errorCode);
-                                        }
-                                    });
-                                }
-                                else{
-                                    flag = 2;
-                                    failmsg = UnitTools.errorCode2Msg(EsptouchAnimationActivity.this,errorCode);
-                                }
-
-                            }
-                        });
-
-
-                    }else{
-                        count_of_bind = 0;
-                        flag = 2;
-                        failmsg = getResources().getString(R.string.network_timeout);
-                    }
-
-
-                    break;
+                break;
             }
         }
     };
@@ -738,9 +538,9 @@ public class EsptouchAnimationActivity extends TopbarSuperActivity implements Vi
 
                     if (ir.isSuc()) {
                         //暂时不切换后台
-//                        STEvent stEvent = new STEvent();
-//                        stEvent.setServiceevent(8);
-//                        EventBus.getDefault().post(stEvent);
+                        STEvent stEvent = new STEvent();
+                        stEvent.setServiceevent(8);
+                        EventBus.getDefault().post(stEvent);
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {

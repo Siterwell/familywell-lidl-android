@@ -311,9 +311,7 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
                 DDO = new DeviceDAO(DeviceListActivity.this);
                 DDO.deleteAll();
                 DeviceBean deviceBean = null;
-                HashSet<String> set = new HashSet<>();
                 for (DeviceBean bean : devicesLists) {
-                    set.add(bean.getDcInfo().getConnectHost());
                     MyDeviceBean bean2 = new MyDeviceBean();
                     bean2.setDevTid(bean.getDevTid());
                     bean2.setCtrlKey(bean.getCtrlKey());
@@ -336,9 +334,6 @@ public class DeviceListActivity extends TopbarSuperActivity implements ModifyAda
                    if(!TextUtils.isEmpty(choosetoDeviceid)&&bean2.getDevTid().equals(choosetoDeviceid)){
                        deviceBean = bean2;
                    }
-                }
-                if(devicesLists.size()>0) {
-                    Hekr.getHekrClient().setHosts(set);
                 }
                 lists.clear();
                 lists = DDO.findAllDevice();

@@ -113,15 +113,12 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
                 HekrUserAction.getInstance(this).getDevices(0,80,new HekrUser.GetDevicesListener() {
                     @Override
                     public void getDevicesSuccess(List<DeviceBean> devicesLists) {
-                        Set<String> set = new HashSet<>();
                         for(DeviceBean d : devicesLists){
-                            set.add(d.getDcInfo().getConnectHost());
                             if(ConnectionPojo.getInstance().deviceTid.equals(d.getDevTid())){
                                 currentDevice = d;
                                 doActions();
                             }
                         }
-                        Hekr.getHekrClient().setHosts(set);
                     }
                     @Override
                     public void getDevicesFail(int errorCode) {

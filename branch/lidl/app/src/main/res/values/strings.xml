@@ -541,4 +541,5 @@ The connector has entered the networking mode.</string>
     <string name="file_is_exist">File already exist</string>
     <string name="look">See</string>
     <string name="success_download">Download Successful</string>
+    <string name="restart_gateway">Please restart the gateway and re-config the WiFi network</string>
 </resources>
