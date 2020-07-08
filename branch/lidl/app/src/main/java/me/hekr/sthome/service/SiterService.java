@@ -1226,7 +1226,7 @@ public class SiterService extends Service {
                 e.printStackTrace();
             }
             LOG.I(TAG," 发送搜索udp广播地址 ===" + target.toString());
-            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds,target,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":site07");
+            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds,target,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":ELRO02");
             sendService.execute(udpSendData);
             sendService.awaitTermination(50, TimeUnit.MICROSECONDS);
         } catch (InterruptedException e) {
@@ -1257,7 +1257,7 @@ public class SiterService extends Service {
 
             LOG.I(TAG," ControllerWifi.getInstance().targetip ===" + ControllerWifi.getInstance().targetip.toString());
 
-            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":site07");
+            UDPSendData udpSendData = new UDPSendData(ControllerWifi.getInstance().ds, ControllerWifi.getInstance().targetip,"IOT_KEY?"+ ConnectionPojo.getInstance().deviceTid+":ELRO02");
             sendService.execute(udpSendData);
             sendService.awaitTermination(50, TimeUnit.MICROSECONDS);
         } catch (InterruptedException e) {
