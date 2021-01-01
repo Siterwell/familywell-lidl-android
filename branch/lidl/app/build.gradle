@@ -17,7 +17,7 @@ repositories {
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         multiDexEnabled true
@@ -26,7 +26,7 @@ android {
         }
 
         applicationId "com.cosa.silvercrest"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1106
         versionName "1.106"
@@ -60,6 +60,7 @@ dependencies {
     compile(name: 'libxmfunsdk-release', ext: 'aar')
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation "com.android.support.constraint:constraint-layout:1.1.3"
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'me.hekr.sdk:core:2.0.0_beta8'
