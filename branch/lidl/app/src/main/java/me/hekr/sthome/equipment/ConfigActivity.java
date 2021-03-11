@@ -203,12 +203,10 @@ public class ConfigActivity extends TopbarSuperActivity implements View.OnClickL
             case R.id.fap:
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                String link = "https://www.elro.eu/en/elro-connects-app-upgrade";
+                String link = "https://protect-au.mimecast.com/s/T86MCD1vlpT5KQAM9FWLfVr?domain=elro.eu";
                 final UnitTools unitTools = new UnitTools(this);
                 if("de".equals(unitTools.readLanguage())){
-                    link = "https://www.elro.eu/de/elro-connects-app-upgrade";
-                }else if("nl".equals(unitTools.readLanguage())){
-                    link = "https://www.elro.eu/nl/elro-connects-app-upgrade";
+                    link = "https://protect-au.mimecast.com/s/cbR1CE8wmrt3JKxn7cwA07Y?domain=elro.eu";
                 }
 
                 Uri content_url = Uri.parse(link);
