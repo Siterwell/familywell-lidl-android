@@ -304,13 +304,6 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
                 switch (position){
                     case 0:
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:"+getResources().getStringArray(R.array.lianxi)[0]));
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivity(intent);
-                        }
-                        break;
-                    case 1:
                         Intent data=new Intent(Intent.ACTION_SENDTO);
                         data.setData(Uri.parse("mailto:"+getResources().getStringArray(R.array.lianxi)[1]));
                         startActivity(data);
