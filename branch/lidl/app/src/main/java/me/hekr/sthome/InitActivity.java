@@ -29,6 +29,7 @@ import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.common.CCPAppManager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
+import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.equipment.EmergencyEditActivity;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
@@ -80,6 +81,7 @@ public class InitActivity extends AppCompatActivity {
         HekrUserAction.getInstance(InitActivity.this).userLogout();
         CCPAppManager.setClientUser(null);
         startActivity(new Intent(InitActivity.this, LoginActivity.class));
+        ToastTools.ShowErrorToast("Logout:Passwrod_error",this);
         finish();
     }
 
@@ -226,6 +228,7 @@ public class InitActivity extends AppCompatActivity {
                 ControllerWifi.getInstance().wifiTag = false;
 
                 Intent intent = new Intent(this,LoginActivity.class);
+                ToastTools.ShowErrorToast("Logout:refresh_Error",this);
                 startActivity(intent);
                 finish();
 

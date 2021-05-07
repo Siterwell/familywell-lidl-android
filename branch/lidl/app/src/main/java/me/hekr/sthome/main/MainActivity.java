@@ -54,6 +54,7 @@ import me.hekr.sthome.commonBaseView.CustomViewPager;
 import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.LoadingProceedDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
+import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
 import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
@@ -137,13 +138,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        LOG.D(TAG, "[RYAN] onStart");
-
-        checkLoginState();
-    }
 
     private void checkPermissions() {
         List<String> permissionList = new ArrayList<>();
@@ -193,35 +187,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void checkLoginState(){
-        LOG.I(TAG,"[RYAN] checkLoginState");
-
-        final String username = AccountUtil.getUsername();
-        final String password = AccountUtil.getPassword();
-        Hekr.getHekrUser().login(username, password, new HekrCallback() {
-            @Override
-            public void onSuccess() {
-            }
-
-            @Override
-            public void onError(int errorCode, String message) {
-                JSONObject d = JSON.parseObject(message);
-                if (d == null) {
-                    return;
-                }
-
-                int code = d.getInteger("code");
-
-                //密码错误
-                if(code == 3400010){
-                    HekrUserAction.getInstance(MainActivity.this).userLogout();
-                    CCPAppManager.setClientUser(null);
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                    finish();
-                }
-            }
-        });
-    }
 
     private void initView() {
         InitViewPager();
@@ -649,6 +614,7 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                 ControllerWifi.getInstance().wifiTag = false;
 
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                ToastTools.ShowErrorToast("Logout:refresh_login_error",MainActivity.this);
                 startActivity(intent);
                 finish();
             }
