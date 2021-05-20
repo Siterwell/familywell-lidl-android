@@ -289,10 +289,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                 @Override
                 public void getProfileFail(int errorCode) {
                     LOG.I(TAG,"getFail:"+errorCode);
-                    if(errorCode==1){
-                        LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                        EventBus.getDefault().post(tokenTimeoutEvent);
-                    }
                 }
             });
         }
@@ -462,12 +458,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
             @Override
             public void getFail(int errorCode) {
-                if(errorCode==1){
-                    LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                    EventBus.getDefault().post(tokenTimeoutEvent);
-                }else{
                     Toast.makeText(HomeFragment.this.getActivity(), UnitTools.errorCode2Msg(HomeFragment.this.getActivity(),errorCode),Toast.LENGTH_LONG).show();
-                }
 
             }
         });

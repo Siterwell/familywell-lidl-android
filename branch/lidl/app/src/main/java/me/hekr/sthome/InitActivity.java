@@ -228,7 +228,7 @@ public class InitActivity extends AppCompatActivity {
                 ControllerWifi.getInstance().wifiTag = false;
 
                 Intent intent = new Intent(this,LoginActivity.class);
-                ToastTools.ShowErrorToast("Logout:refresh_Error",this);
+                ToastTools.ShowErrorToast("Logout:init_refresh_Error",this);
                 startActivity(intent);
                 finish();
 

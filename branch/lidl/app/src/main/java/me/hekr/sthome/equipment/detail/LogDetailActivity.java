@@ -154,12 +154,7 @@ public abstract class LogDetailActivity extends AppCompatActivity implements
                     progressDialog = null;
                 }
                 filterNotice();
-                if(errorCode==1){
-                    LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                    EventBus.getDefault().post(tokenTimeoutEvent);
-                }else{
-                    Toast.makeText(MyApplication.getAppContext(), UnitTools.errorCode2Msg(MyApplication.getAppContext(), errorCode),Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(MyApplication.getAppContext(), UnitTools.errorCode2Msg(MyApplication.getAppContext(), errorCode),Toast.LENGTH_LONG).show();
             }
         });
     }

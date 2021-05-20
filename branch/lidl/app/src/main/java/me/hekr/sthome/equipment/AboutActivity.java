@@ -427,10 +427,7 @@ public class AboutActivity extends TopbarSuperActivity implements View.OnClickLi
 
                 @Override
                 public void checkFail(int errorCode) {
-                    if(errorCode==1){
-                        LogoutEvent logoutEvent = new LogoutEvent();
-                        EventBus.getDefault().post(logoutEvent);
-                    }
+
                 }
             });
         }

@@ -680,10 +680,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
                             @Override
                             public void pushTagBindFail(int errorCode) {
                                 LOG.I(TAG,"FCM绑定失败getFail:"+errorCode);
-                                if(errorCode==1){
-                                    LogoutEvent tokenTimeoutEvent = new LogoutEvent();
-                                    EventBus.getDefault().post(tokenTimeoutEvent);
-                                }
                             }
                         });
 
@@ -977,10 +973,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
 
                 @Override
                 public void checkFail(int errorCode) {
-                    if(errorCode==1){
-                        LogoutEvent logoutEvent = new LogoutEvent();
-                        EventBus.getDefault().post(logoutEvent);
-                    }
                 }
             });
         }
