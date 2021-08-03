@@ -28,7 +28,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1614
-        versionName "1.614_test_3"
+        versionName "1.614_test_4"
 
         manifestPlaceholders = [
                 GETUI_APP_ID    : "Z4oQtHjgSIAF9Jxs2Ggy83",

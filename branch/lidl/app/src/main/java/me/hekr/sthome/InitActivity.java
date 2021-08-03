@@ -33,7 +33,6 @@ import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.equipment.EmergencyEditActivity;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
-import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
@@ -81,7 +80,6 @@ public class InitActivity extends AppCompatActivity {
         HekrUserAction.getInstance(InitActivity.this).userLogout();
         CCPAppManager.setClientUser(null);
         startActivity(new Intent(InitActivity.this, LoginActivity.class));
-        ToastTools.ShowErrorToast("Logout:Passwrod_error",this);
         finish();
     }
 
@@ -220,20 +218,6 @@ public class InitActivity extends AppCompatActivity {
         handler.sendMessage(message);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)       //退出登录事件（refreshtoken过期）
-    public  void onEventMainThread(final LogoutEvent event){
-
-                HekrUserAction.getInstance(this).userLogout();
-                CCPAppManager.setClientUser(null);
-                ControllerWifi.getInstance().wifiTag = false;
-
-                Intent intent = new Intent(this,LoginActivity.class);
-                ToastTools.ShowErrorToast("Logout:init_refresh_Error",this);
-                startActivity(intent);
-                finish();
-
-
-    }
 
     /**
      * 半透明背景消失的动画

@@ -12,7 +12,6 @@ import com.loopj.android.http.RequestParams;
 import java.util.Arrays;
 
 import cz.msebera.android.httpclient.Header;
-import me.hekr.sthome.event.HttpErrorEvent;
 import me.hekr.sthome.http.bean.JWTBean;
 
 /*
@@ -213,12 +212,10 @@ public class HekrHttpUtil {
 
                         @Override
                         public void refreshFail(int i, Header[] headers, byte[] bytes) {
-                            getHekrDataListener.getDataFail(SiterConstantsUtil.ErrorCode.TOKEN_TIME_OUT);
+                            getHekrDataListener.getDataFail( HekrCodeUtil.getErrorCode(i,bytes));
                         }
                     });
                 } else {
-                    //自定义事件
-                    HttpErrorEvent.event(getRequestURI().toString(),  Arrays.asList(getRequestHeaders()).toString(),entity, statusCode, responseBody);
                     getHekrDataListener.getDataFail(HekrCodeUtil.getErrorCode(getRequestURI().toString(), statusCode, responseBody));
                 }
             }
@@ -252,10 +249,6 @@ public class HekrHttpUtil {
      * http请求
      */
     private static void hekr_http(int http_type, final Context context, final String url, final Header[] headers, final String JWT_TOKEN, final String ReFresh_Token, final String entity, final RequestParams params, final GetHekrDataWithTokenListener getHekrDataListener) {
-        if (TextUtils.isEmpty(JWT_TOKEN) || TextUtils.isEmpty(ReFresh_Token) || TextUtils.isEmpty(url)) {
-            getHekrDataListener.getDataFail(SiterConstantsUtil.ErrorCode.TOKEN_TIME_OUT);
-            Log.e(SiterConstantsUtil.HEKR_SDK_ERROR, "Token or url is null\n" + "token:" + JWT_TOKEN + "url\n" + url);
-        } else {
             if (Network.isConnected(context)) {
                 switch (http_type) {
                     case HTTP_GET:
@@ -315,5 +308,4 @@ public class HekrHttpUtil {
                 getHekrDataListener.getDataFail(SiterConstantsUtil.ErrorCode.NETWORK_TIME_OUT);
             }
         }
-    }
 }

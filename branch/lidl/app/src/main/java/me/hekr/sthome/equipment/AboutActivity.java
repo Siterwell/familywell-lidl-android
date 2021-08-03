@@ -21,9 +21,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.inter.HekrMsgCallback;
@@ -35,12 +33,10 @@ import me.hekr.sthome.commonBaseView.ECAlertDialog;
 import me.hekr.sthome.commonBaseView.ECListDialog;
 import me.hekr.sthome.commonBaseView.LoadingProceedDialog;
 import me.hekr.sthome.commonBaseView.SettingItem;
-import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.bean.DeviceBean;
 import me.hekr.sthome.http.bean.FirmwareBean;
-import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.tools.Config;
 import me.hekr.sthome.tools.ConnectionPojo;

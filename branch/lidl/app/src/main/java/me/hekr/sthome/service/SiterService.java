@@ -32,7 +32,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,12 +39,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
 import me.hekr.sdk.dispatcher.IMessageFilter;
-import me.hekr.sdk.http.HekrRawCallback;
 import me.hekr.sdk.inter.HekrMsgCallback;
-import me.hekr.sdk.utils.CacheUtil;
 import me.hekr.sthome.DragFolderwidget.ApplicationInfo;
 import me.hekr.sthome.MyApplication;
 import me.hekr.sthome.R;
@@ -55,16 +51,13 @@ import me.hekr.sthome.crc.CoderUtils;
 import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.AutoSyncCompleteEvent;
 import me.hekr.sthome.event.AutoSyncEvent;
-import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.event.TokenTimeoutEvent;
 import me.hekr.sthome.event.UdpConfigEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
 import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.http.bean.DcInfo;
 import me.hekr.sthome.http.bean.DeviceBean;
-import me.hekr.sthome.http.bean.UserBean;
 import me.hekr.sthome.main.MainActivity;
 import me.hekr.sthome.model.ResolveData;
 import me.hekr.sthome.model.modelbean.EquipmentBean;
@@ -75,7 +68,6 @@ import me.hekr.sthome.model.modeldb.DeviceDAO;
 import me.hekr.sthome.model.modeldb.EquipDAO;
 import me.hekr.sthome.model.modeldb.SceneDAO;
 import me.hekr.sthome.model.modeldb.SysmodelDAO;
-import me.hekr.sthome.tools.AccountUtil;
 import me.hekr.sthome.tools.ConnectionPojo;
 import me.hekr.sthome.tools.InforTotalReceiver;
 import me.hekr.sthome.tools.LOG;
@@ -677,20 +669,9 @@ public class SiterService extends Service {
 
                 if(lock_gateway) return;
 
-                if(errorCode == 0 && NetWorkUtils.getNetWorkType(SiterService.this)!=0){
-                    Toast.makeText(SiterService.this, UnitTools.errorCode2Msg(SiterService.this,1),Toast.LENGTH_LONG).show();
-                    LogoutEvent logoutEvent = new LogoutEvent();
-                    EventBus.getDefault().post(logoutEvent);
-                }
-                else if(errorCode==1){
-                    Toast.makeText(SiterService.this, UnitTools.errorCode2Msg(SiterService.this,1),Toast.LENGTH_LONG).show();
-                    LogoutEvent logoutEvent = new LogoutEvent();
-                    EventBus.getDefault().post(logoutEvent);
-                }else{
-                    Toast.makeText(SiterService.this, UnitTools.errorCode2Msg(SiterService.this,errorCode),Toast.LENGTH_LONG).show();
-                    AutoSyncCompleteEvent autoSyncCompleteEvent = new AutoSyncCompleteEvent();
-                    EventBus.getDefault().post(autoSyncCompleteEvent);
-                }
+                Toast.makeText(SiterService.this, UnitTools.errorCode2Msg(SiterService.this,errorCode),Toast.LENGTH_LONG).show();
+                AutoSyncCompleteEvent autoSyncCompleteEvent = new AutoSyncCompleteEvent();
+                EventBus.getDefault().post(autoSyncCompleteEvent);
 
             }
         });
@@ -1044,32 +1025,6 @@ public class SiterService extends Service {
            }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)         //订阅事件TokenTimeoutEvent
-    public  void onEventMainThread(TokenTimeoutEvent event){
-        final String loginname = AccountUtil.getUsername();
-        final String loginpsw = AccountUtil.getPassword();
-        if(event.getType()==1){
-            Hekr.getHekrUser().refreshToken(new HekrRawCallback() {
-                @Override
-                public void onSuccess(int httpCode, byte[] bytes) {
-                    LOG.I(TAG,"刷新accesstoken成功");
-                    UserBean userBean = new UserBean(loginname, loginpsw, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
-                    HekrUserAction.getInstance(SiterService.this).setUserCache(userBean);
-                }
-
-                @Override
-                public void onError(int httpCode, byte[] bytes) {
-                    if(httpCode == 1){
-
-                        LogoutEvent logoutEvent = new LogoutEvent();
-                        EventBus.getDefault().post(logoutEvent);
-
-                    }
-                }
-            });
-        }
-
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public  void onEventMainThread(AutoSyncEvent event){

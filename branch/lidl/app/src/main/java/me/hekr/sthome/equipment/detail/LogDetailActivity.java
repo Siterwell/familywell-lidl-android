@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,6 @@ import me.hekr.sthome.R;
 import me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.commonBaseView.PullListView;
-import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.history.HistoryAdapter;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;

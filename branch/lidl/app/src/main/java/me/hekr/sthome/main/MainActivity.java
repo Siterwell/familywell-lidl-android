@@ -25,8 +25,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.litesuits.android.log.Log;
 
@@ -41,7 +39,6 @@ import java.util.List;
 
 import me.hekr.sdk.Constants;
 import me.hekr.sdk.Hekr;
-import me.hekr.sdk.HekrSDK;
 import me.hekr.sdk.inter.HekrCallback;
 import me.hekr.sdk.inter.HekrMsgCallback;
 import me.hekr.sdk.utils.CacheUtil;
@@ -56,7 +53,6 @@ import me.hekr.sthome.commonBaseView.LoadingProceedDialog;
 import me.hekr.sthome.commonBaseView.ProgressDialog;
 import me.hekr.sthome.commonBaseView.ToastTools;
 import me.hekr.sthome.configuration.activity.BeforeConfigEsptouchActivity;
-import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.http.HekrUser;
 import me.hekr.sthome.http.HekrUserAction;
@@ -589,38 +585,6 @@ public class MainActivity extends AppCompatActivity implements DeviceFragment.Se
     public void initSystemBar(){
         tintManager = new SystemTintManager(this);// 创建状态栏的管理实例
         tintManager.setStatusBarDarkMode2(currIndex==0?false:true, this);//false 状态栏字体颜色是白色 true 颜色是黑色
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)       //退出登录事件（refreshtoken过期）
-    public  void onEventMainThread(final LogoutEvent event){
-
-        if(mProgressDialog!=null && mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
-        }
-
-        final String loginname = AccountUtil.getUsername();
-        final String loginpsw = AccountUtil.getPassword();
-
-        Hekr.getHekrUser().login(loginname, loginpsw, new HekrCallback() {
-            @Override
-            public void onSuccess() {
-                UserBean userBean = new UserBean(loginname, loginpsw, CacheUtil.getUserToken(), CacheUtil.getString(Constants.REFRESH_TOKEN,""));
-                HekrUserAction.getInstance(MainActivity.this).setUserCache(userBean);
-            }
-
-            @Override
-            public void onError(int errorCode, String message) {
-                HekrUserAction.getInstance(MainActivity.this).userLogout();
-                CCPAppManager.setClientUser(null);
-                ControllerWifi.getInstance().wifiTag = false;
-
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                ToastTools.ShowErrorToast("Logout:refresh_login_error",MainActivity.this);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
     }
 
 

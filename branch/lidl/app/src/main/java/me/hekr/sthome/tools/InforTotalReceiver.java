@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import me.hekr.sthome.autoudp.ControllerWifi;
 import me.hekr.sthome.event.AlertEvent;
 import me.hekr.sthome.event.STEvent;
-import me.hekr.sthome.event.TokenTimeoutEvent;
 import me.hekr.sthome.http.SiterConstantsUtil;
 import me.hekr.sthome.model.ResolveData;
 import me.hekr.sthome.model.modeldb.DeviceDAO;
@@ -211,12 +210,6 @@ public abstract class InforTotalReceiver extends BroadcastReceiver {
                     }
 
                 }else if("appLoginResp".equals(json.getString("action"))){
-//                    int code = json.getInt("code");
-//                    if(code == 1400002){
-//                        TokenTimeoutEvent tokenTimeoutEvent = new TokenTimeoutEvent();
-//                        tokenTimeoutEvent.setType(1);
-//                        EventBus.getDefault().post(tokenTimeoutEvent);
-//                    }
                 }else if("devLogout".equals(json.getString("action"))){
                     params = json.getJSONObject("params");
                     String devTids = params.getString("devTid");

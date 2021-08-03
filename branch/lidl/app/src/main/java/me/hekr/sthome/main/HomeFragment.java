@@ -47,7 +47,6 @@ import me.hekr.sthome.commonBaseView.MenuDialog;
 import me.hekr.sthome.commonBaseView.MultiDirectionSlidingDrawer;
 import me.hekr.sthome.commonBaseView.PullListView;
 import me.hekr.sthome.equipment.ConfigActivity;
-import me.hekr.sthome.event.LogoutEvent;
 import me.hekr.sthome.event.STEvent;
 import me.hekr.sthome.event.ThcheckEvent;
 import me.hekr.sthome.history.HistoryAdapter;
